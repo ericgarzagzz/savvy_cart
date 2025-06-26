@@ -4,9 +4,8 @@ import 'package:intl/find_locale.dart';
 import 'package:intl/intl.dart';
 import 'package:json_theme/json_theme.dart';
 import 'package:flutter/services.dart';
+import 'package:savvy_cart/router.dart';
 import 'dart:convert';
-
-import 'package:savvy_cart/screens/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,10 +32,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return MaterialApp.router(
       theme: theme,
-      home: const HomePage(),
+      routerConfig: router,
     );
   }
 }

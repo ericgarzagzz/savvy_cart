@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
 
 final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref) async {
@@ -10,4 +11,12 @@ final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref)
     collection.add(ShopListViewModel.fromModel(shopList, checkedAmount));
   }
   return collection;
+});
+
+final getShopListByIdProvider = FutureProvider.family<ShopList, int>((ref, id) async {
+  var shopList = await DatabaseHelper.instance.getShopListById(id);
+  if (shopList == null) {
+    return Future.error(Exception("Shop list not found."));
+  }
+  return shopList;
 });

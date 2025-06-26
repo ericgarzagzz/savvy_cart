@@ -7,8 +7,9 @@ class ShopListItem {
   final String name;
   final Decimal quantity;
   final Money unitPrice;
+  final bool checked;
 
-  ShopListItem({this.id, required this.shopListId, required this.name, required this.quantity, required this.unitPrice});
+  ShopListItem({this.id, required this.shopListId, required this.name, required this.quantity, required this.unitPrice, this.checked = false});
 
   factory ShopListItem.fromMap(Map<String, dynamic> json) => ShopListItem(
     id: json['id'],
@@ -16,6 +17,7 @@ class ShopListItem {
     name: json['name'],
     quantity: Decimal.fromJson(json['quantity']),
     unitPrice: Money.fromJson(json['unit_price_cents']),
+    checked: json['checked']
   );
 
   Map<String, dynamic> toMap() {
@@ -25,6 +27,7 @@ class ShopListItem {
       'name': name,
       'quantity': quantity.toJson(),
       'unit_price': unitPrice.toJson(),
+      'checked': checked
     };
   }
 }

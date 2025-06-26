@@ -59,7 +59,8 @@ class DatabaseHelper {
         shop_list_id INTEGER NOT NULL,
         name TEXT NOT NULL,
         quantity TEXT NOT NULL,
-        unit_price INTEGER NOT NULL
+        unit_price INTEGER NOT NULL,
+        checked INTEGER NOT NULL
       )
     ''');
   }
@@ -81,6 +82,16 @@ class DatabaseHelper {
       ? shopLists.map((x) => ShopList.fromMap(x)).toList()
       : [];
     return shopListCollection;
+  }
+
+  Future<ShopList?> getShopListById(int id) async {
+    await Future.delayed(Duration(seconds: 3));
+    Database db = await instance.database;
+    var shopListMap = await db.query('shop_lists', where: 'id = ?', whereArgs: [id]);
+    if (shopListMap.isNotEmpty) {
+      return ShopList.fromMap(shopListMap.first);
+    }
+    return null;
   }
 
   Future<int> addShopList(ShopList shopList) async {
