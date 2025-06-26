@@ -13,7 +13,7 @@ final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref)
   return collection;
 });
 
-final getShopListByIdProvider = FutureProvider.family.autoDispose<ShopList, int>((ref, id) async {
+final getShopListByIdProvider = FutureProvider.family<ShopList, int>((ref, id) async {
   var shopList = await DatabaseHelper.instance.getShopListById(id);
   if (shopList == null) {
     return Future.error("Shop list not found.");

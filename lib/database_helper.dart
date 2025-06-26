@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:savvy_cart/domain/models/shop_list.dart';
+import 'package:savvy_cart/domain/models/suggestion.dart';
 import 'package:savvy_cart/domain/types/money.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -126,9 +127,56 @@ class DatabaseHelper {
     var shopListItems = await getShopListItems(shopListId);
     return shopListItems.fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
   }
+
+  Future<List<Suggestion>> getSuggestions() async {
+    Database db = await instance.database;
+    var suggestions = await db.query("suggestions", orderBy: "name ASC");
+    List<Suggestion> collection = suggestions.isNotEmpty
+      ? suggestions.map((x) => Suggestion.fromMap(x)).toList()
+      : [];
+    return collection;
+  }
+
+  Future<int> addSuggestion(String name) async {
+    Database db = await instance.database;
+
+    var existing = await db.query(
+        'suggestions',
+        where: 'LOWER(name) = ?',
+        whereArgs: [name.toLowerCase()]
+    );
+
+    if (existing.isNotEmpty) {
+      return existing.first['id'] as int;
+    }
+
+    var suggestion = Suggestion(name: name.toLowerCase());
+
+    return await db.insert("suggestions", suggestion.toMap());
+  }
+
+  Future<int> addShopListItem(ShopListItem shopListItem) async {
+    Database db = await instance.database;
+    return await db.insert("shop_list_items", shopListItem.toMap());
+  }
+
+  Future<bool> shopListItemExists(int shopListId, String itemName) async {
+    Database db = await instance.database;
+    var existing = await db.query(
+      'shop_list_items',
+      where: 'shop_list_id = ? AND LOWER(name) = ?',
+      whereArgs: [shopListId, itemName.toLowerCase()],
+    );
+    return existing.isNotEmpty;
+  }
   
   Future<int> removeShopList(int id) async {
     Database db = await instance.database;
     return db.delete("shop_lists", where: "id = ?", whereArgs: [id]);
+  }
+
+  Future<int> removeShopListItem(int id) async {
+    Database db = await instance.database;
+    return await db.delete("shop_list_items", where: "id = ?", whereArgs: [id]);
   }
 }

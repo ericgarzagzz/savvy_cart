@@ -16,8 +16,8 @@ class ShopListItem {
     shopListId: json['shop_list_id'],
     name: json['name'],
     quantity: Decimal.fromJson(json['quantity']),
-    unitPrice: Money.fromJson(json['unit_price_cents']),
-    checked: bool.parse(json['checked'].toString()),
+    unitPrice: Money.fromJson(json['unit_price']),
+    checked: json['checked'].toString() == "1",
   );
 
   Map<String, dynamic> toMap() {
