@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/widgets/shop_list/delete_shop_list_dialog.dart';
 
 class ShopListListTile extends StatelessWidget {
   final ShopList shopList;
@@ -47,7 +48,13 @@ class ShopListListTile extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onError
             ),
             child: const Icon(Icons.delete),
-            onPressed: () {},
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (_) => DeleteShopListDialog(shopList: shopList),
+                barrierDismissible: false,
+              );
+            },
           )
         ],
       ),

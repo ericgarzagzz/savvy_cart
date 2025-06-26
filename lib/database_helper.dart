@@ -104,4 +104,9 @@ class DatabaseHelper {
     var shopListItems = await getShopListItems(shopListId);
     return shopListItems.fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
   }
+  
+  Future<int> removeShopList(int id) async {
+    Database db = await instance.database;
+    return db.delete("shop_lists", where: "id = ?", whereArgs: [id]);
+  }
 }
