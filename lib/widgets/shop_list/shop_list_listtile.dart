@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
 import 'package:savvy_cart/widgets/shop_list/delete_shop_list_dialog.dart';
 
 class ShopListListTile extends StatelessWidget {
-  final ShopList shopList;
-  final Money checkedAmount;
+  final ShopListViewModel shopList;
 
-  const ShopListListTile({super.key, required this.shopList, required this.checkedAmount});
+  const ShopListListTile({super.key, required this.shopList});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class ShopListListTile extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium!
                             .copyWith(fontWeight: FontWeight.bold)
                     ),
-                    Text(checkedAmount.toStringWithLocale(),
+                    Text(shopList.checkedAmount.toStringWithLocale(),
                         style: Theme.of(context).textTheme.bodyMedium
                     )
                   ],

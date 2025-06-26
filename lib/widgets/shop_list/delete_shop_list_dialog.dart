@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
+import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
 
 class DeleteShopListDialog extends StatefulWidget {
-  final ShopList shopList;
+  final ShopListViewModel shopList;
   final VoidCallback? onDeleted;
 
   const DeleteShopListDialog({super.key, required this.shopList, this.onDeleted});
