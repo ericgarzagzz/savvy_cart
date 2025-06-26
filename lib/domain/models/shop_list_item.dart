@@ -17,7 +17,7 @@ class ShopListItem {
     name: json['name'],
     quantity: Decimal.fromJson(json['quantity']),
     unitPrice: Money.fromJson(json['unit_price_cents']),
-    checked: json['checked']
+    checked: bool.parse(json['checked'].toString()),
   );
 
   Map<String, dynamic> toMap() {
@@ -27,7 +27,7 @@ class ShopListItem {
       'name': name,
       'quantity': quantity.toJson(),
       'unit_price': unitPrice.toJson(),
-      'checked': checked
+      'checked': checked ? 1 : 0
     };
   }
 }

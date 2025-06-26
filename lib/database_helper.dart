@@ -114,7 +114,7 @@ class DatabaseHelper {
     Database db = await instance.database;
     var shopListItems = await db.query("shop_list_items",
         where: 'shop_list_id = ? AND checked = ?',
-        whereArgs: [shopListId, checked]
+        whereArgs: [shopListId, checked ? 1 : 0]
     );
     List<ShopListItem> shopListItemsCollection = shopListItems.isNotEmpty
         ? shopListItems.map((x) => ShopListItem.fromMap(x)).toList()
