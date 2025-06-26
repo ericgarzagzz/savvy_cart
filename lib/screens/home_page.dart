@@ -14,17 +14,25 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("SavvyCard"),
-      ),
-      body: ListView(
-        shrinkWrap: true,
-        primary: true,
-        padding: EdgeInsets.all(16),
-        children: [
-          CreateShopList(),
-          Divider(height: 64, color: Colors.grey),
-          ShopListListview(),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            title: Text("SavvyCard"),
+            expandedHeight: 100,
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                CreateShopList(),
+                Divider(height: 64, color: Colors.grey),
+              ]),
+            ),
+          ),
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            sliver: ShopListListview(),
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(

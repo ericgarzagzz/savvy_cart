@@ -9,24 +9,38 @@ class ShopListListview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shopListCollectionAsync = ref.watch(shopListCollectionProvider);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text("Shop lists", style: Theme.of(context).textTheme.bodyLarge),
-        SizedBox(height: 16),
-        shopListCollectionAsync.when(
-          loading: () => const Center(child: CircularProgressIndicator()),
-          error: (_, _) => Center(child: Text("Could not load shop lists due to an error.")),
-          data: (data) => data.isEmpty ?
-          Center(child: Text("No shop list yet.")) : ListView(
-            shrinkWrap: true,
-            primary: false,
-            children: data.map((shopList) {
-              return ShopListListTile(shopList: shopList);
-            }).toList(),
-          )
-        ),
-      ],
+    return shopListCollectionAsync.when(
+      loading: () => SliverToBoxAdapter(
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      error: (_, __) => SliverToBoxAdapter(
+        child: Center(child: Text("Could not load shop lists due to an error.")),
+      ),
+      data: (data) {
+        if (data.isEmpty) {
+          return SliverToBoxAdapter(
+            child: Center(child: Text("No shop list yet.")),
+          );
+        }
+        return SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (context, index) {
+              if (index == 0) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Shop lists", style: Theme.of(context).textTheme.bodyLarge),
+                    SizedBox(height: 16),
+                    ShopListListTile(shopList: data[index]),
+                  ],
+                );
+              }
+              return ShopListListTile(shopList: data[index]);
+            },
+            childCount: data.length,
+          ),
+        );
+      },
     );
   }
 }
