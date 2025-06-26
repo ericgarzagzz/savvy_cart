@@ -12,7 +12,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("ShopList"),
+        title: Text("SavvyCard"),
       ),
       body: Center(
         child: Text("This is the home page"),
