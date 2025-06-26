@@ -22,7 +22,7 @@ class ShopListItemListview extends ConsumerWidget {
       data: (data) {
         if (data.isEmpty) {
           return SliverToBoxAdapter(
-            child: Center(child: Text("No items yet.")),
+            child: Center(child: Text("No items ${checkedItems ? "checked": "unchecked"} yet.")),
           );
         }
         return SliverList(

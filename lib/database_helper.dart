@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:decimal/decimal.dart';
 import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/domain/types/money.dart';
 import 'package:sqflite/sqflite.dart';
@@ -104,6 +103,18 @@ class DatabaseHelper {
     var shopListItems = await db.query("shop_list_items",
         where: 'shop_list_id = ?',
         whereArgs: [shopListId]
+    );
+    List<ShopListItem> shopListItemsCollection = shopListItems.isNotEmpty
+        ? shopListItems.map((x) => ShopListItem.fromMap(x)).toList()
+        : [];
+    return shopListItemsCollection;
+  }
+
+  Future<List<ShopListItem>> getShopListItemsByStatus(int shopListId, bool checked) async {
+    Database db = await instance.database;
+    var shopListItems = await db.query("shop_list_items",
+        where: 'shop_list_id = ? AND checked = ?',
+        whereArgs: [shopListId, checked]
     );
     List<ShopListItem> shopListItemsCollection = shopListItems.isNotEmpty
         ? shopListItems.map((x) => ShopListItem.fromMap(x)).toList()
