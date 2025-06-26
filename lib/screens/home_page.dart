@@ -26,14 +26,7 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 16),
           ShopListListview(),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.save),
-        onPressed: () async {
-          await DatabaseHelper.instance.addShopList(ShopList(name: DateTime.now().toString()));
-          setState(() {});
-        },
-      ),
+      )
     );
   }
 }
