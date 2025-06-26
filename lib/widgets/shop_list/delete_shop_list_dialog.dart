@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
-class DeleteShopListDialog extends StatefulWidget {
+class DeleteShopListDialog extends ConsumerStatefulWidget {
   final ShopListViewModel shopList;
   final VoidCallback? onDeleted;
 
   const DeleteShopListDialog({super.key, required this.shopList, this.onDeleted});
 
   @override
-  State<DeleteShopListDialog> createState() => _DeleteShopListDialogState();
+  ConsumerState<DeleteShopListDialog> createState() => _DeleteShopListDialogState();
 }
 
-class _DeleteShopListDialogState extends State<DeleteShopListDialog> {
+class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
@@ -34,6 +36,7 @@ class _DeleteShopListDialogState extends State<DeleteShopListDialog> {
           child: const Text("Confirm"),
           onPressed: () async {
             await DatabaseHelper.instance.removeShopList(widget.shopList.id ?? 0);
+            ref.invalidate(shopListCollectionProvider);
             if (widget.onDeleted != null) {
               widget.onDeleted!();
             }

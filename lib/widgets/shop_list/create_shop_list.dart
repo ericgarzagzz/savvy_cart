@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/shop_list.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
-class CreateShopList extends StatefulWidget {
+class CreateShopList extends ConsumerStatefulWidget {
   const CreateShopList({super.key});
 
   @override
-  State<CreateShopList> createState() => _CreateShopListState();
+  ConsumerState<CreateShopList> createState() => _CreateShopListState();
 }
 
-class _CreateShopListState extends State<CreateShopList> {
+class _CreateShopListState extends ConsumerState<CreateShopList> {
   final _formKey = GlobalKey<FormState>();
   final _nameInputController = TextEditingController();
 
@@ -48,9 +50,10 @@ class _CreateShopListState extends State<CreateShopList> {
                 ),
               ),
               OutlinedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    DatabaseHelper.instance.addShopList(ShopList(name: _nameInputController.text));
+                    await _saveShopList(_nameInputController.text);
+                    ref.invalidate(shopListCollectionProvider);
                     setState(() {
                       _formKey.currentState!.reset();
                     });
