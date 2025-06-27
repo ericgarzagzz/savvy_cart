@@ -65,6 +65,22 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     }
   }
 
+  Future<void> setChecked(int shopListItemId, bool checked) async {
+    state = const AsyncValue.loading();
+
+    try {
+      await DatabaseHelper.instance.setShopListItemChecked(shopListItemId, checked);
+
+      ref.invalidate(shopListItemsProvider);
+      ref.invalidate(shopListCollectionProvider);
+      ref.invalidate(searchResultsProvider);
+
+      state = const AsyncValue.data(null);
+    } catch (error, stackTrace) {
+      state = AsyncValue.error(error, stackTrace);
+    }
+  }
+
   Future<void> deleteItem(int shopListItemId) async {
     state = const AsyncValue.loading();
 

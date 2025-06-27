@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/domain/types/money.dart';
 import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
 import 'package:savvy_cart/widgets/shop_list/delete_shop_list_dialog.dart';
 
@@ -11,6 +10,7 @@ class ShopListListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return ListTile(
       contentPadding: EdgeInsets.zero,
       title: Row(
@@ -36,9 +36,9 @@ class ShopListListTile extends StatelessWidget {
                   ],
                 ),
                 LinearProgressIndicator(
-                    value: .2,
-                    backgroundColor: Colors.grey,
-                    minHeight: 8
+                  value: shopList.totalItems == 0 ? 0 : shopList.checkedItems / shopList.totalItems,
+                  backgroundColor: Colors.grey,
+                  minHeight: 8,
                 )
               ],
             ),

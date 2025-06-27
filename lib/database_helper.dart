@@ -128,6 +128,15 @@ class DatabaseHelper {
     return shopListItems.fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
   }
 
+  Future<(int checkedCount, int totalCount)> calculateShopListItemCounts(int shopListId) async {
+    final shopListItems = await getShopListItems(shopListId);
+
+    final int totalCount = shopListItems.length;
+    final int checkedCount = shopListItems.where((item) => item.checked).length;
+
+    return (checkedCount, totalCount);
+  }
+
   Future<List<Suggestion>> getSuggestions() async {
     Database db = await instance.database;
     var suggestions = await db.query("suggestions", orderBy: "name ASC");
@@ -158,6 +167,16 @@ class DatabaseHelper {
   Future<int> addShopListItem(ShopListItem shopListItem) async {
     Database db = await instance.database;
     return await db.insert("shop_list_items", shopListItem.toMap());
+  }
+
+  Future<int> setShopListItemChecked(int shopListItemId, bool checked) async {
+    Database db = await instance.database;
+    return await db.update(
+      "shop_list_items",
+      {"checked": checked ? 1 : 0},
+      where: "id = ?",
+      whereArgs: [shopListItemId],
+    );
   }
 
   Future<int> updateShopListItem(ShopListItem shopListItem) async {

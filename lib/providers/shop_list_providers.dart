@@ -8,7 +8,10 @@ final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref)
   final List<ShopListViewModel> collection = [];
   for (var shopList in shopLists) {
     final checkedAmount = await DatabaseHelper.instance.calculateShopListCheckedAmount(shopList.id ?? 0);
-    collection.add(ShopListViewModel.fromModel(shopList, checkedAmount));
+    final counts = await DatabaseHelper.instance.calculateShopListItemCounts(shopList.id ?? 0);
+    final checkedItemsCount = counts.$1;
+    final totalItemsCount = counts.$2;
+    collection.add(ShopListViewModel.fromModel(shopList, checkedAmount, checkedItemsCount, totalItemsCount));
   }
   return collection;
 });
