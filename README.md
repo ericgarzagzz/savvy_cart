@@ -1,16 +1,7 @@
-# savvy_cart
+# SavvyCart: Smart Grocery List
 
-Your grocery shopping companion.
+Easily manage grocery lists and track spending to save money every shopping trip.
 
-## Getting Started
+Shop Smarter. Save More. Stress Less.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+SavvyCart is your all-in-one grocery shopping companion, designed for anyone who wants to save money, stay organized, and make every trip to the store easier. Whether you're shopping for yourself or your family, SavvyCart helps you keep track of what you need and how much you're spending-so you can focus on what matters most.
