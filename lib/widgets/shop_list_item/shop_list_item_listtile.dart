@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/domain/models/shop_list_item.dart';
+import 'package:savvy_cart/widgets/shop_list_item/shop_list_item_edit_form.dart';
 
 class ShopListItemListtile extends StatelessWidget {
   final ShopListItem shopListItem;
@@ -23,7 +24,13 @@ class ShopListItemListtile extends StatelessWidget {
           Text((shopListItem.unitPrice * shopListItem.quantity).toStringWithLocale(), style: Theme.of(context).textTheme.bodyMedium)
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (ctx) => ShopListItemEditForm(shopListItem: shopListItem)
+        );
+      },
     );
   }
 }

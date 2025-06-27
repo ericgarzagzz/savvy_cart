@@ -30,4 +30,20 @@ class ShopListItem {
       'checked': checked ? 1 : 0
     };
   }
+
+  ShopListItem copyWith({
+    String? name,
+    Decimal? quantity,
+    Money? unitPrice,
+    bool? checked,
+  }) {
+    return ShopListItem(
+      id: id,
+      shopListId: shopListId,
+      name: name ?? this.name,
+      quantity: quantity ?? this.quantity,
+      unitPrice: unitPrice ?? this.unitPrice,
+      checked: checked ?? this.checked,
+    );
+  }
 }

@@ -6,7 +6,6 @@ import 'package:savvy_cart/domain/models/shop_list_item.dart';
 import 'package:savvy_cart/domain/types/money.dart';
 import 'package:savvy_cart/models/shop_list_item/SearchResultItem.dart';
 import 'package:savvy_cart/providers/providers.dart';
-import 'package:savvy_cart/providers/shop_list_items_providers.dart';
 
 final searchResultsProvider = FutureProvider.family<List<SearchResultItem>, (int, String)>((ref, params) async {
   final shopListId = params.$1;

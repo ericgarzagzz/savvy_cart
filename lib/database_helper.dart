@@ -160,6 +160,16 @@ class DatabaseHelper {
     return await db.insert("shop_list_items", shopListItem.toMap());
   }
 
+  Future<int> updateShopListItem(ShopListItem shopListItem) async {
+    Database db = await instance.database;
+    return await db.update(
+      "shop_list_items",
+      shopListItem.toMap(),
+      where: "id = ?",
+      whereArgs: [shopListItem.id],
+    );
+  }
+
   Future<bool> shopListItemExists(int shopListId, String itemName) async {
     Database db = await instance.database;
     var existing = await db.query(
