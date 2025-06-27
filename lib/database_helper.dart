@@ -125,7 +125,9 @@ class DatabaseHelper {
 
   Future<Money> calculateShopListCheckedAmount(int shopListId) async {
     var shopListItems = await getShopListItems(shopListId);
-    return shopListItems.fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
+    return shopListItems
+        .where((x) => x.checked)
+        .fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
   }
 
   Future<(int checkedCount, int totalCount)> calculateShopListItemCounts(int shopListId) async {
