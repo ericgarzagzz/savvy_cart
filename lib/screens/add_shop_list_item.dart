@@ -46,10 +46,10 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     final query = _textController.text.trim();
     if (query.isEmpty) return;
 
-    final addNotifier = ref.read(addShopListItemProvider.notifier);
+    final addNotifier = ref.read(shopListItemMutationProvider.notifier);
     await addNotifier.addItem(widget.shopListId, query);
 
-    final addState = ref.read(addShopListItemProvider);
+    final addState = ref.read(shopListItemMutationProvider);
     addState.whenOrNull(
       error: (error, _) {
         if (mounted) {
@@ -72,10 +72,10 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
   void _handleItemTap(String itemName, bool isInShopList, int? shopListItemId) async {
     if (isInShopList && shopListItemId != null) {
       // Remove item
-      final addNotifier = ref.read(addShopListItemProvider.notifier);
-      await addNotifier.removeItem(shopListItemId);
+      final addNotifier = ref.read(shopListItemMutationProvider.notifier);
+      await addNotifier.deleteItem(shopListItemId);
 
-      final addState = ref.read(addShopListItemProvider);
+      final addState = ref.read(shopListItemMutationProvider);
       addState.whenOrNull(
         error: (error, _) {
           if (mounted) {
@@ -89,10 +89,10 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
       );
     } else {
       // Add item
-      final addNotifier = ref.read(addShopListItemProvider.notifier);
+      final addNotifier = ref.read(shopListItemMutationProvider.notifier);
       await addNotifier.addItem(widget.shopListId, itemName);
 
-      final addState = ref.read(addShopListItemProvider);
+      final addState = ref.read(shopListItemMutationProvider);
       addState.whenOrNull(
         error: (error, _) {
           if (mounted) {
@@ -111,7 +111,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
   Widget build(BuildContext context) {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
     final searchResultsAsync = ref.watch(searchResultsProvider((widget.shopListId, _searchQuery)));
-    final addState = ref.watch(addShopListItemProvider);
+    final addState = ref.watch(shopListItemMutationProvider);
 
     return getShopListByIdAsync.when(
       loading: () => Container(
