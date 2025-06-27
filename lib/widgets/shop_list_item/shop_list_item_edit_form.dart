@@ -164,12 +164,39 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                         ),
                         TextButton(
                           style: TextButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                              foregroundColor: Theme.of(context).colorScheme.onError
+                            backgroundColor: Theme.of(context).colorScheme.errorContainer,
+                            foregroundColor: Theme.of(context).colorScheme.onError,
                           ),
                           child: const Icon(Icons.delete),
-                          onPressed: () {},
-                        )
+                          onPressed: () async {
+                            final confirm = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Delete Item'),
+                                content: const Text('Are you sure you want to delete this item?'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.of(context).pop(false),
+                                    child: const Text('Cancel'),
+                                  ),
+                                  TextButton(
+                                    onPressed: () => Navigator.of(context).pop(true),
+                                    child: const Text('Delete'),
+                                  ),
+                                ],
+                              ),
+                            );
+                            if (confirm != true) return;
+
+                            await ref
+                                .read(shopListItemMutationProvider.notifier)
+                                .deleteItem(widget.shopListItem.id ?? 0);
+
+                            if (context.mounted) {
+                              Navigator.of(context).pop();
+                            }
+                          },
+                        ),
                       ],
                     ),
                     SizedBox(height: 16),
