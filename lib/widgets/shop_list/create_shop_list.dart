@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:intl/intl.dart';
 
 class CreateShopList extends ConsumerStatefulWidget {
   const CreateShopList({super.key});
@@ -14,6 +15,13 @@ class CreateShopList extends ConsumerStatefulWidget {
 class _CreateShopListState extends ConsumerState<CreateShopList> {
   final _formKey = GlobalKey<FormState>();
   final _nameInputController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    final today = DateFormat('EEEE, MMMM d').format(DateTime.now());
+    _nameInputController.text = today;
+  }
 
   Future<void> _saveShopList(String name) async {
     await DatabaseHelper.instance.addShopList(ShopList(name: name));
