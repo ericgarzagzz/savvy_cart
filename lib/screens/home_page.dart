@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/widgets/shop_list/create_shop_list.dart';
@@ -35,12 +36,12 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: kDebugMode ? FloatingActionButton(
         child: Icon(Icons.delete_forever),
         onPressed: () async {
           await DatabaseHelper.instance.purgeDatabase();
         },
-      ),
+      ) : null,
     );
   }
 }
