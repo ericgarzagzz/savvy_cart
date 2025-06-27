@@ -1,0 +1,24 @@
+# flutter pub run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/logo.jpg"
+
+  android: "launcher_icon"
+  min_sdk_android: 27
+
+  ios: true
+  remove_alpha_ios: true
+
+  web:
+    generate: false
+    image_path: "path/to/image.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+
+  windows:
+    generate: false
+    image_path: "path/to/image.png"
+    icon_size: 48
+
+  macos:
+    generate: false
+    image_path: "path/to/image.png"
