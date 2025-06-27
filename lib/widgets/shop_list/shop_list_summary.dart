@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 class ShopListSummary extends ConsumerWidget {
-  const ShopListSummary({super.key});
+  final int shopListId;
+
+  const ShopListSummary({super.key, required this.shopListId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 32,
-      children: [
-        _SummaryStatWidget(label: "Unchecked", amount: Money(cents: 0)),
-        _SummaryStatWidget(label: "Checked", amount: Money(cents: 0)),
-        _SummaryStatWidget(label: "Total", amount: Money(cents: 0)),
-      ],
+    final statsAsync = ref.watch(shopListItemStatsProvider(shopListId));
+
+    return statsAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (e, st) => Center(child: Text('Error: $e')),
+      data: (stats) {
+        final (uncheckedAmount, checkedAmount) = stats;
+        final totalAmount = uncheckedAmount + checkedAmount;
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _SummaryStatWidget(label: "Unchecked", amount: uncheckedAmount),
+            const SizedBox(width: 32),
+            _SummaryStatWidget(label: "Checked", amount: checkedAmount),
+            const SizedBox(width: 32),
+            _SummaryStatWidget(label: "Total", amount: totalAmount),
+          ],
+        );
+      },
     );
   }
 }

@@ -42,6 +42,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
+      ref.invalidate(shopListItemStatsProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -58,6 +59,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
+      ref.invalidate(shopListItemStatsProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -74,6 +76,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
+      ref.invalidate(shopListItemStatsProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -90,6 +93,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
+      ref.invalidate(shopListItemStatsProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {

@@ -137,6 +137,23 @@ class DatabaseHelper {
     return (checkedCount, totalCount);
   }
 
+  Future<(Money uncheckedAmount, Money checkedAmount)> calculateShopListItemStats(int shopListId) async {
+    final shopListItems = await getShopListItems(shopListId);
+
+    Money uncheckedAmount = Money(cents: 0);
+    Money checkedAmount = Money(cents: 0);
+
+    for (final item in shopListItems) {
+      if (item.checked) {
+        checkedAmount += item.unitPrice * item.quantity;
+      } else {
+        uncheckedAmount += item.unitPrice * item.quantity;
+      }
+    }
+
+    return (uncheckedAmount, checkedAmount);
+  }
+
   Future<List<Suggestion>> getSuggestions() async {
     Database db = await instance.database;
     var suggestions = await db.query("suggestions", orderBy: "name ASC");

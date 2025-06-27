@@ -42,7 +42,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
             SliverPadding(
                 padding: EdgeInsets.all(16),
                 sliver: SliverToBoxAdapter(
-                  child: ShopListSummary(),
+                  child: ShopListSummary(shopListId: widget.shopListId),
                 )
             ),
             SliverPadding(
