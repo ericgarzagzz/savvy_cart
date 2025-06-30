@@ -3,11 +3,13 @@ import 'package:savvy_cart/formatter/formatters.dart';
 
 class DecimalFormField extends FormField<String> {
   final TextEditingController? controller;
+  final FocusNode? focusNode;
 
   DecimalFormField({
     Key? key,
     required int decimalPlaces,
     this.controller,
+    this.focusNode,
     String? initialValue,
     InputDecoration? decoration,
     FormFieldSetter<String>? onSaved,
@@ -32,6 +34,7 @@ class DecimalFormField extends FormField<String> {
           field as _DecimalFormFieldState;
           return TextField(
             controller: state._effectiveController,
+            focusNode: (field.widget as DecimalFormField).focusNode,
             decoration: (decoration ?? const InputDecoration())
                 .copyWith(errorText: field.errorText),
             keyboardType:

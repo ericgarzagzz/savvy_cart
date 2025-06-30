@@ -25,6 +25,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
   late final TextEditingController _quantityController;
   late final TextEditingController _unitPriceController;
 
+  final _quantityFocusNode = FocusNode();
+  final _unitPriceFocusNode = FocusNode();
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +38,18 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
     _unitPriceController = TextEditingController(
       text: widget.shopListItem.unitPrice.toString(),
     );
+
+    _quantityFocusNode.addListener(() {
+      if (_quantityFocusNode.hasFocus) {
+        _quantityController.selection = TextSelection(baseOffset: 0, extentOffset: _quantityController.value.text.length);
+      }
+    });
+
+    _unitPriceFocusNode.addListener(() {
+      if (_unitPriceFocusNode.hasFocus) {
+        _unitPriceController.selection = TextSelection(baseOffset: 0, extentOffset: _unitPriceController.value.text.length);
+      }
+    });
   }
 
   void _onTotalChanged() {
@@ -208,6 +223,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           child: DecimalFormField(
                             decimalPlaces: 4,
                             controller: _quantityController,
+                            focusNode: _quantityFocusNode,
                             decoration: InputDecoration(
                               label: Text("Quantity"),
                             ),
@@ -225,6 +241,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           flex: 1,
                           child: DecimalFormField(
                             controller: _unitPriceController,
+                            focusNode: _unitPriceFocusNode,
                             decimalPlaces: 2,
                             decoration: InputDecoration(
                               label: Text("Price"),
