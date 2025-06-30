@@ -65,6 +65,9 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
         setState(() {
           _searchQuery = '';
         });
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _focusNode.requestFocus();
+        });
       },
     );
   }
