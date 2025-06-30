@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/providers/suggestions_mutation_providers.dart';
 import 'package:savvy_cart/widgets/generic_alert_dialog.dart';
 import 'package:savvy_cart/widgets/generic_error_scaffold.dart';
 import 'package:savvy_cart/providers/providers.dart';
@@ -110,6 +111,44 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     }
   }
 
+  void _handleItemRemove(String itemName, bool isInShopList, int? shopListItemId) async {
+    final title = isInShopList && shopListItemId != null ?
+        "Remove Item and Suggestion?" :
+        "Remove Suggestion?";
+    final description = isInShopList && shopListItemId != null ?
+        "This will remove \"${itemName}\" from your current shopping list and also from your suggestions." :
+        "This will remove \"${itemName}\" from your suggestions. It will not affect your current shopping list.";
+
+    if (mounted) {
+      final confirm = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(title),
+          content: Text(description),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Remove'),
+            ),
+          ],
+        ),
+      );
+      if (confirm != true) return;
+
+      final suggestionsMutationNotifier = ref.read(suggestionsMutationProvider.notifier);
+      await suggestionsMutationNotifier.deleteSuggestionByName(itemName);
+
+      if (isInShopList && shopListItemId != null) {
+        final shopListItemMutationNotifier = ref.read(shopListItemMutationProvider.notifier);
+        await shopListItemMutationNotifier.deleteItem(shopListItemId);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
@@ -178,6 +217,15 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                         ),
                       ),
                       title: Text(item.name),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        color: Theme.of(context).colorScheme.error,
+                        onPressed: () => _handleItemRemove(
+                          item.name,
+                          item.isInShopList,
+                          item.shopListItemId
+                        ),
+                      ),
                       onTap: isLoading ? null : () => _handleItemTap(
                         item.name,
                         item.isInShopList,

@@ -227,4 +227,9 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.delete("shop_list_items", where: "id = ?", whereArgs: [id]);
   }
+
+  Future<int> removeSuggestionByName(String name) async {
+    Database db = await instance.database;
+    return await db.delete("suggestions", where: "LOWER(name) = LOWER(?)", whereArgs: [name]);
+  }
 }
