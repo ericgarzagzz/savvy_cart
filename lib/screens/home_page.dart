@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text("SavvyCard"),
+            title: Text("SavvyCart"),
             expandedHeight: 100,
             actions: [
               IconButton(
