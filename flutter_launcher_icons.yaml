@@ -3,6 +3,9 @@ flutter_launcher_icons:
   image_path: "assets/logo.jpg"
 
   android: "launcher_icon"
+  adaptive_icon_foreground: "assets/logo.jpg"
+  adaptive_icon_background: "#CEE8F9"
+  adaptive_icon_monochrome: "assets/logo_mono.png"
   min_sdk_android: 27
 
   ios: true
