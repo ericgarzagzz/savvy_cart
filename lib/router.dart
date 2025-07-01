@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
+import 'package:path/path.dart';
 import 'package:savvy_cart/screens/add_shop_list_item.dart';
 import 'package:savvy_cart/screens/home_page.dart';
+import 'package:savvy_cart/screens/settings.dart';
 import 'package:savvy_cart/screens/shop_list_manager.dart';
 
 final router = GoRouter(
@@ -18,6 +20,10 @@ final router = GoRouter(
               builder: (context, state) => AddShopListItem(shopListId: int.parse(state.pathParameters['id'].toString())),
             )
           ]
+        ),
+        GoRoute(
+          path: 'settings',
+          builder: (context, state) => Settings(),
         )
       ]
     ),

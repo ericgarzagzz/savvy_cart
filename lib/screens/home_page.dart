@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/widgets/shop_list/create_shop_list.dart';
 import 'package:savvy_cart/widgets/shop_list/shop_list_listview.dart';
@@ -20,6 +21,14 @@ class _HomePageState extends State<HomePage> {
           SliverAppBar(
             title: Text("SavvyCard"),
             expandedHeight: 100,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  context.go("./settings");
+                },
+              )
+            ],
           ),
           SliverPadding(
             padding: EdgeInsets.symmetric(horizontal: 16),
