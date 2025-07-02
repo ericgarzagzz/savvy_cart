@@ -19,7 +19,16 @@ void main() async {
 
   runApp(
     ProviderScope(
-      child: MyApp(theme: theme),
+      child: MyApp(
+          theme: theme.copyWith(
+            pageTransitionsTheme: PageTransitionsTheme(
+              builders: {
+                for (var platform in TargetPlatform.values)
+                  platform: FadeForwardsPageTransitionsBuilder()
+              },
+            )
+          )
+      ),
     )
   );
 }
