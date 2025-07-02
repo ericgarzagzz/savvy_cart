@@ -19,7 +19,21 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            title: Text("SavvyCart"),
+            title: Row(
+              spacing: 8,
+              children: [
+                Image(
+                  image: AssetImage("assets/logo_no_bg.png"),
+                  width: 64,
+                ),
+                Text("SavvyCart",
+                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF403A3A),
+                  ),
+                ),
+              ],
+            ),
             expandedHeight: 100,
             actions: [
               IconButton(
