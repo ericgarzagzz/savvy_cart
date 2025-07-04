@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 class GenericAlertDialog extends StatelessWidget {
   final String title;
   final String message;
-  final String? actionText;
-  final VoidCallback? onAction;
+  final String? confirmText;
+  final VoidCallback? onConfirm;
+  final String? cancelText;
 
   const GenericAlertDialog({
     super.key,
     required this.title,
     required this.message,
-    this.actionText,
-    this.onAction,
+    this.confirmText,
+    this.onConfirm,
+    this.cancelText,
   });
 
   @override
@@ -20,33 +22,35 @@ class GenericAlertDialog extends StatelessWidget {
       title: Text(title),
       content: Text(message),
       actions: [
-        if (actionText != null && onAction != null)
+        if (confirmText != null && onConfirm != null)
           TextButton(
-            onPressed: onAction,
-            child: Text(actionText!),
+            onPressed: onConfirm,
+            child: Text(confirmText!),
           ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('OK'),
+          child: Text(cancelText ?? 'Cancel'),
         ),
       ],
     );
   }
 
   static void show(
-      BuildContext context, {
-        required String title,
-        required String message,
-        String? actionText,
-        VoidCallback? onAction,
-      }) {
+    BuildContext context, {
+    required String title,
+    required String message,
+    String? confirmText,
+    VoidCallback? onConfirm,
+    String? cancelText,
+  }) {
     showDialog(
       context: context,
       builder: (context) => GenericAlertDialog(
         title: title,
         message: message,
-        actionText: actionText,
-        onAction: onAction,
+        confirmText: confirmText,
+        onConfirm: onConfirm,
+        cancelText: cancelText,
       ),
     );
   }
