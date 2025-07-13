@@ -36,19 +36,28 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
           settings: AiSettings(
             apiKey: '',
           ),
+          isLoading: true,
         )) {
     _loadSettings();
   }
 
   Future<void> _loadSettings() async {
-    final prefs = await SharedPreferences.getInstance();
-    final apiKey = prefs.getString('ai_api_key') ?? '';
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final apiKey = prefs.getString('ai_api_key') ?? '';
 
-    state = state.copyWith(
-      settings: AiSettings(
-        apiKey: apiKey,
-      ),
-    );
+      state = state.copyWith(
+        settings: AiSettings(
+          apiKey: apiKey,
+        ),
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: 'Failed to load settings: $e',
+      );
+    }
   }
 
   Future<void> saveSettings(AiSettings settings) async {

@@ -32,11 +32,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
-        _scrollController.animateTo(
-          _scrollController.position.maxScrollExtent,
-          duration: const Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
       }
     });
   }
@@ -130,11 +126,11 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
                     final message = messages[index];
                     final isLastMessage = index == messages.length - 1;
 
-                    // Find the latest AI message with actions that hasn't been executed
+                    // Find the latest AI message (regardless of actions)
                     int? latestAiMessageIndex;
                     for (int i = messages.length - 1; i >= 0; i--) {
                       final msg = messages[i];
-                      if (!msg.isUser && !msg.isError && msg.hasActions && !msg.actionsExecuted) {
+                      if (!msg.isUser && !msg.isError) {
                         latestAiMessageIndex = i;
                         break;
                       }

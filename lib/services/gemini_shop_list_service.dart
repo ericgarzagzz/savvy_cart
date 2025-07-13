@@ -29,7 +29,10 @@ class GeminiShopListService {
             }).join('\n')}";
 
     final prompt = """
-Based on the user's message, generate a list of actions to perform on this shopping list. 
+You are a shopping list assistant. Analyze the user's message and determine if they want to:
+1. Perform actions on the shopping list (add, remove, update, check items)
+2. Get information about the shopping list (calculate totals, ask questions)
+3. Both (answer questions AND perform actions)
 
 IMPORTANT: 
 - Respond with ONLY a valid JSON object, no extra text or formatting.
@@ -40,8 +43,17 @@ User message: "$userMessage"
 $currentShopListTextDump
 
 Respond with a JSON object containing:
-- "response": A friendly response to the user (required). Use future/conditional tense like "I can...", "I would...", "I suggest..." since actions need user confirmation. RESPOND IN THE SAME LANGUAGE AS THE USER'S MESSAGE.
-- "actions": An array of actions (can be empty if no actions needed)
+- "response": A helpful response to the user (required). For informational queries, give direct answers (e.g., "The total is \$25.50"). For action requests, use future/conditional tense (e.g., "I can add milk to your list"). RESPOND IN THE SAME LANGUAGE AS THE USER'S MESSAGE.
+- "actions": An array of actions (empty if user is only asking for information)
+
+For informational queries (calculations, questions about the list):
+- Provide direct, complete answers in the "response" field
+- Leave "actions" array empty
+- Examples: "What's my total?", "How many items do I have?", "Which items are checked?"
+
+For action requests:
+- Use conditional language in "response" since actions need confirmation
+- Include appropriate actions in the "actions" array
 
 Each action should have:
 - "operation": one of "add", "remove", "update", "check", "uncheck"
@@ -53,6 +65,14 @@ Each action should have:
 IMPORTANT: Do NOT confuse quantity (amount) with unit_price (cost). Quantity is how much of the item, unit_price is how much it costs.
 
 Examples:
+
+Information query:
+{
+  "response": "Your total is \$15.75 for 3 items. You have checked 1 item worth \$3.50.",
+  "actions": []
+}
+
+Action request:
 {
   "response": "I can add milk and bread to your shopping list.",
   "actions": [
@@ -61,10 +81,11 @@ Examples:
   ]
 }
 
+Both information and action:
 {
-  "response": "I can update the calabaza to 200g and set the price to 30.",
+  "response": "Your current total is \$12.25. I can also add apples to your list.",
   "actions": [
-    {"operation": "update", "item": "calabaza", "quantity": 0.2, "unit_price": 30}
+    {"operation": "add", "item": "apples", "quantity": 1, "unit_price": 4.00}
   ]
 }
 

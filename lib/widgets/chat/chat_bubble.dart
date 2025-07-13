@@ -152,7 +152,7 @@ class ChatBubble extends StatelessWidget {
                         ),
                       ),
                     ] else ...[
-                      // Old AI message - show discarded state
+                      // Not latest AI message - actions are considered discarded
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(

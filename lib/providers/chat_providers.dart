@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/models/chat/chat_message_view_model.dart';
@@ -98,6 +99,7 @@ class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
       return message;
     }).toList();
   }
+
 }
 
 // Internal helper for processing messages (used by both send and retry)
@@ -128,8 +130,37 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
   processingNotifier.state = true;
 
   try {
-    final aiSettings = ref.read(aiSettingsProvider).settings;
-    final service = GeminiShopListService(aiSettings.apiKey);
+    // Wait for settings to load with retry mechanism
+    AiSettingsState aiSettingsState;
+    int retryCount = 0;
+    const maxRetries = 10; // Wait up to 1 second (10 * 100ms)
+    
+    do {
+      aiSettingsState = ref.read(aiSettingsProvider);
+      
+      if (!aiSettingsState.isLoading) {
+        break; // Settings loaded
+      }
+      
+      if (retryCount >= maxRetries) {
+        throw Exception('AI settings took too long to load. Please check your connection and try again.');
+      }
+      
+      // Wait 100ms before retrying
+      await Future.delayed(const Duration(milliseconds: 100));
+      retryCount++;
+    } while (aiSettingsState.isLoading);
+    
+    if (aiSettingsState.error != null) {
+      throw Exception('Failed to load AI settings: ${aiSettingsState.error}');
+    }
+    
+    final apiKey = aiSettingsState.settings.apiKey;
+    if (apiKey.isEmpty) {
+      throw Exception('API key not configured. Please set your Gemini API key in settings.');
+    }
+    
+    final service = GeminiShopListService(apiKey);
     final currentShopListItems = await ref.read(
       getShopListItemsProvider(shopListId).future,
     );
@@ -207,8 +238,21 @@ final retryLastMessageProvider = Provider.family<Future<void> Function(), int>((
 // Provider for executing selected actions
 final executeActionsProvider = Provider.family<Future<void> Function(GeminiResponse, int), int>((ref, shopListId) {
   return (GeminiResponse geminiResponse, int messageId) async {
-    final aiSettings = ref.read(aiSettingsProvider).settings;
-    final service = GeminiShopListService(aiSettings.apiKey);
+    final aiSettingsState = ref.read(aiSettingsProvider);
+    
+    if (aiSettingsState.isLoading) {
+      throw Exception('AI settings are still loading. Please wait a moment and try again.');
+    }
+    
+    if (aiSettingsState.error != null) {
+      throw Exception('Failed to load AI settings: ${aiSettingsState.error}');
+    }
+    
+    final apiKey = aiSettingsState.settings.apiKey;
+    if (apiKey.isEmpty) {
+      throw Exception('API key not configured. Please set your Gemini API key in settings.');
+    }
+    final service = GeminiShopListService(apiKey);
 
     await service.executeGeminiActions(geminiResponse, shopListId);
 

@@ -20,7 +20,7 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     return await openDatabase(
       await _getDatabasePath(),
-      version: 5,
+      version: 7,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade
     );
@@ -56,6 +56,14 @@ class DatabaseHelper {
     if (version >= 5) {
       _updateChatMessagesV5(batch);
     }
+    
+    if (version >= 6) {
+      _updateChatMessagesV6(batch);
+    }
+    
+    if (version >= 7) {
+      _updateChatMessagesV7(batch);
+    }
 
     await batch.commit();
   }
@@ -77,6 +85,14 @@ class DatabaseHelper {
 
     if (oldVersion < 5) {
       _updateChatMessagesV5(batch);
+    }
+
+    if (oldVersion < 6) {
+      _updateChatMessagesV6(batch);
+    }
+
+    if (oldVersion < 7) {
+      _updateChatMessagesV7(batch);
     }
 
     await batch.commit();
@@ -152,6 +168,41 @@ class DatabaseHelper {
       ALTER TABLE chat_messages 
       ADD COLUMN is_error INTEGER NOT NULL DEFAULT 0
     ''');
+  }
+  
+  void _updateChatMessagesV6(Batch batch) {
+    batch.execute('''
+      ALTER TABLE chat_messages 
+      ADD COLUMN actions_discarded INTEGER NOT NULL DEFAULT 0
+    ''');
+  }
+  
+  void _updateChatMessagesV7(Batch batch) {
+    // Remove the actions_discarded column by recreating the table
+    batch.execute('''
+      CREATE TABLE chat_messages_temp(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        shop_list_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        is_user INTEGER NOT NULL,
+        timestamp INTEGER NOT NULL,
+        gemini_response_json TEXT,
+        actions_executed INTEGER NOT NULL DEFAULT 0,
+        executed_actions_json TEXT,
+        is_error INTEGER NOT NULL DEFAULT 0,
+        FOREIGN KEY(shop_list_id) REFERENCES shop_lists(id) ON DELETE CASCADE
+      )
+    ''');
+    
+    batch.execute('''
+      INSERT INTO chat_messages_temp 
+      SELECT id, shop_list_id, text, is_user, timestamp, gemini_response_json, 
+             actions_executed, executed_actions_json, is_error 
+      FROM chat_messages
+    ''');
+    
+    batch.execute('DROP TABLE chat_messages');
+    batch.execute('ALTER TABLE chat_messages_temp RENAME TO chat_messages');
   }
 
   Future<List<ShopList>> getShopLists() async {
@@ -436,4 +487,5 @@ class DatabaseHelper {
       whereArgs: [chatMessageId]
     );
   }
+
 }
