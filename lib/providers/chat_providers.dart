@@ -16,6 +16,9 @@ final chatMessagesProvider = StateNotifierProvider.family<ChatMessagesNotifier, 
 // Processing state for chat
 final chatProcessingProvider = StateProvider.family<bool, int>((ref, shopListId) => false);
 
+// Scroll position state for chat (tracks if user has scrolled up from bottom)
+final chatScrollPositionProvider = StateProvider.family<bool, int>((ref, shopListId) => false);
+
 class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
   final int shopListId;
 

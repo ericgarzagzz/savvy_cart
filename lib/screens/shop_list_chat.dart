@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/models/gemini_action.dart';
 import 'package:savvy_cart/models/gemini_response.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/providers/chat_providers.dart';
 import 'package:savvy_cart/widgets/ai/ai_action_selection_sheet.dart';
 import 'package:savvy_cart/widgets/ai/executed_actions_review_sheet.dart';
 import 'package:savvy_cart/widgets/chat/chat_bubble.dart';
-import 'package:savvy_cart/widgets/generic_alert_dialog.dart';
 import 'package:savvy_cart/widgets/generic_error_scaffold.dart';
 
 class ShopListChat extends ConsumerStatefulWidget {
@@ -27,27 +28,50 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
   void initState() {
     super.initState();
 
+    _scrollController.addListener(_onScroll);
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _scrollToBottom();
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
     });
   }
 
   @override
   void dispose() {
     _messageController.dispose();
+    _scrollController.removeListener(_onScroll);
     _scrollController.dispose();
     _focusNode.dispose();
     super.dispose();
   }
 
-  void _scrollToBottom() {
+  void _onScroll() {
     if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
+      final isAtBottom = _scrollController.position.pixels >= 
+          _scrollController.position.maxScrollExtent - 20;
+      
+      final currentState = ref.read(chatScrollPositionProvider(widget.shopListId));
+      if (currentState != !isAtBottom) {
+        ref.read(chatScrollPositionProvider(widget.shopListId).notifier).state = !isAtBottom;
+      }
     }
+  }
+
+  void _scrollToBottom() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
   }
 
   Future<void> _sendMessage() async {
@@ -75,6 +99,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
     final messages = ref.watch(chatMessagesProvider(widget.shopListId));
     final isProcessing = ref.watch(chatProcessingProvider(widget.shopListId));
+    final scrollPositionExceptBottom = ref.watch(chatScrollPositionProvider(widget.shopListId));
 
     return getShopListByIdAsync.when(
       loading: () => Container(
@@ -237,6 +262,15 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
             ],
           ),
         ),
+        floatingActionButton: scrollPositionExceptBottom ? Padding(
+          padding: const EdgeInsets.only(bottom: 64),
+          child: FloatingActionButton(
+            mini: true,
+            onPressed: _scrollToBottom,
+            child: Icon(Icons.keyboard_double_arrow_down),
+          ),
+        ) : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );
   }
