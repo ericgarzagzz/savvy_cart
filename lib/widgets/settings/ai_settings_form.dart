@@ -66,7 +66,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
               });
             },
             decoration: InputDecoration(
-              label: Text("API Key"),
+              label: Text("Gemini API Key"),
               border: const OutlineInputBorder(),
               errorText: aiSettingsState.error,
               prefixIcon: Icon(Icons.key),

@@ -8,3 +8,7 @@ final shopListItemsProvider = FutureProvider.family<List<ShopListItem>, (int, bo
 
   return await DatabaseHelper.instance.getShopListItemsByStatus(shopListId, checkedItems);
 });
+
+final getShopListItemsProvider = FutureProvider.family<List<ShopListItem>, int>((ref, shopListId) async {
+  return await DatabaseHelper.instance.getShopListItems(shopListId);
+});

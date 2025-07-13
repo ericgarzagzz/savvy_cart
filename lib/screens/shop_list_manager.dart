@@ -30,7 +30,16 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-                title: Text(shopList.name)
+              title: Text(shopList.name),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.chat),
+                  tooltip: 'Chat with AI',
+                  onPressed: () {
+                    context.go('./chat');
+                  },
+                ),
+              ],
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16),

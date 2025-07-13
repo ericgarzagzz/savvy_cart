@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:decimal/decimal.dart';
 import 'package:savvy_cart/domain/models/shop_list.dart';
 import 'package:savvy_cart/domain/models/suggestion.dart';
+import 'package:savvy_cart/domain/models/chat_message.dart';
 import 'package:savvy_cart/domain/types/money.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -18,8 +20,9 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     return await openDatabase(
       await _getDatabasePath(),
-      version: 1,
-      onCreate: _onCreate
+      version: 5,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade
     );
   }
 
@@ -37,6 +40,44 @@ class DatabaseHelper {
     _createTableShopListsV1(batch);
     _createTableShopListItemsV1(batch);
     _createTableSuggestionsV1(batch);
+    
+    if (version >= 2) {
+      _createTableChatMessagesV2(batch);
+    }
+    
+    if (version >= 3) {
+      _updateChatMessagesV3(batch);
+    }
+    
+    if (version >= 4) {
+      _updateChatMessagesV4(batch);
+    }
+    
+    if (version >= 5) {
+      _updateChatMessagesV5(batch);
+    }
+
+    await batch.commit();
+  }
+
+  FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    var batch = db.batch();
+
+    if (oldVersion < 2) {
+      _createTableChatMessagesV2(batch);
+    }
+
+    if (oldVersion < 3) {
+      _updateChatMessagesV3(batch);
+    }
+
+    if (oldVersion < 4) {
+      _updateChatMessagesV4(batch);
+    }
+
+    if (oldVersion < 5) {
+      _updateChatMessagesV5(batch);
+    }
 
     await batch.commit();
   }
@@ -75,6 +116,44 @@ class DatabaseHelper {
     ''');
   }
 
+  void _createTableChatMessagesV2(Batch batch) {
+    batch.execute('DROP TABLE IF EXISTS chat_messages');
+    batch.execute('''
+      CREATE TABLE chat_messages(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        shop_list_id INTEGER NOT NULL,
+        text TEXT NOT NULL,
+        is_user INTEGER NOT NULL,
+        timestamp INTEGER NOT NULL,
+        gemini_response_json TEXT,
+        actions_executed INTEGER NOT NULL DEFAULT 0,
+        executed_actions_json TEXT,
+        is_error INTEGER NOT NULL DEFAULT 0
+      )
+    ''');
+  }
+  
+  void _updateChatMessagesV3(Batch batch) {
+    batch.execute('''
+      ALTER TABLE chat_messages 
+      ADD COLUMN actions_executed INTEGER NOT NULL DEFAULT 0
+    ''');
+  }
+  
+  void _updateChatMessagesV4(Batch batch) {
+    batch.execute('''
+      ALTER TABLE chat_messages 
+      ADD COLUMN executed_actions_json TEXT
+    ''');
+  }
+  
+  void _updateChatMessagesV5(Batch batch) {
+    batch.execute('''
+      ALTER TABLE chat_messages 
+      ADD COLUMN is_error INTEGER NOT NULL DEFAULT 0
+    ''');
+  }
+
   Future<List<ShopList>> getShopLists() async {
     Database db = await instance.database;
     var shopLists = await db.query("shop_lists", orderBy: "id DESC");
@@ -85,7 +164,6 @@ class DatabaseHelper {
   }
 
   Future<ShopList?> getShopListById(int id) async {
-    await Future.delayed(Duration(seconds: 3));
     Database db = await instance.database;
     var shopListMap = await db.query('shop_lists', where: 'id = ?', whereArgs: [id]);
     if (shopListMap.isNotEmpty) {
@@ -208,6 +286,45 @@ class DatabaseHelper {
     );
   }
 
+  Future<int> updateShopListItemByName(
+      int shopListId,
+      String name,
+      {Decimal? quantity,
+      Money? unitPrice,
+      bool? checked}) async {
+    final existingItem = await getShopListItemByName(shopListId, name);
+
+    if (existingItem != null) {
+      final updatedItem = existingItem.copyWith(
+        quantity: quantity ?? existingItem.quantity,
+        unitPrice: unitPrice ?? existingItem.unitPrice,
+        checked: checked ?? existingItem.checked,
+      );
+      return await updateShopListItem(updatedItem);
+    } else {
+      // If item doesn't exist, add it
+      return await addShopListItem(
+        ShopListItem(
+          shopListId: shopListId,
+          name: name,
+          quantity: quantity ?? Decimal.one,
+          unitPrice: unitPrice ?? Money(cents: 0),
+          checked: checked ?? false,
+        ),
+      );
+    }
+  }
+
+  Future<int> setShopListItemCheckedByName(int shopListId, String name, bool checked) async {
+    Database db = await instance.database;
+    return await db.update(
+      "shop_list_items",
+      {"checked": checked ? 1 : 0},
+      where: "shop_list_id = ? AND LOWER(name) = LOWER(?)",
+      whereArgs: [shopListId, name],
+    );
+  }
+
   Future<bool> shopListItemExists(int shopListId, String itemName) async {
     Database db = await instance.database;
     var existing = await db.query(
@@ -218,6 +335,15 @@ class DatabaseHelper {
     return existing.isNotEmpty;
   }
   
+  Future<ShopListItem?> getShopListItemById(int id) async {
+    Database db = await instance.database;
+    var shopListItemMap = await db.query('shop_list_items', where: 'id = ?', whereArgs: [id]);
+    if (shopListItemMap.isNotEmpty) {
+      return ShopListItem.fromMap(shopListItemMap.first);
+    }
+    return null;
+  }
+
   Future<int> removeShopList(int id) async {
     Database db = await instance.database;
     return db.delete("shop_lists", where: "id = ?", whereArgs: [id]);
@@ -228,8 +354,86 @@ class DatabaseHelper {
     return await db.delete("shop_list_items", where: "id = ?", whereArgs: [id]);
   }
 
+  Future<ShopListItem?> getShopListItemByName(int shopListId, String name) async {
+    Database db = await instance.database;
+    var shopListItemMap = await db.query(
+      'shop_list_items',
+      where: 'shop_list_id = ? AND LOWER(name) = LOWER(?)',
+      whereArgs: [shopListId, name],
+    );
+    if (shopListItemMap.isNotEmpty) {
+      return ShopListItem.fromMap(shopListItemMap.first);
+    }
+    return null;
+  }
+
+  Future<int> removeShopListItemByName(int shopListId, String name) async {
+    Database db = await instance.database;
+    return await db.delete(
+      "shop_list_items",
+      where: "shop_list_id = ? AND LOWER(name) = LOWER(?)",
+      whereArgs: [shopListId, name],
+    );
+  }
+
   Future<int> removeSuggestionByName(String name) async {
     Database db = await instance.database;
     return await db.delete("suggestions", where: "LOWER(name) = LOWER(?)", whereArgs: [name]);
+  }
+
+  Future<List<ChatMessage>> getChatMessages(int shopListId) async {
+    Database db = await instance.database;
+    var chatMessages = await db.query(
+      "chat_messages",
+      where: 'shop_list_id = ?',
+      whereArgs: [shopListId],
+      orderBy: 'timestamp ASC'
+    );
+    List<ChatMessage> chatMessageCollection = chatMessages.isNotEmpty
+        ? chatMessages.map((x) => ChatMessage.fromMap(x)).toList()
+        : [];
+    return chatMessageCollection;
+  }
+
+  Future<List<ChatMessage>> getChatMessagesByShopList(int shopListId) async {
+    Database db = await instance.database;
+    var chatMessages = await db.query(
+      "chat_messages", 
+      where: "shop_list_id = ?", 
+      whereArgs: [shopListId],
+      orderBy: "timestamp ASC"
+    );
+    List<ChatMessage> chatMessageCollection = chatMessages.isNotEmpty
+        ? chatMessages.map((x) => ChatMessage.fromMap(x)).toList()
+        : [];
+    return chatMessageCollection;
+  }
+
+  Future<int> addChatMessage(ChatMessage chatMessage) async {
+    Database db = await instance.database;
+    return await db.insert("chat_messages", chatMessage.toMap());
+  }
+
+  Future<int> removeChatMessage(int id) async {
+    Database db = await instance.database;
+    return await db.delete("chat_messages", where: "id = ?", whereArgs: [id]);
+  }
+
+  Future<int> removeChatMessagesByShopList(int shopListId) async {
+    Database db = await instance.database;
+    return await db.delete("chat_messages", where: "shop_list_id = ?", whereArgs: [shopListId]);
+  }
+
+  Future<int> markChatMessageActionsExecuted(int chatMessageId, String executedActionsJson) async {
+    Database db = await instance.database;
+    return await db.update(
+      "chat_messages", 
+      {
+        "actions_executed": 1,
+        "executed_actions_json": executedActionsJson
+      }, 
+      where: "id = ?", 
+      whereArgs: [chatMessageId]
+    );
   }
 }

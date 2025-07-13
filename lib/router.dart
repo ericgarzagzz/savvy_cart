@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/screens/add_shop_list_item.dart';
 import 'package:savvy_cart/screens/home_page.dart';
-import 'package:savvy_cart/screens/record_audio.dart';
+import 'package:savvy_cart/screens/shop_list_chat.dart';
 import 'package:savvy_cart/screens/settings.dart';
 import 'package:savvy_cart/screens/shop_list_manager.dart';
 
@@ -22,14 +22,12 @@ final router = GoRouter(
               builder: (context, state) => AddShopListItem(
                 shopListId: int.parse(state.pathParameters['id']!),
               ),
-              routes: [
-                GoRoute(
-                  path: 'record-audio',
-                  builder: (context, state) => RecordAudio(
-                    shopListId: int.parse(state.pathParameters['id']!),
-                  ),
-                ),
-              ],
+            ),
+            GoRoute(
+              path: 'chat',
+              builder: (context, state) => ShopListChat(
+                shopListId: int.parse(state.pathParameters['id']!),
+              ),
             ),
           ],
         ),

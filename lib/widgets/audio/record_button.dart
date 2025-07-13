@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:record/record.dart';
@@ -43,7 +45,11 @@ class _RecordButtonState extends ConsumerState<RecordButton> {
           _audioStreamSubscription?.cancel();
           ref.read(isRecordingProvider.notifier).state = false;
           ref.read(audioStreamProvider.notifier).state = null;
-          ref.read(recordedAudioBytesProvider.notifier).state = _audioBytesBuilder.takeBytes();
+          final recordedBytes = _audioBytesBuilder.takeBytes();
+          if (kDebugMode) {
+            print('Recording stopped. Total bytes: ${recordedBytes.length}');
+          }
+          ref.read(recordedAudioBytesProvider.notifier).state = recordedBytes;
           return;
         }
 

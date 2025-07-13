@@ -244,13 +244,6 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          label: const Text("Add by Voice"),
-          icon: const Icon(Icons.auto_awesome),
-          onPressed: () {
-            context.go("./record-audio");
-          },
-        ),
       ),
     );
   }
