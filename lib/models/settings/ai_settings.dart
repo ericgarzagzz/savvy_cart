@@ -12,4 +12,16 @@ class AiSettings {
       apiKey: apiKey ?? this.apiKey,
     );
   }
+
+  factory AiSettings.fromJson(Map<String, dynamic> json) {
+    return AiSettings(
+      apiKey: json['apiKey'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'apiKey': apiKey,
+    };
+  }
 }

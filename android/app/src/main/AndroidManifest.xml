@@ -2,7 +2,10 @@
     <application
         android:label="Savvy Card"
         android:name="${applicationName}"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_rules"
+        android:dataExtractionRules="@xml/backup_rules">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -43,5 +46,4 @@
         </intent>
     </queries>
 
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 </manifest>
