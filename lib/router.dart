@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/screens/add_shop_list_item.dart';
+import 'package:savvy_cart/screens/ai_settings_screen.dart';
 import 'package:savvy_cart/screens/backup_management_screen.dart';
 import 'package:savvy_cart/screens/home_page.dart';
 import 'package:savvy_cart/screens/shop_list_chat.dart';
@@ -36,6 +37,10 @@ final router = GoRouter(
           path: 'settings',
           builder: (context, state) => const Settings(),
           routes: [
+            GoRoute(
+              path: 'ai',
+              builder: (context, state) => const AiSettingsScreen(),
+            ),
             GoRoute(
               path: 'data-management',
               builder: (context, state) => const BackupManagementScreen(),
