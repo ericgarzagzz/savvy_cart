@@ -247,7 +247,8 @@ class AutoBackupService {
     if (options.includeSettings) {
       final prefs = await SharedPreferences.getInstance();
       final apiKey = prefs.getString('ai_api_key') ?? '';
-      settings = AiSettings(apiKey: apiKey);
+      final model = prefs.getString('ai_model') ?? 'gemini-2.0-flash';
+      settings = AiSettings(apiKey: apiKey, model: model);
     }
 
     return ExportData(
@@ -363,6 +364,7 @@ class AutoBackupService {
   Future<void> _importSettings(AiSettings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ai_api_key', settings.apiKey);
+    await prefs.setString('ai_model', settings.model);
   }
 }
 
