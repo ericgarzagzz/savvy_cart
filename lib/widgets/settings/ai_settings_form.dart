@@ -139,6 +139,19 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
   }
 
   void _navigateToModelSelection(BuildContext context) {
+    final aiSettingsState = ref.read(aiSettingsProvider);
+    
+    // Check if API key is valid before navigating
+    if (!aiSettingsState.hasValidApiKey) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please enter a valid API key first'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+      return;
+    }
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const ModelSelectionScreen(),

@@ -1,27 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/models/model_filters.dart';
+import 'package:savvy_cart/providers/model_filters_provider.dart';
 import 'package:savvy_cart/providers/settings_providers.dart';
 import 'package:savvy_cart/services/gemini_api_verification_service.dart';
+import 'package:savvy_cart/widgets/ai/model_filters_dialog.dart';
 
-class ModelSelectionScreen extends ConsumerWidget {
+class ModelSelectionScreen extends ConsumerStatefulWidget {
   const ModelSelectionScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ModelSelectionScreen> createState() => _ModelSelectionScreenState();
+}
+
+class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
+  @override
+  Widget build(BuildContext context) {
     final aiSettingsState = ref.watch(aiSettingsProvider);
+    final filters = ref.watch(modelFiltersProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select AI Model'),
         backgroundColor: Theme.of(context).colorScheme.surface,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: filters.hasActiveFilters
+                ? FilledButton.tonalIcon(
+                    onPressed: () => _showFiltersDialog(context),
+                    icon: const Icon(Icons.filter_list, size: 18),
+                    label: Text('Filters (${_getActiveFilterCount(filters)})'),
+                    style: FilledButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    ),
+                  )
+                : TextButton.icon(
+                    onPressed: () => _showFiltersDialog(context),
+                    icon: const Icon(Icons.filter_list, size: 18),
+                    label: const Text('Filter'),
+                    style: TextButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    ),
+                  ),
+          ),
+        ],
       ),
-      body: _buildBody(context, ref, aiSettingsState),
+      body: Column(
+        children: [
+          if (filters.hasActiveFilters) _buildFilterNotification(context, filters),
+          Expanded(child: _buildBody(context, ref, aiSettingsState, filters)),
+        ],
+      ),
     );
   }
 
-  Widget _buildBody(BuildContext context, WidgetRef ref, AiSettingsState aiSettingsState) {
+  Widget _buildBody(BuildContext context, WidgetRef ref, AiSettingsState aiSettingsState, ModelFilters filters) {
     final rawModels = aiSettingsState.verificationResult?.geminiModels;
-    final models = rawModels != null ? _sortModels(List.from(rawModels)) : null;
+    final filteredModels = rawModels != null ? _applyFilters(rawModels, filters) : null;
+    final models = filteredModels != null ? _sortModels(List.from(filteredModels)) : null;
 
     if (aiSettingsState.isVerifying) {
       return const Center(
@@ -37,26 +74,41 @@ class ModelSelectionScreen extends ConsumerWidget {
     }
 
     if (models == null || models.isEmpty) {
+      final hasFilters = filters.hasActiveFilters;
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.error_outline,
+              hasFilters ? Icons.filter_list_off : Icons.error_outline,
               size: 64,
-              color: Theme.of(context).colorScheme.error,
+              color: hasFilters 
+                ? Theme.of(context).colorScheme.outline
+                : Theme.of(context).colorScheme.error,
             ),
             const SizedBox(height: 16),
             Text(
-              'No models available',
+              hasFilters ? 'No models match your filters' : 'No models available',
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
             Text(
-              'Please check your API key and connection',
+              hasFilters 
+                ? 'Try adjusting your filter settings to see more models'
+                : 'Unable to load models from the API',
               style: Theme.of(context).textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
+            if (hasFilters) ...[
+              const SizedBox(height: 16),
+              FilledButton.icon(
+                onPressed: () {
+                  ref.read(modelFiltersProvider.notifier).clearFilters();
+                },
+                icon: const Icon(Icons.clear_all),
+                label: const Text('Clear All Filters'),
+              ),
+            ],
           ],
         ),
       );
@@ -198,6 +250,96 @@ class ModelSelectionScreen extends ConsumerWidget {
     return limit.toString();
   }
 
+  List<GeminiModel> _applyFilters(List<GeminiModel> models, ModelFilters filters) {
+    print('\n=== FILTERING MODELS ===');
+    print('Filter settings:');
+    print('  hasThinking: ${filters.hasThinking}');
+    print('  minInputTokens: ${filters.minInputTokens}');
+    print('  maxInputTokens: ${filters.maxInputTokens}');
+    print('  minOutputTokens: ${filters.minOutputTokens}');
+    print('  maxOutputTokens: ${filters.maxOutputTokens}');
+    print('  minTemperature: ${filters.minTemperature}');
+    print('  maxTemperature: ${filters.maxTemperature}');
+    print('\nAvailable models before filtering:');
+    for (final model in models) {
+      print('  ${model.userFriendlyName}:');
+      print('    thinking: ${model.thinking}');
+      print('    inputTokenLimit: ${model.inputTokenLimit}');
+      print('    outputTokenLimit: ${model.outputTokenLimit}');
+      print('    temperature: ${model.temperature}');
+    }
+    
+    final filteredModels = models.where((model) {
+      bool passes = true;
+      
+      // Thinking filter
+      if (filters.hasThinking != null) {
+        if (filters.hasThinking == true && model.thinking != true) {
+          print('  ${model.userFriendlyName} FILTERED OUT: thinking ${model.thinking} != true (Yes filter)');
+          passes = false;
+        } else if (filters.hasThinking == false && model.thinking == true) {
+          print('  ${model.userFriendlyName} FILTERED OUT: thinking ${model.thinking} == true (No filter)');
+          passes = false;
+        }
+        // For "No" filter (false), we accept both false and null
+        // For "Yes" filter (true), we only accept true
+      }
+      
+      // Input tokens filter
+      if (filters.minInputTokens != null || filters.maxInputTokens != null) {
+        final inputTokens = (model.inputTokenLimit ?? 0) / 1000000; // Convert to millions
+        if (filters.minInputTokens != null && inputTokens < filters.minInputTokens!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: inputTokens $inputTokens < ${filters.minInputTokens}');
+          passes = false;
+        }
+        if (filters.maxInputTokens != null && inputTokens > filters.maxInputTokens!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: inputTokens $inputTokens > ${filters.maxInputTokens}');
+          passes = false;
+        }
+      }
+      
+      // Output tokens filter
+      if (filters.minOutputTokens != null || filters.maxOutputTokens != null) {
+        final outputTokens = (model.outputTokenLimit ?? 0) / 1000000; // Convert to millions
+        if (filters.minOutputTokens != null && outputTokens < filters.minOutputTokens!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: outputTokens $outputTokens < ${filters.minOutputTokens}');
+          passes = false;
+        }
+        if (filters.maxOutputTokens != null && outputTokens > filters.maxOutputTokens!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: outputTokens $outputTokens > ${filters.maxOutputTokens}');
+          passes = false;
+        }
+      }
+      
+      // Temperature filter
+      if (filters.minTemperature != null || filters.maxTemperature != null) {
+        final temperature = model.temperature ?? 0;
+        if (filters.minTemperature != null && temperature < filters.minTemperature!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: temperature $temperature < ${filters.minTemperature}');
+          passes = false;
+        }
+        if (filters.maxTemperature != null && temperature > filters.maxTemperature!) {
+          print('  ${model.userFriendlyName} FILTERED OUT: temperature $temperature > ${filters.maxTemperature}');
+          passes = false;
+        }
+      }
+      
+      if (passes) {
+        print('  ${model.userFriendlyName} PASSES filter');
+      }
+      
+      return passes;
+    }).toList();
+    
+    print('\nFiltered models result: ${filteredModels.length} models');
+    for (final model in filteredModels) {
+      print('  - ${model.userFriendlyName}');
+    }
+    print('=== END FILTERING ===\n');
+    
+    return filteredModels;
+  }
+
   List<GeminiModel> _sortModels(List<GeminiModel> models) {
     models.sort((a, b) {
       // Recommended model (gemini-2.0-flash) always goes first
@@ -219,6 +361,130 @@ class ModelSelectionScreen extends ConsumerWidget {
     });
     
     return models;
+  }
+
+  Widget _buildFilterNotification(BuildContext context, ModelFilters filters) {
+    final activeFilters = <String>[];
+    
+    if (filters.hasThinking != null) {
+      activeFilters.add('Thinking: ${filters.hasThinking! ? "Yes" : "No"}');
+    }
+    
+    if (filters.minInputTokens != null || filters.maxInputTokens != null) {
+      final min = filters.minInputTokens?.toStringAsFixed(1) ?? '0.0';
+      final max = filters.maxInputTokens?.toStringAsFixed(1) ?? '10.0';
+      activeFilters.add('Input: ${min}M-${max}M tokens');
+    }
+    
+    if (filters.minOutputTokens != null || filters.maxOutputTokens != null) {
+      final min = filters.minOutputTokens?.toStringAsFixed(1) ?? '0.0';
+      final max = filters.maxOutputTokens?.toStringAsFixed(1) ?? '5.0';
+      activeFilters.add('Output: ${min}M-${max}M tokens');
+    }
+    
+    if (filters.minTemperature != null || filters.maxTemperature != null) {
+      final min = filters.minTemperature?.toStringAsFixed(1) ?? '0.0';
+      final max = filters.maxTemperature?.toStringAsFixed(1) ?? '2.0';
+      activeFilters.add('Temperature: ${min}-${max}');
+    }
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest.withOpacity(0.5),
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+            width: 1,
+          ),
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 2),
+            child: Icon(
+              Icons.filter_list,
+              size: 16,
+              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                Text(
+                  'Filtered by: ',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
+                ...activeFilters.map((filter) => Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 1),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.5),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      filter,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                )),
+              ],
+            ),
+          ),
+          const SizedBox(width: 8),
+          GestureDetector(
+            onTap: () {
+              ref.read(modelFiltersProvider.notifier).clearFilters();
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.errorContainer.withOpacity(0.3),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                'Clear',
+                style: TextStyle(
+                  fontSize: 11,
+                  color: Theme.of(context).colorScheme.error,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  int _getActiveFilterCount(ModelFilters filters) {
+    int count = 0;
+    if (filters.hasThinking != null) count++;
+    if (filters.minInputTokens != null || filters.maxInputTokens != null) count++;
+    if (filters.minOutputTokens != null || filters.maxOutputTokens != null) count++;
+    if (filters.minTemperature != null || filters.maxTemperature != null) count++;
+    return count;
+  }
+
+  void _showFiltersDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => const ModelFiltersDialog(),
+    );
   }
 
   void _selectModel(BuildContext context, WidgetRef ref, String modelName) {
