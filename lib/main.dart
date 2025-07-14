@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/find_locale.dart';
 import 'package:intl/intl.dart';
-import 'package:json_theme/json_theme.dart';
-import 'package:flutter/services.dart';
 import 'package:savvy_cart/router.dart';
-import 'dart:convert';
+import 'package:savvy_cart/providers/theme_providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,36 +11,32 @@ void main() async {
   final systemCurrentLocale = await findSystemLocale();
   Intl.defaultLocale = systemCurrentLocale;
 
-  final themeStr = await rootBundle.loadString("assets/appainter_theme.json");
-  final themeJson = jsonDecode(themeStr);
-  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
-
   runApp(
     ProviderScope(
-      child: MyApp(
-          theme: theme.copyWith(
-            pageTransitionsTheme: PageTransitionsTheme(
-              builders: {
-                for (var platform in TargetPlatform.values)
-                  platform: FadeForwardsPageTransitionsBuilder()
-              },
-            )
-          )
-      ),
+      child: MyApp(),
     )
   );
 }
 
-class MyApp extends StatelessWidget {
-  final ThemeData theme;
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
 
-  const MyApp({super.key, required this.theme});
-
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeService = ref.watch(themeServiceProvider);
+    final isDarkMode = ref.watch(isDarkModeProvider);
+    
+    // Initialize theme service
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (themeService.lightTheme == null || themeService.darkTheme == null) {
+        themeService.initialize();
+      }
+    });
+
     return MaterialApp.router(
-      theme: theme,
+      theme: themeService.lightTheme,
+      darkTheme: themeService.darkTheme,
+      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       routerConfig: router,
     );
   }

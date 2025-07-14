@@ -248,7 +248,8 @@ class AutoBackupService {
       final prefs = await SharedPreferences.getInstance();
       final apiKey = prefs.getString('ai_api_key') ?? '';
       final model = prefs.getString('ai_model') ?? 'gemini-2.0-flash';
-      settings = AiSettings(apiKey: apiKey, model: model);
+      final themeMode = prefs.getString('theme_mode');
+      settings = AiSettings(apiKey: apiKey, model: model, themeMode: themeMode);
     }
 
     return ExportData(
@@ -365,6 +366,11 @@ class AutoBackupService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ai_api_key', settings.apiKey);
     await prefs.setString('ai_model', settings.model);
+    
+    // Import theme settings if available
+    if (settings.themeMode != null) {
+      await prefs.setString('theme_mode', settings.themeMode!);
+    }
   }
 }
 

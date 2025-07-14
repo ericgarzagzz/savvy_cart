@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:savvy_cart/providers/settings_providers.dart';
+import 'package:savvy_cart/providers/theme_providers.dart';
+import 'package:savvy_cart/services/theme_service.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
@@ -10,6 +12,9 @@ class Settings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final aiSettingsState = ref.watch(aiSettingsProvider);
+    final themeService = ref.watch(themeServiceProvider);
+    final currentThemeMode = ref.watch(themeModeProvider);
+    
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -22,6 +27,18 @@ class Settings extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text("Appearance", style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(height: 16),
+                  Card(
+                    child: ListTile(
+                      leading: Icon(Icons.palette),
+                      title: Text('Theme'),
+                      subtitle: Text('Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}'),
+                      trailing: Icon(Icons.chevron_right),
+                      onTap: () => _showThemeDialog(context, ref),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
                   Text("AI Assistant", style: Theme.of(context).textTheme.titleLarge),
                   const SizedBox(height: 16),
                   Card(
@@ -80,5 +97,51 @@ class Settings extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  void _showThemeDialog(BuildContext context, WidgetRef ref) {
+    final themeService = ref.read(themeServiceProvider);
+    final currentThemeMode = ref.read(themeModeProvider);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Select Theme'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: AppThemeMode.values.map((mode) {
+            return RadioListTile<AppThemeMode>(
+              title: Text(themeService.getThemeModeDisplayName(mode)),
+              subtitle: Text(_getThemeModeDescription(mode)),
+              value: mode,
+              groupValue: currentThemeMode,
+              onChanged: (AppThemeMode? value) {
+                if (value != null) {
+                  themeService.setThemeMode(value);
+                  Navigator.of(context).pop();
+                }
+              },
+            );
+          }).toList(),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  String _getThemeModeDescription(AppThemeMode mode) {
+    switch (mode) {
+      case AppThemeMode.light:
+        return 'Always use light theme';
+      case AppThemeMode.dark:
+        return 'Always use dark theme';
+      case AppThemeMode.system:
+        return 'Follow system setting';
+    }
   }
 }
