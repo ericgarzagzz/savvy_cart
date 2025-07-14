@@ -21,7 +21,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select AI Model'),
+        title: const Text('Select Gemini™ Model'),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
           Padding(

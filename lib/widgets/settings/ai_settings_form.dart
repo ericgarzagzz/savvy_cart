@@ -75,7 +75,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
               });
             },
             decoration: InputDecoration(
-              label: Text("Google Gemini API Key"),
+              label: Text("Google™ Gemini™ API Key"),
               border: const OutlineInputBorder(),
               errorText: aiSettingsState.error,
               prefixIcon: Icon(Icons.key),
@@ -98,7 +98,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
             borderRadius: BorderRadius.circular(4),
             child: InputDecorator(
               decoration: const InputDecoration(
-                label: Text("Gemini Model"),
+                label: Text("Gemini™ Model"),
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.memory),
                 suffixIcon: Icon(Icons.arrow_forward_ios, size: 16),
@@ -182,17 +182,17 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
     
     // Create user-friendly display names
     if (cleanModel == 'gemini-2.0-flash') {
-      return 'Gemini 2.0 Flash';
+      return 'Gemini™ 2.0 Flash';
     } else if (cleanModel == 'gemini-1.5-flash') {
-      return 'Gemini 1.5 Flash';
+      return 'Gemini™ 1.5 Flash';
     } else if (cleanModel == 'gemini-1.5-pro') {
-      return 'Gemini 1.5 Pro';
+      return 'Gemini™ 1.5 Pro';
     } else if (cleanModel == 'gemini-pro') {
-      return 'Gemini Pro';
+      return 'Gemini™ Pro';
     } else if (cleanModel.startsWith('gemini-')) {
       // For any other gemini models, format them nicely
       return cleanModel
-          .replaceAll('gemini-', 'Gemini ')
+          .replaceAll('gemini-', 'Gemini™ ')
           .replaceAll('-', ' ')
           .split(' ')
           .map((word) => word[0].toUpperCase() + word.substring(1))

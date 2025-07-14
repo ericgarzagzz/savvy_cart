@@ -82,7 +82,7 @@ class AiSettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Set up your Google Gemini API key to enable AI features',
+              'Set up your Google™ Gemini™ API key to enable AI features',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
@@ -190,7 +190,7 @@ class AiSettingsScreen extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8),
                       Text(
-                        'About Google Gemini',
+                        'About Google™ Gemini™',
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -198,10 +198,11 @@ class AiSettingsScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildInfoPoint(context, 'Get your free API key from Google AI Studio'),
+                  _buildInfoPoint(context, 'Get your free API key from Google™ AI Studio'),
                   _buildInfoPoint(context, 'AI features include chat assistance and smart suggestions'),
                   _buildInfoPoint(context, 'Your API key is stored securely on your device'),
-                  _buildInfoPoint(context, 'API usage may be subject to Google\'s rate limits'),
+                  _buildInfoPoint(context, 'API usage may be subject to Google™\'s rate limits'),
+                  _buildInfoPoint(context, 'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.'),
                 ],
               ),
             ),
