@@ -34,7 +34,7 @@ class _ExportDialogState extends State<ExportDialog> {
             const Text('Choose what to include in your backup:'),
             const SizedBox(height: 16),
             _buildOptionCheckbox(
-              'Settings (API Keys)',
+              'Settings',
               _options.includeSettings,
               (value) => setState(() {
                 _options = _options.copyWith(includeSettings: value);
@@ -107,7 +107,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Your API key will not be included in this export.',
+                        'Your settings will not be included in this export.',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,

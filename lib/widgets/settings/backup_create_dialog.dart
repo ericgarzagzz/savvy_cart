@@ -61,7 +61,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
             const Text('Choose additional data to include:'),
             const SizedBox(height: 12),
             _buildOptionCheckbox(
-              'Settings (API Keys)',
+              'Settings',
               _options.includeSettings,
               (value) => setState(() {
                 _options = _options.copyWith(includeSettings: value);
@@ -98,7 +98,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Your API key will not be included in this backup.',
+                        'Your settings will not be included in this backup.',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,

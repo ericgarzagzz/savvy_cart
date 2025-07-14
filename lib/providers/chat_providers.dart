@@ -160,7 +160,7 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
       throw Exception('API key not configured. Please set your Gemini API key in settings.');
     }
     
-    final service = GeminiShopListService(apiKey);
+    final service = GeminiShopListService(apiKey, model: aiSettingsState.settings.model);
     final currentShopListItems = await ref.read(
       getShopListItemsProvider(shopListId).future,
     );
@@ -252,7 +252,7 @@ final executeActionsProvider = Provider.family<Future<void> Function(GeminiRespo
     if (apiKey.isEmpty) {
       throw Exception('API key not configured. Please set your Gemini API key in settings.');
     }
-    final service = GeminiShopListService(apiKey);
+    final service = GeminiShopListService(apiKey, model: aiSettingsState.settings.model);
 
     await service.executeGeminiActions(geminiResponse, shopListId);
 

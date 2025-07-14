@@ -49,6 +49,7 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
       : super(AiSettingsState(
           settings: AiSettings(
             apiKey: '',
+            model: 'gemini-2.0-flash',
           ),
           isLoading: true,
         )) {
@@ -59,10 +60,12 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
     try {
       final prefs = await SharedPreferences.getInstance();
       final apiKey = prefs.getString('ai_api_key') ?? '';
+      final model = prefs.getString('ai_model') ?? 'gemini-2.0-flash';
 
       state = state.copyWith(
         settings: AiSettings(
           apiKey: apiKey,
+          model: model,
         ),
         isLoading: false,
       );
@@ -77,6 +80,7 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
   Future<void> saveSettings(AiSettings settings) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ai_api_key', settings.apiKey);
+    await prefs.setString('ai_model', settings.model);
     state = state.copyWith(settings: settings);
     
     // Auto-verify the API key after saving
@@ -86,6 +90,15 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
       // Clear verification result if API key is empty
       state = state.copyWith(verificationResult: null);
     }
+  }
+
+  Future<void> updateModelOnly(String model) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('ai_model', model);
+    state = state.copyWith(
+      settings: state.settings.copyWith(model: model),
+    );
+    // No API verification needed - just update the model setting
   }
 
   Future<void> verifyApiKey() async {

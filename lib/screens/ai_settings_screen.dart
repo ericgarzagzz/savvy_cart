@@ -161,44 +161,6 @@ class AiSettingsScreen extends ConsumerWidget {
                           ),
                       ],
                     ),
-                    if (aiSettingsState.verificationResult?.availableModels?.isNotEmpty == true) ...[
-                      const SizedBox(height: 12),
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade50,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.blue.shade200),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Available Models (${aiSettingsState.verificationResult!.availableModels!.length})',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.blue.shade700,
-                                fontSize: 12,
-                              ),
-                            ),
-                            const SizedBox(height: 4),
-                            Text(
-                              aiSettingsState.verificationResult!.availableModels!
-                                  .take(3)
-                                  .map((model) => model.split('/').last)
-                                  .join(', ') +
-                                  (aiSettingsState.verificationResult!.availableModels!.length > 3 
-                                      ? '...' : ''),
-                              style: TextStyle(
-                                color: Colors.blue.shade600,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
                   ],
                 ),
               ),

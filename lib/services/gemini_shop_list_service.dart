@@ -11,9 +11,13 @@ import 'package:savvy_cart/models/gemini_response.dart';
 
 class GeminiShopListService {
   final String _geminiApiKey;
-  static const String _baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  final String _model;
+  static const String _baseUrlTemplate = 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent';
 
-  GeminiShopListService(this._geminiApiKey);
+  GeminiShopListService(this._geminiApiKey, {String? model}) 
+    : _model = model ?? 'gemini-2.0-flash';
+    
+  String get _baseUrl => _baseUrlTemplate.replaceAll('{model}', _model);
 
   Future<GeminiResponse> processTextInstructions(
       String userMessage, List<ShopListItem> currentShopList) async {
