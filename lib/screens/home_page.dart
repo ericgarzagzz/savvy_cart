@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
                 Text("SavvyCart",
                   style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF403A3A),
+                    color: Theme.of(context).colorScheme.onSurface,
                   ),
                 ),
               ],
