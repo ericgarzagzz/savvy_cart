@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:savvy_cart/providers/settings_providers.dart';
 import 'package:savvy_cart/providers/theme_providers.dart';
+import 'package:savvy_cart/providers/version_providers.dart';
 import 'package:savvy_cart/services/theme_service.dart';
 
 class Settings extends ConsumerWidget {
@@ -88,6 +89,33 @@ class Settings extends ConsumerWidget {
                       subtitle: Text('Manage automatic and manual backups'),
                       trailing: Icon(Icons.chevron_right),
                       onTap: () => context.push('/settings/data-management'),
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Text("About", style: Theme.of(context).textTheme.titleLarge),
+                  const SizedBox(height: 16),
+                  Card(
+                    child: Consumer(
+                      builder: (context, ref, child) {
+                        final versionAsync = ref.watch(packageInfoProvider);
+                        return versionAsync.when(
+                          data: (packageInfo) => ListTile(
+                            leading: Icon(Icons.info_outline),
+                            title: Text('Version'),
+                            subtitle: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
+                          ),
+                          loading: () => ListTile(
+                            leading: Icon(Icons.info_outline),
+                            title: Text('Version'),
+                            subtitle: Text('Loading...'),
+                          ),
+                          error: (_, __) => ListTile(
+                            leading: Icon(Icons.info_outline),
+                            title: Text('Version'),
+                            subtitle: Text('1.0.0+1'),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 ],
