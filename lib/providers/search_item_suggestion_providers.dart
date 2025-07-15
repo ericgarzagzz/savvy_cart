@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fuzzy/fuzzy.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/models/shop_list_item/SearchResultItem.dart';
+import 'package:savvy_cart/models/models.dart';
 
 final searchResultsProvider = FutureProvider.family<List<SearchResultItem>, (int, String)>((ref, params) async {
   final shopListId = params.$1;

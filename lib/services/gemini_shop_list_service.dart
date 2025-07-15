@@ -4,10 +4,9 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/shop_list_item.dart';
-import 'package:savvy_cart/domain/types/money.dart';
-import 'package:savvy_cart/models/gemini_action.dart';
-import 'package:savvy_cart/models/gemini_response.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class GeminiShopListService {
   final String _geminiApiKey;

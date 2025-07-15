@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/services/theme_service.dart';
+import 'package:savvy_cart/services/services.dart';
 
 final themeServiceProvider = ChangeNotifierProvider<ThemeService>((ref) {
   return ThemeService();

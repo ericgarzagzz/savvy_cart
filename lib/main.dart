@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/find_locale.dart';
 import 'package:intl/intl.dart';
 import 'package:savvy_cart/router.dart';
-import 'package:savvy_cart/providers/theme_providers.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

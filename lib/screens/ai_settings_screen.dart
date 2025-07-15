@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:savvy_cart/providers/settings_providers.dart';
-import 'package:savvy_cart/services/gemini_api_verification_service.dart';
-import 'package:savvy_cart/widgets/settings/ai_settings_form.dart';
+import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class AiSettingsScreen extends ConsumerWidget {
   const AiSettingsScreen({super.key});

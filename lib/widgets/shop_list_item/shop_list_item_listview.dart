@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/providers/shop_list_items_providers.dart';
-import 'package:savvy_cart/widgets/shop_list_item/shop_list_item_listtile.dart';
+import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListItemListview extends ConsumerWidget {
   final int shopListId;

@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:savvy_cart/services/version_service.dart';
+import 'package:savvy_cart/services/services.dart';
 
 final versionServiceProvider = Provider<VersionService>((ref) {
   return VersionService();

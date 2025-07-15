@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:savvy_cart/models/gemini_action.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class ExecutedActionsReviewSheet extends StatelessWidget {
   final List<GeminiAction> executedActions;

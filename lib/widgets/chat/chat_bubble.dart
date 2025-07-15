@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:savvy_cart/models/chat/chat_message_view_model.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class ChatBubble extends StatelessWidget {
   final ChatMessageViewModel messageViewModel;

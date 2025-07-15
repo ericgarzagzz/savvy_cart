@@ -6,13 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/chat_message.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
-import 'package:savvy_cart/domain/models/shop_list_item.dart';
-import 'package:savvy_cart/domain/models/suggestion.dart';
-import 'package:savvy_cart/models/export/export_data.dart';
-import 'package:savvy_cart/models/export/export_options.dart';
-import 'package:savvy_cart/models/settings/ai_settings.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/models/models.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AutoBackupService {

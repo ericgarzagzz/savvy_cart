@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/providers/search_item_suggestion_providers.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 class SuggestionsMutationNotifier extends StateNotifier<AsyncValue<void>> {
   SuggestionsMutationNotifier(this.ref) : super(const AsyncValue.data(null));

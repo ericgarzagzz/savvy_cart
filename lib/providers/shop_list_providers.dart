@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
-import 'package:savvy_cart/domain/types/money.dart';
-import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
+import 'package:savvy_cart/models/models.dart';
 
 final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref) async {
   var shopLists = await DatabaseHelper.instance.getShopLists();

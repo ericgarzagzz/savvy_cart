@@ -1,11 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/screens/add_shop_list_item.dart';
-import 'package:savvy_cart/screens/ai_settings_screen.dart';
-import 'package:savvy_cart/screens/backup_management_screen.dart';
-import 'package:savvy_cart/screens/home_page.dart';
-import 'package:savvy_cart/screens/shop_list_chat.dart';
-import 'package:savvy_cart/screens/settings.dart';
-import 'package:savvy_cart/screens/shop_list_manager.dart';
+import 'package:savvy_cart/screens/screens.dart';
 
 final router = GoRouter(
   routes: [

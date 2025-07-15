@@ -1,5 +1,5 @@
 import 'package:decimal/decimal.dart';
-import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/domain/types/types.dart';
 
 class ShopListItem {
   final int? id;

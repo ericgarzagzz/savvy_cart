@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
-import 'package:savvy_cart/widgets/shop_list/delete_shop_list_dialog.dart';
+import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListListTile extends StatelessWidget {
   final ShopListViewModel shopList;

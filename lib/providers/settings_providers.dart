@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/settings/ai_settings.dart';
-import 'package:savvy_cart/services/gemini_api_verification_service.dart';
+import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/services/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AiSettingsState {

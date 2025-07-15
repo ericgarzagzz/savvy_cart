@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/providers/suggestions_mutation_providers.dart';
-import 'package:savvy_cart/widgets/generic_alert_dialog.dart';
-import 'package:savvy_cart/widgets/generic_error_scaffold.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class AddShopListItem extends ConsumerStatefulWidget {
   final int shopListId;

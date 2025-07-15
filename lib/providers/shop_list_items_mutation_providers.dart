@@ -1,11 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:decimal/decimal.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/shop_list_item.dart';
-import 'package:savvy_cart/domain/types/money.dart';
-import 'package:savvy_cart/providers/search_item_suggestion_providers.dart';
-import 'package:savvy_cart/providers/shop_list_items_providers.dart';
-import 'package:savvy_cart/providers/shop_list_providers.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
   ShopListItemMutationNotifier(this.ref) : super(const AsyncValue.data(null));

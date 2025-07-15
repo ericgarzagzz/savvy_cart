@@ -1,7 +1,6 @@
 import 'dart:convert';
-import 'package:savvy_cart/domain/models/chat_message.dart';
-import 'package:savvy_cart/models/gemini_action.dart';
-import 'package:savvy_cart/models/gemini_response.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class ChatMessageViewModel {
   final ChatMessage chatMessage;

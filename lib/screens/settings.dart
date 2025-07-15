@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:savvy_cart/providers/settings_providers.dart';
-import 'package:savvy_cart/providers/theme_providers.dart';
-import 'package:savvy_cart/providers/version_providers.dart';
-import 'package:savvy_cart/services/theme_service.dart';
+import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/services/services.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});

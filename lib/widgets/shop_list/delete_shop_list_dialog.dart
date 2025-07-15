@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/models/shop_list/shop_list_view_model.dart';
+import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class DeleteShopListDialog extends ConsumerStatefulWidget {

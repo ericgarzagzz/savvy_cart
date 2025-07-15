@@ -1,4 +1,4 @@
-import 'package:savvy_cart/models/export/export_data.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class ImportPreview {
   final ExportData exportData;

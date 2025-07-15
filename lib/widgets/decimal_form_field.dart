@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:savvy_cart/formatter/formatters.dart';
+import 'package:savvy_cart/formatters/formatters.dart';
 
 class DecimalFormField extends FormField<String> {
   final TextEditingController? controller;

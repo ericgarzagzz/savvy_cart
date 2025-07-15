@@ -1,8 +1,5 @@
-import 'package:savvy_cart/domain/models/chat_message.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
-import 'package:savvy_cart/domain/models/shop_list_item.dart';
-import 'package:savvy_cart/domain/models/suggestion.dart';
-import 'package:savvy_cart/models/settings/ai_settings.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class ExportData {
   final String formatVersion;

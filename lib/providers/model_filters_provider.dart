@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/model_filters.dart';
+import 'package:savvy_cart/models/models.dart';
 
 // Riverpod provider for model filters
 final modelFiltersProvider = StateNotifierProvider<ModelFiltersNotifier, ModelFilters>((ref) {

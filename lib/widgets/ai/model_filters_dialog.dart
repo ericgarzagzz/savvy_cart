@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/model_filters.dart';
-import 'package:savvy_cart/providers/model_filters_provider.dart';
+import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 class ModelFiltersDialog extends ConsumerStatefulWidget {
   const ModelFiltersDialog({super.key});

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/model_filters.dart';
-import 'package:savvy_cart/providers/model_filters_provider.dart';
-import 'package:savvy_cart/providers/settings_providers.dart';
-import 'package:savvy_cart/services/gemini_api_verification_service.dart';
-import 'package:savvy_cart/widgets/ai/model_filters_dialog.dart';
+import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class ModelSelectionScreen extends ConsumerStatefulWidget {
   const ModelSelectionScreen({super.key});

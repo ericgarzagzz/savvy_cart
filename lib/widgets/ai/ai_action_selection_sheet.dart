@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/gemini_action.dart';
-import 'package:savvy_cart/models/gemini_response.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class AiActionSelectionSheet extends ConsumerStatefulWidget {
   final GeminiResponse geminiResponse;

@@ -1,5 +1,5 @@
-import 'package:savvy_cart/domain/models/shop_list.dart';
-import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
 
 class ShopListViewModel {
   final int? id;

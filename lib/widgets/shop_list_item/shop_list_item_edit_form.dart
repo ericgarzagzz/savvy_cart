@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/domain/models/shop_list_item.dart';
-import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/providers/providers.dart';
-import 'package:savvy_cart/widgets/decimal_form_field.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListItemEditForm extends ConsumerStatefulWidget {
   final ShopListItem shopListItem;

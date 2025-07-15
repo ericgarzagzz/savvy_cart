@@ -1,14 +1,11 @@
 import 'dart:async';
 
 import 'package:decimal/decimal.dart';
-import 'package:savvy_cart/domain/models/shop_list.dart';
-import 'package:savvy_cart/domain/models/suggestion.dart';
-import 'package:savvy_cart/domain/models/chat_message.dart';
-import 'package:savvy_cart/domain/types/money.dart';
+import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/domain/types/types.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import 'domain/models/shop_list_item.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();

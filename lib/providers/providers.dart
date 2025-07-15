@@ -5,3 +5,7 @@ export 'search_item_suggestion_providers.dart';
 export 'audio_provider.dart';
 export 'chat_providers.dart';
 export 'version_providers.dart';
+export 'theme_providers.dart';
+export 'model_filters_provider.dart';
+export 'settings_providers.dart';
+export 'suggestions_mutation_providers.dart';

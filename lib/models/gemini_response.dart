@@ -1,4 +1,4 @@
-import 'package:savvy_cart/models/gemini_action.dart';
+import 'package:savvy_cart/models/models.dart';
 
 class GeminiResponse {
   final String? prompt;

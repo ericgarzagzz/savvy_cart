@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/models/gemini_action.dart';
-import 'package:savvy_cart/models/gemini_response.dart';
+import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
-import 'package:savvy_cart/providers/chat_providers.dart';
-import 'package:savvy_cart/widgets/ai/ai_action_selection_sheet.dart';
-import 'package:savvy_cart/widgets/ai/executed_actions_review_sheet.dart';
-import 'package:savvy_cart/widgets/chat/chat_bubble.dart';
-import 'package:savvy_cart/widgets/generic_error_scaffold.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListChat extends ConsumerStatefulWidget {
   final int shopListId;

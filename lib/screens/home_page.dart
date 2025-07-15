@@ -2,8 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/widgets/shop_list/create_shop_list.dart';
-import 'package:savvy_cart/widgets/shop_list/shop_list_listview.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
