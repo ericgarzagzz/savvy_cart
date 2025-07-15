@@ -26,16 +26,35 @@ class MyApp extends ConsumerWidget {
     final themeService = ref.watch(themeServiceProvider);
     final isDarkMode = ref.watch(isDarkModeProvider);
     
-    // Initialize theme service
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (themeService.lightTheme == null || themeService.darkTheme == null) {
-        themeService.initialize();
-      }
-    });
+    // Initialize theme service synchronously if not already initialized
+    if (themeService.lightTheme == null || themeService.darkTheme == null) {
+      return FutureBuilder(
+        future: themeService.initialize(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MaterialApp.router(
+              theme: themeService.lightTheme ?? ThemeData.light(),
+              darkTheme: themeService.darkTheme ?? ThemeData.dark(),
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              routerConfig: router,
+            );
+          }
+          
+          // Show loading screen while themes are loading
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          );
+        },
+      );
+    }
 
     return MaterialApp.router(
-      theme: themeService.lightTheme,
-      darkTheme: themeService.darkTheme,
+      theme: themeService.lightTheme ?? ThemeData.light(),
+      darkTheme: themeService.darkTheme ?? ThemeData.dark(),
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       routerConfig: router,
     );

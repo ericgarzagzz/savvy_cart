@@ -92,8 +92,15 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
           )
         );
       }
+      
+      // Fallback to default themes if decoding fails
+      _lightTheme ??= ThemeData.light();
+      _darkTheme ??= ThemeData.dark();
     } catch (e) {
       debugPrint('Error loading themes: $e');
+      // Fallback to default themes
+      _lightTheme = ThemeData.light();
+      _darkTheme = ThemeData.dark();
     }
   }
 
