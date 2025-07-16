@@ -24,3 +24,4 @@ export 'shop_list_item/shop_list_item_listtile.dart';
 export 'shop_list_item/shop_list_item_listview.dart';
 export 'shop_list_item/shop_list_item_name_edit_dialog.dart';
 export 'shopping_insights_button.dart';
+export 'shopping_insights_section.dart';

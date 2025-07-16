@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,8 +60,7 @@ class _HomePageState extends State<HomePage> {
               delegate: SliverChildListDelegate([
                 CreateShopList(),
                 Container(height: 24),
-                ShoppingInsightsButton(),
-                Container(height: 32),
+                ShoppingInsightsSection(),
               ]),
             ),
           ),
