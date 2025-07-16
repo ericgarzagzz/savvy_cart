@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
 
@@ -76,6 +78,17 @@ class Settings extends ConsumerWidget {
               ),
             ],
           ),
+          if (kDebugMode) SettingsSection(
+            title: Text('Developer'),
+            tiles: [
+              SettingsTile.navigation(
+                leading: Icon(Icons.delete_forever),
+                title: Text('Delete Database'),
+                value: Text('Clear all data'),
+                onPressed: (context) => _showDeleteDatabaseDialog(context),
+              ),
+            ],
+          ),
           SettingsSection(
             title: Text('About'),
             tiles: [
@@ -97,6 +110,42 @@ class Settings extends ConsumerWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showDeleteDatabaseDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete Database'),
+        content: Text('This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              try {
+                await DatabaseHelper.instance.purgeDatabase();
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Database deleted successfully')),
+                );
+              } catch (e) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Error deleting database: $e')),
+                );
+              }
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Theme.of(context).colorScheme.error,
+            ),
+            child: Text('Delete'),
           ),
         ],
       ),

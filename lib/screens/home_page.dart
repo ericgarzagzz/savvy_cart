@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
@@ -71,12 +69,6 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      floatingActionButton: kDebugMode ? FloatingActionButton(
-        child: Icon(Icons.delete_forever),
-        onPressed: () async {
-          await DatabaseHelper.instance.purgeDatabase();
-        },
-      ) : null,
     );
   }
 }
