@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
@@ -289,7 +288,6 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
   Widget build(BuildContext context) {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
     final searchResultsAsync = ref.watch(searchResultsProvider((widget.shopListId, _searchQuery)));
-    final addState = ref.watch(shopListItemMutationProvider);
 
     return getShopListByIdAsync.when(
       loading: () => Container(

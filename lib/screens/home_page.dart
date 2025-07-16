@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class HomePage extends ConsumerStatefulWidget {

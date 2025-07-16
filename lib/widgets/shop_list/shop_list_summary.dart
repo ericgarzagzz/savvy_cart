@@ -78,8 +78,7 @@ class _SummaryStatWidget extends StatelessWidget {
   final bool isSecondary;
 
   const _SummaryStatWidget({
-    super.key, 
-    required this.label, 
+    required this.label,
     required this.amount,
     required this.color,
     this.isPrimary = false,
