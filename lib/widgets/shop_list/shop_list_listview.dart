@@ -29,7 +29,14 @@ class ShopListListview extends ConsumerWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Shop lists", style: Theme.of(context).textTheme.bodyLarge),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Your Lists", style: Theme.of(context).textTheme.bodyLarge
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                        Text("${data.length} lists", style: Theme.of(context).textTheme.bodyMedium),
+                      ],
+                    ),
                     SizedBox(height: 16),
                     ShopListListTile(shopList: data[index]),
                   ],
