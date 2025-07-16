@@ -138,10 +138,7 @@ class DatabaseHelper {
         text TEXT NOT NULL,
         is_user INTEGER NOT NULL,
         timestamp INTEGER NOT NULL,
-        gemini_response_json TEXT,
-        actions_executed INTEGER NOT NULL DEFAULT 0,
-        executed_actions_json TEXT,
-        is_error INTEGER NOT NULL DEFAULT 0
+        gemini_response_json TEXT
       )
     ''');
   }
