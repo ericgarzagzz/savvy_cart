@@ -5,6 +5,7 @@ export 'audio/line_visualizer.dart';
 export 'audio/record_button.dart';
 export 'chat/chat_bubble.dart';
 export 'decimal_form_field.dart';
+export 'frequently_bought_section.dart';
 export 'generic_alert_dialog.dart';
 export 'generic_error_scaffold.dart';
 export 'settings/ai_settings_form.dart';

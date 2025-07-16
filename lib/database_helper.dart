@@ -485,4 +485,27 @@ class DatabaseHelper {
     );
   }
 
+  Future<List<Map<String, dynamic>>> getFrequentlyBoughtItemsWithStatus({int limit = 5, required int shopListId}) async {
+    Database db = await instance.database;
+    
+    String query = '''
+      SELECT 
+        items.name,
+        COUNT(*) as frequency,
+        CASE WHEN current_list.name IS NOT NULL THEN 1 ELSE 0 END as is_in_current_list,
+        current_list.id as shop_list_item_id
+      FROM shop_list_items items
+      LEFT JOIN shop_list_items current_list 
+        ON LOWER(items.name) = LOWER(current_list.name) 
+        AND current_list.shop_list_id = ?
+      GROUP BY LOWER(items.name)
+      ORDER BY frequency DESC
+      LIMIT ?
+    ''';
+    
+    var result = await db.rawQuery(query, [shopListId, limit]);
+    
+    return result;
+  }
+
 }

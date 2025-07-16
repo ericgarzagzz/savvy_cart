@@ -113,6 +113,32 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     }
   }
 
+  void _handleFrequentItemTap(String itemName, bool isInShopList, int? shopListItemId) async {
+    final mutationNotifier = ref.read(shopListItemMutationProvider.notifier);
+    
+    if (isInShopList && shopListItemId != null) {
+      // Remove item from shopping list
+      await mutationNotifier.deleteItem(shopListItemId);
+    } else {
+      // Add item to shopping list
+      await mutationNotifier.addItem(widget.shopListId, itemName);
+    }
+
+    final mutationState = ref.read(shopListItemMutationProvider);
+    mutationState.whenOrNull(
+      error: (error, _) {
+        if (mounted) {
+          GenericAlertDialog.show(
+            context,
+            title: 'Error',
+            message: error.toString(),
+            confirmText: 'OK',
+          );
+        }
+      },
+    );
+  }
+
   void _handleItemRemove(String itemName, bool isInShopList, int? shopListItemId) async {
     final title = isInShopList && shopListItemId != null ?
         "Remove Item and Suggestion?" :
@@ -151,6 +177,114 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     }
   }
 
+  Widget _buildSearchResults(List<dynamic> results) {
+    final hasSearchQuery = _searchQuery.isNotEmpty;
+    final resultCount = results.length;
+
+    if (resultCount == 0) {
+      return SliverToBoxAdapter(
+        child: Column(
+          children: [
+            if (hasSearchQuery) ...[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Search Results (0)',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
+              Icon(
+                Icons.search_off,
+                size: 64,
+                color: Theme.of(context).colorScheme.outline,
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'No items found',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Try a different search term or add "${_searchQuery}" as a new item',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              FilledButton.icon(
+                onPressed: () => _handleSubmit(),
+                icon: const Icon(Icons.add),
+                label: Text('Add "${_searchQuery}"'),
+              ),
+            ],
+            const SizedBox(height: 32),
+          ],
+        ),
+      );
+    }
+
+    return SliverList(
+      delegate: SliverChildBuilderDelegate(
+        (context, index) {
+          if (index == 0) {
+            // Header
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(
+                hasSearchQuery ? 'Search Results ($resultCount)' : 'All Items',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            );
+          }
+
+          final item = results[index - 1];
+          final addState = ref.watch(shopListItemMutationProvider);
+          final isLoading = addState.isLoading;
+
+          return ListTile(
+            key: Key('${item.name}_${item.isInShopList}'),
+            leading: Checkbox(
+              value: item.isInShopList,
+              onChanged: isLoading ? null : (_) => _handleItemTap(
+                item.name,
+                item.isInShopList,
+                item.shopListItemId,
+              ),
+            ),
+            title: Text(item.name),
+            trailing: IconButton(
+              icon: const Icon(Icons.delete),
+              color: Theme.of(context).colorScheme.error,
+              onPressed: () => _handleItemRemove(
+                item.name,
+                item.isInShopList,
+                item.shopListItemId,
+              ),
+            ),
+            onTap: isLoading ? null : () => _handleItemTap(
+              item.name,
+              item.isInShopList,
+              item.shopListItemId,
+            ),
+            enabled: !isLoading,
+          );
+        },
+        childCount: resultCount + 1, // +1 for header
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
@@ -186,6 +320,12 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                 ),
               ),
             ),
+            SliverToBoxAdapter(
+              child: FrequentlyBoughtSection(
+                shopListId: widget.shopListId,
+                onItemTap: _handleFrequentItemTap,
+              ),
+            ),
             searchResultsAsync.when(
               loading: () => const SliverToBoxAdapter(
                 child: Padding(
@@ -202,43 +342,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                   ),
                 ),
               ),
-              data: (results) => SliverList(
-                delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                    final item = results[index];
-                    final isLoading = addState.isLoading;
-
-                    return ListTile(
-                      key: Key(shopList.name),
-                      leading: Checkbox(
-                        value: item.isInShopList,
-                        onChanged: isLoading ? null : (_) => _handleItemTap(
-                          item.name,
-                          item.isInShopList,
-                          item.shopListItemId,
-                        ),
-                      ),
-                      title: Text(item.name),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete),
-                        color: Theme.of(context).colorScheme.error,
-                        onPressed: () => _handleItemRemove(
-                          item.name,
-                          item.isInShopList,
-                          item.shopListItemId
-                        ),
-                      ),
-                      onTap: isLoading ? null : () => _handleItemTap(
-                        item.name,
-                        item.isInShopList,
-                        item.shopListItemId,
-                      ),
-                      enabled: !isLoading,
-                    );
-                  },
-                  childCount: results.length,
-                ),
-              ),
+              data: (results) => _buildSearchResults(results),
             ),
           ],
         ),
