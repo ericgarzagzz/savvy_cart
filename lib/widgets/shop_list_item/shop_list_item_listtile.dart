@@ -23,7 +23,12 @@ class ShopListItemListtile extends ConsumerWidget {
           }
         },
       ),
-      title: Text(shopListItem.name, style: Theme.of(context).textTheme.bodyLarge),
+      title: Text(
+        shopListItem.name, 
+        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+          decoration: shopListItem.checked ? TextDecoration.lineThrough : null,
+        ),
+      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         spacing: 12,

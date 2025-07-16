@@ -16,6 +16,7 @@ export 'shop_list/create_shop_list.dart';
 export 'shop_list/delete_shop_list_dialog.dart';
 export 'shop_list/shop_list_listtile.dart';
 export 'shop_list/shop_list_listview.dart';
+export 'shop_list/shop_list_section_header.dart';
 export 'shop_list/shop_list_summary.dart';
 export 'shop_list_item/shop_list_item_edit_form.dart';
 export 'shop_list_item/shop_list_item_listtile.dart';

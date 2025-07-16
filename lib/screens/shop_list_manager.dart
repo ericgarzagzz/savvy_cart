@@ -40,23 +40,51 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
               ],
             ),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: ShopListItemListview(
-                shopListId: widget.shopListId,
-                checkedItems: false,
+              padding: EdgeInsets.all(16),
+              sliver: SliverToBoxAdapter(
+                child: ShopListSummary(shopListId: widget.shopListId),
+              )
+            ),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              sliver: SliverToBoxAdapter(
+                child: ShopListSectionHeader(
+                  icon: Icons.shopping_cart_outlined,
+                  title: 'To Buy',
+                  shopListId: widget.shopListId,
+                  checkedItems: false,
+                ),
+              ),
+            ),
+            SliverSafeArea(
+              top: false,
+              sliver: SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                sliver: ShopListItemListview(
+                  shopListId: widget.shopListId,
+                  checkedItems: false,
+                ),
               ),
             ),
             SliverPadding(
-                padding: EdgeInsets.all(16),
-                sliver: SliverToBoxAdapter(
-                  child: ShopListSummary(shopListId: widget.shopListId),
-                )
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              sliver: SliverToBoxAdapter(
+                child: ShopListSectionHeader(
+                  icon: Icons.check,
+                  title: 'In Cart',
+                  shopListId: widget.shopListId,
+                  checkedItems: true,
+                ),
+              ),
             ),
-            SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              sliver: ShopListItemListview(
-                shopListId: widget.shopListId,
-                checkedItems: true,
+            SliverSafeArea(
+              top: false,
+              sliver: SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                sliver: ShopListItemListview(
+                  shopListId: widget.shopListId,
+                  checkedItems: true,
+                ),
               ),
             )
           ],
