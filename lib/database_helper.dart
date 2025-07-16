@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:decimal/decimal.dart';
+import 'package:faker/faker.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:sqflite/sqflite.dart';
@@ -17,7 +18,7 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     return await openDatabase(
       await _getDatabasePath(),
-      version: 7,
+      version: 8,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade
     );
@@ -61,6 +62,10 @@ class DatabaseHelper {
     if (version >= 7) {
       _updateChatMessagesV7(batch);
     }
+    
+    if (version >= 8) {
+      _updateTablesV8(batch);
+    }
 
     await batch.commit();
   }
@@ -90,6 +95,10 @@ class DatabaseHelper {
 
     if (oldVersion < 7) {
       _updateChatMessagesV7(batch);
+    }
+
+    if (oldVersion < 8) {
+      _updateTablesV8(batch);
     }
 
     await batch.commit();
@@ -198,6 +207,43 @@ class DatabaseHelper {
     batch.execute('DROP TABLE chat_messages');
     batch.execute('ALTER TABLE chat_messages_temp RENAME TO chat_messages');
   }
+  
+  void _updateTablesV8(Batch batch) {
+    batch.execute('''
+      ALTER TABLE shop_lists 
+      ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE shop_lists 
+      ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE shop_list_items 
+      ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE shop_list_items 
+      ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE shop_list_items 
+      ADD COLUMN checked_at INTEGER
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE suggestions 
+      ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
+    ''');
+    
+    batch.execute('''
+      ALTER TABLE suggestions 
+      ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
+    ''');
+  }
 
   Future<List<ShopList>> getShopLists() async {
     Database db = await instance.database;
@@ -219,7 +265,11 @@ class DatabaseHelper {
 
   Future<int> addShopList(ShopList shopList) async {
     Database db = await instance.database;
-    return await db.insert("shop_lists", shopList.toMap());
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final shopListMap = shopList.toMap();
+    shopListMap['created_at'] = now;
+    shopListMap['updated_at'] = now;
+    return await db.insert("shop_lists", shopListMap);
   }
 
   Future<List<ShopListItem>> getShopListItems(int shopListId) async {
@@ -302,20 +352,39 @@ class DatabaseHelper {
     }
 
     var suggestion = Suggestion(name: name.toLowerCase());
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final suggestionMap = suggestion.toMap();
+    suggestionMap['created_at'] = now;
+    suggestionMap['updated_at'] = now;
 
-    return await db.insert("suggestions", suggestion.toMap());
+    return await db.insert("suggestions", suggestionMap);
   }
 
   Future<int> addShopListItem(ShopListItem shopListItem) async {
     Database db = await instance.database;
-    return await db.insert("shop_list_items", shopListItem.toMap());
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final shopListItemMap = shopListItem.toMap();
+    shopListItemMap['created_at'] = now;
+    shopListItemMap['updated_at'] = now;
+    if (shopListItem.checked) {
+      shopListItemMap['checked_at'] = now;
+    }
+    return await db.insert("shop_list_items", shopListItemMap);
   }
 
   Future<int> setShopListItemChecked(int shopListItemId, bool checked) async {
     Database db = await instance.database;
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final updateMap = {
+      "checked": checked ? 1 : 0,
+      "updated_at": now,
+    };
+    if (checked) {
+      updateMap["checked_at"] = now;
+    }
     return await db.update(
       "shop_list_items",
-      {"checked": checked ? 1 : 0},
+      updateMap,
       where: "id = ?",
       whereArgs: [shopListItemId],
     );
@@ -323,9 +392,15 @@ class DatabaseHelper {
 
   Future<int> updateShopListItem(ShopListItem shopListItem) async {
     Database db = await instance.database;
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final shopListItemMap = shopListItem.toMap();
+    shopListItemMap['updated_at'] = now;
+    if (shopListItem.checked) {
+      shopListItemMap['checked_at'] = now;
+    }
     return await db.update(
       "shop_list_items",
-      shopListItem.toMap(),
+      shopListItemMap,
       where: "id = ?",
       whereArgs: [shopListItem.id],
     );
@@ -362,9 +437,17 @@ class DatabaseHelper {
 
   Future<int> setShopListItemCheckedByName(int shopListId, String name, bool checked) async {
     Database db = await instance.database;
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final updateMap = {
+      "checked": checked ? 1 : 0,
+      "updated_at": now,
+    };
+    if (checked) {
+      updateMap["checked_at"] = now;
+    }
     return await db.update(
       "shop_list_items",
-      {"checked": checked ? 1 : 0},
+      updateMap,
       where: "shop_list_id = ? AND LOWER(name) = LOWER(?)",
       whereArgs: [shopListId, name],
     );
@@ -522,6 +605,160 @@ class DatabaseHelper {
     }
     
     return null;
+  }
+
+  Future<void> generateMockData() async {
+    final faker = Faker();
+    
+    // Common grocery items with realistic prices (in cents)
+    final groceryItems = [
+      {'name': 'Milk', 'price': 349},
+      {'name': 'Bread', 'price': 289},
+      {'name': 'Eggs', 'price': 425},
+      {'name': 'Bananas', 'price': 159},
+      {'name': 'Apples', 'price': 299},
+      {'name': 'Chicken Breast', 'price': 899},
+      {'name': 'Ground Beef', 'price': 649},
+      {'name': 'Cheese', 'price': 549},
+      {'name': 'Yogurt', 'price': 199},
+      {'name': 'Cereal', 'price': 459},
+      {'name': 'Rice', 'price': 199},
+      {'name': 'Pasta', 'price': 149},
+      {'name': 'Tomatoes', 'price': 249},
+      {'name': 'Onions', 'price': 99},
+      {'name': 'Potatoes', 'price': 179},
+      {'name': 'Carrots', 'price': 129},
+      {'name': 'Spinach', 'price': 299},
+      {'name': 'Orange Juice', 'price': 399},
+      {'name': 'Butter', 'price': 449},
+      {'name': 'Olive Oil', 'price': 699},
+      {'name': 'Salt', 'price': 99},
+      {'name': 'Sugar', 'price': 199},
+      {'name': 'Flour', 'price': 299},
+      {'name': 'Salmon', 'price': 1299},
+      {'name': 'Avocado', 'price': 199},
+      {'name': 'Bell Peppers', 'price': 349},
+      {'name': 'Broccoli', 'price': 229},
+      {'name': 'Strawberries', 'price': 449},
+      {'name': 'Blueberries', 'price': 599},
+      {'name': 'Peanut Butter', 'price': 399},
+    ];
+
+    // Create suggestions for all grocery items
+    for (final item in groceryItems) {
+      await addSuggestion(item['name'] as String);
+    }
+
+    // Generate shopping lists across the year
+    final currentYear = DateTime.now().year;
+    final shopListNames = [
+      'Weekly Groceries',
+      'Weekend Shopping',
+      'Monthly Stock-up',
+      'Party Supplies',
+      'Holiday Shopping',
+      'Quick Run',
+      'Bulk Shopping',
+      'Healthy Meals',
+      'Snack Run',
+      'Dinner Ingredients',
+    ];
+
+    for (int month = 1; month <= 12; month++) {
+      // Generate 3-8 shopping lists per month
+      final listsInMonth = faker.randomGenerator.integer(6, min: 3);
+      
+      for (int listIndex = 0; listIndex < listsInMonth; listIndex++) {
+        // Create shopping list
+        final listName = shopListNames[faker.randomGenerator.integer(shopListNames.length)];
+        final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
+        final listNameWithDate = '$listName - $month/$dayOfMonth';
+        
+        final shopList = ShopList(name: listNameWithDate);
+        final shopListId = await addShopList(shopList);
+        
+        // Generate 3-15 items per shopping list
+        final itemsInList = faker.randomGenerator.integer(13, min: 3);
+        final usedItems = <String>{};
+        
+        for (int itemIndex = 0; itemIndex < itemsInList; itemIndex++) {
+          // Pick a random grocery item that hasn't been used in this list
+          Map<String, dynamic> selectedItem;
+          do {
+            selectedItem = groceryItems[faker.randomGenerator.integer(groceryItems.length)];
+          } while (usedItems.contains(selectedItem['name']));
+          
+          usedItems.add(selectedItem['name'] as String);
+          
+          // Generate realistic quantity (1-5 for most items)
+          final quantity = Decimal.fromInt(faker.randomGenerator.integer(5, min: 1));
+          
+          // Add some price variation (±20%)
+          final basePrice = selectedItem['price'] as int;
+          final priceVariation = (basePrice * 0.2).round();
+          final finalPrice = basePrice + faker.randomGenerator.integer(priceVariation * 2, min: -priceVariation);
+          
+          // 70% chance the item is checked (purchased)
+          final isChecked = faker.randomGenerator.boolean();
+          
+          final item = ShopListItem(
+            shopListId: shopListId,
+            name: selectedItem['name'] as String,
+            quantity: quantity,
+            unitPrice: Money(cents: finalPrice),
+            checked: isChecked,
+          );
+          
+          await addShopListItem(item);
+        }
+      }
+    }
+    
+    // Generate some additional seasonal items
+    await _generateSeasonalItems(faker, currentYear);
+  }
+
+  Future<void> _generateSeasonalItems(Faker faker, int year) async {
+    // Holiday shopping lists
+    final holidayLists = [
+      {'name': 'Christmas Shopping', 'month': 12, 'items': ['Turkey', 'Cranberries', 'Stuffing Mix', 'Pumpkin Pie', 'Eggnog']},
+      {'name': 'Thanksgiving Prep', 'month': 11, 'items': ['Turkey', 'Sweet Potatoes', 'Green Beans', 'Pie Crust', 'Gravy']},
+      {'name': 'Summer BBQ', 'month': 7, 'items': ['Hamburger Buns', 'Hot Dogs', 'Charcoal', 'Corn on the Cob', 'Watermelon']},
+      {'name': 'Back to School', 'month': 8, 'items': ['Lunch Bags', 'Granola Bars', 'Juice Boxes', 'Sandwich Bread', 'Peanut Butter']},
+    ];
+
+    // Create suggestions for all seasonal items
+    final allSeasonalItems = <String>{};
+    for (final holiday in holidayLists) {
+      final items = holiday['items'] as List<String>;
+      allSeasonalItems.addAll(items);
+    }
+    
+    for (final itemName in allSeasonalItems) {
+      await addSuggestion(itemName);
+    }
+
+    for (final holiday in holidayLists) {
+      final shopList = ShopList(name: holiday['name'] as String);
+      final shopListId = await addShopList(shopList);
+      
+      final items = holiday['items'] as List<String>;
+      for (final itemName in items) {
+        final quantity = Decimal.fromInt(faker.randomGenerator.integer(3, min: 1));
+        final price = faker.randomGenerator.integer(800, min: 200);
+        final isChecked = faker.randomGenerator.boolean();
+        
+        final item = ShopListItem(
+          shopListId: shopListId,
+          name: itemName,
+          quantity: quantity,
+          unitPrice: Money(cents: price),
+          checked: isChecked,
+        );
+        
+        await addShopListItem(item);
+      }
+    }
   }
 
 }
