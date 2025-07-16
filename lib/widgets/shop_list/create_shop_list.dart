@@ -29,35 +29,108 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Add a new list",
-            style: Theme
-                .of(context)
-                .textTheme
-                .bodyLarge!
-                .copyWith(fontWeight: FontWeight.bold),
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(0xff3d6915), // App's primary green
+            Color(0xff546e5a), // Muted blue-gray green that complements beige
+          ],
+        ),
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 8,
+            offset: Offset(0, 4),
           ),
-          const SizedBox(height: 8),
-          Row(
-            spacing: 8,
-            children: [
-              Flexible(
-                flex: 1,
-                child: TextFormField(
-                  controller: _nameInputController,
-                  decoration: InputDecoration(
-                      labelText: "List's name",
+        ],
+      ),
+      padding: EdgeInsets.all(20),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    shape: BoxShape.circle,
                   ),
-                  validator: (text) => text == null || text.isEmpty ? "The list's name cannot be empty" : null,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 20,
+                  ),
                 ),
+                SizedBox(width: 12),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Create New List",
+                      style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Start your shopping journey",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                        color: Colors.white70,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(
+              "List Name",
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
               ),
-              OutlinedButton(
+            ),
+            const SizedBox(height: 8),
+            TextFormField(
+              controller: _nameInputController,
+              style: TextStyle(color: Colors.white),
+              decoration: InputDecoration(
+                hintText: "Enter list name",
+                hintStyle: TextStyle(color: Colors.white60),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.white70, width: 1.5),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.white, width: 2),
+                ),
+                errorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.red.shade300, width: 1.5),
+                ),
+                focusedErrorBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(color: Colors.red.shade300, width: 2),
+                ),
+                errorStyle: TextStyle(color: Colors.red.shade100),
+              ),
+              validator: (text) => text == null || text.isEmpty ? "The list's name cannot be empty" : null,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await _saveShopList(_nameInputController.text);
@@ -67,17 +140,34 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     });
                   }
                 },
-                child: const Row(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.blue.shade600,
+                  elevation: 2,
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.save),
-                    SizedBox(width: 4),
-                    Text("Save"),
+                    Icon(Icons.add, size: 20, color: Theme.of(context).colorScheme.primary),
+                    SizedBox(width: 8),
+                    Text(
+                      "Create Shopping List",
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
+                    ),
                   ],
                 ),
-              )
-            ],
-          )
-        ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

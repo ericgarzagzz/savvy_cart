@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             sliver: SliverList(
               delegate: SliverChildListDelegate([
                 CreateShopList(),
-                Divider(height: 64, color: Colors.grey),
+                Container(height: 32),
               ]),
             ),
           ),
