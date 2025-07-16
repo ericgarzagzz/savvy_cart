@@ -7,3 +7,4 @@ export 'model_selection_screen.dart';
 export 'settings.dart';
 export 'shop_list_chat.dart';
 export 'shop_list_manager.dart';
+export 'shop_list_search_screen.dart';

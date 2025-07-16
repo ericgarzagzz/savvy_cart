@@ -32,6 +32,32 @@ final router = GoRouter(
           builder: (context, state) => const InsightsPage(),
         ),
         GoRoute(
+          path: 'search-lists',
+          builder: (context, state) => const ShopListSearchScreen(),
+          routes: [
+            GoRoute(
+              path: 'manage/:id',
+              builder: (context, state) => ShopListManager(
+                shopListId: int.parse(state.pathParameters['id']!),
+              ),
+              routes: [
+                GoRoute(
+                  path: 'add-item',
+                  builder: (context, state) => AddShopListItem(
+                    shopListId: int.parse(state.pathParameters['id']!),
+                  ),
+                ),
+                GoRoute(
+                  path: 'chat',
+                  builder: (context, state) => ShopListChat(
+                    shopListId: int.parse(state.pathParameters['id']!),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
           path: 'settings',
           builder: (context, state) => const Settings(),
           routes: [

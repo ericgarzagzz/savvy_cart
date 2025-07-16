@@ -247,10 +247,74 @@ class DatabaseHelper {
 
   Future<List<ShopList>> getShopLists() async {
     Database db = await instance.database;
-    var shopLists = await db.query("shop_lists", orderBy: "id DESC");
+    var shopLists = await db.query("shop_lists", orderBy: "created_at DESC");
     List<ShopList> shopListCollection = shopLists.isNotEmpty
       ? shopLists.map((x) => ShopList.fromMap(x)).toList()
       : [];
+    return shopListCollection;
+  }
+
+  Future<List<ShopList>> getShopListsPaginated({int limit = 3, int offset = 0}) async {
+    Database db = await instance.database;
+    var shopLists = await db.query(
+      "shop_lists", 
+      orderBy: "created_at DESC",
+      limit: limit,
+      offset: offset,
+    );
+    List<ShopList> shopListCollection = shopLists.isNotEmpty
+      ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+      : [];
+    return shopListCollection;
+  }
+
+  Future<int> getShopListsCount() async {
+    Database db = await instance.database;
+    var result = await db.rawQuery("SELECT COUNT(*) as count FROM shop_lists");
+    return result.first['count'] as int;
+  }
+
+  Future<List<ShopList>> searchShopLists({
+    String? query,
+    DateTime? startDate,
+    DateTime? endDate,
+    int? limit,
+    int? offset,
+  }) async {
+    Database db = await instance.database;
+    
+    List<String> whereConditions = [];
+    List<dynamic> whereArgs = [];
+    
+    if (query != null && query.isNotEmpty) {
+      whereConditions.add("name LIKE ?");
+      whereArgs.add("%$query%");
+    }
+    
+    if (startDate != null) {
+      whereConditions.add("created_at >= ?");
+      whereArgs.add(startDate.millisecondsSinceEpoch);
+    }
+    
+    if (endDate != null) {
+      whereConditions.add("created_at <= ?");
+      whereArgs.add(endDate.millisecondsSinceEpoch);
+    }
+    
+    String whereClause = whereConditions.isNotEmpty ? "WHERE ${whereConditions.join(' AND ')}" : "";
+    
+    var shopLists = await db.query(
+      "shop_lists",
+      where: whereClause.isNotEmpty ? whereClause.substring(6) : null,
+      whereArgs: whereArgs.isNotEmpty ? whereArgs : null,
+      orderBy: "created_at DESC",
+      limit: limit,
+      offset: offset,
+    );
+    
+    List<ShopList> shopListCollection = shopLists.isNotEmpty
+        ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+        : [];
     return shopListCollection;
   }
 
@@ -267,8 +331,8 @@ class DatabaseHelper {
     Database db = await instance.database;
     final now = DateTime.now().millisecondsSinceEpoch;
     final shopListMap = shopList.toMap();
-    shopListMap['created_at'] = now;
-    shopListMap['updated_at'] = now;
+    shopListMap['created_at'] = shopList.createdAt?.millisecondsSinceEpoch ?? now;
+    shopListMap['updated_at'] = shopList.updatedAt?.millisecondsSinceEpoch ?? now;
     return await db.insert("shop_lists", shopListMap);
   }
 
@@ -674,7 +738,16 @@ class DatabaseHelper {
         final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
         final listNameWithDate = '$listName - $month/$dayOfMonth';
         
-        final shopList = ShopList(name: listNameWithDate);
+        // Create random date within the month
+        final randomHour = faker.randomGenerator.integer(24);
+        final randomMinute = faker.randomGenerator.integer(60);
+        final createdAt = DateTime(currentYear, month, dayOfMonth, randomHour, randomMinute);
+        
+        final shopList = ShopList(
+          name: listNameWithDate,
+          createdAt: createdAt,
+          updatedAt: createdAt,
+        );
         final shopListId = await addShopList(shopList);
         
         // Generate 3-15 items per shopping list
@@ -739,7 +812,17 @@ class DatabaseHelper {
     }
 
     for (final holiday in holidayLists) {
-      final shopList = ShopList(name: holiday['name'] as String);
+      final month = holiday['month'] as int;
+      final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
+      final randomHour = faker.randomGenerator.integer(24);
+      final randomMinute = faker.randomGenerator.integer(60);
+      final createdAt = DateTime(year, month, dayOfMonth, randomHour, randomMinute);
+      
+      final shopList = ShopList(
+        name: holiday['name'] as String,
+        createdAt: createdAt,
+        updatedAt: createdAt,
+      );
       final shopListId = await addShopList(shopList);
       
       final items = holiday['items'] as List<String>;

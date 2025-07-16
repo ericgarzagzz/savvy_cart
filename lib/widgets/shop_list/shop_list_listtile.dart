@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListListTile extends StatelessWidget {
   final ShopListViewModel shopList;
+  final VoidCallback? onTap;
 
-  const ShopListListTile({super.key, required this.shopList});
+  const ShopListListTile({super.key, required this.shopList, this.onTap});
 
   bool get isCompleted => shopList.totalItems > 0 && shopList.checkedItems == shopList.totalItems;
   
@@ -17,6 +19,10 @@ class ShopListListTile extends StatelessWidget {
   String get buttonText => isCompleted ? "View List" : "Continue Shopping";
   
   IconData get buttonIcon => isCompleted ? Icons.visibility : Icons.shopping_cart;
+  
+  String get formattedCreatedDate => shopList.createdAt != null 
+      ? DateFormat('MMM d, yyyy').format(shopList.createdAt!)
+      : "";
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +32,7 @@ class ShopListListTile extends StatelessWidget {
       margin: EdgeInsets.only(bottom: 12),
       elevation: 2,
       child: InkWell(
-        onTap: () => context.go("/manage/${shopList.id}"),
+        onTap: onTap ?? () => context.go("/manage/${shopList.id}"),
         borderRadius: BorderRadius.circular(12),
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -79,12 +85,37 @@ class ShopListListTile extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 8),
-                        Text(
-                          shopList.checkedAmount.toStringWithLocale(),
-                          style: theme.textTheme.titleMedium?.copyWith(
-                            color: theme.colorScheme.primary,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        Row(
+                          children: [
+                            if (formattedCreatedDate.isNotEmpty) ...[
+                              Icon(
+                                Icons.calendar_today,
+                                size: 16,
+                                color: theme.colorScheme.onSurfaceVariant,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                formattedCreatedDate,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                              SizedBox(width: 8),
+                              Container(
+                                width: 1,
+                                height: 16,
+                                color: theme.colorScheme.outline.withOpacity(0.5),
+                              ),
+                              SizedBox(width: 8),
+                            ],
+                            Text(
+                              shopList.checkedAmount.toStringWithLocale(),
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.primary,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -140,7 +171,7 @@ class ShopListListTile extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: FilledButton.icon(
-                  onPressed: () => context.go("/manage/${shopList.id}"),
+                  onPressed: onTap ?? () => context.go("/manage/${shopList.id}"),
                   icon: Icon(buttonIcon),
                   label: Text(buttonText),
                   style: FilledButton.styleFrom(
