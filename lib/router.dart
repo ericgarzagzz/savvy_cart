@@ -28,6 +28,10 @@ final router = GoRouter(
           ],
         ),
         GoRoute(
+          path: 'insights',
+          builder: (context, state) => const InsightsPage(),
+        ),
+        GoRoute(
           path: 'settings',
           builder: (context, state) => const Settings(),
           routes: [
