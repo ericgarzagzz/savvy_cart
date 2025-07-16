@@ -25,11 +25,22 @@ class _HomePageState extends State<HomePage> {
                   image: AssetImage("assets/logo_no_bg.png"),
                   width: 64,
                 ),
-                Text("SavvyCart",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("SavvyCart",
+                      style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                    Text("Smart Shopping Lists",
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
