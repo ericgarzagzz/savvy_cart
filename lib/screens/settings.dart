@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:settings_ui/settings_ui.dart';
 
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
@@ -13,113 +14,90 @@ class Settings extends ConsumerWidget {
     final aiSettingsState = ref.watch(aiSettingsProvider);
     final themeService = ref.watch(themeServiceProvider);
     final currentThemeMode = ref.watch(themeModeProvider);
+    final versionAsync = ref.watch(packageInfoProvider);
     
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            title: Text("SavvyCart settings"),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            sliver: SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Appearance", style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 16),
-                  Card(
-                    child: ListTile(
-                      leading: Icon(Icons.palette),
-                      title: Text('Theme'),
-                      subtitle: Text('Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}'),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () => _showThemeDialog(context, ref),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Text("AI Assistant", style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 16),
-                  Card(
-                    child: ListTile(
-                      leading: Icon(Icons.auto_awesome),
-                      title: Text('AI Settings'),
-                      subtitle: Text(
-                        aiSettingsState.hasValidApiKey
-                          ? 'Connected and ready'
-                          : aiSettingsState.settings.apiKey.isNotEmpty
-                              ? 'Not verified'
-                              : 'Configure Gemini API key'
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (aiSettingsState.hasValidApiKey)
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                              decoration: BoxDecoration(
-                                color: Colors.green.shade100,
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Text(
-                                'Ready',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.green.shade700,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                            ),
-                          const SizedBox(width: 8),
-                          Icon(Icons.chevron_right),
-                        ],
-                      ),
-                      onTap: () => context.push('/settings/ai'),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Text("Data", style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 16),
-                  Card(
-                    child: ListTile(
-                      leading: Icon(Icons.backup),
-                      title: Text('Backup & Restore'),
-                      subtitle: Text('Manage automatic and manual backups'),
-                      trailing: Icon(Icons.chevron_right),
-                      onTap: () => context.push('/settings/data-management'),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  Text("About", style: Theme.of(context).textTheme.titleLarge),
-                  const SizedBox(height: 16),
-                  Card(
-                    child: Consumer(
-                      builder: (context, ref, child) {
-                        final versionAsync = ref.watch(packageInfoProvider);
-                        return versionAsync.when(
-                          data: (packageInfo) => ListTile(
-                            leading: Icon(Icons.info_outline),
-                            title: Text('Version'),
-                            subtitle: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
-                          ),
-                          loading: () => ListTile(
-                            leading: Icon(Icons.info_outline),
-                            title: Text('Version'),
-                            subtitle: Text('Loading...'),
-                          ),
-                          error: (_, __) => ListTile(
-                            leading: Icon(Icons.info_outline),
-                            title: Text('Version'),
-                            subtitle: Text('1.0.0+1'),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
+      appBar: AppBar(
+        title: Text("SavvyCart settings"),
+      ),
+      body: SettingsList(
+        platform: DevicePlatform.android,
+        lightTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
+          settingsSectionBackground: Theme.of(context).cardColor,
+          titleTextColor: Theme.of(context).textTheme.headlineSmall?.color,
+          settingsTileTextColor: Theme.of(context).textTheme.bodyLarge?.color,
+          tileDescriptionTextColor: Theme.of(context).textTheme.bodyMedium?.color,
+        ),
+        darkTheme: SettingsThemeData(
+          settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
+          settingsSectionBackground: Theme.of(context).cardColor,
+          titleTextColor: Theme.of(context).textTheme.headlineSmall?.color,
+          settingsTileTextColor: Theme.of(context).textTheme.bodyLarge?.color,
+          tileDescriptionTextColor: Theme.of(context).textTheme.bodyMedium?.color,
+        ),
+        sections: [
+          SettingsSection(
+            title: Text('Appearance'),
+            tiles: [
+              SettingsTile.navigation(
+                leading: Icon(Icons.palette),
+                title: Text('Theme'),
+                value: Text('Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}'),
+                onPressed: (context) => _showThemeDialog(context, ref),
               ),
-            ),
-          )
+            ],
+          ),
+          SettingsSection(
+            title: Text('AI Assistant'),
+            tiles: [
+              SettingsTile.navigation(
+                leading: Icon(Icons.auto_awesome),
+                title: Text('AI Settings'),
+                value: Text(
+                  aiSettingsState.hasValidApiKey
+                    ? 'Ready'
+                    : aiSettingsState.settings.apiKey.isNotEmpty
+                        ? 'Not verified'
+                        : 'Not configured'
+                ),
+                onPressed: (context) => context.push('/settings/ai'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: Text('Data'),
+            tiles: [
+              SettingsTile.navigation(
+                leading: Icon(Icons.backup),
+                title: Text('Backup & Restore'),
+                value: Text('Manage backups'),
+                onPressed: (context) => context.push('/settings/data-management'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: Text('About'),
+            tiles: [
+              versionAsync.when(
+                data: (packageInfo) => SettingsTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('Version'),
+                  value: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
+                ),
+                loading: () => SettingsTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('Version'),
+                  value: Text('Loading...'),
+                ),
+                error: (_, __) => SettingsTile(
+                  leading: Icon(Icons.info_outline),
+                  title: Text('Version'),
+                  value: Text('1.0.0+1'),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
