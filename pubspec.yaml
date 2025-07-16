@@ -51,6 +51,7 @@ dependencies:
   package_info_plus: ^8.3.0
   settings_ui: ^2.0.2
   flutter_slidable: ^4.0.0
+  faker: ^2.2.0
 
 dev_dependencies:
   flutter_test:
