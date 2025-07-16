@@ -43,7 +43,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ),
               ],
             ),
-            expandedHeight: 100,
+            expandedHeight: 80,
             actions: [
               IconButton(
                 icon: Icon(Icons.settings),
