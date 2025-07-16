@@ -129,7 +129,7 @@ class ShopListListTile extends StatelessWidget {
                   SizedBox(height: 8),
                   LinearProgressIndicator(
                     value: progressPercentage,
-                    backgroundColor: theme.colorScheme.surfaceVariant,
+                    backgroundColor: theme.colorScheme.outline.withOpacity(0.2),
                     valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
                     minHeight: 8,
                     borderRadius: BorderRadius.circular(4),
