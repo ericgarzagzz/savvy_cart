@@ -14,6 +14,43 @@ class ShopListManager extends ConsumerStatefulWidget {
 }
 
 class _ShopListManagerState extends ConsumerState<ShopListManager> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showScrollToTopFab = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _onScroll() {
+    if (_scrollController.hasClients) {
+      final isScrolledAway = _scrollController.offset > 100;
+      if (_showScrollToTopFab != isScrolledAway) {
+        setState(() {
+          _showScrollToTopFab = isScrolledAway;
+        });
+      }
+    }
+  }
+
+  void _scrollToTop() {
+    if (_scrollController.hasClients) {
+      _scrollController.animateTo(
+        0,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
@@ -26,6 +63,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
       error: (err, stackTrace) => GenericErrorScaffold(errorMessage: err.toString()),
       data: (shopList) => Scaffold(
         body: CustomScrollView(
+          controller: _scrollController,
           slivers: [
             SliverAppBar(
               title: Text(shopList.name),
@@ -84,6 +122,9 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
                   title: 'To Buy',
                   shopListId: widget.shopListId,
                   checkedItems: false,
+                  onAddItem: () {
+                    context.go("./add-item");
+                  },
                 ),
               ),
             ),
@@ -94,6 +135,9 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
                 sliver: ShopListItemListview(
                   shopListId: widget.shopListId,
                   checkedItems: false,
+                  onAddItem: () {
+                    context.go("./add-item");
+                  },
                 ),
               ),
             ),
@@ -120,13 +164,13 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          icon: Icon(Icons.add),
-          label: Text("Add item"),
-          onPressed: () {
-            context.go("./add-item");
-          },
-        )
+        floatingActionButton: _showScrollToTopFab ? FloatingActionButton(
+          onPressed: _scrollToTop,
+          mini: true,
+          tooltip: 'Scroll to top to add items',
+          child: const Icon(Icons.keyboard_double_arrow_up),
+        ) : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       )
     );
   }
