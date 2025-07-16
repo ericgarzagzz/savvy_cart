@@ -25,12 +25,16 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       // Add to suggestions if it doesn't exist
       await DatabaseHelper.instance.addSuggestion(itemName);
 
+      // Get the last recorded price for this item
+      final lastRecordedPrice = await DatabaseHelper.instance
+          .getLastRecordedPrice(itemName);
+
       // Add to shop list
       final newItem = ShopListItem(
         shopListId: shopListId,
         name: itemName.toLowerCase(),
         quantity: Decimal.one,
-        unitPrice: Money(cents: 0),
+        unitPrice: lastRecordedPrice ?? Money(cents: 0),
         checked: false,
       );
 

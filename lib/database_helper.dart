@@ -505,4 +505,23 @@ class DatabaseHelper {
     return result;
   }
 
+  Future<Money?> getLastRecordedPrice(String itemName) async {
+    Database db = await instance.database;
+    
+    var result = await db.query(
+      'shop_list_items',
+      columns: ['unit_price'],
+      where: 'LOWER(name) = ? AND unit_price > 0',
+      whereArgs: [itemName.toLowerCase()],
+      orderBy: 'id DESC',
+      limit: 1,
+    );
+    
+    if (result.isNotEmpty) {
+      return Money(cents: result.first['unit_price'] as int);
+    }
+    
+    return null;
+  }
+
 }
