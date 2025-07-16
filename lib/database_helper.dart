@@ -713,8 +713,11 @@ class DatabaseHelper {
       await addSuggestion(item['name'] as String);
     }
 
-    // Generate shopping lists across the year
-    final currentYear = DateTime.now().year;
+    // Generate shopping lists across the past year (from current date - 1 year to current date)
+    final now = DateTime.now();
+    final oneYearAgo = DateTime(now.year - 1, now.month, now.day);
+    final totalDays = now.difference(oneYearAgo).inDays;
+    
     final shopListNames = [
       'Weekly Groceries',
       'Weekend Shopping',
@@ -728,71 +731,77 @@ class DatabaseHelper {
       'Dinner Ingredients',
     ];
 
-    for (int month = 1; month <= 12; month++) {
-      // Generate 3-8 shopping lists per month
-      final listsInMonth = faker.randomGenerator.integer(6, min: 3);
+    // Generate 100-150 shopping lists total, ensuring we have positive numbers
+    final totalLists = faker.randomGenerator.integer(150, min: 100);
+    
+    for (int listIndex = 0; listIndex < totalLists; listIndex++) {
+      // Create shopping list
+      final listName = shopListNames[faker.randomGenerator.integer(shopListNames.length)];
       
-      for (int listIndex = 0; listIndex < listsInMonth; listIndex++) {
-        // Create shopping list
-        final listName = shopListNames[faker.randomGenerator.integer(shopListNames.length)];
-        final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
-        final listNameWithDate = '$listName - $month/$dayOfMonth';
+      // Generate random date within the past year (ensure positive range)
+      final randomDayOffset = totalDays > 0 ? faker.randomGenerator.integer(totalDays) : 0;
+      final randomHour = faker.randomGenerator.integer(24);
+      final randomMinute = faker.randomGenerator.integer(60);
+      final createdAt = oneYearAgo.add(Duration(
+        days: randomDayOffset,
+        hours: randomHour,
+        minutes: randomMinute,
+      ));
+      
+      final listNameWithDate = '$listName - ${createdAt.month}/${createdAt.day}';
+      
+      final shopList = ShopList(
+        name: listNameWithDate,
+        createdAt: createdAt,
+        updatedAt: createdAt,
+      );
+      final shopListId = await addShopList(shopList);
         
-        // Create random date within the month
-        final randomHour = faker.randomGenerator.integer(24);
-        final randomMinute = faker.randomGenerator.integer(60);
-        final createdAt = DateTime(currentYear, month, dayOfMonth, randomHour, randomMinute);
+      // Generate 3-15 items per shopping list
+      final itemsInList = faker.randomGenerator.integer(15, min: 3);
+      final usedItems = <String>{};
+      
+      for (int itemIndex = 0; itemIndex < itemsInList; itemIndex++) {
+        // Pick a random grocery item that hasn't been used in this list
+        Map<String, dynamic> selectedItem;
+        do {
+          selectedItem = groceryItems[faker.randomGenerator.integer(groceryItems.length)];
+        } while (usedItems.contains(selectedItem['name']));
         
-        final shopList = ShopList(
-          name: listNameWithDate,
-          createdAt: createdAt,
-          updatedAt: createdAt,
+        usedItems.add(selectedItem['name'] as String);
+        
+        // Generate realistic quantity (1-5 for most items)
+        final quantity = Decimal.fromInt(faker.randomGenerator.integer(5, min: 1));
+        
+        // Add some price variation (±20%)
+        final basePrice = selectedItem['price'] as int;
+        final priceVariation = (basePrice * 0.2).round();
+        final priceVariationRange = priceVariation * 2;
+        final finalPrice = priceVariationRange > 0 
+            ? basePrice + faker.randomGenerator.integer(priceVariationRange, min: -priceVariation)
+            : basePrice;
+        
+        // 70% chance the item is checked (purchased)
+        final isChecked = faker.randomGenerator.boolean();
+        
+        final item = ShopListItem(
+          shopListId: shopListId,
+          name: selectedItem['name'] as String,
+          quantity: quantity,
+          unitPrice: Money(cents: finalPrice.clamp(50, 2000)), // Ensure reasonable price range
+          checked: isChecked,
         );
-        final shopListId = await addShopList(shopList);
         
-        // Generate 3-15 items per shopping list
-        final itemsInList = faker.randomGenerator.integer(13, min: 3);
-        final usedItems = <String>{};
-        
-        for (int itemIndex = 0; itemIndex < itemsInList; itemIndex++) {
-          // Pick a random grocery item that hasn't been used in this list
-          Map<String, dynamic> selectedItem;
-          do {
-            selectedItem = groceryItems[faker.randomGenerator.integer(groceryItems.length)];
-          } while (usedItems.contains(selectedItem['name']));
-          
-          usedItems.add(selectedItem['name'] as String);
-          
-          // Generate realistic quantity (1-5 for most items)
-          final quantity = Decimal.fromInt(faker.randomGenerator.integer(5, min: 1));
-          
-          // Add some price variation (±20%)
-          final basePrice = selectedItem['price'] as int;
-          final priceVariation = (basePrice * 0.2).round();
-          final finalPrice = basePrice + faker.randomGenerator.integer(priceVariation * 2, min: -priceVariation);
-          
-          // 70% chance the item is checked (purchased)
-          final isChecked = faker.randomGenerator.boolean();
-          
-          final item = ShopListItem(
-            shopListId: shopListId,
-            name: selectedItem['name'] as String,
-            quantity: quantity,
-            unitPrice: Money(cents: finalPrice),
-            checked: isChecked,
-          );
-          
-          await addShopListItem(item);
-        }
+        await addShopListItem(item);
       }
     }
     
     // Generate some additional seasonal items
-    await _generateSeasonalItems(faker, currentYear);
+    await _generateSeasonalItems(faker, oneYearAgo, now);
   }
 
-  Future<void> _generateSeasonalItems(Faker faker, int year) async {
-    // Holiday shopping lists
+  Future<void> _generateSeasonalItems(Faker faker, DateTime startDate, DateTime endDate) async {
+    // Holiday shopping lists with their typical months
     final holidayLists = [
       {'name': 'Christmas Shopping', 'month': 12, 'items': ['Turkey', 'Cranberries', 'Stuffing Mix', 'Pumpkin Pie', 'Eggnog']},
       {'name': 'Thanksgiving Prep', 'month': 11, 'items': ['Turkey', 'Sweet Potatoes', 'Green Beans', 'Pie Crust', 'Gravy']},
@@ -811,35 +820,63 @@ class DatabaseHelper {
       await addSuggestion(itemName);
     }
 
+    // Generate seasonal lists that fall within our date range
     for (final holiday in holidayLists) {
       final month = holiday['month'] as int;
-      final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
-      final randomHour = faker.randomGenerator.integer(24);
-      final randomMinute = faker.randomGenerator.integer(60);
-      final createdAt = DateTime(year, month, dayOfMonth, randomHour, randomMinute);
       
-      final shopList = ShopList(
-        name: holiday['name'] as String,
-        createdAt: createdAt,
-        updatedAt: createdAt,
-      );
-      final shopListId = await addShopList(shopList);
+      // Check if this holiday month falls within our date range
+      // We need to check both years since our range spans across years
+      final dates = <DateTime>[];
       
-      final items = holiday['items'] as List<String>;
-      for (final itemName in items) {
-        final quantity = Decimal.fromInt(faker.randomGenerator.integer(3, min: 1));
-        final price = faker.randomGenerator.integer(800, min: 200);
-        final isChecked = faker.randomGenerator.boolean();
+      // Check if the holiday month exists in the start year
+      if (startDate.year == endDate.year) {
+        // Same year - check if month is within range
+        if (month >= startDate.month && month <= endDate.month) {
+          dates.add(DateTime(startDate.year, month));
+        }
+      } else {
+        // Different years - check both years
+        if (month >= startDate.month) {
+          dates.add(DateTime(startDate.year, month));
+        }
+        if (month <= endDate.month) {
+          dates.add(DateTime(endDate.year, month));
+        }
+      }
+      
+      // Create lists for each valid date
+      for (final holidayDate in dates) {
+        final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
+        final randomHour = faker.randomGenerator.integer(24);
+        final randomMinute = faker.randomGenerator.integer(60);
+        final createdAt = DateTime(holidayDate.year, holidayDate.month, dayOfMonth, randomHour, randomMinute);
         
-        final item = ShopListItem(
-          shopListId: shopListId,
-          name: itemName,
-          quantity: quantity,
-          unitPrice: Money(cents: price),
-          checked: isChecked,
-        );
-        
-        await addShopListItem(item);
+        // Make sure the date is within our range
+        if (createdAt.isAfter(startDate) && createdAt.isBefore(endDate)) {
+          final shopList = ShopList(
+            name: holiday['name'] as String,
+            createdAt: createdAt,
+            updatedAt: createdAt,
+          );
+          final shopListId = await addShopList(shopList);
+          
+          final items = holiday['items'] as List<String>;
+          for (final itemName in items) {
+            final quantity = Decimal.fromInt(faker.randomGenerator.integer(3, min: 1));
+            final price = faker.randomGenerator.integer(800, min: 200);
+            final isChecked = faker.randomGenerator.boolean();
+            
+            final item = ShopListItem(
+              shopListId: shopListId,
+              name: itemName,
+              quantity: quantity,
+              unitPrice: Money(cents: price),
+              checked: isChecked,
+            );
+            
+            await addShopListItem(item);
+          }
+        }
       }
     }
   }
