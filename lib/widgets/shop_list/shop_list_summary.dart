@@ -25,8 +25,8 @@ class ShopListSummary extends ConsumerWidget {
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Color(0xff3d6915),
-                Color(0xff546e5a),
+                Color(0xff2e5010),
+                Color(0xff6b7f6f),
               ],
             ),
             borderRadius: BorderRadius.circular(16),
