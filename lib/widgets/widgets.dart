@@ -22,3 +22,4 @@ export 'shop_list/shop_list_summary.dart';
 export 'shop_list_item/shop_list_item_edit_form.dart';
 export 'shop_list_item/shop_list_item_listtile.dart';
 export 'shop_list_item/shop_list_item_listview.dart';
+export 'shop_list_item/shop_list_item_name_edit_dialog.dart';

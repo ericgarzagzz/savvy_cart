@@ -21,7 +21,6 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
   final _formGlobalKey = GlobalKey<FormState>();
   Timer? _debounce;
 
-  late final TextEditingController _nameController;
   late final TextEditingController _quantityController;
   late final TextEditingController _unitPriceController;
 
@@ -31,7 +30,6 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.shopListItem.name);
     _quantityController = TextEditingController(
       text: widget.shopListItem.quantity.toString(),
     );
@@ -59,7 +57,6 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
   @override
   void dispose() {
     _debounce?.cancel();
-    _nameController.dispose();
     _quantityController.removeListener(_onTotalChanged);
     _quantityController.dispose();
     _unitPriceController.removeListener(_onTotalChanged);
@@ -82,7 +79,6 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
     final unitPriceDecimal = Decimal.tryParse(_unitPriceController.text) ?? Decimal.zero;
     final unitPriceCents = (unitPriceDecimal * Decimal.fromInt(100)).toBigInt().toInt();
     final updatedItem = widget.shopListItem.copyWith(
-      name: _nameController.text,
       quantity: Decimal.tryParse(_quantityController.text) ?? Decimal.one,
       unitPrice: Money(cents: unitPriceCents)
     );
@@ -102,206 +98,157 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
 
   @override
   Widget build(BuildContext context) {
-    final saveStatus = ref.watch(shopListItemMutationProvider);
-
-    final statusMap = <String, Map<String, dynamic>>{
-      'idle': {
-        'icon': Icon(Icons.done, color: Theme.of(context).primaryColor),
-        'message': "All changes are saved automatically.",
-      },
-      'saving': {
-        'icon': const SizedBox(
-          width: 16,
-          height: 16,
-          child: CircularProgressIndicator(strokeWidth: 2),
-        ),
-        'message': "Saving...",
-      },
-      'error': {
-        'icon': Icon(Icons.error, color: Theme.of(context).colorScheme.error),
-        'message': "Failed to save",
-      },
-      'saved': {
-        'icon': Icon(Icons.done, color: Theme.of(context).primaryColor),
-        'message': "Saved!",
-      },
-    };
-
-    String currentStatus;
-    if (saveStatus.isLoading) {
-      currentStatus = 'saving';
-    } else if (saveStatus.hasError) {
-      currentStatus = 'error';
-    } else if (saveStatus is AsyncData<void>) {
-      currentStatus = 'saved';
-    } else {
-      currentStatus = 'idle';
-    }
-
-    final icon = statusMap[currentStatus]!['icon'] as Widget;
-    final message = statusMap[currentStatus]!['message'] as String;
-
-    final statusMessage = Row(
-      children: [
-        icon,
-        const SizedBox(width: 8),
-        Text(message),
-      ],
-    );
-
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-      child: Container(
-        height: 300,
-        child: Padding(
+    final currentItemAsync = ref.watch(getShopListItemByIdProvider(widget.shopListItem.id ?? 0));
+    
+    return currentItemAsync.when(
+      loading: () => const Padding(
+        padding: EdgeInsets.all(24),
+        child: Center(child: CircularProgressIndicator()),
+      ),
+      error: (_, __) => const Padding(
+        padding: EdgeInsets.all(24),
+        child: Center(child: Text('Error loading item')),
+      ),
+      data: (currentItem) {
+        if (currentItem == null) {
+          return const Padding(
+            padding: EdgeInsets.all(24),
+            child: Center(child: Text('Item not found')),
+          );
+        }
+        return Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
           padding: const EdgeInsets.all(24),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _FormHeader(statusMessageWidget: statusMessage),
-              SizedBox(height: 24),
-              Form(
-                key: _formGlobalKey,
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: TextFormField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                                label: Text("Item's Name")
-                            ),
-                            validator: (text) => text == null || text.isEmpty ? "The item's name cannot be empty" : null,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            onChanged: (_) => _onFormChangedDebounced(),
-                          ),
-                        ),
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                            foregroundColor: Theme.of(context).colorScheme.onError,
-                          ),
-                          child: const Icon(Icons.delete),
-                          onPressed: () async {
-                            final confirm = await showDialog<bool>(
-                              context: context,
-                              builder: (context) => AlertDialog(
-                                title: const Text('Delete Item'),
-                                content: const Text('Are you sure you want to delete this item?'),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.of(context).pop(false),
-                                    child: const Text('Cancel'),
-                                  ),
-                                  TextButton(
-                                    onPressed: () => Navigator.of(context).pop(true),
-                                    child: const Text('Delete'),
-                                  ),
-                                ],
-                              ),
-                            );
-                            if (confirm != true) return;
-
-                            await ref
-                                .read(shopListItemMutationProvider.notifier)
-                                .deleteItem(widget.shopListItem.id ?? 0);
-
-                            if (context.mounted) {
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ),
-                      ],
+              Row(
+                children: [
+                  Text(
+                    currentItem.name,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 16),
-                    Row(
-                      spacing: 8,
-                      children: [
-                        Flexible(
-                          flex: 1,
-                          child: DecimalFormField(
-                            decimalPlaces: 4,
-                            controller: _quantityController,
-                            focusNode: _quantityFocusNode,
-                            decoration: InputDecoration(
-                              label: Text("Quantity"),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) return 'Required';
-                              final num? number = num.tryParse(value);
-                              if (number == null) return 'Invalid number';
-                              return null;
-                            },
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            onChanged: (_) => _onFormChangedDebounced(),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: DecimalFormField(
-                            controller: _unitPriceController,
-                            focusNode: _unitPriceFocusNode,
-                            decimalPlaces: 2,
-                            decoration: InputDecoration(
-                              label: Text("Price"),
-                            ),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) return 'Required';
-                              final num? number = num.tryParse(value);
-                              if (number == null) return 'Invalid number';
-                              return null;
-                            },
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            onChanged: (_) => _onFormChangedDebounced(),
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: TextFormField(
-                            enabled: false,
-                            controller: TextEditingController(text: _currentTotal),
-                            decoration: InputDecoration(
-                              label: Text("Total"),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                  ),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => ShopListItemNameEditDialog(shopListItem: currentItem),
+                    );
+                  },
+                  icon: const Icon(Icons.edit),
+                  iconSize: 20,
+                  visualDensity: VisualDensity.compact,
+                  style: IconButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+                const Spacer(),
+                IconButton(
+                  onPressed: () async {
+                    final confirm = await showDialog<bool>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Delete Item'),
+                        content: Text('Are you sure you want to delete "${currentItem.name}"?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(true),
+                            child: const Text('Delete'),
+                          ),
+                        ],
+                      ),
+                    );
+                    if (confirm != true) return;
 
-class _FormHeader extends StatelessWidget {
-  final Widget statusMessageWidget;
-
-  const _FormHeader({super.key, required this.statusMessageWidget});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text("Update item", style: Theme.of(context).textTheme.titleLarge),
-            IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () => Navigator.of(context).pop(),
+                    await ref
+                        .read(shopListItemMutationProvider.notifier)
+                        .deleteItem(currentItem.id ?? 0);
+                    
+                    if (context.mounted) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  icon: const Icon(Icons.delete),
+                  iconSize: 20,
+                  visualDensity: VisualDensity.compact,
+                  style: IconButton.styleFrom(
+                    foregroundColor: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Form(
+              key: _formGlobalKey,
+              child: Row(
+                spacing: 8,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    child: DecimalFormField(
+                      decimalPlaces: 4,
+                      controller: _quantityController,
+                      focusNode: _quantityFocusNode,
+                      decoration: InputDecoration(
+                        label: Text("Quantity"),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return 'Required';
+                        final num? number = num.tryParse(value);
+                        if (number == null) return 'Invalid number';
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onChanged: (_) => _onFormChangedDebounced(),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: DecimalFormField(
+                      controller: _unitPriceController,
+                      focusNode: _unitPriceFocusNode,
+                      decimalPlaces: 2,
+                      decoration: InputDecoration(
+                        label: Text("Price"),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) return 'Required';
+                        final num? number = num.tryParse(value);
+                        if (number == null) return 'Invalid number';
+                        return null;
+                      },
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      onChanged: (_) => _onFormChangedDebounced(),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    child: TextFormField(
+                      enabled: false,
+                      controller: TextEditingController(text: _currentTotal),
+                      decoration: InputDecoration(
+                        label: Text("Total"),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             )
           ],
         ),
-        statusMessageWidget
-      ],
+      ),
+    );
+      },
     );
   }
 }
+
 

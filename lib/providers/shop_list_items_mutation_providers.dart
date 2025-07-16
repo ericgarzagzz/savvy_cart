@@ -42,6 +42,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
 
       // Refresh
       ref.invalidate(shopListItemsProvider);
+      ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
@@ -60,6 +61,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.updateShopListItem(updatedItem);
 
       ref.invalidate(shopListItemsProvider);
+      ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
@@ -78,6 +80,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.setShopListItemChecked(shopListItemId, checked);
 
       ref.invalidate(shopListItemsProvider);
+      ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);

@@ -130,15 +130,12 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
             ),
             SliverSafeArea(
               top: false,
-              sliver: SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                sliver: ShopListItemListview(
-                  shopListId: widget.shopListId,
-                  checkedItems: false,
-                  onAddItem: () {
-                    context.go("./add-item");
-                  },
-                ),
+              sliver: ShopListItemListview(
+                shopListId: widget.shopListId,
+                checkedItems: false,
+                onAddItem: () {
+                  context.go("./add-item");
+                },
               ),
             ),
             SliverPadding(
@@ -154,12 +151,9 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
             ),
             SliverSafeArea(
               top: false,
-              sliver: SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                sliver: ShopListItemListview(
-                  shopListId: widget.shopListId,
-                  checkedItems: true,
-                ),
+              sliver: ShopListItemListview(
+                shopListId: widget.shopListId,
+                checkedItems: true,
               ),
             )
           ],
