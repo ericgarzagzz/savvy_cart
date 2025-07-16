@@ -30,12 +30,43 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
             SliverAppBar(
               title: Text(shopList.name),
               actions: [
-                IconButton(
-                  icon: const Icon(Icons.chat),
-                  tooltip: 'Chat with AI',
-                  onPressed: () {
-                    context.go('./chat');
-                  },
+                Container(
+                  margin: const EdgeInsets.only(right: 8),
+                  child: InkWell(
+                    onTap: () {
+                      context.go('./chat');
+                    },
+                    borderRadius: BorderRadius.circular(20),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Theme.of(context).colorScheme.primary,
+                            Theme.of(context).colorScheme.secondary,
+                          ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.smart_toy, color: Colors.white, size: 18),
+                          const SizedBox(width: 4),
+                          const Text(
+                            'AI',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
