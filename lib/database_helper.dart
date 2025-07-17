@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:decimal/decimal.dart';
 import 'package:faker/faker.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
+import 'package:savvy_cart/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -16,92 +18,125 @@ class DatabaseHelper {
   Future<Database> get database async => _database ??= await _initDatabase();
 
   Future<Database> _initDatabase() async {
-    return await openDatabase(
-      await _getDatabasePath(),
-      version: 8,
-      onCreate: _onCreate,
-      onUpgrade: _onUpgrade
-    );
+    try {
+      return await openDatabase(
+        await _getDatabasePath(),
+        version: 8,
+        onCreate: _onCreate,
+        onUpgrade: _onUpgrade
+      );
+    } on DatabaseException catch (e) {
+      throw DatabaseInitializationException('Failed to initialize database: $e', e);
+    } on FileSystemException catch (e) {
+      throw DatabaseInitializationException('Database file system error: ${e.message}', e);
+    } catch (e) {
+      throw DatabaseInitializationException('Unexpected database initialization error: $e', e);
+    }
   }
 
   Future<String> _getDatabasePath() async {
-    return join(await getDatabasesPath(), 'savvy_cart_database.db');
+    try {
+      final path = await getDatabasesPath();
+      return join(path, 'savvy_cart_database.db');
+    } on FileSystemException catch (e) {
+      throw DatabasePathException('Cannot access database directory: ${e.message}', e);
+    } catch (e) {
+      throw DatabasePathException('Unexpected error getting database path: $e', e);
+    }
   }
 
   Future purgeDatabase() async {
-    return deleteDatabase(await _getDatabasePath());
+    try {
+      return deleteDatabase(await _getDatabasePath());
+    } on FileSystemException catch (e) {
+      throw DatabaseDeletionException('Cannot delete database file: ${e.message}', e);
+    } catch (e) {
+      throw DatabaseDeletionException('Unexpected error deleting database: $e', e);
+    }
   }
 
   FutureOr<void> _onCreate(Database db, int version) async {
     var batch = db.batch();
+    
+    try {
+      _createTableShopListsV1(batch);
+      _createTableShopListItemsV1(batch);
+      _createTableSuggestionsV1(batch);
+      
+      if (version >= 2) {
+        _createTableChatMessagesV2(batch);
+      }
+      
+      if (version >= 3) {
+        _updateChatMessagesV3(batch);
+      }
+      
+      if (version >= 4) {
+        _updateChatMessagesV4(batch);
+      }
+      
+      if (version >= 5) {
+        _updateChatMessagesV5(batch);
+      }
+      
+      if (version >= 6) {
+        _updateChatMessagesV6(batch);
+      }
+      
+      if (version >= 7) {
+        _updateChatMessagesV7(batch);
+      }
+      
+      if (version >= 8) {
+        _updateTablesV8(batch);
+      }
 
-    _createTableShopListsV1(batch);
-    _createTableShopListItemsV1(batch);
-    _createTableSuggestionsV1(batch);
-    
-    if (version >= 2) {
-      _createTableChatMessagesV2(batch);
+      await batch.commit(noResult: false);
+    } on DatabaseException catch (e) {
+      throw DatabaseSchemaException('Failed to create database schema: $e', e);
+    } catch (e) {
+      throw DatabaseSchemaException('Unexpected error during database creation: $e', e);
     }
-    
-    if (version >= 3) {
-      _updateChatMessagesV3(batch);
-    }
-    
-    if (version >= 4) {
-      _updateChatMessagesV4(batch);
-    }
-    
-    if (version >= 5) {
-      _updateChatMessagesV5(batch);
-    }
-    
-    if (version >= 6) {
-      _updateChatMessagesV6(batch);
-    }
-    
-    if (version >= 7) {
-      _updateChatMessagesV7(batch);
-    }
-    
-    if (version >= 8) {
-      _updateTablesV8(batch);
-    }
-
-    await batch.commit();
   }
 
   FutureOr<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
     var batch = db.batch();
 
-    if (oldVersion < 2) {
-      _createTableChatMessagesV2(batch);
-    }
+    try {
+      if (oldVersion < 2) {
+        _createTableChatMessagesV2(batch);
+      }
 
-    if (oldVersion < 3) {
-      _updateChatMessagesV3(batch);
-    }
+      if (oldVersion < 3) {
+        _updateChatMessagesV3(batch);
+      }
 
-    if (oldVersion < 4) {
-      _updateChatMessagesV4(batch);
-    }
+      if (oldVersion < 4) {
+        _updateChatMessagesV4(batch);
+      }
 
-    if (oldVersion < 5) {
-      _updateChatMessagesV5(batch);
-    }
+      if (oldVersion < 5) {
+        _updateChatMessagesV5(batch);
+      }
 
-    if (oldVersion < 6) {
-      _updateChatMessagesV6(batch);
-    }
+      if (oldVersion < 6) {
+        _updateChatMessagesV6(batch);
+      }
 
-    if (oldVersion < 7) {
-      _updateChatMessagesV7(batch);
-    }
+      if (oldVersion < 7) {
+        _updateChatMessagesV7(batch);
+      }
 
-    if (oldVersion < 8) {
-      _updateTablesV8(batch);
-    }
+      if (oldVersion < 8) {
+        _updateTablesV8(batch);
+      }
 
-    await batch.commit();
+      await batch.commit(noResult: false);
+    } on DatabaseException catch (e) {
+      throw DatabaseSchemaException('Failed to upgrade database from version $oldVersion to $newVersion: $e', e);
+    } catch (e) {
+      throw DatabaseSchemaException('Unexpected error during database upgrade: $e', e);
+    }
   }
 
   void _createTableShopListsV1(Batch batch) {
@@ -246,26 +281,44 @@ class DatabaseHelper {
   }
 
   Future<List<ShopList>> getShopLists() async {
-    Database db = await instance.database;
-    var shopLists = await db.query("shop_lists", orderBy: "created_at DESC");
-    List<ShopList> shopListCollection = shopLists.isNotEmpty
-      ? shopLists.map((x) => ShopList.fromMap(x)).toList()
-      : [];
-    return shopListCollection;
+    try {
+      Database db = await instance.database;
+      var shopLists = await db.query("shop_lists", orderBy: "created_at DESC");
+      List<ShopList> shopListCollection = shopLists.isNotEmpty
+        ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+        : [];
+      return shopListCollection;
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to retrieve shop lists: $e', e);
+    } on FormatException catch (e) {
+      throw DataCorruptionException('Corrupted data in shop lists table: ${e.message}', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error retrieving shop lists: $e', e);
+    }
   }
 
   Future<List<ShopList>> getShopListsPaginated({int limit = 3, int offset = 0}) async {
-    Database db = await instance.database;
-    var shopLists = await db.query(
-      "shop_lists", 
-      orderBy: "created_at DESC",
-      limit: limit,
-      offset: offset,
-    );
-    List<ShopList> shopListCollection = shopLists.isNotEmpty
-      ? shopLists.map((x) => ShopList.fromMap(x)).toList()
-      : [];
-    return shopListCollection;
+    try {
+      Database db = await instance.database;
+      var shopLists = await db.query(
+        "shop_lists", 
+        orderBy: "created_at DESC",
+        limit: limit,
+        offset: offset,
+      );
+      List<ShopList> shopListCollection = shopLists.isNotEmpty
+        ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+        : [];
+      return shopListCollection;
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to retrieve paginated shop lists: $e', e);
+    } on FormatException catch (e) {
+      throw DataCorruptionException('Corrupted data in shop lists table: ${e.message}', e);
+    } on ArgumentError catch (e) {
+      throw InvalidDataException('Invalid pagination parameters: ${e.message}', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error retrieving paginated shop lists: $e', e);
+    }
   }
 
   Future<int> getShopListsCount() async {
@@ -328,12 +381,23 @@ class DatabaseHelper {
   }
 
   Future<int> addShopList(ShopList shopList) async {
-    Database db = await instance.database;
-    final now = DateTime.now().millisecondsSinceEpoch;
-    final shopListMap = shopList.toMap();
-    shopListMap['created_at'] = shopList.createdAt?.millisecondsSinceEpoch ?? now;
-    shopListMap['updated_at'] = shopList.updatedAt?.millisecondsSinceEpoch ?? now;
-    return await db.insert("shop_lists", shopListMap);
+    try {
+      Database db = await instance.database;
+      final now = DateTime.now().millisecondsSinceEpoch;
+      final shopListMap = shopList.toMap();
+      shopListMap['created_at'] = shopList.createdAt?.millisecondsSinceEpoch ?? now;
+      shopListMap['updated_at'] = shopList.updatedAt?.millisecondsSinceEpoch ?? now;
+      return await db.insert("shop_lists", shopListMap);
+    } on DatabaseException catch (e) {
+      if (e.isUniqueConstraintError()) {
+        throw DuplicateDataException('Shop list with this name already exists', e);
+      }
+      throw DataInsertionException('Failed to add shop list: $e', e);
+    } on ArgumentError catch (e) {
+      throw InvalidDataException('Invalid shop list data: ${e.message}', e);
+    } catch (e) {
+      throw DataInsertionException('Unexpected error adding shop list: $e', e);
+    }
   }
 
   Future<List<ShopListItem>> getShopListItems(int shopListId) async {

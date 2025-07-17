@@ -1,3 +1,4 @@
+import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/find_locale.dart';
@@ -7,6 +8,17 @@ import 'package:savvy_cart/providers/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Set up global error handling
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    developer.log(
+      'Flutter Error: ${details.exception}',
+      name: 'SavvyCart',
+      error: details.exception,
+      stackTrace: details.stack,
+    );
+  };
 
   final systemCurrentLocale = await findSystemLocale();
   Intl.defaultLocale = systemCurrentLocale;

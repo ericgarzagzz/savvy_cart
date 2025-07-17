@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AutoBackupService {
@@ -43,11 +44,19 @@ class AutoBackupService {
       }
 
       return file.path;
+    } on FileSystemException catch (e) {
+      FileIOErrorHandler.handleFileSystemException(e);
+      rethrow; // This line should never be reached due to the throw above
+    } on FormatException catch (e) {
+      FileIOErrorHandler.handleFormatException(e, 'backup');
+      rethrow; // This line should never be reached due to the throw above
+    } on DatabaseOperationException catch (e) {
+      throw BackupCreationException('Database error during backup: ${e.message}', e);
     } catch (e) {
       if (kDebugMode) {
         print('Manual backup failed: $e');
       }
-      throw Exception('Failed to create backup: $e');
+      throw BackupCreationException('Failed to create backup: $e', e);
     }
   }
 
@@ -81,11 +90,21 @@ class AutoBackupService {
             includesSettings: json['includeSettings'] as bool? ?? false,
             databaseVersion: json['databaseVersion'] as int? ?? 0,
           ));
-        } catch (e) {
+        } on FileSystemException catch (e) {
           if (kDebugMode) {
             print('Error reading backup file ${file.path}: $e');
           }
+          // Skip files with access issues
+        } on FormatException catch (e) {
+          if (kDebugMode) {
+            print('Corrupted backup file ${file.path}: $e');
+          }
           // Skip corrupted files
+        } catch (e) {
+          if (kDebugMode) {
+            print('Unexpected error reading backup file ${file.path}: $e');
+          }
+          // Skip any other problematic files
         }
       }
 
@@ -93,11 +112,16 @@ class AutoBackupService {
       backupInfos.sort((a, b) => b.createdDate.compareTo(a.createdDate));
       
       return backupInfos;
+    } on FileSystemException catch (e) {
+      if (kDebugMode) {
+        print('Error accessing backup directory: $e');
+      }
+      throw FilePermissionException('Cannot access backup directory', e);
     } catch (e) {
       if (kDebugMode) {
-        print('Error getting available backups: $e');
+        print('Unexpected error getting available backups: $e');
       }
-      return [];
+      throw BackupCreationException('Failed to retrieve backup list: $e', e);
     }
   }
 
@@ -109,8 +133,10 @@ class AutoBackupService {
       }
 
       final file = File(filePath);
+      FileIOErrorHandler.validateBackupFile(file);
+      
       if (!await file.exists()) {
-        throw Exception('Backup file not found');
+        throw FileNotFoundIOException('Backup file not found: $filePath');
       }
 
       final content = await file.readAsString();
@@ -143,11 +169,20 @@ class AutoBackupService {
       if (kDebugMode) {
         print('Restore completed successfully');
       }
+    } on FileSystemException catch (e) {
+      FileIOErrorHandler.handleFileSystemException(e);
+    } on FormatException catch (e) {
+      FileIOErrorHandler.handleFormatException(e, 'backup');
+    } on DatabaseOperationException catch (e) {
+      throw BackupRestoreException('Database error during restore: ${e.message}', e);
+    } on FileIOException {
+      // Re-throw file I/O exceptions as-is
+      rethrow;
     } catch (e) {
       if (kDebugMode) {
         print('Restore failed: $e');
       }
-      throw Exception('Failed to restore backup: $e');
+      throw BackupRestoreException('Failed to restore backup: $e', e);
     }
   }
 

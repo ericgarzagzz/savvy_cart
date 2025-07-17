@@ -36,7 +36,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
           child: const Text("Confirm"),
           onPressed: () async {
             await DatabaseHelper.instance.removeShopList(widget.shopList.id ?? 0);
+            // Invalidate both providers to ensure all UI components update
             ref.invalidate(shopListCollectionProvider);
+            ref.read(paginatedShopListsProvider.notifier).refresh();
             if (widget.onDeleted != null) {
               widget.onDeleted!();
             }

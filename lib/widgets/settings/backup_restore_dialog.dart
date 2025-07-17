@@ -196,6 +196,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
     ref.invalidate(shopListItemStatsProvider);
     ref.invalidate(chatMessagesProvider);
     ref.invalidate(searchResultsProvider);
+    ref.read(paginatedShopListsProvider.notifier).refresh();
   }
 
   void _restoreBackup() async {

@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/utils/utils.dart';
 
 final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((ref) async {
   var shopLists = await DatabaseHelper.instance.getShopLists();
@@ -89,8 +91,19 @@ class PaginatedShopListsNotifier extends StateNotifier<PaginatedShopListsState> 
         isLoading: false,
         currentPage: 1,
       );
-    } catch (e) {
+    } on DatabaseOperationException catch (e) {
+      if (kDebugMode) {
+        print('Database error loading shop lists: ${e.message}');
+      }
       state = state.copyWith(isLoading: false);
+      // Re-throw to let UI handle the error appropriately
+      rethrow;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Unexpected error loading shop lists: $e');
+      }
+      state = state.copyWith(isLoading: false);
+      throw Exception('Failed to load shop lists: $e');
     }
   }
 
@@ -120,8 +133,19 @@ class PaginatedShopListsNotifier extends StateNotifier<PaginatedShopListsState> 
         isLoading: false,
         currentPage: state.currentPage + 1,
       );
-    } catch (e) {
+    } on DatabaseOperationException catch (e) {
+      if (kDebugMode) {
+        print('Database error loading more shop lists: ${e.message}');
+      }
       state = state.copyWith(isLoading: false);
+      // Re-throw to let UI handle the error appropriately
+      rethrow;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Unexpected error loading more shop lists: $e');
+      }
+      state = state.copyWith(isLoading: false);
+      throw Exception('Failed to load more shop lists: $e');
     }
   }
 

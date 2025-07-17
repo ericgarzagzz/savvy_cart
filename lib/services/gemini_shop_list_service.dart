@@ -1,5 +1,7 @@
 
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +9,7 @@ import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/utils/utils.dart';
 
 class GeminiShopListService {
   final String _geminiApiKey;
@@ -115,7 +118,7 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           'Content-Type': 'application/json',
         },
         body: jsonEncode(requestBody),
-      );
+      ).timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
@@ -180,15 +183,30 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
               actions: [],
             );
           }
+        } else {
+          throw ApiResponseFormatException('Empty response content from Gemini API');
         }
+      } else {
+        ApiErrorHandler.handleHttpError(response.statusCode, response.body);
+        throw ApiServerException(response.statusCode, 'Unexpected error'); // This should never be reached
       }
-
-      throw Exception('Failed to get response from Gemini API: ${response.statusCode}');
+    } on SocketException catch (e) {
+      ApiErrorHandler.handleSocketException(e);
+      rethrow; // This should never be reached
+    } on TimeoutException catch (e) {
+      ApiErrorHandler.handleTimeoutException(e);
+      rethrow; // This should never be reached
+    } on FormatException catch (e) {
+      ApiErrorHandler.handleFormatException(e);
+      rethrow; // This should never be reached
+    } on ApiException {
+      // Re-throw API exceptions as-is
+      rethrow;
     } catch (e) {
       if (kDebugMode) {
-        print('Error calling Gemini API: $e');
+        print('Unexpected error calling Gemini API: $e');
       }
-      throw Exception('Failed to process message with Gemini: $e');
+      throw NetworkException('Unexpected error processing message with Gemini: $e', e);
     }
   }
 

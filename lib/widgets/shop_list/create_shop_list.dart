@@ -134,7 +134,9 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await _saveShopList(_nameInputController.text);
+                    // Invalidate both providers to ensure all UI components update
                     ref.invalidate(shopListCollectionProvider);
+                    ref.read(paginatedShopListsProvider.notifier).refresh();
                     setState(() {
                       _formKey.currentState!.reset();
                     });
