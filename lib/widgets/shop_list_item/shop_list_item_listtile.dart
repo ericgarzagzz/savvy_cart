@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
@@ -17,6 +18,14 @@ class ShopListItemListtile extends ConsumerWidget {
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
+          SlidableAction(
+            onPressed: (context) {
+              context.go('./price-chart/${Uri.encodeComponent(shopListItem.name)}');
+            },
+            backgroundColor: Colors.purple,
+            foregroundColor: Colors.white,
+            icon: Icons.trending_up,
+          ),
           SlidableAction(
             onPressed: (context) {
               showDialog(

@@ -441,7 +441,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                       color: Colors.white,
                       size: 24,
                     ),
-                    onPressed: () => context.go('/insights'),
+                    onPressed: () => context.pop(),
                   ),
                 ),
               ),

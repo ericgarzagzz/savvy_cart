@@ -65,6 +65,16 @@ final router = GoRouter(
                 return ShopListChat(shopListId: shopListId);
               },
             ),
+            GoRoute(
+              path: 'price-chart/:itemName',
+              builder: (context, state) {
+                final itemName = state.pathParameters['itemName'];
+                if (itemName == null) {
+                  return _buildErrorPage(context, 'Invalid item name');
+                }
+                return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+              },
+            ),
           ],
         ),
         GoRoute(
@@ -74,6 +84,18 @@ final router = GoRouter(
             GoRoute(
               path: 'price-search',
               builder: (context, state) => const PriceSearchScreen(),
+              routes: [
+                GoRoute(
+                  path: 'price-chart/:itemName',
+                  builder: (context, state) {
+                    final itemName = state.pathParameters['itemName'];
+                    if (itemName == null) {
+                      return _buildErrorPage(context, 'Invalid item name');
+                    }
+                    return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+                  },
+                ),
+              ],
             ),
             GoRoute(
               path: 'price-chart/:itemName',
@@ -119,6 +141,16 @@ final router = GoRouter(
                       return _buildErrorPage(context, 'Invalid shop list ID');
                     }
                     return ShopListChat(shopListId: shopListId);
+                  },
+                ),
+                GoRoute(
+                  path: 'price-chart/:itemName',
+                  builder: (context, state) {
+                    final itemName = state.pathParameters['itemName'];
+                    if (itemName == null) {
+                      return _buildErrorPage(context, 'Invalid item name');
+                    }
+                    return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
                   },
                 ),
               ],

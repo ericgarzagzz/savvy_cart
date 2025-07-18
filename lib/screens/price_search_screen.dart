@@ -42,7 +42,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
   void _searchItem() {
     final itemName = _searchController.text.trim();
     if (itemName.isNotEmpty) {
-      context.go('/insights/price-chart/${Uri.encodeComponent(itemName)}');
+      context.go('./price-chart/${Uri.encodeComponent(itemName)}');
     }
   }
 
@@ -181,7 +181,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                             color: Colors.grey[400],
                             size: 20,
                           ),
-                          onTap: () => context.go('/insights/price-chart/${Uri.encodeComponent(suggestion.name)}'),
+                          onTap: () => context.go('./price-chart/${Uri.encodeComponent(suggestion.name)}'),
                         ),
                       );
                     },
