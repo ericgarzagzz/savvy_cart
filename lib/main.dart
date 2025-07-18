@@ -23,11 +23,7 @@ void main() async {
   final systemCurrentLocale = await findSystemLocale();
   Intl.defaultLocale = systemCurrentLocale;
 
-  runApp(
-    ProviderScope(
-      child: MyApp(),
-    )
-  );
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends ConsumerWidget {
@@ -37,7 +33,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeService = ref.watch(themeServiceProvider);
     final isDarkMode = ref.watch(isDarkModeProvider);
-    
+
     // Initialize theme service synchronously if not already initialized
     if (themeService.lightTheme == null || themeService.darkTheme == null) {
       return FutureBuilder(
@@ -52,14 +48,10 @@ class MyApp extends ConsumerWidget {
               debugShowCheckedModeBanner: false,
             );
           }
-          
+
           // Show loading screen while themes are loading
           return MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            ),
+            home: Scaffold(body: Center(child: CircularProgressIndicator())),
           );
         },
       );

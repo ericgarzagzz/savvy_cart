@@ -9,10 +9,7 @@ import 'package:savvy_cart/services/services.dart';
 class ImportDialog extends ConsumerStatefulWidget {
   final BackupFileInfo backup;
 
-  const ImportDialog({
-    super.key,
-    required this.backup,
-  });
+  const ImportDialog({super.key, required this.backup});
 
   @override
   ConsumerState<ImportDialog> createState() => _ImportDialogState();
@@ -25,7 +22,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
-    
+
     return AlertDialog(
       title: const Text('Restore Backup'),
       content: SizedBox(
@@ -47,12 +44,21 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 8),
-                      _buildInfoRow('File:', widget.backup.fileName
-                          .replaceAll('manual_backup_', '')
-                          .replaceAll('.json', '')),
-                      _buildInfoRow('Created:', dateFormat.format(widget.backup.createdDate)),
+                      _buildInfoRow(
+                        'File:',
+                        widget.backup.fileName
+                            .replaceAll('manual_backup_', '')
+                            .replaceAll('.json', ''),
+                      ),
+                      _buildInfoRow(
+                        'Created:',
+                        dateFormat.format(widget.backup.createdDate),
+                      ),
                       _buildInfoRow('Size:', widget.backup.formattedSize),
-                      _buildInfoRow('Includes Settings:', widget.backup.includesSettings ? 'Yes' : 'No'),
+                      _buildInfoRow(
+                        'Includes Settings:',
+                        widget.backup.includesSettings ? 'Yes' : 'No',
+                      ),
                     ],
                   ),
                 ),
@@ -73,7 +79,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                 dense: true,
                 contentPadding: EdgeInsets.zero,
               ),
-              
+
               const SizedBox(height: 12),
               Container(
                 padding: const EdgeInsets.all(12),
@@ -131,10 +137,10 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
         ElevatedButton(
           onPressed: _isImporting ? null : _performImport,
           style: ElevatedButton.styleFrom(
-            backgroundColor: _options.replaceExisting 
+            backgroundColor: _options.replaceExisting
                 ? Theme.of(context).colorScheme.error
                 : null,
-            foregroundColor: _options.replaceExisting 
+            foregroundColor: _options.replaceExisting
                 ? Theme.of(context).colorScheme.onError
                 : null,
           ),
@@ -162,12 +168,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
               style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
             ),
           ),
-          Expanded(
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 12),
-            ),
-          ),
+          Expanded(child: Text(value, style: const TextStyle(fontSize: 12))),
         ],
       ),
     );
@@ -195,13 +196,13 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
         widget.backup.filePath,
         replaceExisting: _options.replaceExisting,
       );
-      
+
       if (mounted) {
         // Invalidate all Riverpod providers to refresh the UI with restored data
         _invalidateAllProviders();
-        
+
         Navigator.of(context).pop();
-        
+
         // Show success dialog
         showDialog(
           context: context,
@@ -209,9 +210,9 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
             title: const Text('Restore Successful'),
             content: Text(
-              _options.replaceExisting 
+              _options.replaceExisting
                   ? 'Your data has been restored successfully.'
-                  : 'The backup data has been merged with your current data successfully.'
+                  : 'The backup data has been merged with your current data successfully.',
             ),
             actions: [
               ElevatedButton(
@@ -227,7 +228,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
         setState(() {
           _isImporting = false;
         });
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Restore failed: $e'),

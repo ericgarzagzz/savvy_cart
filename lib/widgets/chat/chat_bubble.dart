@@ -10,7 +10,7 @@ class ChatBubble extends StatelessWidget {
   final bool isLatestAiMessage;
 
   const ChatBubble({
-    super.key, 
+    super.key,
     required this.messageViewModel,
     this.onRetry,
     this.onViewActions,
@@ -24,8 +24,9 @@ class ChatBubble extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
-        mainAxisAlignment:
-            messageViewModel.isUser ? MainAxisAlignment.end : MainAxisAlignment.start,
+        mainAxisAlignment: messageViewModel.isUser
+            ? MainAxisAlignment.end
+            : MainAxisAlignment.start,
         children: [
           if (!messageViewModel.isUser) ...[
             CircleAvatar(
@@ -69,9 +70,12 @@ class ChatBubble extends StatelessWidget {
                         Expanded(
                           child: Text(
                             messageViewModel.text,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurface,
+                                ),
                           ),
                         ),
                       ],
@@ -86,7 +90,9 @@ class ChatBubble extends StatelessWidget {
                       ),
                     ),
                   ],
-                  if (messageViewModel.isError && onRetry != null && isLastMessage) ...[
+                  if (messageViewModel.isError &&
+                      onRetry != null &&
+                      isLastMessage) ...[
                     const SizedBox(height: 8),
                     TextButton.icon(
                       onPressed: onRetry,
@@ -103,63 +109,79 @@ class ChatBubble extends StatelessWidget {
                         ),
                       ),
                       style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
                         minimumSize: Size.zero,
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                     ),
                   ],
-                  if (!messageViewModel.isError && !messageViewModel.isUser && messageViewModel.hasActions) ...[
+                  if (!messageViewModel.isError &&
+                      !messageViewModel.isUser &&
+                      messageViewModel.hasActions) ...[
                     const SizedBox(height: 8),
                     if (messageViewModel.actionsExecuted) ...[
                       // Actions were executed - show review button
                       ElevatedButton.icon(
                         onPressed: onViewExecutedActions,
-                        icon: Icon(
-                          Icons.check_circle,
-                          size: 18,
-                        ),
+                        icon: Icon(Icons.check_circle, size: 18),
                         label: Text(
                           'Actions Applied',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-                          foregroundColor: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerHighest,
+                          foregroundColor: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.6),
                         ),
                       ),
                     ] else if (isLatestAiMessage) ...[
                       // Latest AI message - show apply button
                       ElevatedButton.icon(
                         onPressed: onViewActions,
-                        icon: Icon(
-                          Icons.playlist_add_check,
-                          size: 18,
-                        ),
+                        icon: Icon(Icons.playlist_add_check, size: 18),
                         label: Text(
                           'Apply Actions',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                         style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 8,
+                          ),
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.primary,
                           foregroundColor: Colors.white,
                         ),
                       ),
                     ] else ...[
                       // Not latest AI message - actions are considered discarded
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.surfaceContainerLow,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.surfaceContainerLow,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
-                            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.outline.withValues(alpha: 0.3),
                             width: 1,
                           ),
                         ),
@@ -169,15 +191,21 @@ class ChatBubble extends StatelessWidget {
                             Icon(
                               Icons.history,
                               size: 18,
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurface.withValues(alpha: 0.6),
                             ),
                             const SizedBox(width: 8),
                             Text(
                               'Actions Discarded',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withValues(alpha: 0.6),
+                                    fontWeight: FontWeight.w500,
+                                  ),
                             ),
                           ],
                         ),

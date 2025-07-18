@@ -23,13 +23,13 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
   @override
   Widget build(BuildContext context) {
     final paginatedState = ref.watch(paginatedShopListsProvider);
-    
+
     if (paginatedState.items.isEmpty && paginatedState.isLoading) {
       return SliverToBoxAdapter(
         child: Center(child: CircularProgressIndicator()),
       );
     }
-    
+
     if (paginatedState.items.isEmpty && !paginatedState.isLoading) {
       return SliverToBoxAdapter(
         child: Padding(
@@ -40,7 +40,9 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               Container(
                 padding: EdgeInsets.all(24),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.3),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.primaryContainer.withOpacity(0.3),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -83,11 +85,18 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("Recent Lists", style: Theme.of(context).textTheme.bodyLarge
-                      ?.copyWith(fontWeight: FontWeight.bold)),
+                    Text(
+                      "Recent Lists",
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                     Row(
                       children: [
-                        Text("${paginatedState.items.length} shown", style: Theme.of(context).textTheme.bodyMedium),
+                        Text(
+                          "${paginatedState.items.length} shown",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
                         SizedBox(width: 8),
                         InkWell(
                           onTap: () => context.go("./search-lists"),
@@ -97,7 +106,9 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                             child: Icon(
                               Icons.search,
                               size: 20,
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
                             ),
                           ),
                         ),
@@ -109,31 +120,36 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               ],
             );
           }
-          
+
           final actualIndex = index - 1;
           if (actualIndex < paginatedState.items.length) {
-            return ShopListListTile(shopList: paginatedState.items[actualIndex]);
+            return ShopListListTile(
+              shopList: paginatedState.items[actualIndex],
+            );
           }
-          
+
           // Load more button
           if (paginatedState.hasMore) {
             return Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
               child: Center(
-                child: paginatedState.isLoading 
-                  ? CircularProgressIndicator()
-                  : OutlinedButton.icon(
-                      onPressed: () => ref.read(paginatedShopListsProvider.notifier).loadMore(),
-                      icon: Icon(Icons.expand_more),
-                      label: Text("Load More"),
-                    ),
+                child: paginatedState.isLoading
+                    ? CircularProgressIndicator()
+                    : OutlinedButton.icon(
+                        onPressed: () => ref
+                            .read(paginatedShopListsProvider.notifier)
+                            .loadMore(),
+                        icon: Icon(Icons.expand_more),
+                        label: Text("Load More"),
+                      ),
               ),
             );
           }
-          
+
           return SizedBox.shrink();
         },
-        childCount: paginatedState.items.length + 1 + (paginatedState.hasMore ? 1 : 0),
+        childCount:
+            paginatedState.items.length + 1 + (paginatedState.hasMore ? 1 : 0),
       ),
     );
   }

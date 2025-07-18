@@ -4,13 +4,13 @@ class DecimalTextInputFormatter extends TextInputFormatter {
   final int decimalRange;
 
   DecimalTextInputFormatter({required this.decimalRange})
-      : assert(decimalRange >= 0);
+    : assert(decimalRange >= 0);
 
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue,
-      TextEditingValue newValue,
-      ) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final text = newValue.text;
 
     if (text == '') return newValue;

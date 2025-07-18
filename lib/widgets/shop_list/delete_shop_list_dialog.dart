@@ -8,10 +8,15 @@ class DeleteShopListDialog extends ConsumerStatefulWidget {
   final ShopListViewModel shopList;
   final VoidCallback? onDeleted;
 
-  const DeleteShopListDialog({super.key, required this.shopList, this.onDeleted});
+  const DeleteShopListDialog({
+    super.key,
+    required this.shopList,
+    this.onDeleted,
+  });
 
   @override
-  ConsumerState<DeleteShopListDialog> createState() => _DeleteShopListDialogState();
+  ConsumerState<DeleteShopListDialog> createState() =>
+      _DeleteShopListDialogState();
 }
 
 class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
@@ -19,7 +24,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("Delete shop list"),
-      content: Text("Are you sure you want to delete the shop list \"${widget.shopList.name}\"?"),
+      content: Text(
+        "Are you sure you want to delete the shop list \"${widget.shopList.name}\"?",
+      ),
       actions: [
         TextButton(
           child: const Text("Cancel"),
@@ -35,7 +42,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
           ),
           child: const Text("Confirm"),
           onPressed: () async {
-            await DatabaseHelper.instance.removeShopList(widget.shopList.id ?? 0);
+            await DatabaseHelper.instance.removeShopList(
+              widget.shopList.id ?? 0,
+            );
             // Invalidate both providers to ensure all UI components update
             ref.invalidate(shopListCollectionProvider);
             ref.read(paginatedShopListsProvider.notifier).refresh();
@@ -45,7 +54,7 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
             if (!mounted) return;
             Navigator.of(context).pop();
           },
-        )
+        ),
       ],
     );
   }

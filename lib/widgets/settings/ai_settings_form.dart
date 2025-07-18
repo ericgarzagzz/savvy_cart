@@ -38,7 +38,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
     super.initState();
     final aiSettings = ref.read(aiSettingsProvider).settings;
     _apiKeyController = TextEditingController(text: aiSettings.apiKey);
-    
+
     // Trigger API verification on load if API key exists
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (aiSettings.apiKey.isNotEmpty) {
@@ -108,14 +108,20 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
                 children: [
                   Expanded(
                     child: Text(
-                      _getCurrentModelDisplayName(aiSettingsState, settings.model),
+                      _getCurrentModelDisplayName(
+                        aiSettingsState,
+                        settings.model,
+                      ),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   if (settings.model == 'gemini-2.0-flash')
                     Container(
                       margin: const EdgeInsets.only(left: 8),
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Theme.of(context).colorScheme.primaryContainer,
                         borderRadius: BorderRadius.circular(12),
@@ -125,7 +131,9 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.onPrimaryContainer,
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onPrimaryContainer,
                         ),
                       ),
                     ),
@@ -140,7 +148,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
 
   void _navigateToModelSelection(BuildContext context) {
     final aiSettingsState = ref.read(aiSettingsProvider);
-    
+
     // Check if API key is valid before navigating
     if (!aiSettingsState.hasValidApiKey) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -153,13 +161,14 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
     }
 
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const ModelSelectionScreen(),
-      ),
+      MaterialPageRoute(builder: (context) => const ModelSelectionScreen()),
     );
   }
 
-  String _getCurrentModelDisplayName(AiSettingsState aiSettingsState, String modelName) {
+  String _getCurrentModelDisplayName(
+    AiSettingsState aiSettingsState,
+    String modelName,
+  ) {
     // Try to get display name from verified models first
     final models = aiSettingsState.verificationResult?.geminiModels;
     if (models != null) {
@@ -171,7 +180,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
         return matchingModel.userFriendlyName;
       }
     }
-    
+
     // Fallback to manual display name formatting
     return _getModelDisplayName(modelName);
   }
@@ -179,7 +188,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
   String _getModelDisplayName(String model) {
     // Remove the 'models/' prefix if present
     final cleanModel = model.replaceAll('models/', '');
-    
+
     // Create user-friendly display names
     if (cleanModel == 'gemini-2.0-flash') {
       return 'Gemini™ 2.0 Flash';
@@ -198,7 +207,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
           .map((word) => word[0].toUpperCase() + word.substring(1))
           .join(' ');
     }
-    
+
     return cleanModel;
   }
 }

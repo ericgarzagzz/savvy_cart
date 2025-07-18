@@ -63,11 +63,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     color: Colors.white.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
-                  ),
+                  child: Icon(Icons.add, color: Colors.white, size: 20),
                 ),
                 SizedBox(width: 12),
                 Column(
@@ -83,9 +79,9 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     SizedBox(height: 4),
                     Text(
                       "Start your shopping journey",
-                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                        color: Colors.white70,
-                      ),
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium!.copyWith(color: Colors.white70),
                     ),
                   ],
                 ),
@@ -116,7 +112,10 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 ),
                 errorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.red.shade300, width: 1.5),
+                  borderSide: BorderSide(
+                    color: Colors.red.shade300,
+                    width: 1.5,
+                  ),
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -124,7 +123,9 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 ),
                 errorStyle: TextStyle(color: Colors.red.shade100),
               ),
-              validator: (text) => text == null || text.isEmpty ? "The list's name cannot be empty" : null,
+              validator: (text) => text == null || text.isEmpty
+                  ? "The list's name cannot be empty"
+                  : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
             const SizedBox(height: 20),
@@ -154,7 +155,11 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.add, size: 20, color: Theme.of(context).colorScheme.primary),
+                    Icon(
+                      Icons.add,
+                      size: 20,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                     SizedBox(width: 8),
                     Text(
                       "Create Shopping List",
@@ -167,7 +172,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                   ],
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),

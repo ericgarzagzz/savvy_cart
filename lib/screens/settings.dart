@@ -17,11 +17,9 @@ class Settings extends ConsumerWidget {
     final themeService = ref.watch(themeServiceProvider);
     final currentThemeMode = ref.watch(themeModeProvider);
     final versionAsync = ref.watch(packageInfoProvider);
-    
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text("SavvyCart settings"),
-      ),
+      appBar: AppBar(title: Text("SavvyCart settings")),
       body: SettingsList(
         platform: DevicePlatform.android,
         lightTheme: SettingsThemeData(
@@ -29,14 +27,18 @@ class Settings extends ConsumerWidget {
           settingsSectionBackground: Theme.of(context).cardColor,
           titleTextColor: Theme.of(context).textTheme.headlineSmall?.color,
           settingsTileTextColor: Theme.of(context).textTheme.bodyLarge?.color,
-          tileDescriptionTextColor: Theme.of(context).textTheme.bodyMedium?.color,
+          tileDescriptionTextColor: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.color,
         ),
         darkTheme: SettingsThemeData(
           settingsListBackground: Theme.of(context).scaffoldBackgroundColor,
           settingsSectionBackground: Theme.of(context).cardColor,
           titleTextColor: Theme.of(context).textTheme.headlineSmall?.color,
           settingsTileTextColor: Theme.of(context).textTheme.bodyLarge?.color,
-          tileDescriptionTextColor: Theme.of(context).textTheme.bodyMedium?.color,
+          tileDescriptionTextColor: Theme.of(
+            context,
+          ).textTheme.bodyMedium?.color,
         ),
         sections: [
           SettingsSection(
@@ -45,7 +47,9 @@ class Settings extends ConsumerWidget {
               SettingsTile.navigation(
                 leading: Icon(Icons.palette),
                 title: Text('Theme'),
-                value: Text('Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}'),
+                value: Text(
+                  'Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}',
+                ),
                 onPressed: (context) => _showThemeDialog(context, ref),
               ),
             ],
@@ -58,10 +62,10 @@ class Settings extends ConsumerWidget {
                 title: Text('AI Settings'),
                 value: Text(
                   aiSettingsState.hasValidApiKey
-                    ? 'Ready'
-                    : aiSettingsState.settings.apiKey.isNotEmpty
-                        ? 'Not verified'
-                        : 'Not configured'
+                      ? 'Ready'
+                      : aiSettingsState.settings.apiKey.isNotEmpty
+                      ? 'Not verified'
+                      : 'Not configured',
                 ),
                 onPressed: (context) => context.push('/settings/ai'),
               ),
@@ -74,27 +78,29 @@ class Settings extends ConsumerWidget {
                 leading: Icon(Icons.backup),
                 title: Text('Backup & Restore'),
                 value: Text('Manage backups'),
-                onPressed: (context) => context.push('/settings/data-management'),
+                onPressed: (context) =>
+                    context.push('/settings/data-management'),
               ),
             ],
           ),
-          if (kDebugMode) SettingsSection(
-            title: Text('Developer'),
-            tiles: [
-              SettingsTile.navigation(
-                leading: Icon(Icons.data_usage),
-                title: Text('Generate Mock Data'),
-                value: Text('Add sample shopping lists'),
-                onPressed: (context) => _showGenerateMockDataDialog(context),
-              ),
-              SettingsTile.navigation(
-                leading: Icon(Icons.delete_forever),
-                title: Text('Delete Database'),
-                value: Text('Clear all data'),
-                onPressed: (context) => _showDeleteDatabaseDialog(context),
-              ),
-            ],
-          ),
+          if (kDebugMode)
+            SettingsSection(
+              title: Text('Developer'),
+              tiles: [
+                SettingsTile.navigation(
+                  leading: Icon(Icons.data_usage),
+                  title: Text('Generate Mock Data'),
+                  value: Text('Add sample shopping lists'),
+                  onPressed: (context) => _showGenerateMockDataDialog(context),
+                ),
+                SettingsTile.navigation(
+                  leading: Icon(Icons.delete_forever),
+                  title: Text('Delete Database'),
+                  value: Text('Clear all data'),
+                  onPressed: (context) => _showDeleteDatabaseDialog(context),
+                ),
+              ],
+            ),
           SettingsSection(
             title: Text('About'),
             tiles: [
@@ -102,7 +108,9 @@ class Settings extends ConsumerWidget {
                 data: (packageInfo) => SettingsTile(
                   leading: Icon(Icons.info_outline),
                   title: Text('Version'),
-                  value: Text('${packageInfo.version} (${packageInfo.buildNumber})'),
+                  value: Text(
+                    '${packageInfo.version} (${packageInfo.buildNumber})',
+                  ),
                 ),
                 loading: () => SettingsTile(
                   leading: Icon(Icons.info_outline),
@@ -122,13 +130,14 @@ class Settings extends ConsumerWidget {
     );
   }
 
-
   void _showGenerateMockDataDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Generate Mock Data'),
-        content: Text('This will create sample shopping lists with items across the year for analytics testing. This may take a few moments.'),
+        content: Text(
+          'This will create sample shopping lists with items across the year for analytics testing. This may take a few moments.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -164,7 +173,9 @@ class Settings extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Delete Database'),
-        content: Text('This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.'),
+        content: Text(
+          'This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

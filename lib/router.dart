@@ -29,7 +29,8 @@ Widget _buildErrorPage(BuildContext context, String message) {
 }
 
 final router = GoRouter(
-  errorBuilder: (context, state) => _buildErrorPage(context, 'Page not found: ${state.uri}'),
+  errorBuilder: (context, state) =>
+      _buildErrorPage(context, 'Page not found: ${state.uri}'),
   routes: [
     GoRoute(
       path: '/',
@@ -38,7 +39,9 @@ final router = GoRouter(
         GoRoute(
           path: 'manage/:id',
           builder: (context, state) {
-            final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+            final shopListId = ParsingUtils.parseIntSafely(
+              state.pathParameters['id'],
+            );
             if (shopListId == null) {
               return _buildErrorPage(context, 'Invalid shop list ID');
             }
@@ -48,7 +51,9 @@ final router = GoRouter(
             GoRoute(
               path: 'add-item',
               builder: (context, state) {
-                final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+                final shopListId = ParsingUtils.parseIntSafely(
+                  state.pathParameters['id'],
+                );
                 if (shopListId == null) {
                   return _buildErrorPage(context, 'Invalid shop list ID');
                 }
@@ -58,7 +63,9 @@ final router = GoRouter(
             GoRoute(
               path: 'chat',
               builder: (context, state) {
-                final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+                final shopListId = ParsingUtils.parseIntSafely(
+                  state.pathParameters['id'],
+                );
                 if (shopListId == null) {
                   return _buildErrorPage(context, 'Invalid shop list ID');
                 }
@@ -72,7 +79,9 @@ final router = GoRouter(
                 if (itemName == null) {
                   return _buildErrorPage(context, 'Invalid item name');
                 }
-                return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+                return PriceChartScreen(
+                  itemName: Uri.decodeComponent(itemName),
+                );
               },
             ),
           ],
@@ -92,7 +101,9 @@ final router = GoRouter(
                     if (itemName == null) {
                       return _buildErrorPage(context, 'Invalid item name');
                     }
-                    return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+                    return PriceChartScreen(
+                      itemName: Uri.decodeComponent(itemName),
+                    );
                   },
                 ),
               ],
@@ -104,7 +115,9 @@ final router = GoRouter(
                 if (itemName == null) {
                   return _buildErrorPage(context, 'Invalid item name');
                 }
-                return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+                return PriceChartScreen(
+                  itemName: Uri.decodeComponent(itemName),
+                );
               },
             ),
           ],
@@ -116,7 +129,9 @@ final router = GoRouter(
             GoRoute(
               path: 'manage/:id',
               builder: (context, state) {
-                final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+                final shopListId = ParsingUtils.parseIntSafely(
+                  state.pathParameters['id'],
+                );
                 if (shopListId == null) {
                   return _buildErrorPage(context, 'Invalid shop list ID');
                 }
@@ -126,7 +141,9 @@ final router = GoRouter(
                 GoRoute(
                   path: 'add-item',
                   builder: (context, state) {
-                    final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+                    final shopListId = ParsingUtils.parseIntSafely(
+                      state.pathParameters['id'],
+                    );
                     if (shopListId == null) {
                       return _buildErrorPage(context, 'Invalid shop list ID');
                     }
@@ -136,7 +153,9 @@ final router = GoRouter(
                 GoRoute(
                   path: 'chat',
                   builder: (context, state) {
-                    final shopListId = ParsingUtils.parseIntSafely(state.pathParameters['id']);
+                    final shopListId = ParsingUtils.parseIntSafely(
+                      state.pathParameters['id'],
+                    );
                     if (shopListId == null) {
                       return _buildErrorPage(context, 'Invalid shop list ID');
                     }
@@ -150,7 +169,9 @@ final router = GoRouter(
                     if (itemName == null) {
                       return _buildErrorPage(context, 'Invalid item name');
                     }
-                    return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+                    return PriceChartScreen(
+                      itemName: Uri.decodeComponent(itemName),
+                    );
                   },
                 ),
               ],

@@ -23,10 +23,7 @@ class GenericAlertDialog extends StatelessWidget {
       content: Text(message),
       actions: [
         if (confirmText != null && onConfirm != null)
-          TextButton(
-            onPressed: onConfirm,
-            child: Text(confirmText!),
-          ),
+          TextButton(onPressed: onConfirm, child: Text(confirmText!)),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
           child: Text(cancelText ?? 'Cancel'),

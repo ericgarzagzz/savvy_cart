@@ -23,5 +23,6 @@ class SuggestionsMutationNotifier extends StateNotifier<AsyncValue<void>> {
 }
 
 final suggestionsMutationProvider =
-StateNotifierProvider<SuggestionsMutationNotifier, AsyncValue<void>>(
-        (ref) => SuggestionsMutationNotifier(ref));
+    StateNotifierProvider<SuggestionsMutationNotifier, AsyncValue<void>>(
+      (ref) => SuggestionsMutationNotifier(ref),
+    );

@@ -10,10 +10,7 @@ import 'package:savvy_cart/providers/providers.dart';
 class PriceChartScreen extends ConsumerStatefulWidget {
   final String itemName;
 
-  const PriceChartScreen({
-    super.key,
-    required this.itemName,
-  });
+  const PriceChartScreen({super.key, required this.itemName});
 
   @override
   ConsumerState<PriceChartScreen> createState() => _PriceChartScreenState();
@@ -45,7 +42,9 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final priceHistoryAsync = ref.watch(itemPriceHistoryProvider(widget.itemName));
+    final priceHistoryAsync = ref.watch(
+      itemPriceHistoryProvider(widget.itemName),
+    );
 
     return Material(
       child: Container(
@@ -56,8 +55,12 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
             begin: Alignment.topRight,
             end: Alignment.bottomLeft,
             colors: [
-              Color(0xff2e5010), // Darker primary green (matching create_shop_list)
-              Color(0xff6b7f6f), // Lighter blue-gray green (matching create_shop_list)
+              Color(
+                0xff2e5010,
+              ), // Darker primary green (matching create_shop_list)
+              Color(
+                0xff6b7f6f,
+              ), // Lighter blue-gray green (matching create_shop_list)
             ],
           ),
         ),
@@ -76,18 +79,20 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           // Header
                           Text(
                             widget.itemName,
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'Price trend for the last 10 purchases',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.white.withOpacity(0.7),
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.7),
+                                ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 40),
@@ -99,16 +104,18 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           const SizedBox(height: 16),
                           Text(
                             'No price history available',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: Colors.white.withOpacity(0.8),
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.8),
+                                ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'Purchase this item to start tracking its price trends',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.white.withOpacity(0.6),
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -122,18 +129,20 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           // Header
                           Text(
                             widget.itemName,
-                            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.headlineMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'Price trend for the last 10 purchases',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.white.withOpacity(0.7),
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.7),
+                                ),
                             textAlign: TextAlign.center,
                           ),
                           const SizedBox(height: 40),
@@ -145,31 +154,35 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           const SizedBox(height: 16),
                           Text(
                             'Only one purchase found',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             'Last purchased for ${priceHistory.first.price.toStringWithLocale()}',
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                              color: Colors.white.withOpacity(0.8),
-                            ),
+                            style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.8),
+                                ),
                           ),
                           const SizedBox(height: 4),
                           Text(
                             'on ${DateFormat('MMM d, yyyy').format(priceHistory.first.date)}',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.white.withOpacity(0.6),
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             'Purchase this item more times to see price trends',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.white.withOpacity(0.6),
-                            ),
+                            style: Theme.of(context).textTheme.bodySmall
+                                ?.copyWith(
+                                  color: Colors.white.withOpacity(0.6),
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -179,11 +192,18 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                     // Reverse to show oldest to newest
                     final reversedHistory = priceHistory.reversed.toList();
                     final spots = reversedHistory.asMap().entries.map((entry) {
-                      return FlSpot(entry.key.toDouble(), entry.value.price.cents.toDouble());
+                      return FlSpot(
+                        entry.key.toDouble(),
+                        entry.value.price.cents.toDouble(),
+                      );
                     }).toList();
 
-                    final minPrice = reversedHistory.map((e) => e.price.cents).reduce((a, b) => a < b ? a : b);
-                    final maxPrice = reversedHistory.map((e) => e.price.cents).reduce((a, b) => a > b ? a : b);
+                    final minPrice = reversedHistory
+                        .map((e) => e.price.cents)
+                        .reduce((a, b) => a < b ? a : b);
+                    final maxPrice = reversedHistory
+                        .map((e) => e.price.cents)
+                        .reduce((a, b) => a > b ? a : b);
                     final priceRange = maxPrice - minPrice;
                     final padding = priceRange * 0.1;
 
@@ -192,18 +212,18 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                         // Header inside the gradient
                         Text(
                           widget.itemName,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 8),
                         Text(
                           'Price trend for the last 10 purchases',
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Colors.white.withOpacity(0.7),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: Colors.white.withOpacity(0.7)),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 30),
@@ -214,7 +234,9 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                               gridData: FlGridData(
                                 show: true,
                                 drawVerticalLine: false,
-                                horizontalInterval: priceRange > 0 ? priceRange / 4 : 1,
+                                horizontalInterval: priceRange > 0
+                                    ? priceRange / 4
+                                    : 1,
                                 getDrawingHorizontalLine: (value) {
                                   return FlLine(
                                     color: Colors.white.withOpacity(0.1),
@@ -229,11 +251,15 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                     reservedSize: 55,
                                     getTitlesWidget: (value, meta) {
                                       return Padding(
-                                        padding: const EdgeInsets.only(right: 8.0),
+                                        padding: const EdgeInsets.only(
+                                          right: 8.0,
+                                        ),
                                         child: Text(
                                           '\$${(value / 100).toStringAsFixed(2)}',
                                           style: TextStyle(
-                                            color: Colors.white.withOpacity(0.8),
+                                            color: Colors.white.withOpacity(
+                                              0.8,
+                                            ),
                                             fontSize: 11,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -249,13 +275,20 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                     interval: 1,
                                     getTitlesWidget: (value, meta) {
                                       final index = value.toInt();
-                                      if (index >= 0 && index < reversedHistory.length) {
+                                      if (index >= 0 &&
+                                          index < reversedHistory.length) {
                                         return Padding(
-                                          padding: const EdgeInsets.only(top: 8.0),
+                                          padding: const EdgeInsets.only(
+                                            top: 8.0,
+                                          ),
                                           child: Text(
-                                            DateFormat('MMM d').format(reversedHistory[index].date),
+                                            DateFormat('MMM d').format(
+                                              reversedHistory[index].date,
+                                            ),
                                             style: TextStyle(
-                                              color: Colors.white.withOpacity(0.8),
+                                              color: Colors.white.withOpacity(
+                                                0.8,
+                                              ),
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -266,14 +299,24 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                     },
                                   ),
                                 ),
-                                rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
-                                topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                                rightTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
+                                topTitles: const AxisTitles(
+                                  sideTitles: SideTitles(showTitles: false),
+                                ),
                               ),
                               borderData: FlBorderData(
                                 show: true,
                                 border: Border(
-                                  left: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.5),
-                                  bottom: BorderSide(color: Colors.white.withOpacity(0.3), width: 1.5),
+                                  left: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1.5,
+                                  ),
+                                  bottom: BorderSide(
+                                    color: Colors.white.withOpacity(0.3),
+                                    width: 1.5,
+                                  ),
                                 ),
                               ),
                               minX: 0,
@@ -300,14 +343,15 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                   ),
                                   dotData: FlDotData(
                                     show: true,
-                                    getDotPainter: (spot, percent, barData, index) {
-                                      return FlDotCirclePainter(
-                                        radius: 8,
-                                        color: Colors.white,
-                                        strokeWidth: 3,
-                                        strokeColor: Color(0xff10b981),
-                                      );
-                                    },
+                                    getDotPainter:
+                                        (spot, percent, barData, index) {
+                                          return FlDotCirclePainter(
+                                            radius: 8,
+                                            color: Colors.white,
+                                            strokeWidth: 3,
+                                            strokeColor: Color(0xff10b981),
+                                          );
+                                        },
                                   ),
                                   belowBarData: BarAreaData(
                                     show: true,
@@ -326,11 +370,13 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                               lineTouchData: LineTouchData(
                                 enabled: true,
                                 touchTooltipData: LineTouchTooltipData(
-                                  getTooltipColor: (group) => Colors.black.withOpacity(0.8),
+                                  getTooltipColor: (group) =>
+                                      Colors.black.withOpacity(0.8),
                                   getTooltipItems: (touchedSpots) {
                                     return touchedSpots.map((spot) {
                                       final index = spot.x.toInt();
-                                      if (index >= 0 && index < reversedHistory.length) {
+                                      if (index >= 0 &&
+                                          index < reversedHistory.length) {
                                         final entry = reversedHistory[index];
                                         return LineTooltipItem(
                                           '${entry.price.toStringWithLocale()}\n${DateFormat('MMM d, yyyy').format(entry.date)}',
@@ -359,10 +405,11 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                     children: [
                       Text(
                         widget.itemName,
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
@@ -384,10 +431,11 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                     children: [
                       Text(
                         widget.itemName,
-                        style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 8),
@@ -452,7 +500,10 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
     );
   }
 
-  Widget _buildPriceStats(BuildContext context, List<PriceHistoryEntry> priceHistory) {
+  Widget _buildPriceStats(
+    BuildContext context,
+    List<PriceHistoryEntry> priceHistory,
+  ) {
     final prices = priceHistory.map((e) => e.price.cents).toList();
     final avgPrice = prices.reduce((a, b) => a + b) / prices.length;
     final minPrice = prices.reduce((a, b) => a < b ? a : b);
@@ -463,10 +514,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: Colors.white.withOpacity(0.2),
-          width: 1,
-        ),
+        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -478,11 +526,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
             Icons.trending_flat,
             Color(0xff3b82f6), // Blue - neutral
           ),
-          Container(
-            width: 1,
-            height: 40,
-            color: Colors.white.withOpacity(0.2),
-          ),
+          Container(width: 1, height: 40, color: Colors.white.withOpacity(0.2)),
           _buildStatItem(
             context,
             'Lowest',
@@ -490,11 +534,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
             Icons.trending_down,
             Color(0xff10b981), // Green - good/low price
           ),
-          Container(
-            width: 1,
-            height: 40,
-            color: Colors.white.withOpacity(0.2),
-          ),
+          Container(width: 1, height: 40, color: Colors.white.withOpacity(0.2)),
           _buildStatItem(
             context,
             'Highest',
@@ -507,7 +547,13 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
     );
   }
 
-  Widget _buildStatItem(BuildContext context, String label, String value, IconData icon, Color color) {
+  Widget _buildStatItem(
+    BuildContext context,
+    String label,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Column(
       children: [
         Container(

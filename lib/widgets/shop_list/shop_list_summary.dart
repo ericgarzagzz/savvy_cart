@@ -24,10 +24,7 @@ class ShopListSummary extends ConsumerWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [
-                Color(0xff2e5010),
-                Color(0xff6b7f6f),
-              ],
+              colors: [Color(0xff2e5010), Color(0xff6b7f6f)],
             ),
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
@@ -44,19 +41,19 @@ class ShopListSummary extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _SummaryStatWidget(
-                  label: "Remaining", 
+                  label: "Remaining",
                   amount: uncheckedAmount,
                   color: Colors.white,
                   isSecondary: true,
                 ),
                 _SummaryStatWidget(
-                  label: "In Cart", 
+                  label: "In Cart",
                   amount: checkedAmount,
                   color: Colors.white,
                   isPrimary: true,
                 ),
                 _SummaryStatWidget(
-                  label: "Total", 
+                  label: "Total",
                   amount: totalAmount,
                   color: Colors.white,
                   isSecondary: true,
@@ -91,14 +88,14 @@ class _SummaryStatWidget extends StatelessWidget {
       spacing: 4,
       children: [
         Text(
-          amount.toStringWithLocale(), 
+          amount.toStringWithLocale(),
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             fontWeight: isPrimary ? FontWeight.bold : FontWeight.normal,
             color: color,
           ),
         ),
         Text(
-          label, 
+          label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: color,
             fontWeight: isPrimary ? FontWeight.w600 : FontWeight.normal,

@@ -72,7 +72,11 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     );
   }
 
-  void _handleItemTap(String itemName, bool isInShopList, int? shopListItemId) async {
+  void _handleItemTap(
+    String itemName,
+    bool isInShopList,
+    int? shopListItemId,
+  ) async {
     if (isInShopList && shopListItemId != null) {
       // Remove item
       final addNotifier = ref.read(shopListItemMutationProvider.notifier);
@@ -112,9 +116,13 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     }
   }
 
-  void _handleFrequentItemTap(String itemName, bool isInShopList, int? shopListItemId) async {
+  void _handleFrequentItemTap(
+    String itemName,
+    bool isInShopList,
+    int? shopListItemId,
+  ) async {
     final mutationNotifier = ref.read(shopListItemMutationProvider.notifier);
-    
+
     if (isInShopList && shopListItemId != null) {
       // Remove item from shopping list
       await mutationNotifier.deleteItem(shopListItemId);
@@ -138,13 +146,17 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     );
   }
 
-  void _handleItemRemove(String itemName, bool isInShopList, int? shopListItemId) async {
-    final title = isInShopList && shopListItemId != null ?
-        "Remove Item and Suggestion?" :
-        "Remove Suggestion?";
-    final description = isInShopList && shopListItemId != null ?
-        "This will remove \"${itemName}\" from your current shopping list and also from your suggestions." :
-        "This will remove \"${itemName}\" from your suggestions. It will not affect your current shopping list.";
+  void _handleItemRemove(
+    String itemName,
+    bool isInShopList,
+    int? shopListItemId,
+  ) async {
+    final title = isInShopList && shopListItemId != null
+        ? "Remove Item and Suggestion?"
+        : "Remove Suggestion?";
+    final description = isInShopList && shopListItemId != null
+        ? "This will remove \"${itemName}\" from your current shopping list and also from your suggestions."
+        : "This will remove \"${itemName}\" from your suggestions. It will not affect your current shopping list.";
 
     if (mounted) {
       final confirm = await showDialog<bool>(
@@ -166,11 +178,15 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
       );
       if (confirm != true) return;
 
-      final suggestionsMutationNotifier = ref.read(suggestionsMutationProvider.notifier);
+      final suggestionsMutationNotifier = ref.read(
+        suggestionsMutationProvider.notifier,
+      );
       await suggestionsMutationNotifier.deleteSuggestionByName(itemName);
 
       if (isInShopList && shopListItemId != null) {
-        final shopListItemMutationNotifier = ref.read(shopListItemMutationProvider.notifier);
+        final shopListItemMutationNotifier = ref.read(
+          shopListItemMutationProvider.notifier,
+        );
         await shopListItemMutationNotifier.deleteItem(shopListItemId);
       }
     }
@@ -186,7 +202,10 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
           children: [
             if (hasSearchQuery) ...[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 8.0,
+                ),
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -237,12 +256,15 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
           if (index == 0) {
             // Header
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 8.0,
+              ),
               child: Text(
                 hasSearchQuery ? 'Search Results ($resultCount)' : 'All Items',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             );
           }
@@ -255,11 +277,13 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
             key: Key('${item.name}_${item.isInShopList}'),
             leading: Checkbox(
               value: item.isInShopList,
-              onChanged: isLoading ? null : (_) => _handleItemTap(
-                item.name,
-                item.isInShopList,
-                item.shopListItemId,
-              ),
+              onChanged: isLoading
+                  ? null
+                  : (_) => _handleItemTap(
+                      item.name,
+                      item.isInShopList,
+                      item.shopListItemId,
+                    ),
             ),
             title: Text(item.name),
             trailing: IconButton(
@@ -271,11 +295,13 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                 item.shopListItemId,
               ),
             ),
-            onTap: isLoading ? null : () => _handleItemTap(
-              item.name,
-              item.isInShopList,
-              item.shopListItemId,
-            ),
+            onTap: isLoading
+                ? null
+                : () => _handleItemTap(
+                    item.name,
+                    item.isInShopList,
+                    item.shopListItemId,
+                  ),
             enabled: !isLoading,
           );
         },
@@ -286,15 +312,20 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
 
   @override
   Widget build(BuildContext context) {
-    final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
-    final searchResultsAsync = ref.watch(searchResultsProvider((widget.shopListId, _searchQuery)));
+    final getShopListByIdAsync = ref.watch(
+      getShopListByIdProvider(widget.shopListId),
+    );
+    final searchResultsAsync = ref.watch(
+      searchResultsProvider((widget.shopListId, _searchQuery)),
+    );
 
     return getShopListByIdAsync.when(
       loading: () => Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: const Center(child: CircularProgressIndicator()),
       ),
-      error: (err, stackTrace) => GenericErrorScaffold(errorMessage: err.toString()),
+      error: (err, stackTrace) =>
+          GenericErrorScaffold(errorMessage: err.toString()),
       data: (shopList) => Scaffold(
         body: CustomScrollView(
           slivers: [
@@ -336,7 +367,9 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Error loading results: ${err.toString()}',
-                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.error,
+                    ),
                   ),
                 ),
               ),

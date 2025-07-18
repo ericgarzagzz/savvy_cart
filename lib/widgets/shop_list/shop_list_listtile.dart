@@ -10,31 +10,36 @@ class ShopListListTile extends StatelessWidget {
 
   const ShopListListTile({super.key, required this.shopList, this.onTap});
 
-  bool get isCompleted => shopList.totalItems > 0 && shopList.checkedItems == shopList.totalItems;
-  
-  double get progressPercentage => shopList.totalItems == 0 ? 0 : shopList.checkedItems / shopList.totalItems;
-  
-  String get progressText => "${shopList.checkedItems} of ${shopList.totalItems} items";
-  
+  bool get isCompleted =>
+      shopList.totalItems > 0 && shopList.checkedItems == shopList.totalItems;
+
+  double get progressPercentage => shopList.totalItems == 0
+      ? 0
+      : shopList.checkedItems / shopList.totalItems;
+
+  String get progressText =>
+      "${shopList.checkedItems} of ${shopList.totalItems} items";
+
   String get buttonText => isCompleted ? "View List" : "Continue Shopping";
-  
-  IconData get buttonIcon => isCompleted ? Icons.visibility : Icons.shopping_cart;
-  
-  String get formattedCreatedDate => shopList.createdAt != null 
+
+  IconData get buttonIcon =>
+      isCompleted ? Icons.visibility : Icons.shopping_cart;
+
+  String get formattedCreatedDate => shopList.createdAt != null
       ? DateFormat('MMM d, yyyy').format(shopList.createdAt!)
       : "";
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       margin: EdgeInsets.only(bottom: 12),
       elevation: 2,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: isCompleted 
+          border: isCompleted
               ? Border.all(color: theme.colorScheme.primary, width: 2)
               : null,
         ),
@@ -78,7 +83,9 @@ class ShopListListTile extends StatelessWidget {
                                 Container(
                                   width: 1,
                                   height: 16,
-                                  color: theme.colorScheme.outline.withOpacity(0.5),
+                                  color: theme.colorScheme.outline.withOpacity(
+                                    0.5,
+                                  ),
                                 ),
                                 SizedBox(width: 8),
                               ],
@@ -95,14 +102,12 @@ class ShopListListTile extends StatelessWidget {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
+                      icon: Icon(Icons.delete, color: Colors.red),
                       onPressed: () {
                         showDialog(
                           context: context,
-                          builder: (_) => DeleteShopListDialog(shopList: shopList),
+                          builder: (_) =>
+                              DeleteShopListDialog(shopList: shopList),
                           barrierDismissible: false,
                         );
                       },
@@ -134,8 +139,12 @@ class ShopListListTile extends StatelessWidget {
                     SizedBox(height: 8),
                     LinearProgressIndicator(
                       value: progressPercentage,
-                      backgroundColor: theme.colorScheme.outline.withOpacity(0.2),
-                      valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+                      backgroundColor: theme.colorScheme.outline.withOpacity(
+                        0.2,
+                      ),
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        theme.colorScheme.primary,
+                      ),
                       minHeight: 8,
                       borderRadius: BorderRadius.circular(4),
                     ),
@@ -145,14 +154,15 @@ class ShopListListTile extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: FilledButton.icon(
-                    onPressed: onTap ?? () => context.go("/manage/${shopList.id}"),
+                    onPressed:
+                        onTap ?? () => context.go("/manage/${shopList.id}"),
                     icon: Icon(buttonIcon),
                     label: Text(buttonText),
                     style: FilledButton.styleFrom(
-                      backgroundColor: isCompleted 
+                      backgroundColor: isCompleted
                           ? theme.colorScheme.primaryContainer
                           : theme.colorScheme.primary,
-                      foregroundColor: isCompleted 
+                      foregroundColor: isCompleted
                           ? theme.colorScheme.onPrimaryContainer
                           : theme.colorScheme.onPrimary,
                     ),

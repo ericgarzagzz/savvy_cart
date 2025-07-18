@@ -4,16 +4,10 @@ class WeeklyInsights {
   final int listsCreated;
   final Money totalAmount;
 
-  const WeeklyInsights({
-    required this.listsCreated,
-    required this.totalAmount,
-  });
+  const WeeklyInsights({required this.listsCreated, required this.totalAmount});
 
   factory WeeklyInsights.empty() {
-    return WeeklyInsights(
-      listsCreated: 0,
-      totalAmount: Money(cents: 0),
-    );
+    return WeeklyInsights(listsCreated: 0, totalAmount: Money(cents: 0));
   }
 
   @override

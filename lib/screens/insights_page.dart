@@ -26,9 +26,9 @@ class InsightsPage extends ConsumerWidget {
           children: [
             Text(
               'Weekly Overview (Last 7 Days)',
-              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
             weeklyInsightsAsync.when(
@@ -59,9 +59,7 @@ class InsightsPage extends ConsumerWidget {
                     child: Card(
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        child: Center(child: CircularProgressIndicator()),
                       ),
                     ),
                   ),
@@ -70,9 +68,7 @@ class InsightsPage extends ConsumerWidget {
                     child: Card(
                       child: Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
+                        child: Center(child: CircularProgressIndicator()),
                       ),
                     ),
                   ),
@@ -99,10 +95,7 @@ class InsightsPage extends ConsumerWidget {
                       const SizedBox(height: 4),
                       Text(
                         error.toString(),
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                         textAlign: TextAlign.center,
                       ),
                     ],

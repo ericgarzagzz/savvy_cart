@@ -21,13 +21,9 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
       vsync: this,
     );
 
-    _glowAnimation = Tween<double>(
-      begin: 0.2,
-      end: 0.4,
-    ).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    _glowAnimation = Tween<double>(begin: 0.2, end: 0.4).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
 
     _animationController.repeat(reverse: true);
   }
@@ -67,7 +63,9 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(0xff1e3a3a).withValues(alpha: _glowAnimation.value * 0.3),
+                      color: Color(
+                        0xff1e3a3a,
+                      ).withValues(alpha: _glowAnimation.value * 0.3),
                       blurRadius: 15,
                       spreadRadius: 1,
                     ),
@@ -99,17 +97,19 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                       children: [
                         Text(
                           'Shopping Insights',
-                          style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleMedium!
+                              .copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Discover your shopping patterns',
-                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                            color: Colors.white.withValues(alpha: 0.9),
-                          ),
+                          style: Theme.of(context).textTheme.bodySmall!
+                              .copyWith(
+                                color: Colors.white.withValues(alpha: 0.9),
+                              ),
                         ),
                       ],
                     ),

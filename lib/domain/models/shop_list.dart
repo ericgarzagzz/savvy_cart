@@ -4,21 +4,16 @@ class ShopList {
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
-  ShopList({
-    this.id, 
-    required this.name,
-    this.createdAt,
-    this.updatedAt,
-  });
+  ShopList({this.id, required this.name, this.createdAt, this.updatedAt});
 
   factory ShopList.fromMap(Map<String, dynamic> json) => ShopList(
     id: json['id'],
     name: json['name'],
-    createdAt: json['created_at'] != null && json['created_at'] != 0 
-        ? DateTime.fromMillisecondsSinceEpoch(json['created_at']) 
+    createdAt: json['created_at'] != null && json['created_at'] != 0
+        ? DateTime.fromMillisecondsSinceEpoch(json['created_at'])
         : null,
-    updatedAt: json['updated_at'] != null && json['updated_at'] != 0 
-        ? DateTime.fromMillisecondsSinceEpoch(json['updated_at']) 
+    updatedAt: json['updated_at'] != null && json['updated_at'] != 0
+        ? DateTime.fromMillisecondsSinceEpoch(json['updated_at'])
         : null,
   );
 

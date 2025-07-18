@@ -39,10 +39,11 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
   Future<void> initialize() async {
     // Add observer for system theme changes
     WidgetsBinding.instance.addObserver(this);
-    
+
     // Get initial system brightness
-    _systemBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
-    
+    _systemBrightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
+
     await _loadThemes();
     await _loadThemeMode();
   }
@@ -55,7 +56,8 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
 
   @override
   void didChangePlatformBrightness() {
-    final newBrightness = WidgetsBinding.instance.platformDispatcher.platformBrightness;
+    final newBrightness =
+        WidgetsBinding.instance.platformDispatcher.platformBrightness;
     if (_systemBrightness != newBrightness) {
       _systemBrightness = newBrightness;
       // Only notify if we're in system mode
@@ -68,18 +70,21 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
 
   Future<void> _loadThemes() async {
     try {
-      final themeStr = await rootBundle.loadString("assets/appainter_theme.json");
+      final themeStr = await rootBundle.loadString(
+        "assets/appainter_theme.json",
+      );
       final themeJson = jsonDecode(themeStr) as Map<String, dynamic>;
 
       if (themeJson.containsKey('light')) {
-        _lightTheme = ThemeDecoder.decodeThemeData(themeJson['light'])?.copyWith(
-          pageTransitionsTheme: PageTransitionsTheme(
-            builders: {
-              for (var platform in TargetPlatform.values)
-                platform: FadeForwardsPageTransitionsBuilder()
-            },
-          )
-        );
+        _lightTheme = ThemeDecoder.decodeThemeData(themeJson['light'])
+            ?.copyWith(
+              pageTransitionsTheme: PageTransitionsTheme(
+                builders: {
+                  for (var platform in TargetPlatform.values)
+                    platform: FadeForwardsPageTransitionsBuilder(),
+                },
+              ),
+            );
       }
 
       if (themeJson.containsKey('dark')) {
@@ -87,12 +92,12 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
           pageTransitionsTheme: PageTransitionsTheme(
             builders: {
               for (var platform in TargetPlatform.values)
-                platform: FadeForwardsPageTransitionsBuilder()
+                platform: FadeForwardsPageTransitionsBuilder(),
             },
-          )
+          ),
         );
       }
-      
+
       // Fallback to default themes if decoding fails
       _lightTheme ??= ThemeData.light();
       _darkTheme ??= ThemeData.dark();
@@ -123,7 +128,7 @@ class ThemeService extends ChangeNotifier with WidgetsBindingObserver {
     if (_themeMode != mode) {
       _themeMode = mode;
       notifyListeners();
-      
+
       try {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString(_themeModeKey, mode.toString());
@@ -154,9 +159,6 @@ class FadeForwardsPageTransitionsBuilder extends PageTransitionsBuilder {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    return FadeTransition(
-      opacity: animation,
-      child: child,
-    );
+    return FadeTransition(opacity: animation, child: child);
   }
 }

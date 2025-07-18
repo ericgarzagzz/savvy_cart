@@ -19,7 +19,9 @@ class FrequentlyBoughtSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final frequentlyBoughtAsync = ref.watch(frequentlyBoughtItemsProvider(shopListId));
+    final frequentlyBoughtAsync = ref.watch(
+      frequentlyBoughtItemsProvider(shopListId),
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,9 +38,9 @@ class FrequentlyBoughtSection extends ConsumerWidget {
               const SizedBox(width: 8),
               Text(
                 'Frequently Bought',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
               ),
             ],
           ),
@@ -62,9 +64,9 @@ class FrequentlyBoughtSection extends ConsumerWidget {
                 runSpacing: 8.0,
                 children: items.map((item) {
                   final isInList = item.isInShopList;
-                  
+
                   return Material(
-                    color: isInList 
+                    color: isInList
                         ? Theme.of(context).colorScheme.primaryContainer
                         : Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(20),
@@ -83,17 +85,24 @@ class FrequentlyBoughtSection extends ConsumerWidget {
                               Icon(
                                 Icons.check,
                                 size: 16,
-                                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onPrimaryContainer,
                               ),
                               const SizedBox(width: 4),
                             ],
                             Text(
                               item.name,
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: isInList
-                                    ? Theme.of(context).colorScheme.onPrimaryContainer
-                                    : Theme.of(context).colorScheme.onSurface,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
+                                  ?.copyWith(
+                                    color: isInList
+                                        ? Theme.of(
+                                            context,
+                                          ).colorScheme.onPrimaryContainer
+                                        : Theme.of(
+                                            context,
+                                          ).colorScheme.onSurface,
+                                  ),
                             ),
                           ],
                         ),

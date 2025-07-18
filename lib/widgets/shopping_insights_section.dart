@@ -9,7 +9,7 @@ class ShoppingInsightsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final shopListCollectionAsync = ref.watch(shopListCollectionProvider);
-    
+
     return shopListCollectionAsync.when(
       loading: () => const SizedBox.shrink(),
       error: (_, __) => const SizedBox.shrink(),
@@ -18,10 +18,7 @@ class ShoppingInsightsSection extends ConsumerWidget {
           return const SizedBox.shrink();
         }
         return Column(
-          children: [
-            const ShoppingInsightsButton(),
-            Container(height: 32),
-          ],
+          children: [const ShoppingInsightsButton(), Container(height: 32)],
         );
       },
     );

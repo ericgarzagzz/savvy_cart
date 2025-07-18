@@ -53,14 +53,17 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
 
   @override
   Widget build(BuildContext context) {
-    final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
+    final getShopListByIdAsync = ref.watch(
+      getShopListByIdProvider(widget.shopListId),
+    );
 
     return getShopListByIdAsync.when(
       loading: () => Container(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Center(child: CircularProgressIndicator()),
       ),
-      error: (err, stackTrace) => GenericErrorScaffold(errorMessage: err.toString()),
+      error: (err, stackTrace) =>
+          GenericErrorScaffold(errorMessage: err.toString()),
       data: (shopList) => Scaffold(
         body: CustomScrollView(
           controller: _scrollController,
@@ -76,7 +79,10 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
                     },
                     borderRadius: BorderRadius.circular(20),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 6,
+                      ),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
@@ -91,7 +97,11 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          const Icon(Icons.smart_toy, color: Colors.white, size: 18),
+                          const Icon(
+                            Icons.smart_toy,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                           const SizedBox(width: 4),
                           const Text(
                             'AI',
@@ -112,7 +122,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
               padding: EdgeInsets.all(16),
               sliver: SliverToBoxAdapter(
                 child: ShopListSummary(shopListId: widget.shopListId),
-              )
+              ),
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -155,17 +165,19 @@ class _ShopListManagerState extends ConsumerState<ShopListManager> {
                 shopListId: widget.shopListId,
                 checkedItems: true,
               ),
-            )
+            ),
           ],
         ),
-        floatingActionButton: _showScrollToTopFab ? FloatingActionButton(
-          onPressed: _scrollToTop,
-          mini: true,
-          tooltip: 'Scroll to top to add items',
-          child: const Icon(Icons.keyboard_double_arrow_up),
-        ) : null,
+        floatingActionButton: _showScrollToTopFab
+            ? FloatingActionButton(
+                onPressed: _scrollToTop,
+                mini: true,
+                tooltip: 'Scroll to top to add items',
+                child: const Icon(Icons.keyboard_double_arrow_up),
+              )
+            : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      )
+      ),
     );
   }
 }

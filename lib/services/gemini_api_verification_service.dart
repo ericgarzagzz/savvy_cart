@@ -16,7 +16,7 @@ class GeminiModel {
   final double? maxTemperature;
   final double? topP;
   final int? topK;
-  
+
   GeminiModel({
     required this.name,
     this.baseModelId,
@@ -32,7 +32,7 @@ class GeminiModel {
     this.topP,
     this.topK,
   });
-  
+
   factory GeminiModel.fromJson(Map<String, dynamic> json) {
     return GeminiModel(
       name: json['name'] as String,
@@ -42,9 +42,10 @@ class GeminiModel {
       description: json['description'] as String?,
       inputTokenLimit: json['inputTokenLimit'] as int?,
       outputTokenLimit: json['outputTokenLimit'] as int?,
-      supportedGenerationMethods: (json['supportedGenerationMethods'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
+      supportedGenerationMethods:
+          (json['supportedGenerationMethods'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList(),
       thinking: json['thinking'] as bool?,
       temperature: (json['temperature'] as num?)?.toDouble(),
       maxTemperature: (json['maxTemperature'] as num?)?.toDouble(),
@@ -52,9 +53,9 @@ class GeminiModel {
       topK: json['topK'] as int?,
     );
   }
-  
+
   String get cleanName => name.replaceAll('models/', '');
-  
+
   String get userFriendlyName {
     if (displayName != null && displayName!.isNotEmpty) {
       return displayName!;
@@ -67,7 +68,7 @@ class GeminiModel {
         .map((word) => word[0].toUpperCase() + word.substring(1))
         .join(' ');
   }
-  
+
   double get versionNumber {
     if (version != null) {
       return double.tryParse(version!) ?? 0;
@@ -86,7 +87,8 @@ class GeminiModel {
 
 class GeminiApiVerificationService {
   final String _apiKey;
-  static const String _listModelsUrl = 'https://generativelanguage.googleapis.com/v1beta/models';
+  static const String _listModelsUrl =
+      'https://generativelanguage.googleapis.com/v1beta/models';
 
   GeminiApiVerificationService(this._apiKey);
 
@@ -94,22 +96,19 @@ class GeminiApiVerificationService {
   Future<ApiVerificationResult> verifyApiKey() async {
     try {
       if (_apiKey.isEmpty) {
-        return ApiVerificationResult(
-          isValid: false,
-          error: 'API key is empty',
-        );
+        return ApiVerificationResult(isValid: false, error: 'API key is empty');
       }
 
       if (kDebugMode) {
         print('Verifying Gemini API key...');
       }
 
-      final response = await http.get(
-        Uri.parse('$_listModelsUrl?key=$_apiKey'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ).timeout(const Duration(seconds: 10));
+      final response = await http
+          .get(
+            Uri.parse('$_listModelsUrl?key=$_apiKey'),
+            headers: {'Content-Type': 'application/json'},
+          )
+          .timeout(const Duration(seconds: 10));
 
       if (kDebugMode) {
         print('API verification response status: ${response.statusCode}');
@@ -118,12 +117,14 @@ class GeminiApiVerificationService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body) as Map<String, dynamic>;
         final models = data['models'] as List<dynamic>?;
-        
+
         if (models != null && models.isNotEmpty) {
           final availableModels = models
               .map((modelData) {
                 try {
-                  return GeminiModel.fromJson(modelData as Map<String, dynamic>);
+                  return GeminiModel.fromJson(
+                    modelData as Map<String, dynamic>,
+                  );
                 } catch (e) {
                   if (kDebugMode) {
                     print('Failed to parse model: $e');
@@ -136,12 +137,16 @@ class GeminiApiVerificationService {
               .toList();
 
           if (kDebugMode) {
-            print('API verification successful. Found ${availableModels.length} models.');
+            print(
+              'API verification successful. Found ${availableModels.length} models.',
+            );
           }
 
           return ApiVerificationResult(
             isValid: true,
-            availableModels: availableModels.map((model) => model.name).toList(),
+            availableModels: availableModels
+                .map((model) => model.name)
+                .toList(),
             geminiModels: availableModels,
           );
         } else {
@@ -151,10 +156,7 @@ class GeminiApiVerificationService {
           );
         }
       } else if (response.statusCode == 401) {
-        return ApiVerificationResult(
-          isValid: false,
-          error: 'Invalid API key',
-        );
+        return ApiVerificationResult(isValid: false, error: 'Invalid API key');
       } else if (response.statusCode == 403) {
         return ApiVerificationResult(
           isValid: false,
@@ -170,18 +172,15 @@ class GeminiApiVerificationService {
       if (kDebugMode) {
         print('API verification failed: $e');
       }
-      
+
       String errorMessage = 'Connection failed';
       if (e.toString().contains('timeout')) {
         errorMessage = 'Connection timeout - check your internet connection';
       } else if (e.toString().contains('resolve')) {
         errorMessage = 'Network error - check your internet connection';
       }
-      
-      return ApiVerificationResult(
-        isValid: false,
-        error: errorMessage,
-      );
+
+      return ApiVerificationResult(isValid: false, error: errorMessage);
     }
   }
 }
@@ -213,8 +212,10 @@ class ApiVerificationResult {
 
   ApiConnectionStatus get status {
     if (isValid) return ApiConnectionStatus.connected;
-    if (error?.contains('Invalid API key') == true) return ApiConnectionStatus.invalidKey;
-    if (error?.contains('timeout') == true || error?.contains('Network') == true) {
+    if (error?.contains('Invalid API key') == true)
+      return ApiConnectionStatus.invalidKey;
+    if (error?.contains('timeout') == true ||
+        error?.contains('Network') == true) {
       return ApiConnectionStatus.networkError;
     }
     return ApiConnectionStatus.error;

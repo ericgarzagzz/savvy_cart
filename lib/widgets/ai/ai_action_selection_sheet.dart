@@ -54,22 +54,27 @@ class _AiActionSelectionSheetState
                 itemBuilder: (context, index) {
                   final action = widget.geminiResponse.actions[index];
                   return Card(
-                    margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     child: CheckboxListTile(
                       title: Row(
                         children: [
                           Icon(
                             _getOperationIcon(action.operation),
-                            color: _getOperationColor(context, action.operation),
+                            color: _getOperationColor(
+                              context,
+                              action.operation,
+                            ),
                             size: 20,
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               _getActionDescription(action),
-                              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
+                              style: Theme.of(context).textTheme.bodyLarge
+                                  ?.copyWith(fontWeight: FontWeight.w500),
                             ),
                           ),
                         ],
@@ -91,7 +96,7 @@ class _AiActionSelectionSheetState
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  if (!_hasSelectedActions()) 
+                  if (!_hasSelectedActions())
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
                       child: Row(
@@ -99,15 +104,21 @@ class _AiActionSelectionSheetState
                           Icon(
                             Icons.info_outline,
                             size: 16,
-                            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withValues(alpha: 0.6),
                           ),
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
                               'Please select at least one action to execute',
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.6),
-                              ),
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface
+                                        .withValues(alpha: 0.6),
+                                  ),
                             ),
                           ),
                         ],
@@ -116,15 +127,23 @@ class _AiActionSelectionSheetState
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _hasSelectedActions() ? () {
-                        final List<GeminiAction> actionsToExecute = [];
-                        for (int i = 0; i < _selectedActions.length; i++) {
-                          if (_selectedActions[i]) {
-                            actionsToExecute.add(widget.geminiResponse.actions[i]);
-                          }
-                        }
-                        Navigator.of(context).pop(actionsToExecute);
-                      } : null,
+                      onPressed: _hasSelectedActions()
+                          ? () {
+                              final List<GeminiAction> actionsToExecute = [];
+                              for (
+                                int i = 0;
+                                i < _selectedActions.length;
+                                i++
+                              ) {
+                                if (_selectedActions[i]) {
+                                  actionsToExecute.add(
+                                    widget.geminiResponse.actions[i],
+                                  );
+                                }
+                              }
+                              Navigator.of(context).pop(actionsToExecute);
+                            }
+                          : null,
                       child: const Text('Execute Selected Actions'),
                     ),
                   ),
@@ -188,17 +207,17 @@ class _AiActionSelectionSheetState
 
   Widget? _buildActionSubtitle(BuildContext context, GeminiAction action) {
     List<String> details = [];
-    
+
     if (action.quantity != null) {
       details.add("Quantity: ${action.quantity}");
     }
-    
+
     if (action.unitPrice != null && action.unitPrice! > 0) {
       details.add("Price: \$${action.unitPrice!.toStringAsFixed(2)}");
     }
-    
+
     if (details.isEmpty) return null;
-    
+
     return Padding(
       padding: const EdgeInsets.only(left: 28),
       child: Text(

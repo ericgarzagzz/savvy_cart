@@ -34,12 +34,16 @@ class AiSettingsScreen extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primaryContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Icon(
                             Icons.auto_awesome,
-                            color: Theme.of(context).colorScheme.onPrimaryContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onPrimaryContainer,
                             size: 24,
                           ),
                         ),
@@ -50,16 +54,19 @@ class AiSettingsScreen extends ConsumerWidget {
                             children: [
                               Text(
                                 'AI Assistant Configuration',
-                                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                style: Theme.of(context).textTheme.titleLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'Configure your AI assistant to help manage shopping lists and provide suggestions.',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                                ),
+                                style: Theme.of(context).textTheme.bodyMedium
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.7),
+                                    ),
                               ),
                             ],
                           ),
@@ -76,15 +83,17 @@ class AiSettingsScreen extends ConsumerWidget {
             // API Configuration section
             Text(
               'API Configuration',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               'Set up your Google™ Gemini™ API key to enable AI features',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 16),
@@ -97,9 +106,9 @@ class AiSettingsScreen extends ConsumerWidget {
             // Status section
             Text(
               'Connection Status',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
 
@@ -113,7 +122,9 @@ class AiSettingsScreen extends ConsumerWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: _getStatusColor(aiSettingsState).withValues(alpha: 0.1),
+                            color: _getStatusColor(
+                              aiSettingsState,
+                            ).withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(6),
                           ),
                           child: aiSettingsState.isVerifying
@@ -138,24 +149,32 @@ class AiSettingsScreen extends ConsumerWidget {
                             children: [
                               Text(
                                 _getStatusTitle(aiSettingsState),
-                                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: _getStatusColor(aiSettingsState),
-                                ),
+                                style: Theme.of(context).textTheme.titleSmall
+                                    ?.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: _getStatusColor(aiSettingsState),
+                                    ),
                               ),
                               const SizedBox(height: 2),
                               Text(
                                 _getStatusSubtitle(aiSettingsState),
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
-                                ),
+                                style: Theme.of(context).textTheme.bodySmall
+                                    ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withValues(alpha: 0.7),
+                                    ),
                               ),
                             ],
                           ),
                         ),
-                        if (aiSettingsState.settings.apiKey.isNotEmpty && !aiSettingsState.isVerifying)
+                        if (aiSettingsState.settings.apiKey.isNotEmpty &&
+                            !aiSettingsState.isVerifying)
                           IconButton(
-                            onPressed: () => ref.read(aiSettingsProvider.notifier).verifyApiKey(),
+                            onPressed: () => ref
+                                .read(aiSettingsProvider.notifier)
+                                .verifyApiKey(),
                             icon: const Icon(Icons.refresh),
                             tooltip: 'Verify API key',
                           ),
@@ -172,10 +191,14 @@ class AiSettingsScreen extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                color: Theme.of(
+                  context,
+                ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(12),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ),
               child: Column(
@@ -186,7 +209,9 @@ class AiSettingsScreen extends ConsumerWidget {
                       Icon(
                         Icons.info_outline,
                         size: 20,
-                        color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                       const SizedBox(width: 8),
                       Text(
@@ -198,11 +223,26 @@ class AiSettingsScreen extends ConsumerWidget {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildInfoPoint(context, 'Get your free API key from Google™ AI Studio'),
-                  _buildInfoPoint(context, 'AI features include chat assistance and smart suggestions'),
-                  _buildInfoPoint(context, 'Your API key is stored securely on your device'),
-                  _buildInfoPoint(context, 'API usage may be subject to Google™\'s rate limits'),
-                  _buildInfoPoint(context, 'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.'),
+                  _buildInfoPoint(
+                    context,
+                    'Get your free API key from Google™ AI Studio',
+                  ),
+                  _buildInfoPoint(
+                    context,
+                    'AI features include chat assistance and smart suggestions',
+                  ),
+                  _buildInfoPoint(
+                    context,
+                    'Your API key is stored securely on your device',
+                  ),
+                  _buildInfoPoint(
+                    context,
+                    'API usage may be subject to Google™\'s rate limits',
+                  ),
+                  _buildInfoPoint(
+                    context,
+                    'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.',
+                  ),
                 ],
               ),
             ),
@@ -223,7 +263,9 @@ class AiSettingsScreen extends ConsumerWidget {
             width: 4,
             height: 4,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
               shape: BoxShape.circle,
             ),
           ),
@@ -232,7 +274,9 @@ class AiSettingsScreen extends ConsumerWidget {
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -243,7 +287,7 @@ class AiSettingsScreen extends ConsumerWidget {
 
   Color _getStatusColor(AiSettingsState state) {
     if (state.isVerifying) return Colors.blue.shade600;
-    
+
     switch (state.connectionStatus) {
       case ApiConnectionStatus.connected:
         return Colors.green.shade600;
@@ -254,8 +298,8 @@ class AiSettingsScreen extends ConsumerWidget {
       case ApiConnectionStatus.error:
         return Colors.red.shade600;
       case ApiConnectionStatus.notVerified:
-        return state.settings.apiKey.isEmpty 
-            ? Colors.orange.shade600 
+        return state.settings.apiKey.isEmpty
+            ? Colors.orange.shade600
             : Colors.grey.shade600;
     }
   }
@@ -271,13 +315,15 @@ class AiSettingsScreen extends ConsumerWidget {
       case ApiConnectionStatus.error:
         return Icons.error;
       case ApiConnectionStatus.notVerified:
-        return state.settings.apiKey.isEmpty ? Icons.warning : Icons.help_outline;
+        return state.settings.apiKey.isEmpty
+            ? Icons.warning
+            : Icons.help_outline;
     }
   }
 
   String _getStatusTitle(AiSettingsState state) {
     if (state.isVerifying) return 'Verifying API Key...';
-    
+
     switch (state.connectionStatus) {
       case ApiConnectionStatus.connected:
         return 'API Connected';
@@ -288,17 +334,19 @@ class AiSettingsScreen extends ConsumerWidget {
       case ApiConnectionStatus.error:
         return 'Connection Error';
       case ApiConnectionStatus.notVerified:
-        return state.settings.apiKey.isEmpty ? 'API Key Required' : 'Not Verified';
+        return state.settings.apiKey.isEmpty
+            ? 'API Key Required'
+            : 'Not Verified';
     }
   }
 
   String _getStatusSubtitle(AiSettingsState state) {
     if (state.isVerifying) return 'Checking connection to Gemini API...';
-    
+
     if (state.verificationResult != null) {
       return state.verificationResult!.statusMessage;
     }
-    
+
     switch (state.connectionStatus) {
       case ApiConnectionStatus.connected:
         return 'AI features are ready to use';
@@ -309,7 +357,7 @@ class AiSettingsScreen extends ConsumerWidget {
       case ApiConnectionStatus.error:
         return 'Unable to connect to Gemini API';
       case ApiConnectionStatus.notVerified:
-        return state.settings.apiKey.isEmpty 
+        return state.settings.apiKey.isEmpty
             ? 'Enter your API key to enable AI features'
             : 'Click refresh to verify your API key';
     }

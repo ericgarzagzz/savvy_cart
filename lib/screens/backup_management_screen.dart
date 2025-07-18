@@ -88,7 +88,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                       Text(
                         'Your data is automatically backed up to Google Drive',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withOpacity(0.7),
                         ),
                       ),
                     ],
@@ -106,7 +108,11 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green.shade600, size: 20),
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green.shade600,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -128,7 +134,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               Text(
                 'Last backed up: ${DateFormat('MMM dd, yyyy \'at\' HH:mm').format(_autoBackupInfo!.lastBackupDate!)}',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.6),
                 ),
               ),
             ],
@@ -147,16 +155,19 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
           children: [
             Text(
               'Manual Backups',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             ElevatedButton.icon(
               onPressed: _createManualBackup,
               icon: const Icon(Icons.add, size: 18),
               label: const Text('Create'),
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
               ),
             ),
           ],
@@ -179,20 +190,26 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                     Icon(
                       Icons.backup,
                       size: 48,
-                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.3),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.onSurface.withOpacity(0.3),
                     ),
                     const SizedBox(height: 16),
                     Text(
                       'No manual backups yet',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.6),
                       ),
                     ),
                     const SizedBox(height: 8),
                     Text(
                       'Create a manual backup to have additional control over your data',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.5),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -209,7 +226,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
 
   Widget _buildBackupTile(BackupFileInfo backup) {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
-    
+
     return Card(
       margin: const EdgeInsets.only(bottom: 8),
       child: ListTile(
@@ -226,7 +243,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
           ),
         ),
         title: Text(
-          backup.fileName.replaceAll('manual_backup_', '').replaceAll('.json', ''),
+          backup.fileName
+              .replaceAll('manual_backup_', '')
+              .replaceAll('.json', ''),
           style: const TextStyle(fontWeight: FontWeight.w500),
         ),
         subtitle: Column(
@@ -240,13 +259,18 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                   backup.formattedSize,
                   style: TextStyle(
                     fontSize: 12,
-                    color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withOpacity(0.6),
                   ),
                 ),
                 if (backup.includesSettings) ...[
                   const SizedBox(width: 8),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 2,
+                    ),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.primaryContainer,
                       borderRadius: BorderRadius.circular(4),
@@ -323,17 +347,21 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               const SizedBox(width: 8),
               Text(
                 'How Backup Works',
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.w600,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
               ),
             ],
           ),
           const SizedBox(height: 12),
           _buildInfoPoint('Automatic backup syncs your data to Google Drive'),
-          _buildInfoPoint('Manual backups are stored locally and included in automatic sync'),
+          _buildInfoPoint(
+            'Manual backups are stored locally and included in automatic sync',
+          ),
           _buildInfoPoint('Restoring will replace your current data'),
-          _buildInfoPoint('Backups include shopping lists, chat history, and optionally settings'),
+          _buildInfoPoint(
+            'Backups include shopping lists, chat history, and optionally settings',
+          ),
         ],
       ),
     );
@@ -426,7 +454,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Delete Backup'),
-        content: Text('Are you sure you want to delete this backup?\n\n"${backup.fileName}"'),
+        content: Text(
+          'Are you sure you want to delete this backup?\n\n"${backup.fileName}"',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -435,14 +465,16 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
           ElevatedButton(
             onPressed: () async {
               Navigator.of(context).pop();
-              
+
               try {
                 await _backupService.deleteBackup(backup.filePath);
                 _loadBackupInfo(); // Refresh the list
-                
+
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Backup deleted successfully')),
+                    const SnackBar(
+                      content: Text('Backup deleted successfully'),
+                    ),
                   );
                 }
               } catch (e) {

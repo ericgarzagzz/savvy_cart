@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -14,15 +13,18 @@ import 'package:savvy_cart/utils/utils.dart';
 class GeminiShopListService {
   final String _geminiApiKey;
   final String _model;
-  static const String _baseUrlTemplate = 'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent';
+  static const String _baseUrlTemplate =
+      'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent';
 
-  GeminiShopListService(this._geminiApiKey, {String? model}) 
+  GeminiShopListService(this._geminiApiKey, {String? model})
     : _model = model ?? 'gemini-2.0-flash';
-    
+
   String get _baseUrl => _baseUrlTemplate.replaceAll('{model}', _model);
 
   Future<GeminiResponse> processTextInstructions(
-      String userMessage, List<ShopListItem> currentShopList) async {
+    String userMessage,
+    List<ShopListItem> currentShopList,
+  ) async {
     if (kDebugMode) {
       print('=== PROCESSING TEXT INSTRUCTIONS ===');
       print('User message: $userMessage');
@@ -31,10 +33,11 @@ class GeminiShopListService {
     final String currentShopListTextDump = currentShopList.isEmpty
         ? "No items in the current shopping list."
         : "Current Shopping List:\n${currentShopList.map((item) {
-              return "- Item: ${item.name}, Quantity: ${item.quantity}, Unit Price: ${item.unitPrice.toStringWithLocale()}, Checked: ${item.checked ? 'Yes' : 'No'}, ID: ${item.id ?? 'N/A'}";
-            }).join('\n')}";
+            return "- Item: ${item.name}, Quantity: ${item.quantity}, Unit Price: ${item.unitPrice.toStringWithLocale()}, Checked: ${item.checked ? 'Yes' : 'No'}, ID: ${item.id ?? 'N/A'}";
+          }).join('\n')}";
 
-    final prompt = """
+    final prompt =
+        """
 You are a shopping list assistant. Analyze the user's message and determine if they want to:
 1. Perform actions on the shopping list (add, remove, update, check items)
 2. Get information about the shopping list (calculate totals, ask questions)
@@ -102,37 +105,35 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
         'contents': [
           {
             'parts': [
-              {'text': prompt}
-            ]
-          }
+              {'text': prompt},
+            ],
+          },
         ],
-        'generationConfig': {
-          'temperature': 0.1,
-          'maxOutputTokens': 1000,
-        }
+        'generationConfig': {'temperature': 0.1, 'maxOutputTokens': 1000},
       };
 
-      final response = await http.post(
-        Uri.parse('$_baseUrl?key=$_geminiApiKey'),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(requestBody),
-      ).timeout(const Duration(seconds: 30));
+      final response = await http
+          .post(
+            Uri.parse('$_baseUrl?key=$_geminiApiKey'),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(requestBody),
+          )
+          .timeout(const Duration(seconds: 30));
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        final content = responseData['candidates']?[0]?['content']?['parts']?[0]?['text'];
-        
+        final content =
+            responseData['candidates']?[0]?['content']?['parts']?[0]?['text'];
+
         if (content != null) {
           if (kDebugMode) {
             print('Gemini response: $content');
           }
-          
+
           try {
             // Clean the content to extract JSON
             String cleanContent = content.trim();
-            
+
             // Remove markdown code blocks if present
             if (cleanContent.startsWith('```json')) {
               cleanContent = cleanContent.substring(7);
@@ -144,51 +145,59 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
               cleanContent = cleanContent.substring(0, cleanContent.length - 3);
             }
             cleanContent = cleanContent.trim();
-            
+
             // Try to parse as JSON
             final jsonResponse = jsonDecode(cleanContent);
-            final responseText = jsonResponse['response'] ?? "I've processed your request.";
+            final responseText =
+                jsonResponse['response'] ?? "I've processed your request.";
             final actionsJson = jsonResponse['actions'] as List<dynamic>? ?? [];
-            
+
             final actions = actionsJson
-                .map((actionJson) => GeminiAction.fromJson(actionJson as Map<String, dynamic>))
+                .map(
+                  (actionJson) =>
+                      GeminiAction.fromJson(actionJson as Map<String, dynamic>),
+                )
                 .toList();
 
-            return GeminiResponse(
-              prompt: responseText,
-              actions: actions,
-            );
+            return GeminiResponse(prompt: responseText, actions: actions);
           } catch (jsonError) {
             if (kDebugMode) {
               print('JSON parsing failed: $jsonError');
               print('Raw content: $content');
             }
-            
+
             // If JSON parsing fails, extract a meaningful response
             String fallbackResponse = content;
-            
+
             // Try to extract just the text if it's partially formatted
             if (content.contains('"response"')) {
               // Look for response field in the text
-              final responseMatch = RegExp(r'"response"\s*:\s*"([^"]+)"').firstMatch(content);
+              final responseMatch = RegExp(
+                r'"response"\s*:\s*"([^"]+)"',
+              ).firstMatch(content);
               if (responseMatch != null) {
                 fallbackResponse = responseMatch.group(1) ?? content;
               }
             }
-            
+
             return GeminiResponse(
-              prompt: fallbackResponse.length > 200 
-                  ? "I've analyzed your request and have some suggestions." 
+              prompt: fallbackResponse.length > 200
+                  ? "I've analyzed your request and have some suggestions."
                   : fallbackResponse,
               actions: [],
             );
           }
         } else {
-          throw ApiResponseFormatException('Empty response content from Gemini API');
+          throw ApiResponseFormatException(
+            'Empty response content from Gemini API',
+          );
         }
       } else {
         ApiErrorHandler.handleHttpError(response.statusCode, response.body);
-        throw ApiServerException(response.statusCode, 'Unexpected error'); // This should never be reached
+        throw ApiServerException(
+          response.statusCode,
+          'Unexpected error',
+        ); // This should never be reached
       }
     } on SocketException catch (e) {
       ApiErrorHandler.handleSocketException(e);
@@ -206,12 +215,17 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
       if (kDebugMode) {
         print('Unexpected error calling Gemini API: $e');
       }
-      throw NetworkException('Unexpected error processing message with Gemini: $e', e);
+      throw NetworkException(
+        'Unexpected error processing message with Gemini: $e',
+        e,
+      );
     }
   }
 
   Future<void> executeGeminiActions(
-      GeminiResponse geminiResponse, int shopListId) async {
+    GeminiResponse geminiResponse,
+    int shopListId,
+  ) async {
     for (final action in geminiResponse.actions) {
       switch (action.operation) {
         case GeminiOperation.add:
@@ -228,33 +242,53 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           if (action.id != null) {
             await DatabaseHelper.instance.removeShopListItem(action.id!);
           } else {
-            await DatabaseHelper.instance.removeShopListItemByName(shopListId, action.item);
+            await DatabaseHelper.instance.removeShopListItemByName(
+              shopListId,
+              action.item,
+            );
           }
           break;
         case GeminiOperation.update:
           await DatabaseHelper.instance.updateShopListItemByName(
             shopListId,
             action.item,
-            quantity: action.quantity != null ? Decimal.parse(action.quantity!.toString()) : null,
-            unitPrice: action.unitPrice != null ? Money(cents: (action.unitPrice! * 100).toInt()) : null,
+            quantity: action.quantity != null
+                ? Decimal.parse(action.quantity!.toString())
+                : null,
+            unitPrice: action.unitPrice != null
+                ? Money(cents: (action.unitPrice! * 100).toInt())
+                : null,
           );
           break;
         case GeminiOperation.check:
           if (action.id != null) {
-            await DatabaseHelper.instance.setShopListItemChecked(action.id!, true);
+            await DatabaseHelper.instance.setShopListItemChecked(
+              action.id!,
+              true,
+            );
           } else {
-            await DatabaseHelper.instance.setShopListItemCheckedByName(shopListId, action.item, true);
+            await DatabaseHelper.instance.setShopListItemCheckedByName(
+              shopListId,
+              action.item,
+              true,
+            );
           }
           break;
         case GeminiOperation.uncheck:
           if (action.id != null) {
-            await DatabaseHelper.instance.setShopListItemChecked(action.id!, false);
+            await DatabaseHelper.instance.setShopListItemChecked(
+              action.id!,
+              false,
+            );
           } else {
-            await DatabaseHelper.instance.setShopListItemCheckedByName(shopListId, action.item, false);
+            await DatabaseHelper.instance.setShopListItemCheckedByName(
+              shopListId,
+              action.item,
+              false,
+            );
           }
           break;
       }
     }
   }
 }
-

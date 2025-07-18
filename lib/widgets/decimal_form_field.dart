@@ -19,39 +19,38 @@ class DecimalFormField extends FormField<String> {
     TextInputAction? textInputAction,
     ValueChanged<String>? onChanged,
     ValueChanged<String>? onFieldSubmitted,
-  })  : assert(decimalPlaces >= 0),
-        super(
-        key: key,
-        initialValue: controller != null
-            ? controller.text
-            : (initialValue ?? ''),
-        onSaved: onSaved,
-        validator: validator,
-        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-        enabled: enabled,
-        builder: (FormFieldState<String> field) {
-          final _DecimalFormFieldState state =
-          field as _DecimalFormFieldState;
-          return TextField(
-            controller: state._effectiveController,
-            focusNode: (field.widget as DecimalFormField).focusNode,
-            decoration: (decoration ?? const InputDecoration())
-                .copyWith(errorText: field.errorText),
-            keyboardType:
-            const TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: [
-              DecimalTextInputFormatter(decimalRange: decimalPlaces),
-            ],
-            onChanged: (value) {
-              field.didChange(value);
-              if (onChanged != null) onChanged(value);
-            },
-            enabled: enabled,
-            textInputAction: textInputAction,
-            onSubmitted: onFieldSubmitted,
-          );
-        },
-      );
+  }) : assert(decimalPlaces >= 0),
+       super(
+         key: key,
+         initialValue: controller != null
+             ? controller.text
+             : (initialValue ?? ''),
+         onSaved: onSaved,
+         validator: validator,
+         autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+         enabled: enabled,
+         builder: (FormFieldState<String> field) {
+           final _DecimalFormFieldState state = field as _DecimalFormFieldState;
+           return TextField(
+             controller: state._effectiveController,
+             focusNode: (field.widget as DecimalFormField).focusNode,
+             decoration: (decoration ?? const InputDecoration()).copyWith(
+               errorText: field.errorText,
+             ),
+             keyboardType: const TextInputType.numberWithOptions(decimal: true),
+             inputFormatters: [
+               DecimalTextInputFormatter(decimalRange: decimalPlaces),
+             ],
+             onChanged: (value) {
+               field.didChange(value);
+               if (onChanged != null) onChanged(value);
+             },
+             enabled: enabled,
+             textInputAction: textInputAction,
+             onSubmitted: onFieldSubmitted,
+           );
+         },
+       );
 
   @override
   FormFieldState<String> createState() => _DecimalFormFieldState();

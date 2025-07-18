@@ -1,10 +1,4 @@
-enum GeminiOperation {
-  add,
-  remove,
-  update,
-  check,
-  uncheck,
-}
+enum GeminiOperation { add, remove, update, check, uncheck }
 
 class GeminiAction {
   final GeminiOperation operation;

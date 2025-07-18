@@ -7,10 +7,10 @@ class ExportData {
   final String appVersion;
   final DateTime exportDate;
   final bool includeSettings;
-  
+
   // Raw table data for migration purposes
   final Map<String, List<Map<String, dynamic>>> rawTables;
-  
+
   // Parsed models for current version compatibility
   final List<ShopList> shopLists;
   final List<ShopListItem> shopListItems;

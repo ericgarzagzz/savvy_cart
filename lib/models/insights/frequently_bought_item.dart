@@ -2,10 +2,7 @@ class FrequentlyBoughtItem {
   final String name;
   final int frequency;
 
-  const FrequentlyBoughtItem({
-    required this.name,
-    required this.frequency,
-  });
+  const FrequentlyBoughtItem({required this.name, required this.frequency});
 
   factory FrequentlyBoughtItem.fromMap(Map<String, dynamic> map) {
     return FrequentlyBoughtItem(

@@ -5,8 +5,13 @@ import 'package:args/args.dart';
 
 void main(List<String> arguments) {
   final parser = ArgParser()
-    ..addOption('type', abbr: 't', allowed: ['major', 'minor', 'patch', 'build'], 
-                defaultsTo: 'patch', help: 'Version bump type')
+    ..addOption(
+      'type',
+      abbr: 't',
+      allowed: ['major', 'minor', 'patch', 'build'],
+      defaultsTo: 'patch',
+      help: 'Version bump type',
+    )
     ..addFlag('help', abbr: 'h', help: 'Show help');
 
   try {
@@ -37,15 +42,28 @@ void main(List<String> arguments) {
 
 void bumpVersion(String type) {
   print('Bumping $type version...');
-  
-  final result = Process.runSync('dart', ['pub', 'global', 'run', 'cider', 'bump', type]);
-  
+
+  final result = Process.runSync('dart', [
+    'pub',
+    'global',
+    'run',
+    'cider',
+    'bump',
+    type,
+  ]);
+
   if (result.exitCode == 0) {
     print('Version bumped successfully!');
     print(result.stdout);
-    
+
     // Show current version
-    final versionResult = Process.runSync('dart', ['pub', 'global', 'run', 'cider', 'version']);
+    final versionResult = Process.runSync('dart', [
+      'pub',
+      'global',
+      'run',
+      'cider',
+      'version',
+    ]);
     if (versionResult.exitCode == 0) {
       print('Current version: ${versionResult.stdout.toString().trim()}');
     }

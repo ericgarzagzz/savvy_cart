@@ -15,10 +15,15 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
 
     try {
       // Check if item already exists in shop list
-      final exists = await DatabaseHelper.instance
-          .shopListItemExists(shopListId, itemName);
+      final exists = await DatabaseHelper.instance.shopListItemExists(
+        shopListId,
+        itemName,
+      );
       if (exists) {
-        state = AsyncValue.error('Item already on the list', StackTrace.current);
+        state = AsyncValue.error(
+          'Item already on the list',
+          StackTrace.current,
+        );
         return;
       }
 
@@ -77,7 +82,10 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.setShopListItemChecked(shopListItemId, checked);
+      await DatabaseHelper.instance.setShopListItemChecked(
+        shopListItemId,
+        checked,
+      );
 
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(getShopListItemByIdProvider);
@@ -112,5 +120,6 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
 }
 
 final shopListItemMutationProvider =
-StateNotifierProvider<ShopListItemMutationNotifier, AsyncValue<void>>(
-        (ref) => ShopListItemMutationNotifier(ref));
+    StateNotifierProvider<ShopListItemMutationNotifier, AsyncValue<void>>(
+      (ref) => ShopListItemMutationNotifier(ref),
+    );

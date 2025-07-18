@@ -25,7 +25,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
         });
       }
     });
-    
+
     // Auto-focus the search field when screen loads
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _searchFocusNode.requestFocus();
@@ -48,7 +48,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final searchResultsAsync = ref.watch(priceSearchResultsProvider(_searchQuery));
+    final searchResultsAsync = ref.watch(
+      priceSearchResultsProvider(_searchQuery),
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -65,9 +67,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
           children: [
             Text(
               'Search for an item to view its price history',
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                color: Colors.grey[600],
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -99,12 +101,12 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
             ),
             const SizedBox(height: 24),
             Text(
-              _searchQuery.isEmpty 
+              _searchQuery.isEmpty
                   ? 'Or choose from your previous items:'
                   : 'Search Results:',
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
-              ),
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
             ),
             if (_searchQuery.isNotEmpty && _searchQuery.trim().isNotEmpty)
               Padding(
@@ -125,7 +127,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Icon(
-                            _searchQuery.isEmpty 
+                            _searchQuery.isEmpty
                                 ? Icons.inventory_2_outlined
                                 : Icons.search_off,
                             size: 64,
@@ -133,21 +135,19 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            _searchQuery.isEmpty 
+                            _searchQuery.isEmpty
                                 ? 'No items found'
                                 : 'No matching items found',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              color: Colors.grey[600],
-                            ),
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(color: Colors.grey[600]),
                           ),
                           const SizedBox(height: 8),
                           Text(
                             _searchQuery.isEmpty
                                 ? 'Add items to your shopping lists to see them here'
                                 : 'Try a different search term or create a chart for "$_searchQuery"',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Colors.grey[500],
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(color: Colors.grey[500]),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -163,7 +163,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                         margin: const EdgeInsets.only(bottom: 8),
                         child: ListTile(
                           leading: CircleAvatar(
-                            backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.primary.withOpacity(0.1),
                             child: Icon(
                               Icons.shopping_basket,
                               color: Theme.of(context).colorScheme.primary,
@@ -172,24 +174,22 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           ),
                           title: Text(
                             suggestion.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: const TextStyle(fontWeight: FontWeight.w500),
                           ),
                           trailing: Icon(
                             Icons.trending_up,
                             color: Colors.grey[400],
                             size: 20,
                           ),
-                          onTap: () => context.go('./price-chart/${Uri.encodeComponent(suggestion.name)}'),
+                          onTap: () => context.go(
+                            './price-chart/${Uri.encodeComponent(suggestion.name)}',
+                          ),
                         ),
                       );
                     },
                   );
                 },
-                loading: () => const Center(
-                  child: CircularProgressIndicator(),
-                ),
+                loading: () => const Center(child: CircularProgressIndicator()),
                 error: (error, stackTrace) => Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

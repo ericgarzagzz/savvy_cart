@@ -9,11 +9,7 @@ class AiSettings {
     this.themeMode,
   });
 
-  AiSettings copyWith({
-    String? apiKey,
-    String? model,
-    String? themeMode,
-  }) {
+  AiSettings copyWith({String? apiKey, String? model, String? themeMode}) {
     return AiSettings(
       apiKey: apiKey ?? this.apiKey,
       model: model ?? this.model,
@@ -30,10 +26,7 @@ class AiSettings {
   }
 
   Map<String, dynamic> toJson() {
-    final result = {
-      'apiKey': apiKey,
-      'model': model,
-    };
+    final result = {'apiKey': apiKey, 'model': model};
     if (themeMode != null) {
       result['themeMode'] = themeMode!;
     }

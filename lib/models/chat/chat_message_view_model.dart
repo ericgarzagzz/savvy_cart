@@ -58,13 +58,17 @@ class ChatMessageViewModel {
       try {
         geminiResponseJson = jsonEncode({
           'prompt': geminiResponse.prompt,
-          'actions': geminiResponse.actions.map((action) => {
-            'operation': action.operation.toString().split('.').last,
-            'item': action.item,
-            'id': action.id,
-            'quantity': action.quantity,
-            'unit_price': action.unitPrice,
-          }).toList(),
+          'actions': geminiResponse.actions
+              .map(
+                (action) => {
+                  'operation': action.operation.toString().split('.').last,
+                  'item': action.item,
+                  'id': action.id,
+                  'quantity': action.quantity,
+                  'unit_price': action.unitPrice,
+                },
+              )
+              .toList(),
         });
       } catch (e) {
         // Handle encoding error silently
@@ -99,7 +103,10 @@ class ChatMessageViewModel {
     try {
       final json = jsonDecode(chatMessage.executedActionsJson!);
       return (json as List<dynamic>)
-          .map((actionJson) => GeminiAction.fromJson(actionJson as Map<String, dynamic>))
+          .map(
+            (actionJson) =>
+                GeminiAction.fromJson(actionJson as Map<String, dynamic>),
+          )
           .toList();
     } catch (e) {
       return [];

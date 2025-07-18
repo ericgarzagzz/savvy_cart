@@ -24,7 +24,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
     super.initState();
 
     _scrollController.addListener(_onScroll);
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -43,12 +43,16 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
 
   void _onScroll() {
     if (_scrollController.hasClients) {
-      final isAtBottom = _scrollController.position.pixels >= 
+      final isAtBottom =
+          _scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 20;
-      
-      final currentState = ref.read(chatScrollPositionProvider(widget.shopListId));
+
+      final currentState = ref.read(
+        chatScrollPositionProvider(widget.shopListId),
+      );
       if (currentState != !isAtBottom) {
-        ref.read(chatScrollPositionProvider(widget.shopListId).notifier).state = !isAtBottom;
+        ref.read(chatScrollPositionProvider(widget.shopListId).notifier).state =
+            !isAtBottom;
       }
     }
   }
@@ -71,26 +75,30 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
     if (message.isEmpty || isProcessing) return;
 
     _messageController.clear();
-    
+
     try {
       final sendMessage = ref.read(sendMessageProvider(widget.shopListId));
       await sendMessage(message);
-      
+
       _scrollToBottom();
     } catch (e) {
       // Error handling is done in the provider (shows error chat bubble)
       // No need for additional AlertDialog
     }
-    
+
     _scrollToBottom();
   }
 
   @override
   Widget build(BuildContext context) {
-    final getShopListByIdAsync = ref.watch(getShopListByIdProvider(widget.shopListId));
+    final getShopListByIdAsync = ref.watch(
+      getShopListByIdProvider(widget.shopListId),
+    );
     final messages = ref.watch(chatMessagesProvider(widget.shopListId));
     final isProcessing = ref.watch(chatProcessingProvider(widget.shopListId));
-    final scrollPositionExceptBottom = ref.watch(chatScrollPositionProvider(widget.shopListId));
+    final scrollPositionExceptBottom = ref.watch(
+      chatScrollPositionProvider(widget.shopListId),
+    );
 
     return getShopListByIdAsync.when(
       loading: () => Container(
@@ -134,10 +142,13 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
                     return ChatBubble(
                       messageViewModel: message,
                       isLastMessage: isLastMessage,
-                      onRetry: message.isError && !message.isUser && isLastMessage
+                      onRetry:
+                          message.isError && !message.isUser && isLastMessage
                           ? () async {
                               try {
-                                final retryMessage = ref.read(retryLastMessageProvider(widget.shopListId));
+                                final retryMessage = ref.read(
+                                  retryLastMessageProvider(widget.shopListId),
+                                );
                                 await retryMessage();
                                 _scrollToBottom();
                               } catch (e) {
@@ -145,29 +156,44 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
                               }
                             }
                           : null,
-                      onViewActions: !message.isError && !message.isUser && message.hasActions
+                      onViewActions:
+                          !message.isError &&
+                              !message.isUser &&
+                              message.hasActions
                           ? () async {
-                              final selectedActions = await showModalBottomSheet<List<GeminiAction>>(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (ctx) => AiActionSelectionSheet(
-                                  geminiResponse: message.geminiResponse!,
-                                  shopListId: widget.shopListId,
-                                ),
-                              );
+                              final selectedActions =
+                                  await showModalBottomSheet<
+                                    List<GeminiAction>
+                                  >(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (ctx) => AiActionSelectionSheet(
+                                      geminiResponse: message.geminiResponse!,
+                                      shopListId: widget.shopListId,
+                                    ),
+                                  );
 
-                              if (selectedActions != null && message.id != null) {
+                              if (selectedActions != null &&
+                                  message.id != null) {
                                 final responseToExecute = GeminiResponse(
                                   prompt: message.geminiResponse!.prompt,
                                   actions: selectedActions,
                                 );
 
-                                final executeActions = ref.read(executeActionsProvider(widget.shopListId));
-                                await executeActions(responseToExecute, message.id!);
+                                final executeActions = ref.read(
+                                  executeActionsProvider(widget.shopListId),
+                                );
+                                await executeActions(
+                                  responseToExecute,
+                                  message.id!,
+                                );
                               }
                             }
                           : null,
-                      onViewExecutedActions: !message.isError && !message.isUser && message.actionsExecuted
+                      onViewExecutedActions:
+                          !message.isError &&
+                              !message.isUser &&
+                              message.actionsExecuted
                           ? () {
                               showModalBottomSheet(
                                 isScrollControlled: true,
@@ -203,7 +229,9 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
                       Text(
                         'Processing...',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: Theme.of(
+                            context,
+                          ).colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -253,14 +281,16 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
             ],
           ),
         ),
-        floatingActionButton: scrollPositionExceptBottom ? Padding(
-          padding: const EdgeInsets.only(bottom: 64),
-          child: FloatingActionButton(
-            mini: true,
-            onPressed: _scrollToBottom,
-            child: Icon(Icons.keyboard_double_arrow_down),
-          ),
-        ) : null,
+        floatingActionButton: scrollPositionExceptBottom
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: 64),
+                child: FloatingActionButton(
+                  mini: true,
+                  onPressed: _scrollToBottom,
+                  child: Icon(Icons.keyboard_double_arrow_down),
+                ),
+              )
+            : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       ),
     );

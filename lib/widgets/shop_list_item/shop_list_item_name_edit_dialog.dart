@@ -9,10 +9,12 @@ class ShopListItemNameEditDialog extends ConsumerStatefulWidget {
   const ShopListItemNameEditDialog({super.key, required this.shopListItem});
 
   @override
-  ConsumerState<ShopListItemNameEditDialog> createState() => _ShopListItemNameEditDialogState();
+  ConsumerState<ShopListItemNameEditDialog> createState() =>
+      _ShopListItemNameEditDialogState();
 }
 
-class _ShopListItemNameEditDialogState extends ConsumerState<ShopListItemNameEditDialog> {
+class _ShopListItemNameEditDialogState
+    extends ConsumerState<ShopListItemNameEditDialog> {
   late final TextEditingController _nameController;
   final _formKey = GlobalKey<FormState>();
 
@@ -37,8 +39,10 @@ class _ShopListItemNameEditDialogState extends ConsumerState<ShopListItemNameEdi
       name: _nameController.text.trim(),
     );
 
-    await ref.read(shopListItemMutationProvider.notifier).updateItem(updatedItem);
-    
+    await ref
+        .read(shopListItemMutationProvider.notifier)
+        .updateItem(updatedItem);
+
     if (mounted) {
       Navigator.of(context).pop();
     }
@@ -58,8 +62,8 @@ class _ShopListItemNameEditDialogState extends ConsumerState<ShopListItemNameEdi
             labelText: "Item Name",
             border: OutlineInputBorder(),
           ),
-          validator: (text) => text == null || text.trim().isEmpty 
-              ? "The item's name cannot be empty" 
+          validator: (text) => text == null || text.trim().isEmpty
+              ? "The item's name cannot be empty"
               : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
@@ -68,12 +72,14 @@ class _ShopListItemNameEditDialogState extends ConsumerState<ShopListItemNameEdi
       ),
       actions: [
         TextButton(
-          onPressed: saveStatus.isLoading ? null : () => Navigator.of(context).pop(),
+          onPressed: saveStatus.isLoading
+              ? null
+              : () => Navigator.of(context).pop(),
           child: const Text('Cancel'),
         ),
         FilledButton(
           onPressed: saveStatus.isLoading ? null : _updateItemName,
-          child: saveStatus.isLoading 
+          child: saveStatus.isLoading
               ? const SizedBox(
                   width: 16,
                   height: 16,

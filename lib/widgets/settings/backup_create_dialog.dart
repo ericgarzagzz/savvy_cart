@@ -6,10 +6,7 @@ import 'package:savvy_cart/services/services.dart';
 class BackupCreateDialog extends StatefulWidget {
   final VoidCallback? onBackupCreated;
 
-  const BackupCreateDialog({
-    super.key,
-    this.onBackupCreated,
-  });
+  const BackupCreateDialog({super.key, this.onBackupCreated});
 
   @override
   State<BackupCreateDialog> createState() => _BackupCreateDialogState();
@@ -42,7 +39,11 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.green.shade600, size: 20),
+                  Icon(
+                    Icons.check_circle,
+                    color: Colors.green.shade600,
+                    size: 20,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -92,9 +93,11 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline, 
-                         size: 16, 
-                         color: Colors.blue.shade600),
+                    Icon(
+                      Icons.info_outline,
+                      size: 16,
+                      color: Colors.blue.shade600,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -119,9 +122,11 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.cloud_sync, 
-                       size: 16, 
-                       color: Colors.green.shade600),
+                  Icon(
+                    Icons.cloud_sync,
+                    size: 16,
+                    color: Colors.green.shade600,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
@@ -157,7 +162,11 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
     );
   }
 
-  Widget _buildOptionCheckbox(String title, bool value, ValueChanged<bool?> onChanged) {
+  Widget _buildOptionCheckbox(
+    String title,
+    bool value,
+    ValueChanged<bool?> onChanged,
+  ) {
     return CheckboxListTile(
       title: Text(title),
       value: value,
@@ -166,7 +175,6 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
       contentPadding: EdgeInsets.zero,
     );
   }
-
 
   void _createBackup() async {
     setState(() {
@@ -178,11 +186,11 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
       // Ensure shopping lists are always included
       final backupOptions = _options.copyWith(includeShopLists: true);
       await backupService.createManualBackup(options: backupOptions);
-      
+
       if (mounted) {
         Navigator.of(context).pop();
         widget.onBackupCreated?.call();
-        
+
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -190,9 +198,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
               children: [
                 Icon(Icons.check_circle, color: Colors.white),
                 SizedBox(width: 8),
-                Expanded(
-                  child: Text('Backup created successfully'),
-                ),
+                Expanded(child: Text('Backup created successfully')),
               ],
             ),
             backgroundColor: Colors.green,
@@ -204,7 +210,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
         setState(() {
           _isLoading = false;
         });
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to create backup: $e'),

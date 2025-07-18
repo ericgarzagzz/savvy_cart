@@ -5,7 +5,7 @@ import 'package:savvy_cart/services/services.dart';
 
 class ExportDialog extends StatefulWidget {
   final ExportOptions? defaultOptions;
-  
+
   const ExportDialog({super.key, this.defaultOptions});
 
   @override
@@ -101,9 +101,11 @@ class _ExportDialogState extends State<ExportDialog> {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline, 
-                         size: 16, 
-                         color: Colors.blue.shade600),
+                    Icon(
+                      Icons.info_outline,
+                      size: 16,
+                      color: Colors.blue.shade600,
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -140,7 +142,11 @@ class _ExportDialogState extends State<ExportDialog> {
     );
   }
 
-  Widget _buildOptionCheckbox(String title, bool value, ValueChanged<bool?> onChanged) {
+  Widget _buildOptionCheckbox(
+    String title,
+    bool value,
+    ValueChanged<bool?> onChanged,
+  ) {
     return CheckboxListTile(
       title: Text(title),
       value: value,
@@ -158,17 +164,19 @@ class _ExportDialogState extends State<ExportDialog> {
     try {
       final backupService = AutoBackupService();
       await backupService.createManualBackup(options: _options);
-      
+
       if (mounted) {
         Navigator.of(context).pop();
-        
+
         // Show success dialog
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
             title: const Text('Backup Created'),
-            content: const Text('Your backup has been created successfully and will be automatically synced to Google Drive.'),
+            content: const Text(
+              'Your backup has been created successfully and will be automatically synced to Google Drive.',
+            ),
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -183,7 +191,7 @@ class _ExportDialogState extends State<ExportDialog> {
         setState(() {
           _isLoading = false;
         });
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Backup failed: $e'),

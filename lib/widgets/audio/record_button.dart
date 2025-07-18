@@ -29,13 +29,9 @@ class _RecordButtonState extends ConsumerState<RecordButton> {
     final recorder = ref.watch(audioRecorderProvider);
 
     final primaryColor = Theme.of(context).colorScheme.primary;
-    final lighterPrimaryColor = primaryColor.withValues(
-      alpha: 0.4,
-    );
+    final lighterPrimaryColor = primaryColor.withValues(alpha: 0.4);
     final errorColor = Theme.of(context).colorScheme.error;
-    final lighterErrorColor = errorColor.withValues(
-      alpha: 0.4,
-    );
+    final lighterErrorColor = errorColor.withValues(alpha: 0.4);
 
     return GestureDetector(
       onTap: () async {
@@ -60,9 +56,11 @@ class _RecordButtonState extends ConsumerState<RecordButton> {
           final stream = await recorder.startStream(
             const RecordConfig(encoder: AudioEncoder.pcm16bits),
           );
-          _audioStreamSubscription = stream.listen((data) {
-            _audioBytesBuilder.add(data);
-          }) as StreamSubscription<Uint8List>?;
+          _audioStreamSubscription =
+              stream.listen((data) {
+                    _audioBytesBuilder.add(data);
+                  })
+                  as StreamSubscription<Uint8List>?;
           ref.read(isRecordingProvider.notifier).state = true;
           ref.read(audioStreamProvider.notifier).state = stream;
         }

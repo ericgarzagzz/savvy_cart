@@ -4,10 +4,7 @@ class PriceHistoryEntry {
   final Money price;
   final DateTime date;
 
-  const PriceHistoryEntry({
-    required this.price,
-    required this.date,
-  });
+  const PriceHistoryEntry({required this.price, required this.date});
 
   factory PriceHistoryEntry.fromMap(Map<String, dynamic> map) {
     return PriceHistoryEntry(

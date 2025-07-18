@@ -19,7 +19,9 @@ class AutoBackupService {
 
   /// Create a manual backup file in the app's data directory
   /// This will be automatically included in Android's AutoBackup
-  Future<String> createManualBackup({ExportOptions options = ExportOptions.fullExport}) async {
+  Future<String> createManualBackup({
+    ExportOptions options = ExportOptions.fullExport,
+  }) async {
     try {
       if (kDebugMode) {
         print('Creating manual backup...');
@@ -29,7 +31,9 @@ class AutoBackupService {
       final exportData = await _collectExportData(options);
 
       // Generate filename with timestamp
-      final timestamp = DateFormat('yyyy-MM-dd_HH-mm-ss').format(DateTime.now());
+      final timestamp = DateFormat(
+        'yyyy-MM-dd_HH-mm-ss',
+      ).format(DateTime.now());
       final filename = 'manual_backup_$timestamp.json';
 
       // Get app's backup directory
@@ -51,7 +55,10 @@ class AutoBackupService {
       FileIOErrorHandler.handleFormatException(e, 'backup');
       rethrow; // This line should never be reached due to the throw above
     } on DatabaseOperationException catch (e) {
-      throw BackupCreationException('Database error during backup: ${e.message}', e);
+      throw BackupCreationException(
+        'Database error during backup: ${e.message}',
+        e,
+      );
     } catch (e) {
       if (kDebugMode) {
         print('Manual backup failed: $e');
@@ -64,32 +71,35 @@ class AutoBackupService {
   Future<List<BackupFileInfo>> getAvailableBackups() async {
     try {
       final backupDir = await _getBackupDirectory();
-      
+
       if (!await backupDir.exists()) {
         return [];
       }
 
-      final files = await backupDir.list()
+      final files = await backupDir
+          .list()
           .where((entity) => entity is File && entity.path.endsWith('.json'))
           .cast<File>()
           .toList();
 
       final backupInfos = <BackupFileInfo>[];
-      
+
       for (final file in files) {
         try {
           final stat = await file.stat();
           final content = await file.readAsString();
           final json = jsonDecode(content) as Map<String, dynamic>;
-          
-          backupInfos.add(BackupFileInfo(
-            filePath: file.path,
-            fileName: file.uri.pathSegments.last,
-            fileSize: stat.size,
-            createdDate: DateTime.parse(json['exportDate'] as String),
-            includesSettings: json['includeSettings'] as bool? ?? false,
-            databaseVersion: json['databaseVersion'] as int? ?? 0,
-          ));
+
+          backupInfos.add(
+            BackupFileInfo(
+              filePath: file.path,
+              fileName: file.uri.pathSegments.last,
+              fileSize: stat.size,
+              createdDate: DateTime.parse(json['exportDate'] as String),
+              includesSettings: json['includeSettings'] as bool? ?? false,
+              databaseVersion: json['databaseVersion'] as int? ?? 0,
+            ),
+          );
         } on FileSystemException catch (e) {
           if (kDebugMode) {
             print('Error reading backup file ${file.path}: $e');
@@ -110,7 +120,7 @@ class AutoBackupService {
 
       // Sort by creation date (newest first)
       backupInfos.sort((a, b) => b.createdDate.compareTo(a.createdDate));
-      
+
       return backupInfos;
     } on FileSystemException catch (e) {
       if (kDebugMode) {
@@ -126,7 +136,10 @@ class AutoBackupService {
   }
 
   /// Restore from a backup file
-  Future<void> restoreFromBackup(String filePath, {bool replaceExisting = false}) async {
+  Future<void> restoreFromBackup(
+    String filePath, {
+    bool replaceExisting = false,
+  }) async {
     try {
       if (kDebugMode) {
         print('Restoring from backup: $filePath');
@@ -134,7 +147,7 @@ class AutoBackupService {
 
       final file = File(filePath);
       FileIOErrorHandler.validateBackupFile(file);
-      
+
       if (!await file.exists()) {
         throw FileNotFoundIOException('Backup file not found: $filePath');
       }
@@ -144,7 +157,8 @@ class AutoBackupService {
       final exportData = ExportData.fromJson(json);
 
       // Apply migrations if needed
-      Map<String, List<Map<String, dynamic>>> migratedData = exportData.rawTables;
+      Map<String, List<Map<String, dynamic>>> migratedData =
+          exportData.rawTables;
       if (exportData.databaseVersion < currentDatabaseVersion) {
         migratedData = await _applyMigrationChain(
           exportData.rawTables,
@@ -174,7 +188,10 @@ class AutoBackupService {
     } on FormatException catch (e) {
       FileIOErrorHandler.handleFormatException(e, 'backup');
     } on DatabaseOperationException catch (e) {
-      throw BackupRestoreException('Database error during restore: ${e.message}', e);
+      throw BackupRestoreException(
+        'Database error during restore: ${e.message}',
+        e,
+      );
     } on FileIOException {
       // Re-throw file I/O exceptions as-is
       rethrow;
@@ -203,12 +220,15 @@ class AutoBackupService {
     try {
       final backupDir = await _getBackupDirectory();
       final backups = await getAvailableBackups();
-      
+
       return AutoBackupInfo(
         isEnabled: true, // AutoBackup is always enabled if configured
         lastBackupDate: backups.isNotEmpty ? backups.first.createdDate : null,
         backupCount: backups.length,
-        totalBackupSize: backups.fold(0, (sum, backup) => sum + backup.fileSize),
+        totalBackupSize: backups.fold(
+          0,
+          (sum, backup) => sum + backup.fileSize,
+        ),
         backupDirectory: backupDir.path,
       );
     } catch (e) {
@@ -227,11 +247,11 @@ class AutoBackupService {
   Future<Directory> _getBackupDirectory() async {
     final appDir = await getApplicationDocumentsDirectory();
     final backupDir = Directory('${appDir.path}/$backupDirectoryName');
-    
+
     if (!await backupDir.exists()) {
       await backupDir.create(recursive: true);
     }
-    
+
     return backupDir;
   }
 
@@ -241,35 +261,43 @@ class AutoBackupService {
 
     // Collect raw table data
     final rawTables = <String, List<Map<String, dynamic>>>{};
-    
+
     if (options.includeShopLists) {
       rawTables['shop_lists'] = await db.query('shop_lists');
       rawTables['shop_list_items'] = await db.query('shop_list_items');
     }
-    
+
     if (options.includeSuggestions) {
       rawTables['suggestions'] = await db.query('suggestions');
     }
-    
+
     if (options.includeChatHistory) {
       rawTables['chat_messages'] = await db.query('chat_messages');
     }
 
     // Parse into models
     final shopLists = options.includeShopLists
-        ? (rawTables['shop_lists'] ?? []).map((item) => ShopList.fromMap(item)).toList()
+        ? (rawTables['shop_lists'] ?? [])
+              .map((item) => ShopList.fromMap(item))
+              .toList()
         : <ShopList>[];
 
     final shopListItems = options.includeShopLists
-        ? (rawTables['shop_list_items'] ?? []).map((item) => ShopListItem.fromMap(item)).toList()
+        ? (rawTables['shop_list_items'] ?? [])
+              .map((item) => ShopListItem.fromMap(item))
+              .toList()
         : <ShopListItem>[];
 
     final suggestions = options.includeSuggestions
-        ? (rawTables['suggestions'] ?? []).map((item) => Suggestion.fromMap(item)).toList()
+        ? (rawTables['suggestions'] ?? [])
+              .map((item) => Suggestion.fromMap(item))
+              .toList()
         : <Suggestion>[];
 
     final chatMessages = options.includeChatHistory
-        ? (rawTables['chat_messages'] ?? []).map((item) => ChatMessage.fromMap(item)).toList()
+        ? (rawTables['chat_messages'] ?? [])
+              .map((item) => ChatMessage.fromMap(item))
+              .toList()
         : <ChatMessage>[];
 
     // Get settings if requested
@@ -298,15 +326,16 @@ class AutoBackupService {
   }
 
   Future<Map<String, List<Map<String, dynamic>>>> _applyMigrationChain(
-    Map<String, List<Map<String, dynamic>>> data,
-    {required int from, required int to}
-  ) async {
+    Map<String, List<Map<String, dynamic>>> data, {
+    required int from,
+    required int to,
+  }) async {
     var currentData = Map<String, List<Map<String, dynamic>>>.from(data);
-    
+
     for (int version = from + 1; version <= to; version++) {
       currentData = await _applyMigrationStep(currentData, version);
     }
-    
+
     return currentData;
   }
 
@@ -327,64 +356,64 @@ class AutoBackupService {
   Map<String, List<Map<String, dynamic>>> _migrateToV6(
     Map<String, List<Map<String, dynamic>>> data,
   ) {
-    final chatMessages = List<Map<String, dynamic>>.from(data['chat_messages'] ?? []);
-    
+    final chatMessages = List<Map<String, dynamic>>.from(
+      data['chat_messages'] ?? [],
+    );
+
     for (var message in chatMessages) {
       message['actions_discarded'] = 0;
     }
-    
-    return {
-      ...data,
-      'chat_messages': chatMessages,
-    };
+
+    return {...data, 'chat_messages': chatMessages};
   }
 
   Map<String, List<Map<String, dynamic>>> _migrateToV7(
     Map<String, List<Map<String, dynamic>>> data,
   ) {
-    final chatMessages = List<Map<String, dynamic>>.from(data['chat_messages'] ?? []);
-    
+    final chatMessages = List<Map<String, dynamic>>.from(
+      data['chat_messages'] ?? [],
+    );
+
     for (var message in chatMessages) {
       message.remove('actions_discarded');
     }
-    
-    return {
-      ...data,
-      'chat_messages': chatMessages,
-    };
+
+    return {...data, 'chat_messages': chatMessages};
   }
 
   Future<void> _clearExistingData() async {
     final db = await DatabaseHelper.instance.database;
-    
+
     await db.delete('chat_messages');
     await db.delete('shop_list_items');
     await db.delete('shop_lists');
     await db.delete('suggestions');
   }
 
-  Future<void> _importDatabaseData(Map<String, List<Map<String, dynamic>>> data) async {
+  Future<void> _importDatabaseData(
+    Map<String, List<Map<String, dynamic>>> data,
+  ) async {
     final db = await DatabaseHelper.instance.database;
-    
+
     // Import in dependency order
     if (data.containsKey('shop_lists')) {
       for (var item in data['shop_lists']!) {
         await db.insert('shop_lists', item);
       }
     }
-    
+
     if (data.containsKey('shop_list_items')) {
       for (var item in data['shop_list_items']!) {
         await db.insert('shop_list_items', item);
       }
     }
-    
+
     if (data.containsKey('suggestions')) {
       for (var item in data['suggestions']!) {
         await db.insert('suggestions', item);
       }
     }
-    
+
     if (data.containsKey('chat_messages')) {
       for (var item in data['chat_messages']!) {
         await db.insert('chat_messages', item);
@@ -396,7 +425,7 @@ class AutoBackupService {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ai_api_key', settings.apiKey);
     await prefs.setString('ai_model', settings.model);
-    
+
     // Import theme settings if available
     if (settings.themeMode != null) {
       await prefs.setString('theme_mode', settings.themeMode!);
@@ -423,7 +452,8 @@ class BackupFileInfo {
 
   String get formattedSize {
     if (fileSize < 1024) return '${fileSize}B';
-    if (fileSize < 1024 * 1024) return '${(fileSize / 1024).toStringAsFixed(1)}KB';
+    if (fileSize < 1024 * 1024)
+      return '${(fileSize / 1024).toStringAsFixed(1)}KB';
     return '${(fileSize / (1024 * 1024)).toStringAsFixed(1)}MB';
   }
 }
@@ -445,7 +475,8 @@ class AutoBackupInfo {
 
   String get formattedTotalSize {
     if (totalBackupSize < 1024) return '${totalBackupSize}B';
-    if (totalBackupSize < 1024 * 1024) return '${(totalBackupSize / 1024).toStringAsFixed(1)}KB';
+    if (totalBackupSize < 1024 * 1024)
+      return '${(totalBackupSize / 1024).toStringAsFixed(1)}KB';
     return '${(totalBackupSize / (1024 * 1024)).toStringAsFixed(1)}MB';
   }
 }

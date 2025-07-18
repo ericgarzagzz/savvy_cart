@@ -27,11 +27,11 @@ class ExportOptions {
 
   // Predefined options for quick access
   static const ExportOptions fullExport = ExportOptions();
-  
+
   static const ExportOptions databaseOnly = ExportOptions(
     includeSettings: false,
   );
-  
+
   static const ExportOptions shopListsOnly = ExportOptions(
     includeSettings: false,
     includeChatHistory: false,

@@ -10,7 +10,6 @@ import 'package:savvy_cart/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -24,14 +23,23 @@ class DatabaseHelper {
         await _getDatabasePath(),
         version: 8,
         onCreate: _onCreate,
-        onUpgrade: _onUpgrade
+        onUpgrade: _onUpgrade,
       );
     } on DatabaseException catch (e) {
-      throw DatabaseInitializationException('Failed to initialize database: $e', e);
+      throw DatabaseInitializationException(
+        'Failed to initialize database: $e',
+        e,
+      );
     } on FileSystemException catch (e) {
-      throw DatabaseInitializationException('Database file system error: ${e.message}', e);
+      throw DatabaseInitializationException(
+        'Database file system error: ${e.message}',
+        e,
+      );
     } catch (e) {
-      throw DatabaseInitializationException('Unexpected database initialization error: $e', e);
+      throw DatabaseInitializationException(
+        'Unexpected database initialization error: $e',
+        e,
+      );
     }
   }
 
@@ -40,9 +48,15 @@ class DatabaseHelper {
       final path = await getDatabasesPath();
       return join(path, 'savvy_cart_database.db');
     } on FileSystemException catch (e) {
-      throw DatabasePathException('Cannot access database directory: ${e.message}', e);
+      throw DatabasePathException(
+        'Cannot access database directory: ${e.message}',
+        e,
+      );
     } catch (e) {
-      throw DatabasePathException('Unexpected error getting database path: $e', e);
+      throw DatabasePathException(
+        'Unexpected error getting database path: $e',
+        e,
+      );
     }
   }
 
@@ -50,44 +64,50 @@ class DatabaseHelper {
     try {
       return deleteDatabase(await _getDatabasePath());
     } on FileSystemException catch (e) {
-      throw DatabaseDeletionException('Cannot delete database file: ${e.message}', e);
+      throw DatabaseDeletionException(
+        'Cannot delete database file: ${e.message}',
+        e,
+      );
     } catch (e) {
-      throw DatabaseDeletionException('Unexpected error deleting database: $e', e);
+      throw DatabaseDeletionException(
+        'Unexpected error deleting database: $e',
+        e,
+      );
     }
   }
 
   FutureOr<void> _onCreate(Database db, int version) async {
     var batch = db.batch();
-    
+
     try {
       _createTableShopListsV1(batch);
       _createTableShopListItemsV1(batch);
       _createTableSuggestionsV1(batch);
-      
+
       if (version >= 2) {
         _createTableChatMessagesV2(batch);
       }
-      
+
       if (version >= 3) {
         _updateChatMessagesV3(batch);
       }
-      
+
       if (version >= 4) {
         _updateChatMessagesV4(batch);
       }
-      
+
       if (version >= 5) {
         _updateChatMessagesV5(batch);
       }
-      
+
       if (version >= 6) {
         _updateChatMessagesV6(batch);
       }
-      
+
       if (version >= 7) {
         _updateChatMessagesV7(batch);
       }
-      
+
       if (version >= 8) {
         _updateTablesV8(batch);
       }
@@ -96,7 +116,10 @@ class DatabaseHelper {
     } on DatabaseException catch (e) {
       throw DatabaseSchemaException('Failed to create database schema: $e', e);
     } catch (e) {
-      throw DatabaseSchemaException('Unexpected error during database creation: $e', e);
+      throw DatabaseSchemaException(
+        'Unexpected error during database creation: $e',
+        e,
+      );
     }
   }
 
@@ -134,9 +157,15 @@ class DatabaseHelper {
 
       await batch.commit(noResult: false);
     } on DatabaseException catch (e) {
-      throw DatabaseSchemaException('Failed to upgrade database from version $oldVersion to $newVersion: $e', e);
+      throw DatabaseSchemaException(
+        'Failed to upgrade database from version $oldVersion to $newVersion: $e',
+        e,
+      );
     } catch (e) {
-      throw DatabaseSchemaException('Unexpected error during database upgrade: $e', e);
+      throw DatabaseSchemaException(
+        'Unexpected error during database upgrade: $e',
+        e,
+      );
     }
   }
 
@@ -187,35 +216,35 @@ class DatabaseHelper {
       )
     ''');
   }
-  
+
   void _updateChatMessagesV3(Batch batch) {
     batch.execute('''
       ALTER TABLE chat_messages 
       ADD COLUMN actions_executed INTEGER NOT NULL DEFAULT 0
     ''');
   }
-  
+
   void _updateChatMessagesV4(Batch batch) {
     batch.execute('''
       ALTER TABLE chat_messages 
       ADD COLUMN executed_actions_json TEXT
     ''');
   }
-  
+
   void _updateChatMessagesV5(Batch batch) {
     batch.execute('''
       ALTER TABLE chat_messages 
       ADD COLUMN is_error INTEGER NOT NULL DEFAULT 0
     ''');
   }
-  
+
   void _updateChatMessagesV6(Batch batch) {
     batch.execute('''
       ALTER TABLE chat_messages 
       ADD COLUMN actions_discarded INTEGER NOT NULL DEFAULT 0
     ''');
   }
-  
+
   void _updateChatMessagesV7(Batch batch) {
     // Remove the actions_discarded column by recreating the table
     batch.execute('''
@@ -232,49 +261,49 @@ class DatabaseHelper {
         FOREIGN KEY(shop_list_id) REFERENCES shop_lists(id) ON DELETE CASCADE
       )
     ''');
-    
+
     batch.execute('''
       INSERT INTO chat_messages_temp 
       SELECT id, shop_list_id, text, is_user, timestamp, gemini_response_json, 
              actions_executed, executed_actions_json, is_error 
       FROM chat_messages
     ''');
-    
+
     batch.execute('DROP TABLE chat_messages');
     batch.execute('ALTER TABLE chat_messages_temp RENAME TO chat_messages');
   }
-  
+
   void _updateTablesV8(Batch batch) {
     batch.execute('''
       ALTER TABLE shop_lists 
       ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
     ''');
-    
+
     batch.execute('''
       ALTER TABLE shop_lists 
       ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
     ''');
-    
+
     batch.execute('''
       ALTER TABLE shop_list_items 
       ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
     ''');
-    
+
     batch.execute('''
       ALTER TABLE shop_list_items 
       ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
     ''');
-    
+
     batch.execute('''
       ALTER TABLE shop_list_items 
       ADD COLUMN checked_at INTEGER
     ''');
-    
+
     batch.execute('''
       ALTER TABLE suggestions 
       ADD COLUMN created_at INTEGER NOT NULL DEFAULT 0
     ''');
-    
+
     batch.execute('''
       ALTER TABLE suggestions 
       ADD COLUMN updated_at INTEGER NOT NULL DEFAULT 0
@@ -286,39 +315,60 @@ class DatabaseHelper {
       Database db = await instance.database;
       var shopLists = await db.query("shop_lists", orderBy: "created_at DESC");
       List<ShopList> shopListCollection = shopLists.isNotEmpty
-        ? shopLists.map((x) => ShopList.fromMap(x)).toList()
-        : [];
+          ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+          : [];
       return shopListCollection;
     } on DatabaseException catch (e) {
       throw DataRetrievalException('Failed to retrieve shop lists: $e', e);
     } on FormatException catch (e) {
-      throw DataCorruptionException('Corrupted data in shop lists table: ${e.message}', e);
+      throw DataCorruptionException(
+        'Corrupted data in shop lists table: ${e.message}',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error retrieving shop lists: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error retrieving shop lists: $e',
+        e,
+      );
     }
   }
 
-  Future<List<ShopList>> getShopListsPaginated({int limit = 3, int offset = 0}) async {
+  Future<List<ShopList>> getShopListsPaginated({
+    int limit = 3,
+    int offset = 0,
+  }) async {
     try {
       Database db = await instance.database;
       var shopLists = await db.query(
-        "shop_lists", 
+        "shop_lists",
         orderBy: "created_at DESC",
         limit: limit,
         offset: offset,
       );
       List<ShopList> shopListCollection = shopLists.isNotEmpty
-        ? shopLists.map((x) => ShopList.fromMap(x)).toList()
-        : [];
+          ? shopLists.map((x) => ShopList.fromMap(x)).toList()
+          : [];
       return shopListCollection;
     } on DatabaseException catch (e) {
-      throw DataRetrievalException('Failed to retrieve paginated shop lists: $e', e);
+      throw DataRetrievalException(
+        'Failed to retrieve paginated shop lists: $e',
+        e,
+      );
     } on FormatException catch (e) {
-      throw DataCorruptionException('Corrupted data in shop lists table: ${e.message}', e);
+      throw DataCorruptionException(
+        'Corrupted data in shop lists table: ${e.message}',
+        e,
+      );
     } on ArgumentError catch (e) {
-      throw InvalidDataException('Invalid pagination parameters: ${e.message}', e);
+      throw InvalidDataException(
+        'Invalid pagination parameters: ${e.message}',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error retrieving paginated shop lists: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error retrieving paginated shop lists: $e',
+        e,
+      );
     }
   }
 
@@ -336,27 +386,29 @@ class DatabaseHelper {
     int? offset,
   }) async {
     Database db = await instance.database;
-    
+
     List<String> whereConditions = [];
     List<dynamic> whereArgs = [];
-    
+
     if (query != null && query.isNotEmpty) {
       whereConditions.add("name LIKE ?");
       whereArgs.add("%$query%");
     }
-    
+
     if (startDate != null) {
       whereConditions.add("created_at >= ?");
       whereArgs.add(startDate.millisecondsSinceEpoch);
     }
-    
+
     if (endDate != null) {
       whereConditions.add("created_at <= ?");
       whereArgs.add(endDate.millisecondsSinceEpoch);
     }
-    
-    String whereClause = whereConditions.isNotEmpty ? "WHERE ${whereConditions.join(' AND ')}" : "";
-    
+
+    String whereClause = whereConditions.isNotEmpty
+        ? "WHERE ${whereConditions.join(' AND ')}"
+        : "";
+
     var shopLists = await db.query(
       "shop_lists",
       where: whereClause.isNotEmpty ? whereClause.substring(6) : null,
@@ -365,7 +417,7 @@ class DatabaseHelper {
       limit: limit,
       offset: offset,
     );
-    
+
     List<ShopList> shopListCollection = shopLists.isNotEmpty
         ? shopLists.map((x) => ShopList.fromMap(x)).toList()
         : [];
@@ -374,7 +426,11 @@ class DatabaseHelper {
 
   Future<ShopList?> getShopListById(int id) async {
     Database db = await instance.database;
-    var shopListMap = await db.query('shop_lists', where: 'id = ?', whereArgs: [id]);
+    var shopListMap = await db.query(
+      'shop_lists',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
     if (shopListMap.isNotEmpty) {
       return ShopList.fromMap(shopListMap.first);
     }
@@ -386,12 +442,17 @@ class DatabaseHelper {
       Database db = await instance.database;
       final now = DateTime.now().millisecondsSinceEpoch;
       final shopListMap = shopList.toMap();
-      shopListMap['created_at'] = shopList.createdAt?.millisecondsSinceEpoch ?? now;
-      shopListMap['updated_at'] = shopList.updatedAt?.millisecondsSinceEpoch ?? now;
+      shopListMap['created_at'] =
+          shopList.createdAt?.millisecondsSinceEpoch ?? now;
+      shopListMap['updated_at'] =
+          shopList.updatedAt?.millisecondsSinceEpoch ?? now;
       return await db.insert("shop_lists", shopListMap);
     } on DatabaseException catch (e) {
       if (e.isUniqueConstraintError()) {
-        throw DuplicateDataException('Shop list with this name already exists', e);
+        throw DuplicateDataException(
+          'Shop list with this name already exists',
+          e,
+        );
       }
       throw DataInsertionException('Failed to add shop list: $e', e);
     } on ArgumentError catch (e) {
@@ -403,9 +464,10 @@ class DatabaseHelper {
 
   Future<List<ShopListItem>> getShopListItems(int shopListId) async {
     Database db = await instance.database;
-    var shopListItems = await db.query("shop_list_items",
-        where: 'shop_list_id = ?',
-        whereArgs: [shopListId]
+    var shopListItems = await db.query(
+      "shop_list_items",
+      where: 'shop_list_id = ?',
+      whereArgs: [shopListId],
     );
     List<ShopListItem> shopListItemsCollection = shopListItems.isNotEmpty
         ? shopListItems.map((x) => ShopListItem.fromMap(x)).toList()
@@ -413,11 +475,15 @@ class DatabaseHelper {
     return shopListItemsCollection;
   }
 
-  Future<List<ShopListItem>> getShopListItemsByStatus(int shopListId, bool checked) async {
+  Future<List<ShopListItem>> getShopListItemsByStatus(
+    int shopListId,
+    bool checked,
+  ) async {
     Database db = await instance.database;
-    var shopListItems = await db.query("shop_list_items",
-        where: 'shop_list_id = ? AND checked = ?',
-        whereArgs: [shopListId, checked ? 1 : 0]
+    var shopListItems = await db.query(
+      "shop_list_items",
+      where: 'shop_list_id = ? AND checked = ?',
+      whereArgs: [shopListId, checked ? 1 : 0],
     );
     List<ShopListItem> shopListItemsCollection = shopListItems.isNotEmpty
         ? shopListItems.map((x) => ShopListItem.fromMap(x)).toList()
@@ -429,10 +495,15 @@ class DatabaseHelper {
     var shopListItems = await getShopListItems(shopListId);
     return shopListItems
         .where((x) => x.checked)
-        .fold<Money>(Money(cents: 0), (prev, current) => prev + (current.unitPrice * current.quantity));
+        .fold<Money>(
+          Money(cents: 0),
+          (prev, current) => prev + (current.unitPrice * current.quantity),
+        );
   }
 
-  Future<(int checkedCount, int totalCount)> calculateShopListItemCounts(int shopListId) async {
+  Future<(int checkedCount, int totalCount)> calculateShopListItemCounts(
+    int shopListId,
+  ) async {
     final shopListItems = await getShopListItems(shopListId);
 
     final int totalCount = shopListItems.length;
@@ -441,7 +512,8 @@ class DatabaseHelper {
     return (checkedCount, totalCount);
   }
 
-  Future<(Money uncheckedAmount, Money checkedAmount)> calculateShopListItemStats(int shopListId) async {
+  Future<(Money uncheckedAmount, Money checkedAmount)>
+  calculateShopListItemStats(int shopListId) async {
     final shopListItems = await getShopListItems(shopListId);
 
     Money uncheckedAmount = Money(cents: 0);
@@ -462,8 +534,8 @@ class DatabaseHelper {
     Database db = await instance.database;
     var suggestions = await db.query("suggestions", orderBy: "name ASC");
     List<Suggestion> collection = suggestions.isNotEmpty
-      ? suggestions.map((x) => Suggestion.fromMap(x)).toList()
-      : [];
+        ? suggestions.map((x) => Suggestion.fromMap(x)).toList()
+        : [];
     return collection;
   }
 
@@ -471,9 +543,9 @@ class DatabaseHelper {
     Database db = await instance.database;
 
     var existing = await db.query(
-        'suggestions',
-        where: 'LOWER(name) = ?',
-        whereArgs: [name.toLowerCase()]
+      'suggestions',
+      where: 'LOWER(name) = ?',
+      whereArgs: [name.toLowerCase()],
     );
 
     if (existing.isNotEmpty) {
@@ -504,10 +576,7 @@ class DatabaseHelper {
   Future<int> setShopListItemChecked(int shopListItemId, bool checked) async {
     Database db = await instance.database;
     final now = DateTime.now().millisecondsSinceEpoch;
-    final updateMap = {
-      "checked": checked ? 1 : 0,
-      "updated_at": now,
-    };
+    final updateMap = {"checked": checked ? 1 : 0, "updated_at": now};
     if (checked) {
       updateMap["checked_at"] = now;
     }
@@ -536,11 +605,12 @@ class DatabaseHelper {
   }
 
   Future<int> updateShopListItemByName(
-      int shopListId,
-      String name,
-      {Decimal? quantity,
-      Money? unitPrice,
-      bool? checked}) async {
+    int shopListId,
+    String name, {
+    Decimal? quantity,
+    Money? unitPrice,
+    bool? checked,
+  }) async {
     final existingItem = await getShopListItemByName(shopListId, name);
 
     if (existingItem != null) {
@@ -564,13 +634,14 @@ class DatabaseHelper {
     }
   }
 
-  Future<int> setShopListItemCheckedByName(int shopListId, String name, bool checked) async {
+  Future<int> setShopListItemCheckedByName(
+    int shopListId,
+    String name,
+    bool checked,
+  ) async {
     Database db = await instance.database;
     final now = DateTime.now().millisecondsSinceEpoch;
-    final updateMap = {
-      "checked": checked ? 1 : 0,
-      "updated_at": now,
-    };
+    final updateMap = {"checked": checked ? 1 : 0, "updated_at": now};
     if (checked) {
       updateMap["checked_at"] = now;
     }
@@ -591,10 +662,14 @@ class DatabaseHelper {
     );
     return existing.isNotEmpty;
   }
-  
+
   Future<ShopListItem?> getShopListItemById(int id) async {
     Database db = await instance.database;
-    var shopListItemMap = await db.query('shop_list_items', where: 'id = ?', whereArgs: [id]);
+    var shopListItemMap = await db.query(
+      'shop_list_items',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
     if (shopListItemMap.isNotEmpty) {
       return ShopListItem.fromMap(shopListItemMap.first);
     }
@@ -611,7 +686,10 @@ class DatabaseHelper {
     return await db.delete("shop_list_items", where: "id = ?", whereArgs: [id]);
   }
 
-  Future<ShopListItem?> getShopListItemByName(int shopListId, String name) async {
+  Future<ShopListItem?> getShopListItemByName(
+    int shopListId,
+    String name,
+  ) async {
     Database db = await instance.database;
     var shopListItemMap = await db.query(
       'shop_list_items',
@@ -635,7 +713,11 @@ class DatabaseHelper {
 
   Future<int> removeSuggestionByName(String name) async {
     Database db = await instance.database;
-    return await db.delete("suggestions", where: "LOWER(name) = LOWER(?)", whereArgs: [name]);
+    return await db.delete(
+      "suggestions",
+      where: "LOWER(name) = LOWER(?)",
+      whereArgs: [name],
+    );
   }
 
   Future<List<ChatMessage>> getChatMessages(int shopListId) async {
@@ -644,7 +726,7 @@ class DatabaseHelper {
       "chat_messages",
       where: 'shop_list_id = ?',
       whereArgs: [shopListId],
-      orderBy: 'timestamp ASC'
+      orderBy: 'timestamp ASC',
     );
     List<ChatMessage> chatMessageCollection = chatMessages.isNotEmpty
         ? chatMessages.map((x) => ChatMessage.fromMap(x)).toList()
@@ -655,10 +737,10 @@ class DatabaseHelper {
   Future<List<ChatMessage>> getChatMessagesByShopList(int shopListId) async {
     Database db = await instance.database;
     var chatMessages = await db.query(
-      "chat_messages", 
-      where: "shop_list_id = ?", 
+      "chat_messages",
+      where: "shop_list_id = ?",
       whereArgs: [shopListId],
-      orderBy: "timestamp ASC"
+      orderBy: "timestamp ASC",
     );
     List<ChatMessage> chatMessageCollection = chatMessages.isNotEmpty
         ? chatMessages.map((x) => ChatMessage.fromMap(x)).toList()
@@ -678,25 +760,32 @@ class DatabaseHelper {
 
   Future<int> removeChatMessagesByShopList(int shopListId) async {
     Database db = await instance.database;
-    return await db.delete("chat_messages", where: "shop_list_id = ?", whereArgs: [shopListId]);
-  }
-
-  Future<int> markChatMessageActionsExecuted(int chatMessageId, String executedActionsJson) async {
-    Database db = await instance.database;
-    return await db.update(
-      "chat_messages", 
-      {
-        "actions_executed": 1,
-        "executed_actions_json": executedActionsJson
-      }, 
-      where: "id = ?", 
-      whereArgs: [chatMessageId]
+    return await db.delete(
+      "chat_messages",
+      where: "shop_list_id = ?",
+      whereArgs: [shopListId],
     );
   }
 
-  Future<List<Map<String, dynamic>>> getFrequentlyBoughtItemsWithStatus({int limit = 5, required int shopListId}) async {
+  Future<int> markChatMessageActionsExecuted(
+    int chatMessageId,
+    String executedActionsJson,
+  ) async {
     Database db = await instance.database;
-    
+    return await db.update(
+      "chat_messages",
+      {"actions_executed": 1, "executed_actions_json": executedActionsJson},
+      where: "id = ?",
+      whereArgs: [chatMessageId],
+    );
+  }
+
+  Future<List<Map<String, dynamic>>> getFrequentlyBoughtItemsWithStatus({
+    int limit = 5,
+    required int shopListId,
+  }) async {
+    Database db = await instance.database;
+
     String query = '''
       SELECT 
         items.name,
@@ -711,15 +800,15 @@ class DatabaseHelper {
       ORDER BY frequency DESC
       LIMIT ?
     ''';
-    
+
     var result = await db.rawQuery(query, [shopListId, limit]);
-    
+
     return result;
   }
 
   Future<Money?> getLastRecordedPrice(String itemName) async {
     Database db = await instance.database;
-    
+
     var result = await db.query(
       'shop_list_items',
       columns: ['unit_price'],
@@ -728,17 +817,17 @@ class DatabaseHelper {
       orderBy: 'id DESC',
       limit: 1,
     );
-    
+
     if (result.isNotEmpty) {
       return Money(cents: result.first['unit_price'] as int);
     }
-    
+
     return null;
   }
 
   Future<void> generateMockData() async {
     final faker = Faker();
-    
+
     // Common grocery items with realistic prices (in cents)
     final groceryItems = [
       {'name': 'Milk', 'price': 349},
@@ -782,7 +871,7 @@ class DatabaseHelper {
     final now = DateTime.now();
     final oneYearAgo = DateTime(now.year - 1, now.month, now.day);
     final totalDays = now.difference(oneYearAgo).inDays;
-    
+
     final shopListNames = [
       'Weekly Groceries',
       'Weekend Shopping',
@@ -798,80 +887,139 @@ class DatabaseHelper {
 
     // Generate 100-150 shopping lists total, ensuring we have positive numbers
     final totalLists = faker.randomGenerator.integer(150, min: 100);
-    
+
     for (int listIndex = 0; listIndex < totalLists; listIndex++) {
       // Create shopping list
-      final listName = shopListNames[faker.randomGenerator.integer(shopListNames.length)];
-      
+      final listName =
+          shopListNames[faker.randomGenerator.integer(shopListNames.length)];
+
       // Generate random date within the past year (ensure positive range)
-      final randomDayOffset = totalDays > 0 ? faker.randomGenerator.integer(totalDays) : 0;
+      final randomDayOffset = totalDays > 0
+          ? faker.randomGenerator.integer(totalDays)
+          : 0;
       final randomHour = faker.randomGenerator.integer(24);
       final randomMinute = faker.randomGenerator.integer(60);
-      final createdAt = oneYearAgo.add(Duration(
-        days: randomDayOffset,
-        hours: randomHour,
-        minutes: randomMinute,
-      ));
-      
-      final listNameWithDate = '$listName - ${createdAt.month}/${createdAt.day}';
-      
+      final createdAt = oneYearAgo.add(
+        Duration(
+          days: randomDayOffset,
+          hours: randomHour,
+          minutes: randomMinute,
+        ),
+      );
+
+      final listNameWithDate =
+          '$listName - ${createdAt.month}/${createdAt.day}';
+
       final shopList = ShopList(
         name: listNameWithDate,
         createdAt: createdAt,
         updatedAt: createdAt,
       );
       final shopListId = await addShopList(shopList);
-        
+
       // Generate 3-15 items per shopping list
       final itemsInList = faker.randomGenerator.integer(15, min: 3);
       final usedItems = <String>{};
-      
+
       for (int itemIndex = 0; itemIndex < itemsInList; itemIndex++) {
         // Pick a random grocery item that hasn't been used in this list
         Map<String, dynamic> selectedItem;
         do {
-          selectedItem = groceryItems[faker.randomGenerator.integer(groceryItems.length)];
+          selectedItem =
+              groceryItems[faker.randomGenerator.integer(groceryItems.length)];
         } while (usedItems.contains(selectedItem['name']));
-        
+
         usedItems.add(selectedItem['name'] as String);
-        
+
         // Generate realistic quantity (1-5 for most items)
-        final quantity = Decimal.fromInt(faker.randomGenerator.integer(5, min: 1));
-        
+        final quantity = Decimal.fromInt(
+          faker.randomGenerator.integer(5, min: 1),
+        );
+
         // Add some price variation (±20%)
         final basePrice = selectedItem['price'] as int;
         final priceVariation = (basePrice * 0.2).round();
         final priceVariationRange = priceVariation * 2;
-        final finalPrice = priceVariationRange > 0 
-            ? basePrice + faker.randomGenerator.integer(priceVariationRange, min: -priceVariation)
+        final finalPrice = priceVariationRange > 0
+            ? basePrice +
+                  faker.randomGenerator.integer(
+                    priceVariationRange,
+                    min: -priceVariation,
+                  )
             : basePrice;
-        
+
         // 70% chance the item is checked (purchased)
         final isChecked = faker.randomGenerator.boolean();
-        
+
         final item = ShopListItem(
           shopListId: shopListId,
           name: selectedItem['name'] as String,
           quantity: quantity,
-          unitPrice: Money(cents: finalPrice.clamp(50, 2000)), // Ensure reasonable price range
+          unitPrice: Money(
+            cents: finalPrice.clamp(50, 2000),
+          ), // Ensure reasonable price range
           checked: isChecked,
         );
-        
+
         await addShopListItem(item);
       }
     }
-    
+
     // Generate some additional seasonal items
     await _generateSeasonalItems(faker, oneYearAgo, now);
   }
 
-  Future<void> _generateSeasonalItems(Faker faker, DateTime startDate, DateTime endDate) async {
+  Future<void> _generateSeasonalItems(
+    Faker faker,
+    DateTime startDate,
+    DateTime endDate,
+  ) async {
     // Holiday shopping lists with their typical months
     final holidayLists = [
-      {'name': 'Christmas Shopping', 'month': 12, 'items': ['Turkey', 'Cranberries', 'Stuffing Mix', 'Pumpkin Pie', 'Eggnog']},
-      {'name': 'Thanksgiving Prep', 'month': 11, 'items': ['Turkey', 'Sweet Potatoes', 'Green Beans', 'Pie Crust', 'Gravy']},
-      {'name': 'Summer BBQ', 'month': 7, 'items': ['Hamburger Buns', 'Hot Dogs', 'Charcoal', 'Corn on the Cob', 'Watermelon']},
-      {'name': 'Back to School', 'month': 8, 'items': ['Lunch Bags', 'Granola Bars', 'Juice Boxes', 'Sandwich Bread', 'Peanut Butter']},
+      {
+        'name': 'Christmas Shopping',
+        'month': 12,
+        'items': [
+          'Turkey',
+          'Cranberries',
+          'Stuffing Mix',
+          'Pumpkin Pie',
+          'Eggnog',
+        ],
+      },
+      {
+        'name': 'Thanksgiving Prep',
+        'month': 11,
+        'items': [
+          'Turkey',
+          'Sweet Potatoes',
+          'Green Beans',
+          'Pie Crust',
+          'Gravy',
+        ],
+      },
+      {
+        'name': 'Summer BBQ',
+        'month': 7,
+        'items': [
+          'Hamburger Buns',
+          'Hot Dogs',
+          'Charcoal',
+          'Corn on the Cob',
+          'Watermelon',
+        ],
+      },
+      {
+        'name': 'Back to School',
+        'month': 8,
+        'items': [
+          'Lunch Bags',
+          'Granola Bars',
+          'Juice Boxes',
+          'Sandwich Bread',
+          'Peanut Butter',
+        ],
+      },
     ];
 
     // Create suggestions for all seasonal items
@@ -880,7 +1028,7 @@ class DatabaseHelper {
       final items = holiday['items'] as List<String>;
       allSeasonalItems.addAll(items);
     }
-    
+
     for (final itemName in allSeasonalItems) {
       await addSuggestion(itemName);
     }
@@ -888,11 +1036,11 @@ class DatabaseHelper {
     // Generate seasonal lists that fall within our date range
     for (final holiday in holidayLists) {
       final month = holiday['month'] as int;
-      
+
       // Check if this holiday month falls within our date range
       // We need to check both years since our range spans across years
       final dates = <DateTime>[];
-      
+
       // Check if the holiday month exists in the start year
       if (startDate.year == endDate.year) {
         // Same year - check if month is within range
@@ -908,14 +1056,20 @@ class DatabaseHelper {
           dates.add(DateTime(endDate.year, month));
         }
       }
-      
+
       // Create lists for each valid date
       for (final holidayDate in dates) {
         final dayOfMonth = faker.randomGenerator.integer(28, min: 1);
         final randomHour = faker.randomGenerator.integer(24);
         final randomMinute = faker.randomGenerator.integer(60);
-        final createdAt = DateTime(holidayDate.year, holidayDate.month, dayOfMonth, randomHour, randomMinute);
-        
+        final createdAt = DateTime(
+          holidayDate.year,
+          holidayDate.month,
+          dayOfMonth,
+          randomHour,
+          randomMinute,
+        );
+
         // Make sure the date is within our range
         if (createdAt.isAfter(startDate) && createdAt.isBefore(endDate)) {
           final shopList = ShopList(
@@ -924,13 +1078,15 @@ class DatabaseHelper {
             updatedAt: createdAt,
           );
           final shopListId = await addShopList(shopList);
-          
+
           final items = holiday['items'] as List<String>;
           for (final itemName in items) {
-            final quantity = Decimal.fromInt(faker.randomGenerator.integer(3, min: 1));
+            final quantity = Decimal.fromInt(
+              faker.randomGenerator.integer(3, min: 1),
+            );
             final price = faker.randomGenerator.integer(800, min: 200);
             final isChecked = faker.randomGenerator.boolean();
-            
+
             final item = ShopListItem(
               shopListId: shopListId,
               name: itemName,
@@ -938,7 +1094,7 @@ class DatabaseHelper {
               unitPrice: Money(cents: price),
               checked: isChecked,
             );
-            
+
             await addShopListItem(item);
           }
         }
@@ -951,16 +1107,22 @@ class DatabaseHelper {
       Database db = await instance.database;
       final sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
       final sevenDaysAgoMs = sevenDaysAgo.millisecondsSinceEpoch;
-      
+
       var result = await db.rawQuery(
         "SELECT COUNT(*) as count FROM shop_lists WHERE created_at >= ?",
-        [sevenDaysAgoMs]
+        [sevenDaysAgoMs],
       );
       return result.first['count'] as int;
     } on DatabaseException catch (e) {
-      throw DataRetrievalException('Failed to get shop lists count for last week: $e', e);
+      throw DataRetrievalException(
+        'Failed to get shop lists count for last week: $e',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error getting weekly shop lists count: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error getting weekly shop lists count: $e',
+        e,
+      );
     }
   }
 
@@ -969,30 +1131,42 @@ class DatabaseHelper {
       Database db = await instance.database;
       final sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
       final sevenDaysAgoMs = sevenDaysAgo.millisecondsSinceEpoch;
-      
-      var result = await db.rawQuery('''
+
+      var result = await db.rawQuery(
+        '''
         SELECT SUM(sli.unit_price * sli.quantity) as total_cents
         FROM shop_list_items sli
         INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
         WHERE sl.created_at >= ? AND sli.checked = 1
-      ''', [sevenDaysAgoMs]);
-      
+      ''',
+        [sevenDaysAgoMs],
+      );
+
       final totalCents = result.first['total_cents'] as int? ?? 0;
       return Money(cents: totalCents);
     } on DatabaseException catch (e) {
-      throw DataRetrievalException('Failed to get total amount for last week: $e', e);
+      throw DataRetrievalException(
+        'Failed to get total amount for last week: $e',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error getting weekly total amount: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error getting weekly total amount: $e',
+        e,
+      );
     }
   }
 
-  Future<List<FrequentlyBoughtItem>> getFrequentlyBoughtItemsLastMonth({int limit = 5}) async {
+  Future<List<FrequentlyBoughtItem>> getFrequentlyBoughtItemsLastMonth({
+    int limit = 5,
+  }) async {
     try {
       Database db = await instance.database;
       final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
       final thirtyDaysAgoMs = thirtyDaysAgo.millisecondsSinceEpoch;
-      
-      var result = await db.rawQuery('''
+
+      var result = await db.rawQuery(
+        '''
         SELECT sli.name, COUNT(*) as frequency
         FROM shop_list_items sli
         INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
@@ -1000,35 +1174,54 @@ class DatabaseHelper {
         GROUP BY LOWER(sli.name)
         ORDER BY frequency DESC
         LIMIT ?
-      ''', [thirtyDaysAgoMs, limit]);
-      
+      ''',
+        [thirtyDaysAgoMs, limit],
+      );
+
       return result.map((map) => FrequentlyBoughtItem.fromMap(map)).toList();
     } on DatabaseException catch (e) {
-      throw DataRetrievalException('Failed to get frequently bought items: $e', e);
+      throw DataRetrievalException(
+        'Failed to get frequently bought items: $e',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error getting frequently bought items: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error getting frequently bought items: $e',
+        e,
+      );
     }
   }
 
-  Future<List<PriceHistoryEntry>> getItemPriceHistory(String itemName, {int limit = 5}) async {
+  Future<List<PriceHistoryEntry>> getItemPriceHistory(
+    String itemName, {
+    int limit = 5,
+  }) async {
     try {
       Database db = await instance.database;
-      
-      var result = await db.rawQuery('''
+
+      var result = await db.rawQuery(
+        '''
         SELECT sli.unit_price, sl.created_at
         FROM shop_list_items sli
         INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
         WHERE LOWER(sli.name) = LOWER(?) AND sli.unit_price > 0 AND sli.checked = 1
         ORDER BY sl.created_at DESC
         LIMIT ?
-      ''', [itemName, limit]);
-      
+      ''',
+        [itemName, limit],
+      );
+
       return result.map((map) => PriceHistoryEntry.fromMap(map)).toList();
     } on DatabaseException catch (e) {
-      throw DataRetrievalException('Failed to get price history for $itemName: $e', e);
+      throw DataRetrievalException(
+        'Failed to get price history for $itemName: $e',
+        e,
+      );
     } catch (e) {
-      throw DataRetrievalException('Unexpected error getting price history: $e', e);
+      throw DataRetrievalException(
+        'Unexpected error getting price history: $e',
+        e,
+      );
     }
   }
-
 }

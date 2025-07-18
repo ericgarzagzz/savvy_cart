@@ -8,7 +8,7 @@ import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListItemListtile extends ConsumerWidget {
   final ShopListItem shopListItem;
-  
+
   const ShopListItemListtile({super.key, required this.shopListItem});
 
   @override
@@ -20,7 +20,9 @@ class ShopListItemListtile extends ConsumerWidget {
         children: [
           SlidableAction(
             onPressed: (context) {
-              context.go('./price-chart/${Uri.encodeComponent(shopListItem.name)}');
+              context.go(
+                './price-chart/${Uri.encodeComponent(shopListItem.name)}',
+              );
             },
             backgroundColor: Colors.purple,
             foregroundColor: Colors.white,
@@ -30,7 +32,8 @@ class ShopListItemListtile extends ConsumerWidget {
             onPressed: (context) {
               showDialog(
                 context: context,
-                builder: (ctx) => ShopListItemNameEditDialog(shopListItem: shopListItem),
+                builder: (ctx) =>
+                    ShopListItemNameEditDialog(shopListItem: shopListItem),
               );
             },
             backgroundColor: Theme.of(context).colorScheme.primary,
@@ -43,7 +46,9 @@ class ShopListItemListtile extends ConsumerWidget {
                 context: context,
                 builder: (context) => AlertDialog(
                   title: const Text('Delete Item'),
-                  content: Text('Are you sure you want to delete "${shopListItem.name}"?'),
+                  content: Text(
+                    'Are you sure you want to delete "${shopListItem.name}"?',
+                  ),
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.of(context).pop(false),
@@ -81,24 +86,33 @@ class ShopListItemListtile extends ConsumerWidget {
           },
         ),
         title: Text(
-          shopListItem.name, 
+          shopListItem.name,
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-            decoration: shopListItem.checked ? TextDecoration.lineThrough : null,
+            decoration: shopListItem.checked
+                ? TextDecoration.lineThrough
+                : null,
           ),
         ),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           spacing: 12,
           children: [
-            Text(shopListItem.quantity.toString(), style: Theme.of(context).textTheme.bodyMedium),
-            Text((shopListItem.unitPrice * shopListItem.quantity).toStringWithLocale(), style: Theme.of(context).textTheme.bodyMedium)
+            Text(
+              shopListItem.quantity.toString(),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            Text(
+              (shopListItem.unitPrice * shopListItem.quantity)
+                  .toStringWithLocale(),
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
           ],
         ),
         onTap: () {
           showModalBottomSheet(
             isScrollControlled: true,
             context: context,
-            builder: (ctx) => ShopListItemEditForm(shopListItem: shopListItem)
+            builder: (ctx) => ShopListItemEditForm(shopListItem: shopListItem),
           );
         },
       ),

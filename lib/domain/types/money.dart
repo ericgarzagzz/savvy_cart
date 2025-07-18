@@ -12,7 +12,8 @@ class Money {
   @override
   String toString() => (cents / 100).toStringAsFixed(2);
 
-  String toStringWithLocale() => NumberFormat.simpleCurrency().format(cents / 100);
+  String toStringWithLocale() =>
+      NumberFormat.simpleCurrency().format(cents / 100);
 
   Money operator +(Money other) => Money(cents: cents + other.cents);
   Money operator *(Decimal other) {

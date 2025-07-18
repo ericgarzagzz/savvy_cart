@@ -13,11 +13,11 @@ class ShopListItem {
   final DateTime? checkedAt;
 
   ShopListItem({
-    this.id, 
-    required this.shopListId, 
-    required this.name, 
-    required this.quantity, 
-    required this.unitPrice, 
+    this.id,
+    required this.shopListId,
+    required this.name,
+    required this.quantity,
+    required this.unitPrice,
     this.checked = false,
     this.createdAt,
     this.updatedAt,
@@ -31,14 +31,14 @@ class ShopListItem {
     quantity: Decimal.fromJson(json['quantity']),
     unitPrice: Money.fromJson(json['unit_price']),
     checked: json['checked'].toString() == "1",
-    createdAt: json['created_at'] != null && json['created_at'] != 0 
-        ? DateTime.fromMillisecondsSinceEpoch(json['created_at']) 
+    createdAt: json['created_at'] != null && json['created_at'] != 0
+        ? DateTime.fromMillisecondsSinceEpoch(json['created_at'])
         : null,
-    updatedAt: json['updated_at'] != null && json['updated_at'] != 0 
-        ? DateTime.fromMillisecondsSinceEpoch(json['updated_at']) 
+    updatedAt: json['updated_at'] != null && json['updated_at'] != 0
+        ? DateTime.fromMillisecondsSinceEpoch(json['updated_at'])
         : null,
-    checkedAt: json['checked_at'] != null && json['checked_at'] != 0 
-        ? DateTime.fromMillisecondsSinceEpoch(json['checked_at']) 
+    checkedAt: json['checked_at'] != null && json['checked_at'] != 0
+        ? DateTime.fromMillisecondsSinceEpoch(json['checked_at'])
         : null,
   );
 

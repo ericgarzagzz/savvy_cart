@@ -18,6 +18,8 @@ final isRecordingProvider = StateProvider<bool>((ref) => false);
 final audioStreamProvider = StateProvider<Stream<Uint8List>?>((ref) => null);
 
 /// Holds the complete recorded audio data as raw bytes.
-final recordedAudioBytesProvider = StateProvider.autoDispose<Uint8List?>((ref) => null);
+final recordedAudioBytesProvider = StateProvider.autoDispose<Uint8List?>(
+  (ref) => null,
+);
 
 final isProcessingAudioProvider = StateProvider<bool>((ref) => false);

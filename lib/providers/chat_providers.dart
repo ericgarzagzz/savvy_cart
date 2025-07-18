@@ -7,15 +7,22 @@ import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/gemini_shop_list_service.dart';
 
 // Chat messages state for a specific shop list
-final chatMessagesProvider = StateNotifierProvider.family<ChatMessagesNotifier, List<ChatMessageViewModel>, int>(
-  (ref, shopListId) => ChatMessagesNotifier(shopListId),
-);
+final chatMessagesProvider =
+    StateNotifierProvider.family<
+      ChatMessagesNotifier,
+      List<ChatMessageViewModel>,
+      int
+    >((ref, shopListId) => ChatMessagesNotifier(shopListId));
 
 // Processing state for chat
-final chatProcessingProvider = StateProvider.family<bool, int>((ref, shopListId) => false);
+final chatProcessingProvider = StateProvider.family<bool, int>(
+  (ref, shopListId) => false,
+);
 
 // Scroll position state for chat (tracks if user has scrolled up from bottom)
-final chatScrollPositionProvider = StateProvider.family<bool, int>((ref, shopListId) => false);
+final chatScrollPositionProvider = StateProvider.family<bool, int>(
+  (ref, shopListId) => false,
+);
 
 class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
   final int shopListId;
@@ -26,7 +33,8 @@ class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
 
   Future<void> _loadExistingMessages() async {
     try {
-      final chatMessages = await DatabaseHelper.instance.getChatMessagesByShopList(shopListId);
+      final chatMessages = await DatabaseHelper.instance
+          .getChatMessagesByShopList(shopListId);
       final messageViewModels = chatMessages
           .map((msg) => ChatMessageViewModel.fromChatMessage(msg))
           .toList();
@@ -96,13 +104,19 @@ class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
       return message;
     }).toList();
   }
-
 }
 
 // Internal helper for processing messages (used by both send and retry)
-Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addUserMessage = true}) async {
+Future<void> _processMessage(
+  Ref ref,
+  int shopListId,
+  String message, {
+  bool addUserMessage = true,
+}) async {
   final chatNotifier = ref.read(chatMessagesProvider(shopListId).notifier);
-  final processingNotifier = ref.read(chatProcessingProvider(shopListId).notifier);
+  final processingNotifier = ref.read(
+    chatProcessingProvider(shopListId).notifier,
+  );
 
   // Add user message only if specified (not for retry)
   if (addUserMessage) {
@@ -110,10 +124,12 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
       shopListId: shopListId,
       text: message,
     );
-    
+
     // Persist to database
-    final messageId = await DatabaseHelper.instance.addChatMessage(userMessage.chatMessage);
-    
+    final messageId = await DatabaseHelper.instance.addChatMessage(
+      userMessage.chatMessage,
+    );
+
     // Update with ID and add to state
     final userMessageWithId = ChatMessageViewModel(
       chatMessage: userMessage.chatMessage.copyWith(id: messageId),
@@ -122,7 +138,7 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
     );
     chatNotifier.addMessage(userMessageWithId);
   }
-  
+
   // Set processing state
   processingNotifier.state = true;
 
@@ -131,33 +147,40 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
     AiSettingsState aiSettingsState;
     int retryCount = 0;
     const maxRetries = 10; // Wait up to 1 second (10 * 100ms)
-    
+
     do {
       aiSettingsState = ref.read(aiSettingsProvider);
-      
+
       if (!aiSettingsState.isLoading) {
         break; // Settings loaded
       }
-      
+
       if (retryCount >= maxRetries) {
-        throw Exception('AI settings took too long to load. Please check your connection and try again.');
+        throw Exception(
+          'AI settings took too long to load. Please check your connection and try again.',
+        );
       }
-      
+
       // Wait 100ms before retrying
       await Future.delayed(const Duration(milliseconds: 100));
       retryCount++;
     } while (aiSettingsState.isLoading);
-    
+
     if (aiSettingsState.error != null) {
       throw Exception('Failed to load AI settings: ${aiSettingsState.error}');
     }
-    
+
     final apiKey = aiSettingsState.settings.apiKey;
     if (apiKey.isEmpty) {
-      throw Exception('API key not configured. Please set your Gemini API key in settings.');
+      throw Exception(
+        'API key not configured. Please set your Gemini API key in settings.',
+      );
     }
-    
-    final service = GeminiShopListService(apiKey, model: aiSettingsState.settings.model);
+
+    final service = GeminiShopListService(
+      apiKey,
+      model: aiSettingsState.settings.model,
+    );
     final currentShopListItems = await ref.read(
       getShopListItemsProvider(shopListId).future,
     );
@@ -173,10 +196,12 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
       text: geminiResponse.prompt ?? "I've analyzed your request.",
       geminiResponse: geminiResponse,
     );
-    
+
     // Persist to database
-    final aiMessageId = await DatabaseHelper.instance.addChatMessage(aiMessage.chatMessage);
-    
+    final aiMessageId = await DatabaseHelper.instance.addChatMessage(
+      aiMessage.chatMessage,
+    );
+
     // Update with ID and add to state
     final aiMessageWithId = ChatMessageViewModel(
       chatMessage: aiMessage.chatMessage.copyWith(id: aiMessageId),
@@ -191,10 +216,12 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
       text: "Sorry, I couldn't process your request: ${e.toString()}",
       isError: true,
     );
-    
+
     // Persist to database
-    final errorMessageId = await DatabaseHelper.instance.addChatMessage(errorMessage.chatMessage);
-    
+    final errorMessageId = await DatabaseHelper.instance.addChatMessage(
+      errorMessage.chatMessage,
+    );
+
     // Update with ID and add to state
     final errorMessageWithId = ChatMessageViewModel(
       chatMessage: errorMessage.chatMessage.copyWith(id: errorMessageId),
@@ -209,71 +236,103 @@ Future<void> _processMessage(Ref ref, int shopListId, String message, {bool addU
 }
 
 // Provider for sending messages
-final sendMessageProvider = Provider.family<Future<void> Function(String), int>((ref, shopListId) {
-  return (String message) async {
-    if (message.trim().isEmpty) return;
-    await _processMessage(ref, shopListId, message, addUserMessage: true);
-  };
-});
+final sendMessageProvider = Provider.family<Future<void> Function(String), int>(
+  (ref, shopListId) {
+    return (String message) async {
+      if (message.trim().isEmpty) return;
+      await _processMessage(ref, shopListId, message, addUserMessage: true);
+    };
+  },
+);
 
 // Provider for retrying the last failed message
-final retryLastMessageProvider = Provider.family<Future<void> Function(), int>((ref, shopListId) {
+final retryLastMessageProvider = Provider.family<Future<void> Function(), int>((
+  ref,
+  shopListId,
+) {
   return () async {
     final chatNotifier = ref.read(chatMessagesProvider(shopListId).notifier);
     final lastUserMessage = chatNotifier.getLastUserMessage();
-    
+
     if (lastUserMessage != null) {
       // Remove the error message
       chatNotifier.removeLastErrorMessage();
-      
+
       // Retry processing without adding a new user message
-      await _processMessage(ref, shopListId, lastUserMessage, addUserMessage: false);
+      await _processMessage(
+        ref,
+        shopListId,
+        lastUserMessage,
+        addUserMessage: false,
+      );
     }
   };
 });
 
 // Provider for executing selected actions
-final executeActionsProvider = Provider.family<Future<void> Function(GeminiResponse, int), int>((ref, shopListId) {
-  return (GeminiResponse geminiResponse, int messageId) async {
-    final aiSettingsState = ref.read(aiSettingsProvider);
-    
-    if (aiSettingsState.isLoading) {
-      throw Exception('AI settings are still loading. Please wait a moment and try again.');
-    }
-    
-    if (aiSettingsState.error != null) {
-      throw Exception('Failed to load AI settings: ${aiSettingsState.error}');
-    }
-    
-    final apiKey = aiSettingsState.settings.apiKey;
-    if (apiKey.isEmpty) {
-      throw Exception('API key not configured. Please set your Gemini API key in settings.');
-    }
-    final service = GeminiShopListService(apiKey, model: aiSettingsState.settings.model);
+final executeActionsProvider =
+    Provider.family<Future<void> Function(GeminiResponse, int), int>((
+      ref,
+      shopListId,
+    ) {
+      return (GeminiResponse geminiResponse, int messageId) async {
+        final aiSettingsState = ref.read(aiSettingsProvider);
 
-    await service.executeGeminiActions(geminiResponse, shopListId);
+        if (aiSettingsState.isLoading) {
+          throw Exception(
+            'AI settings are still loading. Please wait a moment and try again.',
+          );
+        }
 
-    // Serialize executed actions for storage
-    final executedActionsJson = jsonEncode(
-      geminiResponse.actions.map((action) => {
-        'operation': action.operation.toString().split('.').last,
-        'item': action.item,
-        'id': action.id,
-        'quantity': action.quantity,
-        'unit_price': action.unitPrice,
-      }).toList(),
-    );
+        if (aiSettingsState.error != null) {
+          throw Exception(
+            'Failed to load AI settings: ${aiSettingsState.error}',
+          );
+        }
 
-    // Mark the message as executed in the database
-    await DatabaseHelper.instance.markChatMessageActionsExecuted(messageId, executedActionsJson);
+        final apiKey = aiSettingsState.settings.apiKey;
+        if (apiKey.isEmpty) {
+          throw Exception(
+            'API key not configured. Please set your Gemini API key in settings.',
+          );
+        }
+        final service = GeminiShopListService(
+          apiKey,
+          model: aiSettingsState.settings.model,
+        );
 
-    // Update the state to reflect that actions were executed
-    final chatNotifier = ref.read(chatMessagesProvider(shopListId).notifier);
-    chatNotifier.markMessageActionsExecuted(messageId, executedActionsJson);
+        await service.executeGeminiActions(geminiResponse, shopListId);
 
-    // Invalidate shop list providers to refresh the UI
-    ref.invalidate(shopListItemsProvider((shopListId, false)));
-    ref.invalidate(shopListItemsProvider((shopListId, true)));
-    ref.invalidate(shopListItemStatsProvider(shopListId));
-  };
-});
+        // Serialize executed actions for storage
+        final executedActionsJson = jsonEncode(
+          geminiResponse.actions
+              .map(
+                (action) => {
+                  'operation': action.operation.toString().split('.').last,
+                  'item': action.item,
+                  'id': action.id,
+                  'quantity': action.quantity,
+                  'unit_price': action.unitPrice,
+                },
+              )
+              .toList(),
+        );
+
+        // Mark the message as executed in the database
+        await DatabaseHelper.instance.markChatMessageActionsExecuted(
+          messageId,
+          executedActionsJson,
+        );
+
+        // Update the state to reflect that actions were executed
+        final chatNotifier = ref.read(
+          chatMessagesProvider(shopListId).notifier,
+        );
+        chatNotifier.markMessageActionsExecuted(messageId, executedActionsJson);
+
+        // Invalidate shop list providers to refresh the UI
+        ref.invalidate(shopListItemsProvider((shopListId, false)));
+        ref.invalidate(shopListItemsProvider((shopListId, true)));
+        ref.invalidate(shopListItemStatsProvider(shopListId));
+      };
+    });

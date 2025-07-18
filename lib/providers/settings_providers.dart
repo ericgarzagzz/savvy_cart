@@ -35,24 +35,24 @@ class AiSettingsState {
   }
 
   bool get hasValidApiKey => verificationResult?.isValid == true;
-  
-  ApiConnectionStatus get connectionStatus => 
+
+  ApiConnectionStatus get connectionStatus =>
       verificationResult?.status ?? ApiConnectionStatus.notVerified;
 }
 
-final aiSettingsProvider = StateNotifierProvider<AiSettingsNotifier, AiSettingsState>((ref) {
-  return AiSettingsNotifier();
-});
+final aiSettingsProvider =
+    StateNotifierProvider<AiSettingsNotifier, AiSettingsState>((ref) {
+      return AiSettingsNotifier();
+    });
 
 class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
   AiSettingsNotifier()
-      : super(AiSettingsState(
-          settings: AiSettings(
-            apiKey: '',
-            model: 'gemini-2.0-flash',
-          ),
+    : super(
+        AiSettingsState(
+          settings: AiSettings(apiKey: '', model: 'gemini-2.0-flash'),
           isLoading: true,
-        )) {
+        ),
+      ) {
     _loadSettings();
   }
 
@@ -63,10 +63,7 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
       final model = prefs.getString('ai_model') ?? 'gemini-2.0-flash';
 
       state = state.copyWith(
-        settings: AiSettings(
-          apiKey: apiKey,
-          model: model,
-        ),
+        settings: AiSettings(apiKey: apiKey, model: model),
         isLoading: false,
       );
     } catch (e) {
@@ -82,7 +79,7 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
     await prefs.setString('ai_api_key', settings.apiKey);
     await prefs.setString('ai_model', settings.model);
     state = state.copyWith(settings: settings);
-    
+
     // Auto-verify the API key after saving
     if (settings.apiKey.isNotEmpty) {
       await verifyApiKey();
@@ -95,9 +92,7 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
   Future<void> updateModelOnly(String model) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('ai_model', model);
-    state = state.copyWith(
-      settings: state.settings.copyWith(model: model),
-    );
+    state = state.copyWith(settings: state.settings.copyWith(model: model));
     // No API verification needed - just update the model setting
   }
 
@@ -115,13 +110,12 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
     state = state.copyWith(isVerifying: true);
 
     try {
-      final verificationService = GeminiApiVerificationService(state.settings.apiKey);
-      final result = await verificationService.verifyApiKey();
-      
-      state = state.copyWith(
-        verificationResult: result,
-        isVerifying: false,
+      final verificationService = GeminiApiVerificationService(
+        state.settings.apiKey,
       );
+      final result = await verificationService.verifyApiKey();
+
+      state = state.copyWith(verificationResult: result, isVerifying: false);
     } catch (e) {
       state = state.copyWith(
         verificationResult: ApiVerificationResult(

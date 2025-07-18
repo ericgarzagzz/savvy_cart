@@ -43,7 +43,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             // Clear All Button
             Align(
               alignment: Alignment.centerRight,
@@ -57,19 +57,19 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               ),
             ),
             const SizedBox(height: 16),
-            
+
             // Thinking Capabilities Filter
             _buildThinkingFilter(),
             const SizedBox(height: 24),
-            
+
             // Token Limits Filters
             _buildTokenLimitsFilter(),
             const SizedBox(height: 24),
-            
+
             // Temperature Filter
             _buildTemperatureFilter(),
             const SizedBox(height: 32),
-            
+
             // Action Buttons
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -126,7 +126,9 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
                 // When "All" is selected, clear the hasThinking filter
                 _tempFilters = _tempFilters.copyWith(clearHasThinking: true);
               } else {
-                _tempFilters = _tempFilters.copyWith(hasThinking: selectedValue);
+                _tempFilters = _tempFilters.copyWith(
+                  hasThinking: selectedValue,
+                );
               }
             });
           },
@@ -139,12 +141,9 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Token Limits',
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
+        Text('Token Limits', style: Theme.of(context).textTheme.titleMedium),
         const SizedBox(height: 16),
-        
+
         // Input Tokens
         Text(
           'Input Tokens (in millions)',
@@ -194,9 +193,9 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             ],
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // Output Tokens
         Text(
           'Output Tokens (in millions)',

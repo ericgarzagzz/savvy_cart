@@ -16,7 +16,8 @@ class BackupRestoreDialog extends ConsumerStatefulWidget {
   });
 
   @override
-  ConsumerState<BackupRestoreDialog> createState() => _BackupRestoreDialogState();
+  ConsumerState<BackupRestoreDialog> createState() =>
+      _BackupRestoreDialogState();
 }
 
 class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
@@ -26,7 +27,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
-    
+
     return AlertDialog(
       title: const Text('Restore Backup'),
       content: SingleChildScrollView(
@@ -37,7 +38,9 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5),
+                color: Theme.of(
+                  context,
+                ).colorScheme.surfaceVariant.withOpacity(0.5),
                 borderRadius: BorderRadius.circular(8),
                 border: Border.all(
                   color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
@@ -59,9 +62,8 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                           widget.backup.fileName
                               .replaceAll('manual_backup_', '')
                               .replaceAll('.json', ''),
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                            fontWeight: FontWeight.w600,
-                          ),
+                          style: Theme.of(context).textTheme.titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w600),
                         ),
                       ),
                     ],
@@ -78,12 +80,17 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                         'Size: ${widget.backup.formattedSize}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
-                      if (widget.backup.includesSettings) ...[ 
+                      if (widget.backup.includesSettings) ...[
                         const SizedBox(width: 12),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 6,
+                            vertical: 2,
+                          ),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.primaryContainer,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.primaryContainer,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
@@ -91,7 +98,9 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
-                              color: Theme.of(context).colorScheme.onPrimaryContainer,
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onPrimaryContainer,
                             ),
                           ),
                         ),
@@ -168,10 +177,10 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
         ElevatedButton(
           onPressed: _isLoading ? null : _restoreBackup,
           style: ElevatedButton.styleFrom(
-            backgroundColor: _replaceExisting 
+            backgroundColor: _replaceExisting
                 ? Theme.of(context).colorScheme.error
                 : null,
-            foregroundColor: _replaceExisting 
+            foregroundColor: _replaceExisting
                 ? Theme.of(context).colorScheme.onError
                 : null,
           ),
@@ -210,14 +219,14 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
         widget.backup.filePath,
         replaceExisting: _replaceExisting,
       );
-      
+
       if (mounted) {
         // Invalidate all Riverpod providers to refresh the UI with restored data
         _invalidateAllProviders();
-        
+
         Navigator.of(context).pop();
         widget.onRestoreCompleted?.call();
-        
+
         // Show success message
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -227,9 +236,9 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                 SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    _replaceExisting 
+                    _replaceExisting
                         ? 'Data restored successfully'
-                        : 'Backup data merged successfully'
+                        : 'Backup data merged successfully',
                   ),
                 ),
               ],
@@ -243,7 +252,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
         setState(() {
           _isLoading = false;
         });
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Failed to restore backup: $e'),

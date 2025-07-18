@@ -10,7 +10,8 @@ class ShopListSearchScreen extends ConsumerStatefulWidget {
   const ShopListSearchScreen({super.key});
 
   @override
-  ConsumerState<ShopListSearchScreen> createState() => _ShopListSearchScreenState();
+  ConsumerState<ShopListSearchScreen> createState() =>
+      _ShopListSearchScreenState();
 }
 
 class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
@@ -39,18 +40,29 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
 
     try {
       final shopLists = await DatabaseHelper.instance.searchShopLists(
-        query: _searchController.text.trim().isEmpty ? null : _searchController.text.trim(),
+        query: _searchController.text.trim().isEmpty
+            ? null
+            : _searchController.text.trim(),
         startDate: _startDate,
         endDate: _endDate,
       );
 
       final List<ShopListViewModel> collection = [];
       for (var shopList in shopLists) {
-        final checkedAmount = await DatabaseHelper.instance.calculateShopListCheckedAmount(shopList.id ?? 0);
-        final counts = await DatabaseHelper.instance.calculateShopListItemCounts(shopList.id ?? 0);
+        final checkedAmount = await DatabaseHelper.instance
+            .calculateShopListCheckedAmount(shopList.id ?? 0);
+        final counts = await DatabaseHelper.instance
+            .calculateShopListItemCounts(shopList.id ?? 0);
         final checkedItemsCount = counts.$1;
         final totalItemsCount = counts.$2;
-        collection.add(ShopListViewModel.fromModel(shopList, checkedAmount, checkedItemsCount, totalItemsCount));
+        collection.add(
+          ShopListViewModel.fromModel(
+            shopList,
+            checkedAmount,
+            checkedItemsCount,
+            totalItemsCount,
+          ),
+        );
       }
 
       setState(() {
@@ -110,11 +122,10 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
       appBar: AppBar(
         title: Text('Search Lists'),
         actions: [
-          if (_searchController.text.isNotEmpty || _startDate != null || _endDate != null)
-            IconButton(
-              icon: Icon(Icons.clear),
-              onPressed: _clearFilters,
-            ),
+          if (_searchController.text.isNotEmpty ||
+              _startDate != null ||
+              _endDate != null)
+            IconButton(icon: Icon(Icons.clear), onPressed: _clearFilters),
         ],
       ),
       body: Column(
@@ -162,9 +173,9 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                 // Date Filters
                 Text(
                   'Filter by Date Range',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 8),
                 Row(
@@ -173,9 +184,11 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                       child: OutlinedButton.icon(
                         onPressed: _selectStartDate,
                         icon: Icon(Icons.date_range),
-                        label: Text(_startDate != null 
-                            ? DateFormat('MMM d, yyyy').format(_startDate!)
-                            : 'Start Date'),
+                        label: Text(
+                          _startDate != null
+                              ? DateFormat('MMM d, yyyy').format(_startDate!)
+                              : 'Start Date',
+                        ),
                       ),
                     ),
                     SizedBox(width: 8),
@@ -183,9 +196,11 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                       child: OutlinedButton.icon(
                         onPressed: _selectEndDate,
                         icon: Icon(Icons.date_range),
-                        label: Text(_endDate != null 
-                            ? DateFormat('MMM d, yyyy').format(_endDate!)
-                            : 'End Date'),
+                        label: Text(
+                          _endDate != null
+                              ? DateFormat('MMM d, yyyy').format(_endDate!)
+                              : 'End Date',
+                        ),
                       ),
                     ),
                   ],
@@ -198,43 +213,50 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
             child: _isLoading
                 ? Center(child: CircularProgressIndicator())
                 : _hasSearched && _searchResults.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search_off,
-                              size: 64,
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'No lists found',
-                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Try adjusting your search terms or date filters',
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
+                ? Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.search_off,
+                          size: 64,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
-                      )
-                    : ListView.builder(
-                        padding: EdgeInsets.all(16),
-                        itemCount: _searchResults.length,
-                        itemBuilder: (context, index) {
-                          return ShopListListTile(
-                            shopList: _searchResults[index],
-                            onTap: () => context.go("./manage/${_searchResults[index].id}"),
-                          );
-                        },
-                      ),
+                        SizedBox(height: 16),
+                        Text(
+                          'No lists found',
+                          style: Theme.of(context).textTheme.headlineSmall
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                              ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Try adjusting your search terms or date filters',
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                color: Theme.of(
+                                  context,
+                                ).colorScheme.onSurfaceVariant,
+                              ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  )
+                : ListView.builder(
+                    padding: EdgeInsets.all(16),
+                    itemCount: _searchResults.length,
+                    itemBuilder: (context, index) {
+                      return ShopListListTile(
+                        shopList: _searchResults[index],
+                        onTap: () =>
+                            context.go("./manage/${_searchResults[index].id}"),
+                      );
+                    },
+                  ),
           ),
         ],
       ),
