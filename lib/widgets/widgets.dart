@@ -8,6 +8,8 @@ export 'decimal_form_field.dart';
 export 'frequently_bought_section.dart';
 export 'generic_alert_dialog.dart';
 export 'generic_error_scaffold.dart';
+export 'insights/weekly_insights_card.dart';
+export 'insights/frequently_bought_items_list.dart';
 export 'settings/ai_settings_form.dart';
 export 'settings/backup_create_dialog.dart';
 export 'settings/backup_restore_dialog.dart';

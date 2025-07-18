@@ -70,6 +70,22 @@ final router = GoRouter(
         GoRoute(
           path: 'insights',
           builder: (context, state) => const InsightsPage(),
+          routes: [
+            GoRoute(
+              path: 'price-search',
+              builder: (context, state) => const PriceSearchScreen(),
+            ),
+            GoRoute(
+              path: 'price-chart/:itemName',
+              builder: (context, state) {
+                final itemName = state.pathParameters['itemName'];
+                if (itemName == null) {
+                  return _buildErrorPage(context, 'Invalid item name');
+                }
+                return PriceChartScreen(itemName: Uri.decodeComponent(itemName));
+              },
+            ),
+          ],
         ),
         GoRoute(
           path: 'search-lists',

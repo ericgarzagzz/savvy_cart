@@ -5,6 +5,7 @@ import 'package:decimal/decimal.dart';
 import 'package:faker/faker.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
+import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/utils/utils.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
@@ -942,6 +943,91 @@ class DatabaseHelper {
           }
         }
       }
+    }
+  }
+
+  Future<int> getShopListsCountLastWeek() async {
+    try {
+      Database db = await instance.database;
+      final sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
+      final sevenDaysAgoMs = sevenDaysAgo.millisecondsSinceEpoch;
+      
+      var result = await db.rawQuery(
+        "SELECT COUNT(*) as count FROM shop_lists WHERE created_at >= ?",
+        [sevenDaysAgoMs]
+      );
+      return result.first['count'] as int;
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to get shop lists count for last week: $e', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error getting weekly shop lists count: $e', e);
+    }
+  }
+
+  Future<Money> getTotalAmountLastWeek() async {
+    try {
+      Database db = await instance.database;
+      final sevenDaysAgo = DateTime.now().subtract(const Duration(days: 7));
+      final sevenDaysAgoMs = sevenDaysAgo.millisecondsSinceEpoch;
+      
+      var result = await db.rawQuery('''
+        SELECT SUM(sli.unit_price * sli.quantity) as total_cents
+        FROM shop_list_items sli
+        INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
+        WHERE sl.created_at >= ? AND sli.checked = 1
+      ''', [sevenDaysAgoMs]);
+      
+      final totalCents = result.first['total_cents'] as int? ?? 0;
+      return Money(cents: totalCents);
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to get total amount for last week: $e', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error getting weekly total amount: $e', e);
+    }
+  }
+
+  Future<List<FrequentlyBoughtItem>> getFrequentlyBoughtItemsLastMonth({int limit = 5}) async {
+    try {
+      Database db = await instance.database;
+      final thirtyDaysAgo = DateTime.now().subtract(const Duration(days: 30));
+      final thirtyDaysAgoMs = thirtyDaysAgo.millisecondsSinceEpoch;
+      
+      var result = await db.rawQuery('''
+        SELECT sli.name, COUNT(*) as frequency
+        FROM shop_list_items sli
+        INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
+        WHERE sl.created_at >= ? AND sli.checked = 1
+        GROUP BY LOWER(sli.name)
+        ORDER BY frequency DESC
+        LIMIT ?
+      ''', [thirtyDaysAgoMs, limit]);
+      
+      return result.map((map) => FrequentlyBoughtItem.fromMap(map)).toList();
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to get frequently bought items: $e', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error getting frequently bought items: $e', e);
+    }
+  }
+
+  Future<List<PriceHistoryEntry>> getItemPriceHistory(String itemName, {int limit = 5}) async {
+    try {
+      Database db = await instance.database;
+      
+      var result = await db.rawQuery('''
+        SELECT sli.unit_price, sl.created_at
+        FROM shop_list_items sli
+        INNER JOIN shop_lists sl ON sli.shop_list_id = sl.id
+        WHERE LOWER(sli.name) = LOWER(?) AND sli.unit_price > 0 AND sli.checked = 1
+        ORDER BY sl.created_at DESC
+        LIMIT ?
+      ''', [itemName, limit]);
+      
+      return result.map((map) => PriceHistoryEntry.fromMap(map)).toList();
+    } on DatabaseException catch (e) {
+      throw DataRetrievalException('Failed to get price history for $itemName: $e', e);
+    } catch (e) {
+      throw DataRetrievalException('Unexpected error getting price history: $e', e);
     }
   }
 

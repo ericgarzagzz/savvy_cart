@@ -10,3 +10,4 @@ export 'theme_providers.dart';
 export 'model_filters_provider.dart';
 export 'settings_providers.dart';
 export 'suggestions_mutation_providers.dart';
+export 'insights_providers.dart';

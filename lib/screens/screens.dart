@@ -4,6 +4,8 @@ export 'backup_management_screen.dart';
 export 'home_page.dart';
 export 'insights_page.dart';
 export 'model_selection_screen.dart';
+export 'price_chart_screen.dart';
+export 'price_search_screen.dart';
 export 'settings.dart';
 export 'shop_list_chat.dart';
 export 'shop_list_manager.dart';

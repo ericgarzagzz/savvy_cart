@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/widgets/widgets.dart';
 
-class InsightsPage extends StatefulWidget {
+class InsightsPage extends ConsumerWidget {
   const InsightsPage({super.key});
 
   @override
-  State<InsightsPage> createState() => _InsightsPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weeklyInsightsAsync = ref.watch(weeklyInsightsProvider);
 
-class _InsightsPageState extends State<InsightsPage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Shopping Insights'),
@@ -19,32 +19,99 @@ class _InsightsPageState extends State<InsightsPage> {
           onPressed: () => context.go('/'),
         ),
       ),
-      body: const Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              Icons.insights,
-              size: 100,
-              color: Colors.grey,
-            ),
-            SizedBox(height: 16),
             Text(
-              'Shopping Insights',
-              style: TextStyle(
-                fontSize: 24,
+              'Weekly Overview (Last 7 Days)',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.grey,
               ),
             ),
-            SizedBox(height: 8),
-            Text(
-              'Coming soon...',
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
+            const SizedBox(height: 16),
+            weeklyInsightsAsync.when(
+              data: (insights) => Row(
+                children: [
+                  Expanded(
+                    child: WeeklyInsightsCard(
+                      title: 'Lists Created',
+                      value: insights.listsCreated.toString(),
+                      icon: Icons.shopping_cart,
+                      iconColor: Colors.blue,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: WeeklyInsightsCard(
+                      title: 'Total Spent',
+                      value: insights.totalAmount.toStringWithLocale(),
+                      icon: Icons.attach_money,
+                      iconColor: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+              loading: () => const Row(
+                children: [
+                  Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 12),
+                  Expanded(
+                    child: Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              error: (error, stackTrace) => Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.error_outline,
+                        size: 48,
+                        color: Colors.red[400],
+                      ),
+                      const SizedBox(height: 8),
+                      const Text(
+                        'Error loading insights',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        error.toString(),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey[600],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
+            const SizedBox(height: 32),
+            const FrequentlyBoughtItemsList(),
           ],
         ),
       ),
