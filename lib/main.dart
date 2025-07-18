@@ -49,6 +49,7 @@ class MyApp extends ConsumerWidget {
               darkTheme: themeService.darkTheme ?? ThemeData.dark(),
               themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
               routerConfig: router,
+              debugShowCheckedModeBanner: false,
             );
           }
           
@@ -69,6 +70,7 @@ class MyApp extends ConsumerWidget {
       darkTheme: themeService.darkTheme ?? ThemeData.dark(),
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       routerConfig: router,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
