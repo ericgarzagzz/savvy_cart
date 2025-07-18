@@ -137,7 +137,9 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
               color: Theme.of(context).colorScheme.surface,
               boxShadow: [
                 BoxShadow(
-                  color: Theme.of(context).colorScheme.shadow.withOpacity(0.1),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.shadow.withValues(alpha: 0.1),
                   blurRadius: 2,
                   offset: Offset(0, 1),
                 ),

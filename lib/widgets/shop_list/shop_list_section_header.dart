@@ -36,7 +36,7 @@ class ShopListSectionHeader extends ConsumerWidget {
               color: items.isEmpty
                   ? Theme.of(
                       context,
-                    ).colorScheme.onSurfaceVariant.withOpacity(0.6)
+                    ).colorScheme.onSurfaceVariant.withValues(alpha: 0.6)
                   : Theme.of(context).colorScheme.onSurface,
             ),
             SizedBox(width: 8),
@@ -48,7 +48,7 @@ class ShopListSectionHeader extends ConsumerWidget {
                   color: items.isEmpty
                       ? Theme.of(
                           context,
-                        ).colorScheme.onSurfaceVariant.withOpacity(0.6)
+                        ).colorScheme.onSurfaceVariant.withValues(alpha: 0.6)
                       : Theme.of(context).colorScheme.onSurface,
                 ),
               ),

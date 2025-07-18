@@ -91,7 +91,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'Price trend for the last 10 purchases',
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                             textAlign: TextAlign.center,
                           ),
@@ -99,14 +99,14 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           Icon(
                             Icons.show_chart,
                             size: 64,
-                            color: Colors.white.withOpacity(0.4),
+                            color: Colors.white.withValues(alpha: 0.4),
                           ),
                           const SizedBox(height: 16),
                           Text(
                             'No price history available',
                             style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: Colors.white.withValues(alpha: 0.8),
                                 ),
                           ),
                           const SizedBox(height: 8),
@@ -114,7 +114,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'Purchase this item to start tracking its price trends',
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: Colors.white.withValues(alpha: 0.6),
                                 ),
                             textAlign: TextAlign.center,
                           ),
@@ -141,7 +141,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'Price trend for the last 10 purchases',
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.7),
+                                  color: Colors.white.withValues(alpha: 0.7),
                                 ),
                             textAlign: TextAlign.center,
                           ),
@@ -149,7 +149,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                           Icon(
                             Icons.shopping_cart,
                             size: 64,
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withValues(alpha: 0.8),
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -165,7 +165,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'Last purchased for ${priceHistory.first.price.toStringWithLocale()}',
                             style: Theme.of(context).textTheme.bodyLarge
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.8),
+                                  color: Colors.white.withValues(alpha: 0.8),
                                 ),
                           ),
                           const SizedBox(height: 4),
@@ -173,7 +173,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'on ${DateFormat('MMM d, yyyy').format(priceHistory.first.date)}',
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: Colors.white.withValues(alpha: 0.6),
                                 ),
                           ),
                           const SizedBox(height: 16),
@@ -181,7 +181,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                             'Purchase this item more times to see price trends',
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
-                                  color: Colors.white.withOpacity(0.6),
+                                  color: Colors.white.withValues(alpha: 0.6),
                                 ),
                             textAlign: TextAlign.center,
                           ),
@@ -223,7 +223,9 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                         Text(
                           'Price trend for the last 10 purchases',
                           style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: Colors.white.withOpacity(0.7)),
+                              ?.copyWith(
+                                color: Colors.white.withValues(alpha: 0.7),
+                              ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 30),
@@ -239,7 +241,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                     : 1,
                                 getDrawingHorizontalLine: (value) {
                                   return FlLine(
-                                    color: Colors.white.withOpacity(0.1),
+                                    color: Colors.white.withValues(alpha: 0.1),
                                     strokeWidth: 1,
                                   );
                                 },
@@ -257,8 +259,8 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                         child: Text(
                                           '\$${(value / 100).toStringAsFixed(2)}',
                                           style: TextStyle(
-                                            color: Colors.white.withOpacity(
-                                              0.8,
+                                            color: Colors.white.withValues(
+                                              alpha: 0.8,
                                             ),
                                             fontSize: 11,
                                             fontWeight: FontWeight.w500,
@@ -286,8 +288,8 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                               reversedHistory[index].date,
                                             ),
                                             style: TextStyle(
-                                              color: Colors.white.withOpacity(
-                                                0.8,
+                                              color: Colors.white.withValues(
+                                                alpha: 0.8,
                                               ),
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
@@ -310,11 +312,11 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                 show: true,
                                 border: Border(
                                   left: BorderSide(
-                                    color: Colors.white.withOpacity(0.3),
+                                    color: Colors.white.withValues(alpha: 0.3),
                                     width: 1.5,
                                   ),
                                   bottom: BorderSide(
-                                    color: Colors.white.withOpacity(0.3),
+                                    color: Colors.white.withValues(alpha: 0.3),
                                     width: 1.5,
                                   ),
                                 ),
@@ -337,7 +339,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                   barWidth: 4,
                                   isStrokeCapRound: true,
                                   shadow: Shadow(
-                                    color: Colors.black.withOpacity(0.3),
+                                    color: Colors.black.withValues(alpha: 0.3),
                                     blurRadius: 4,
                                     offset: Offset(0, 2),
                                   ),
@@ -359,8 +361,12 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
-                                        Color(0xff34d399).withOpacity(0.3),
-                                        Color(0xff10b981).withOpacity(0.1),
+                                        Color(
+                                          0xff34d399,
+                                        ).withValues(alpha: 0.3),
+                                        Color(
+                                          0xff10b981,
+                                        ).withValues(alpha: 0.1),
                                         Colors.transparent,
                                       ],
                                     ),
@@ -371,7 +377,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                                 enabled: true,
                                 touchTooltipData: LineTouchTooltipData(
                                   getTooltipColor: (group) =>
-                                      Colors.black.withOpacity(0.8),
+                                      Colors.black.withValues(alpha: 0.8),
                                   getTooltipItems: (touchedSpots) {
                                     return touchedSpots.map((spot) {
                                       final index = spot.x.toInt();
@@ -416,7 +422,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                       Text(
                         'Price trend for the last 10 purchases',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -442,7 +448,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                       Text(
                         'Price trend for the last 10 purchases',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -450,7 +456,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                       Icon(
                         Icons.error_outline,
                         size: 48,
-                        color: Colors.white.withOpacity(0.8),
+                        color: Colors.white.withValues(alpha: 0.8),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -466,7 +472,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                         error.toString(),
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -480,7 +486,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
                 left: 20,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.3),
+                    color: Colors.black.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: IconButton(
@@ -512,9 +518,12 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -526,7 +535,11 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
             Icons.trending_flat,
             Color(0xff3b82f6), // Blue - neutral
           ),
-          Container(width: 1, height: 40, color: Colors.white.withOpacity(0.2)),
+          Container(
+            width: 1,
+            height: 40,
+            color: Colors.white.withValues(alpha: 0.2),
+          ),
           _buildStatItem(
             context,
             'Lowest',
@@ -534,7 +547,11 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
             Icons.trending_down,
             Color(0xff10b981), // Green - good/low price
           ),
-          Container(width: 1, height: 40, color: Colors.white.withOpacity(0.2)),
+          Container(
+            width: 1,
+            height: 40,
+            color: Colors.white.withValues(alpha: 0.2),
+          ),
           _buildStatItem(
             context,
             'Highest',
@@ -559,7 +576,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
         Container(
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.2),
+            color: color.withValues(alpha: 0.2),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: color, size: 18),
@@ -576,7 +593,7 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
         Text(
           label,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-            color: Colors.white.withOpacity(0.7),
+            color: Colors.white.withValues(alpha: 0.7),
             fontWeight: FontWeight.w500,
           ),
         ),

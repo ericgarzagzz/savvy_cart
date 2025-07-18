@@ -90,7 +90,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurface.withOpacity(0.7),
+                          ).colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -136,7 +136,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(
                     context,
-                  ).colorScheme.onSurface.withOpacity(0.6),
+                  ).colorScheme.onSurface.withValues(alpha: 0.6),
                 ),
               ),
             ],
@@ -176,7 +176,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
         Text(
           'Create and manage additional backup files',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 16),
@@ -192,7 +194,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                       size: 48,
                       color: Theme.of(
                         context,
-                      ).colorScheme.onSurface.withOpacity(0.3),
+                      ).colorScheme.onSurface.withValues(alpha: 0.3),
                     ),
                     const SizedBox(height: 16),
                     Text(
@@ -200,7 +202,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.6),
+                        ).colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                     const SizedBox(height: 8),
@@ -209,7 +211,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurface.withOpacity(0.5),
+                        ).colorScheme.onSurface.withValues(alpha: 0.5),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -261,7 +263,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                     fontSize: 12,
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.6),
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
                 ),
                 if (backup.includesSettings) ...[
@@ -328,10 +330,12 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+        color: Theme.of(
+          context,
+        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+          color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
         ),
       ),
       child: Column(
@@ -342,7 +346,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               Icon(
                 Icons.info_outline,
                 size: 20,
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               const SizedBox(width: 8),
               Text(
@@ -378,7 +384,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
             width: 4,
             height: 4,
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.5),
               shape: BoxShape.circle,
             ),
           ),
@@ -387,7 +395,9 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
             child: Text(
               text,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                color: Theme.of(
+                  context,
+                ).colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -470,7 +480,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                 await _backupService.deleteBackup(backup.filePath);
                 _loadBackupInfo(); // Refresh the list
 
-                if (mounted) {
+                if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text('Backup deleted successfully'),
@@ -478,7 +488,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                   );
                 }
               } catch (e) {
-                if (mounted) {
+                if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Failed to delete backup: $e'),

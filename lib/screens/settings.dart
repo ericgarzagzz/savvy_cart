@@ -185,15 +185,19 @@ class Settings extends ConsumerWidget {
             onPressed: () async {
               try {
                 await DatabaseHelper.instance.purgeDatabase();
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Database deleted successfully')),
-                );
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Database deleted successfully')),
+                  );
+                }
               } catch (e) {
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Error deleting database: $e')),
-                );
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Error deleting database: $e')),
+                  );
+                }
               }
             },
             style: TextButton.styleFrom(

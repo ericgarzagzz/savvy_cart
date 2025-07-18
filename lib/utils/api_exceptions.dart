@@ -12,48 +12,42 @@ abstract class ApiException implements Exception {
 }
 
 class NetworkException extends ApiException {
-  const NetworkException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const NetworkException(super.message, [super.originalError]);
 
   @override
   String toString() => 'NetworkException: $message';
 }
 
 class ApiTimeoutException extends ApiException {
-  const ApiTimeoutException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const ApiTimeoutException(super.message, [super.originalError]);
 
   @override
   String toString() => 'ApiTimeoutException: $message';
 }
 
 class ApiRateLimitException extends ApiException {
-  const ApiRateLimitException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const ApiRateLimitException(super.message, [super.originalError]);
 
   @override
   String toString() => 'ApiRateLimitException: $message';
 }
 
 class ApiAuthenticationException extends ApiException {
-  const ApiAuthenticationException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const ApiAuthenticationException(super.message, [super.originalError]);
 
   @override
   String toString() => 'ApiAuthenticationException: $message';
 }
 
 class ApiQuotaExceededException extends ApiException {
-  const ApiQuotaExceededException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const ApiQuotaExceededException(super.message, [super.originalError]);
 
   @override
   String toString() => 'ApiQuotaExceededException: $message';
 }
 
 class ApiResponseFormatException extends ApiException {
-  const ApiResponseFormatException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const ApiResponseFormatException(super.message, [super.originalError]);
 
   @override
   String toString() => 'ApiResponseFormatException: $message';

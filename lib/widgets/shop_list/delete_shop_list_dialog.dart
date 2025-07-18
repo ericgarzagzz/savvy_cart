@@ -51,8 +51,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
             if (widget.onDeleted != null) {
               widget.onDeleted!();
             }
-            if (!mounted) return;
-            Navigator.of(context).pop();
+            if (context.mounted) {
+              Navigator.of(context).pop();
+            }
           },
         ),
       ],

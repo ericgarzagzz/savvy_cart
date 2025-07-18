@@ -165,7 +165,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           leading: CircleAvatar(
                             backgroundColor: Theme.of(
                               context,
-                            ).colorScheme.primary.withOpacity(0.1),
+                            ).colorScheme.primary.withValues(alpha: 0.1),
                             child: Icon(
                               Icons.shopping_basket,
                               color: Theme.of(context).colorScheme.primary,

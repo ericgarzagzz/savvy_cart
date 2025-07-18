@@ -6,29 +6,25 @@ class DecimalFormField extends FormField<String> {
   final FocusNode? focusNode;
 
   DecimalFormField({
-    Key? key,
+    super.key,
     required int decimalPlaces,
     this.controller,
     this.focusNode,
     String? initialValue,
     InputDecoration? decoration,
-    FormFieldSetter<String>? onSaved,
-    FormFieldValidator<String>? validator,
+    super.onSaved,
+    super.validator,
     AutovalidateMode? autovalidateMode,
-    bool enabled = true,
+    super.enabled,
     TextInputAction? textInputAction,
     ValueChanged<String>? onChanged,
     ValueChanged<String>? onFieldSubmitted,
   }) : assert(decimalPlaces >= 0),
        super(
-         key: key,
          initialValue: controller != null
              ? controller.text
              : (initialValue ?? ''),
-         onSaved: onSaved,
-         validator: validator,
          autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-         enabled: enabled,
          builder: (FormFieldState<String> field) {
            final _DecimalFormFieldState state = field as _DecimalFormFieldState;
            return TextField(

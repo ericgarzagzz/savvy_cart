@@ -212,8 +212,9 @@ class ApiVerificationResult {
 
   ApiConnectionStatus get status {
     if (isValid) return ApiConnectionStatus.connected;
-    if (error?.contains('Invalid API key') == true)
+    if (error?.contains('Invalid API key') == true) {
       return ApiConnectionStatus.invalidKey;
+    }
     if (error?.contains('timeout') == true ||
         error?.contains('Network') == true) {
       return ApiConnectionStatus.networkError;

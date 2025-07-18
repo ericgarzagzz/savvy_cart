@@ -49,9 +49,10 @@ class ShopListItemListview extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Theme.of(
-                          context,
-                        ).colorScheme.surfaceVariant.withOpacity(0.3),
+                        color: Theme.of(context)
+                            .colorScheme
+                            .surfaceContainerHighest
+                            .withValues(alpha: 0.3),
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
@@ -80,7 +81,7 @@ class ShopListItemListview extends ConsumerWidget {
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(
                           context,
-                        ).colorScheme.onSurfaceVariant.withOpacity(0.7),
+                        ).colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -126,9 +127,10 @@ class ShopListItemListview extends ConsumerWidget {
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surfaceVariant.withOpacity(0.3),
+                          color: Theme.of(context)
+                              .colorScheme
+                              .surfaceContainerHighest
+                              .withValues(alpha: 0.3),
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
@@ -154,7 +156,7 @@ class ShopListItemListview extends ConsumerWidget {
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,
-                          ).colorScheme.onSurfaceVariant.withOpacity(0.7),
+                          ).colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
                         ),
                         textAlign: TextAlign.center,
                       ),

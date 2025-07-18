@@ -155,8 +155,8 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
         ? "Remove Item and Suggestion?"
         : "Remove Suggestion?";
     final description = isInShopList && shopListItemId != null
-        ? "This will remove \"${itemName}\" from your current shopping list and also from your suggestions."
-        : "This will remove \"${itemName}\" from your suggestions. It will not affect your current shopping list.";
+        ? "This will remove \"$itemName\" from your current shopping list and also from your suggestions."
+        : "This will remove \"$itemName\" from your suggestions. It will not affect your current shopping list.";
 
     if (mounted) {
       final confirm = await showDialog<bool>(
@@ -231,7 +231,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
               ),
               const SizedBox(height: 8),
               Text(
-                'Try a different search term or add "${_searchQuery}" as a new item',
+                'Try a different search term or add "$_searchQuery" as a new item',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -241,7 +241,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
               FilledButton.icon(
                 onPressed: () => _handleSubmit(),
                 icon: const Icon(Icons.add),
-                label: Text('Add "${_searchQuery}"'),
+                label: Text('Add "$_searchQuery"'),
               ),
             ],
             const SizedBox(height: 32),

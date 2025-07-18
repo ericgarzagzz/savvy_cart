@@ -217,10 +217,10 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
                         color: isSelected
                             ? Theme.of(
                                 context,
-                              ).colorScheme.onPrimary.withOpacity(0.9)
+                              ).colorScheme.onPrimary.withValues(alpha: 0.9)
                             : Theme.of(
                                 context,
-                              ).colorScheme.onSurface.withOpacity(0.7),
+                              ).colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                   ],
@@ -279,14 +279,18 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
           Icon(
             icon,
             size: 14,
-            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(width: 4),
           Text(
             label,
             style: TextStyle(
               fontSize: 12,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.8),
             ),
           ),
         ],
@@ -307,38 +311,14 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
     List<GeminiModel> models,
     ModelFilters filters,
   ) {
-    print('\n=== FILTERING MODELS ===');
-    print('Filter settings:');
-    print('  hasThinking: ${filters.hasThinking}');
-    print('  minInputTokens: ${filters.minInputTokens}');
-    print('  maxInputTokens: ${filters.maxInputTokens}');
-    print('  minOutputTokens: ${filters.minOutputTokens}');
-    print('  maxOutputTokens: ${filters.maxOutputTokens}');
-    print('  minTemperature: ${filters.minTemperature}');
-    print('  maxTemperature: ${filters.maxTemperature}');
-    print('\nAvailable models before filtering:');
-    for (final model in models) {
-      print('  ${model.userFriendlyName}:');
-      print('    thinking: ${model.thinking}');
-      print('    inputTokenLimit: ${model.inputTokenLimit}');
-      print('    outputTokenLimit: ${model.outputTokenLimit}');
-      print('    temperature: ${model.temperature}');
-    }
-
     final filteredModels = models.where((model) {
       bool passes = true;
 
       // Thinking filter
       if (filters.hasThinking != null) {
         if (filters.hasThinking == true && model.thinking != true) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: thinking ${model.thinking} != true (Yes filter)',
-          );
           passes = false;
         } else if (filters.hasThinking == false && model.thinking == true) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: thinking ${model.thinking} == true (No filter)',
-          );
           passes = false;
         }
         // For "No" filter (false), we accept both false and null
@@ -351,16 +331,10 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
             (model.inputTokenLimit ?? 0) / 1000000; // Convert to millions
         if (filters.minInputTokens != null &&
             inputTokens < filters.minInputTokens!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: inputTokens $inputTokens < ${filters.minInputTokens}',
-          );
           passes = false;
         }
         if (filters.maxInputTokens != null &&
             inputTokens > filters.maxInputTokens!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: inputTokens $inputTokens > ${filters.maxInputTokens}',
-          );
           passes = false;
         }
       }
@@ -371,16 +345,10 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
             (model.outputTokenLimit ?? 0) / 1000000; // Convert to millions
         if (filters.minOutputTokens != null &&
             outputTokens < filters.minOutputTokens!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: outputTokens $outputTokens < ${filters.minOutputTokens}',
-          );
           passes = false;
         }
         if (filters.maxOutputTokens != null &&
             outputTokens > filters.maxOutputTokens!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: outputTokens $outputTokens > ${filters.maxOutputTokens}',
-          );
           passes = false;
         }
       }
@@ -390,32 +358,16 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
         final temperature = model.temperature ?? 0;
         if (filters.minTemperature != null &&
             temperature < filters.minTemperature!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: temperature $temperature < ${filters.minTemperature}',
-          );
           passes = false;
         }
         if (filters.maxTemperature != null &&
             temperature > filters.maxTemperature!) {
-          print(
-            '  ${model.userFriendlyName} FILTERED OUT: temperature $temperature > ${filters.maxTemperature}',
-          );
           passes = false;
         }
       }
 
-      if (passes) {
-        print('  ${model.userFriendlyName} PASSES filter');
-      }
-
       return passes;
     }).toList();
-
-    print('\nFiltered models result: ${filteredModels.length} models');
-    for (final model in filteredModels) {
-      print('  - ${model.userFriendlyName}');
-    }
-    print('=== END FILTERING ===\n');
 
     return filteredModels;
   }
@@ -433,10 +385,12 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
       if (versionCompare != 0) return versionCompare;
 
       // If same version, sort by model type (pro before flash)
-      if (a.cleanName.contains('pro') && b.cleanName.contains('flash'))
+      if (a.cleanName.contains('pro') && b.cleanName.contains('flash')) {
         return -1;
-      if (a.cleanName.contains('flash') && b.cleanName.contains('pro'))
+      }
+      if (a.cleanName.contains('flash') && b.cleanName.contains('pro')) {
         return 1;
+      }
 
       // Fallback to alphabetical
       return a.cleanName.compareTo(b.cleanName);
@@ -467,7 +421,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
     if (filters.minTemperature != null || filters.maxTemperature != null) {
       final min = filters.minTemperature?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxTemperature?.toStringAsFixed(1) ?? '2.0';
-      activeFilters.add('Temperature: ${min}-${max}');
+      activeFilters.add('Temperature: $min-$max');
     }
 
     return Container(
@@ -476,10 +430,10 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
       decoration: BoxDecoration(
         color: Theme.of(
           context,
-        ).colorScheme.surfaceContainerHighest.withOpacity(0.5),
+        ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
         border: Border(
           bottom: BorderSide(
-            color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+            color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -492,7 +446,9 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
             child: Icon(
               Icons.filter_list,
               size: 16,
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+              color: Theme.of(
+                context,
+              ).colorScheme.onSurface.withValues(alpha: 0.6),
             ),
           ),
           const SizedBox(width: 8),
@@ -505,7 +461,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(
                       context,
-                    ).colorScheme.onSurface.withOpacity(0.7),
+                    ).colorScheme.onSurface.withValues(alpha: 0.7),
                     fontStyle: FontStyle.italic,
                   ),
                 ),
@@ -521,7 +477,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
                       decoration: BoxDecoration(
                         color: Theme.of(
                           context,
-                        ).colorScheme.primaryContainer.withOpacity(0.5),
+                        ).colorScheme.primaryContainer.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -550,7 +506,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
               decoration: BoxDecoration(
                 color: Theme.of(
                   context,
-                ).colorScheme.errorContainer.withOpacity(0.3),
+                ).colorScheme.errorContainer.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
@@ -571,12 +527,15 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
   int _getActiveFilterCount(ModelFilters filters) {
     int count = 0;
     if (filters.hasThinking != null) count++;
-    if (filters.minInputTokens != null || filters.maxInputTokens != null)
+    if (filters.minInputTokens != null || filters.maxInputTokens != null) {
       count++;
-    if (filters.minOutputTokens != null || filters.maxOutputTokens != null)
+    }
+    if (filters.minOutputTokens != null || filters.maxOutputTokens != null) {
       count++;
-    if (filters.minTemperature != null || filters.maxTemperature != null)
+    }
+    if (filters.minTemperature != null || filters.maxTemperature != null) {
       count++;
+    }
     return count;
   }
 

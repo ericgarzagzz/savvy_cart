@@ -20,96 +20,84 @@ abstract class DatabaseOperationException implements Exception {
 }
 
 class DatabaseInitializationException extends DatabaseOperationException {
-  const DatabaseInitializationException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DatabaseInitializationException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DatabaseInitializationException: $message';
 }
 
 class DatabaseSchemaException extends DatabaseOperationException {
-  const DatabaseSchemaException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DatabaseSchemaException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DatabaseSchemaException: $message';
 }
 
 class DataRetrievalException extends DatabaseOperationException {
-  const DataRetrievalException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DataRetrievalException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DataRetrievalException: $message';
 }
 
 class DataInsertionException extends DatabaseOperationException {
-  const DataInsertionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DataInsertionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DataInsertionException: $message';
 }
 
 class DataUpdateException extends DatabaseOperationException {
-  const DataUpdateException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DataUpdateException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DataUpdateException: $message';
 }
 
 class DataDeletionException extends DatabaseOperationException {
-  const DataDeletionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DataDeletionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DataDeletionException: $message';
 }
 
 class DataCorruptionException extends DatabaseOperationException {
-  const DataCorruptionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DataCorruptionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DataCorruptionException: $message';
 }
 
 class DuplicateDataException extends DatabaseOperationException {
-  const DuplicateDataException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DuplicateDataException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DuplicateDataException: $message';
 }
 
 class InvalidDataException extends DatabaseOperationException {
-  const InvalidDataException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const InvalidDataException(super.message, [super.originalError]);
 
   @override
   String toString() => 'InvalidDataException: $message';
 }
 
 class SearchException extends DatabaseOperationException {
-  const SearchException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const SearchException(super.message, [super.originalError]);
 
   @override
   String toString() => 'SearchException: $message';
 }
 
 class DatabasePathException extends DatabaseOperationException {
-  const DatabasePathException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DatabasePathException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DatabasePathException: $message';
 }
 
 class DatabaseDeletionException extends DatabaseOperationException {
-  const DatabaseDeletionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const DatabaseDeletionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'DatabaseDeletionException: $message';

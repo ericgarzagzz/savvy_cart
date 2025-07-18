@@ -222,8 +222,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           focusNode: _quantityFocusNode,
                           decoration: InputDecoration(label: Text("Quantity")),
                           validator: (value) {
-                            if (value == null || value.isEmpty)
+                            if (value == null || value.isEmpty) {
                               return 'Required';
+                            }
                             final num? number = num.tryParse(value);
                             if (number == null) return 'Invalid number';
                             return null;
@@ -240,8 +241,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           decimalPlaces: 2,
                           decoration: InputDecoration(label: Text("Price")),
                           validator: (value) {
-                            if (value == null || value.isEmpty)
+                            if (value == null || value.isEmpty) {
                               return 'Required';
+                            }
                             final num? number = num.tryParse(value);
                             if (number == null) return 'Invalid number';
                             return null;

@@ -12,56 +12,49 @@ abstract class FileIOException implements Exception {
 }
 
 class FileNotFoundIOException extends FileIOException {
-  const FileNotFoundIOException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const FileNotFoundIOException(super.message, [super.originalError]);
 
   @override
   String toString() => 'FileNotFoundIOException: $message';
 }
 
 class FilePermissionException extends FileIOException {
-  const FilePermissionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const FilePermissionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'FilePermissionException: $message';
 }
 
 class InsufficientStorageException extends FileIOException {
-  const InsufficientStorageException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const InsufficientStorageException(super.message, [super.originalError]);
 
   @override
   String toString() => 'InsufficientStorageException: $message';
 }
 
 class FileCorruptionException extends FileIOException {
-  const FileCorruptionException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const FileCorruptionException(super.message, [super.originalError]);
 
   @override
   String toString() => 'FileCorruptionException: $message';
 }
 
 class BackupCreationException extends FileIOException {
-  const BackupCreationException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const BackupCreationException(super.message, [super.originalError]);
 
   @override
   String toString() => 'BackupCreationException: $message';
 }
 
 class BackupRestoreException extends FileIOException {
-  const BackupRestoreException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const BackupRestoreException(super.message, [super.originalError]);
 
   @override
   String toString() => 'BackupRestoreException: $message';
 }
 
 class InvalidBackupFormatException extends FileIOException {
-  const InvalidBackupFormatException(String message, [dynamic originalError])
-    : super(message, originalError);
+  const InvalidBackupFormatException(super.message, [super.originalError]);
 
   @override
   String toString() => 'InvalidBackupFormatException: $message';

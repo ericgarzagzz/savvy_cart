@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
@@ -252,7 +251,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
                             borderRadius: BorderRadius.circular(24),
                             borderSide: BorderSide.none,
                           ),
-                          fillColor: Theme.of(context).colorScheme.background,
+                          fillColor: Theme.of(context).colorScheme.surface,
                           filled: true,
                           contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16,
