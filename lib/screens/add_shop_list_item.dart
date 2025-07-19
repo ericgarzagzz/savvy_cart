@@ -196,117 +196,20 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     final hasSearchQuery = _searchQuery.isNotEmpty;
     final resultCount = results.length;
 
-    if (resultCount == 0) {
+    if (resultCount == 0 && hasSearchQuery) {
       return SliverToBoxAdapter(
-        child: Column(
-          children: [
-            if (hasSearchQuery) ...[
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 8.0,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Search Results (0)',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              Icon(
-                Icons.search_off,
-                size: 64,
-                color: Theme.of(context).colorScheme.outline,
-              ),
-              const SizedBox(height: 16),
-              Text(
-                'No items found',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Try a different search term or add "$_searchQuery" as a new item',
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 24),
-              FilledButton.icon(
-                onPressed: () => _handleSubmit(),
-                icon: const Icon(Icons.add),
-                label: Text('Add "$_searchQuery"'),
-              ),
-            ],
-            const SizedBox(height: 32),
-          ],
+        child: SearchResultsEmptyState(
+          searchQuery: _searchQuery,
+          onAddItem: _handleSubmit,
         ),
       );
     }
 
-    return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (context, index) {
-          if (index == 0) {
-            // Header
-            return Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8.0,
-              ),
-              child: Text(
-                hasSearchQuery ? 'Search Results ($resultCount)' : 'All Items',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
-              ),
-            );
-          }
-
-          final item = results[index - 1];
-          final addState = ref.watch(shopListItemMutationProvider);
-          final isLoading = addState.isLoading;
-
-          return ListTile(
-            key: Key('${item.name}_${item.isInShopList}'),
-            leading: Checkbox(
-              value: item.isInShopList,
-              onChanged: isLoading
-                  ? null
-                  : (_) => _handleItemTap(
-                      item.name,
-                      item.isInShopList,
-                      item.shopListItemId,
-                    ),
-            ),
-            title: Text(item.name),
-            trailing: IconButton(
-              icon: const Icon(Icons.delete),
-              color: Theme.of(context).colorScheme.error,
-              onPressed: () => _handleItemRemove(
-                item.name,
-                item.isInShopList,
-                item.shopListItemId,
-              ),
-            ),
-            onTap: isLoading
-                ? null
-                : () => _handleItemTap(
-                    item.name,
-                    item.isInShopList,
-                    item.shopListItemId,
-                  ),
-            enabled: !isLoading,
-          );
-        },
-        childCount: resultCount + 1, // +1 for header
-      ),
+    return SearchResultsList(
+      results: results,
+      searchQuery: _searchQuery,
+      onItemTap: _handleItemTap,
+      onItemRemove: _handleItemRemove,
     );
   }
 
@@ -336,15 +239,10 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
               flexibleSpace: FlexibleSpaceBar(
                 background: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 120, 16, 16),
-                  child: TextField(
+                  child: AddItemSearchField(
                     controller: _textController,
                     focusNode: _focusNode,
-                    decoration: const InputDecoration(
-                      hintText: 'Search or add new item...',
-                      border: OutlineInputBorder(),
-                      prefixIcon: Icon(Icons.search),
-                    ),
-                    onSubmitted: (_) => _handleSubmit(),
+                    onSubmitted: _handleSubmit,
                   ),
                 ),
               ),
@@ -356,23 +254,9 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
               ),
             ),
             searchResultsAsync.when(
-              loading: () => const SliverToBoxAdapter(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Center(child: CircularProgressIndicator()),
-                ),
-              ),
-              error: (err, stackTrace) => SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Error loading results: ${err.toString()}',
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                  ),
-                ),
-              ),
+              loading: () => const SearchLoadingState(),
+              error: (err, stackTrace) =>
+                  SearchErrorState(error: err.toString()),
               data: (results) => _buildSearchResults(results),
             ),
           ],

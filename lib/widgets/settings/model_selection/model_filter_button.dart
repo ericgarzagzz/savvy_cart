@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/models/models.dart';
-import 'package:savvy_cart/widgets/widgets.dart';
 
 class ModelFilterButton extends StatelessWidget {
   final ModelFilters filters;
