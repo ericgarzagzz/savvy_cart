@@ -20,9 +20,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
             Expanded(
               child: Text(
                 'Frequently Bought Items (Last Month)',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
             TextButton(
@@ -49,19 +47,23 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                       Icon(
                         Icons.shopping_basket_outlined,
                         size: 48,
-                        color: Colors.grey[400],
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
                       const SizedBox(height: 12),
                       Text(
                         'No frequently bought items yet',
                         style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(color: Colors.grey[600]),
+                            ?.copyWith(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
                       ),
                       const SizedBox(height: 4),
                       Text(
                         'Complete some shopping lists to see your most bought items',
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Colors.grey[500],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -137,14 +139,20 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                                 Text(
                                   '${item.frequency} time${item.frequency != 1 ? 's' : ''} purchased',
                                   style: Theme.of(context).textTheme.bodySmall
-                                      ?.copyWith(color: Colors.grey[600]),
+                                      ?.copyWith(
+                                        color: Theme.of(
+                                          context,
+                                        ).colorScheme.onSurfaceVariant,
+                                      ),
                                 ),
                               ],
                             ),
                           ),
                           Icon(
                             Icons.trending_up,
-                            color: Colors.grey[400],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                             size: 20,
                           ),
                         ],
@@ -229,7 +237,9 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     error.toString(),
-                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],

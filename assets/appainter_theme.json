@@ -437,7 +437,7 @@
       "decorationColor": "#ff000000",
       "fontFamily": "Segoe UI",
       "fontSize": 24,
-      "fontWeight": "w400",
+      "fontWeight": "w600",
       "inherit": false,
       "letterSpacing": 0,
       "textBaseline": "alphabetic"
@@ -480,8 +480,8 @@
       "decoration": "none",
       "decorationColor": "#ff000000",
       "fontFamily": "Segoe UI",
-      "fontSize": 20,
-      "fontWeight": "w500",
+      "fontSize": 22,
+      "fontWeight": "w600",
       "inherit": false,
       "letterSpacing": 0.15,
       "textBaseline": "alphabetic"
@@ -491,8 +491,8 @@
       "decoration": "none",
       "decorationColor": "#ff000000",
       "fontFamily": "Segoe UI",
-      "fontSize": 16,
-      "fontWeight": "w400",
+      "fontSize": 18,
+      "fontWeight": "w600",
       "inherit": false,
       "letterSpacing": 0.15,
       "textBaseline": "alphabetic"
@@ -1578,7 +1578,7 @@
         "decorationColor": "#ffffffff",
         "fontFamily": "Segoe UI",
         "fontSize": 24,
-        "fontWeight": "w400",
+        "fontWeight": "w600",
         "inherit": false,
         "letterSpacing": 0,
         "textBaseline": "alphabetic"
@@ -1621,8 +1621,8 @@
         "decoration": "none",
         "decorationColor": "#ffffffff",
         "fontFamily": "Segoe UI",
-        "fontSize": 20,
-        "fontWeight": "w500",
+        "fontSize": 22,
+        "fontWeight": "w600",
         "inherit": false,
         "letterSpacing": 0.15,
         "textBaseline": "alphabetic"
@@ -1632,8 +1632,8 @@
         "decoration": "none",
         "decorationColor": "#ffffffff",
         "fontFamily": "Segoe UI",
-        "fontSize": 16,
-        "fontWeight": "w400",
+        "fontSize": 18,
+        "fontWeight": "w600",
         "inherit": false,
         "letterSpacing": 0.15,
         "textBaseline": "alphabetic"

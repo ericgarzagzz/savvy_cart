@@ -67,9 +67,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
           children: [
             Text(
               'Search for an item to view its price history',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 16),
             TextField(
@@ -131,7 +131,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                                 ? Icons.inventory_2_outlined
                                 : Icons.search_off,
                             size: 64,
-                            color: Colors.grey[400],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -139,7 +141,11 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                                 ? 'No items found'
                                 : 'No matching items found',
                             style: Theme.of(context).textTheme.titleLarge
-                                ?.copyWith(color: Colors.grey[600]),
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -147,7 +153,11 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                                 ? 'Add items to your shopping lists to see them here'
                                 : 'Try a different search term or create a chart for "$_searchQuery"',
                             style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(color: Colors.grey[500]),
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
                             textAlign: TextAlign.center,
                           ),
                         ],
@@ -178,7 +188,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           ),
                           trailing: Icon(
                             Icons.trending_up,
-                            color: Colors.grey[400],
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
                             size: 20,
                           ),
                           onTap: () => context.go(
@@ -203,14 +215,14 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                       Text(
                         'Error loading suggestions',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Colors.grey[600],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         error.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.grey[500],
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
                         textAlign: TextAlign.center,
                       ),

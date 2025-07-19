@@ -87,9 +87,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                   children: [
                     Text(
                       "Recent Lists",
-                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Row(
                       children: [
