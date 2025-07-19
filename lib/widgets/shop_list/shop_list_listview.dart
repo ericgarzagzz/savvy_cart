@@ -87,13 +87,13 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                   children: [
                     Text(
                       "Recent Lists",
-                      style: Theme.of(context).textTheme.titleMedium,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Row(
                       children: [
                         Text(
                           "${paginatedState.items.length} shown",
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SizedBox(width: 8),
                         InkWell(

@@ -59,7 +59,7 @@ class ShopListListTile extends StatelessWidget {
                         children: [
                           Text(
                             shopList.name,
-                            style: theme.textTheme.titleLarge?.copyWith(
+                            style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
