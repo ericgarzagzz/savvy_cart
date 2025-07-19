@@ -75,15 +75,18 @@ class ShopListItemListtile extends ConsumerWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.all(16.0),
-        leading: Checkbox(
-          value: shopListItem.checked,
-          onChanged: (value) {
-            if (value != null) {
-              ref
-                  .read(shopListItemMutationProvider.notifier)
-                  .setChecked(shopListItem.id ?? 0, value);
-            }
-          },
+        leading: Transform.scale(
+          scale: 1.2,
+          child: Checkbox(
+            value: shopListItem.checked,
+            onChanged: (value) {
+              if (value != null) {
+                ref
+                    .read(shopListItemMutationProvider.notifier)
+                    .setChecked(shopListItem.id ?? 0, value);
+              }
+            },
+          ),
         ),
         title: Text(
           shopListItem.name,
