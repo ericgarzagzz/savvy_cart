@@ -23,9 +23,10 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
-            TextButton(
+            TextButton.icon(
               onPressed: () => context.go('/insights/price-search'),
-              child: Text(
+              icon: Icon(Icons.search),
+              label: Text(
                 'Search Item',
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
