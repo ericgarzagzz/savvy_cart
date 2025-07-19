@@ -74,7 +74,7 @@ class ShopListItemListtile extends ConsumerWidget {
         ],
       ),
       child: ListTile(
-        contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+        contentPadding: EdgeInsets.all(16.0),
         leading: Checkbox(
           value: shopListItem.checked,
           onChanged: (value) {
