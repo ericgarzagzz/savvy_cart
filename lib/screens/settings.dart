@@ -14,8 +14,6 @@ class Settings extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final aiSettingsState = ref.watch(aiSettingsProvider);
-    final themeService = ref.watch(themeServiceProvider);
-    final currentThemeMode = ref.watch(themeModeProvider);
     final versionAsync = ref.watch(packageInfoProvider);
 
     return Scaffold(
@@ -41,19 +39,6 @@ class Settings extends ConsumerWidget {
           ).textTheme.bodyMedium?.color,
         ),
         sections: [
-          SettingsSection(
-            title: Text('Appearance'),
-            tiles: [
-              SettingsTile.navigation(
-                leading: Icon(Icons.palette),
-                title: Text('Theme'),
-                value: Text(
-                  'Current: ${themeService.getThemeModeDisplayName(currentThemeMode)}',
-                ),
-                onPressed: (context) => _showThemeDialog(context, ref),
-              ),
-            ],
-          ),
           SettingsSection(
             title: Text('AI Assistant'),
             tiles: [
@@ -208,51 +193,5 @@ class Settings extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  void _showThemeDialog(BuildContext context, WidgetRef ref) {
-    final themeService = ref.read(themeServiceProvider);
-    final currentThemeMode = ref.read(themeModeProvider);
-
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Select Theme'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: AppThemeMode.values.map((mode) {
-            return RadioListTile<AppThemeMode>(
-              title: Text(themeService.getThemeModeDisplayName(mode)),
-              subtitle: Text(_getThemeModeDescription(mode)),
-              value: mode,
-              groupValue: currentThemeMode,
-              onChanged: (AppThemeMode? value) {
-                if (value != null) {
-                  themeService.setThemeMode(value);
-                  Navigator.of(context).pop();
-                }
-              },
-            );
-          }).toList(),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  String _getThemeModeDescription(AppThemeMode mode) {
-    switch (mode) {
-      case AppThemeMode.light:
-        return 'Always use light theme';
-      case AppThemeMode.dark:
-        return 'Always use dark theme';
-      case AppThemeMode.system:
-        return 'Follow system setting';
-    }
   }
 }

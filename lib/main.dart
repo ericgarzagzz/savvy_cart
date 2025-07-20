@@ -1,10 +1,12 @@
+import 'dart:convert';
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/find_locale.dart';
 import 'package:intl/intl.dart';
+import 'package:json_theme/json_theme.dart';
 import 'package:savvy_cart/router.dart';
-import 'package:savvy_cart/providers/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,44 +25,22 @@ void main() async {
   final systemCurrentLocale = await findSystemLocale();
   Intl.defaultLocale = systemCurrentLocale;
 
-  runApp(ProviderScope(child: MyApp()));
+  final themeStr = await rootBundle.loadString('assets/appainter_theme.json');
+  final themeJson = jsonDecode(themeStr);
+  final theme = ThemeDecoder.decodeThemeData(themeJson)!;
+
+  runApp(ProviderScope(child: MyApp(theme: theme)));
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+class MyApp extends StatelessWidget {
+  final ThemeData theme;
+
+  const MyApp({super.key, required this.theme});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final themeService = ref.watch(themeServiceProvider);
-    final isDarkMode = ref.watch(isDarkModeProvider);
-
-    // Initialize theme service synchronously if not already initialized
-    if (themeService.lightTheme == null || themeService.darkTheme == null) {
-      return FutureBuilder(
-        future: themeService.initialize(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return MaterialApp.router(
-              theme: themeService.lightTheme ?? ThemeData.light(),
-              darkTheme: themeService.darkTheme ?? ThemeData.dark(),
-              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-              routerConfig: router,
-              debugShowCheckedModeBanner: false,
-            );
-          }
-
-          // Show loading screen while themes are loading
-          return MaterialApp(
-            home: Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
-        },
-      );
-    }
-
+  Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: themeService.lightTheme ?? ThemeData.light(),
-      darkTheme: themeService.darkTheme ?? ThemeData.dark(),
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+      theme: theme,
       routerConfig: router,
       debugShowCheckedModeBanner: false,
     );
