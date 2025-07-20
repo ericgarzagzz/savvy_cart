@@ -35,8 +35,8 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(0xff2e5010), // Darker primary green
-            Color(0xff6b7f6f), // Lighter blue-gray green that complements beige
+            Theme.of(context).colorScheme.primary,
+            Theme.of(context).colorScheme.secondary,
           ],
         ),
         borderRadius: BorderRadius.circular(16),

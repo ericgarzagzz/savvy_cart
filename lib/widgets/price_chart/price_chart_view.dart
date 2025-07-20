@@ -124,9 +124,13 @@ class PriceChartView extends StatelessWidget {
                   isCurved: true,
                   gradient: LinearGradient(
                     colors: [
-                      Color(0xff34d399),
-                      Color(0xff10b981),
-                      Color(0xff059669),
+                      Theme.of(context).colorScheme.secondary,
+                      Theme.of(
+                        context,
+                      ).colorScheme.secondary.withValues(alpha: 0.8),
+                      Theme.of(
+                        context,
+                      ).colorScheme.secondary.withValues(alpha: 0.6),
                     ],
                   ),
                   barWidth: 4,
@@ -143,7 +147,7 @@ class PriceChartView extends StatelessWidget {
                         radius: 8,
                         color: Colors.white,
                         strokeWidth: 3,
-                        strokeColor: Color(0xff10b981),
+                        strokeColor: Theme.of(context).colorScheme.secondary,
                       );
                     },
                   ),
@@ -153,8 +157,12 @@ class PriceChartView extends StatelessWidget {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Color(0xff34d399).withValues(alpha: 0.3),
-                        Color(0xff10b981).withValues(alpha: 0.1),
+                        Theme.of(
+                          context,
+                        ).colorScheme.secondary.withValues(alpha: 0.3),
+                        Theme.of(
+                          context,
+                        ).colorScheme.secondary.withValues(alpha: 0.1),
                         Colors.transparent,
                       ],
                     ),

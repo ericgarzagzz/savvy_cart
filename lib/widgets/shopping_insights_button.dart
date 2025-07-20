@@ -56,16 +56,22 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      Color(0xff1e3a3a), // Dark teal-gray
-                      Color(0xff4a6b6b), // Medium blue-gray
-                      Color(0xff5a7575), // Lighter blue-gray
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.9),
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.7),
+                      Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.5),
                     ],
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: Color(
-                        0xff1e3a3a,
-                      ).withValues(alpha: _glowAnimation.value * 0.3),
+                      color: Theme.of(context).colorScheme.primary.withValues(
+                        alpha: _glowAnimation.value * 0.3,
+                      ),
                       blurRadius: 15,
                       spreadRadius: 1,
                     ),

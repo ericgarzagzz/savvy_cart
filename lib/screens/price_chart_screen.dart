@@ -50,16 +50,14 @@ class _PriceChartScreenState extends ConsumerState<PriceChartScreen> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
             colors: [
-              Color(
-                0xff2e5010,
-              ), // Darker primary green (matching create_shop_list)
-              Color(
-                0xff6b7f6f,
-              ), // Lighter blue-gray green (matching create_shop_list)
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.primary.withValues(alpha: 0.9),
+              Theme.of(context).colorScheme.secondary,
             ],
+            stops: [0.0, 0.7, 1.0],
           ),
         ),
         child: SafeArea(

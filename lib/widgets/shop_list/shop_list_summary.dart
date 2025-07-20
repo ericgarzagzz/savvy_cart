@@ -24,7 +24,10 @@ class ShopListSummary extends ConsumerWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Color(0xff2e5010), Color(0xff6b7f6f)],
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
             ),
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
