@@ -1,8 +1,6 @@
 export 'ai/ai_action_selection_sheet.dart';
 export 'ai/executed_actions_review_sheet.dart';
 export 'ai/model_filters_dialog.dart';
-export 'audio/line_visualizer.dart';
-export 'audio/record_button.dart';
 export 'chat/chat_bubble.dart';
 export 'chat/chat_input_bar.dart';
 export 'chat/chat_message_list.dart';
