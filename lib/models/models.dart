@@ -10,4 +10,5 @@ export 'insights/price_history_entry.dart';
 export 'model_filters.dart';
 export 'settings/ai_settings.dart';
 export 'shop_list/shop_list_view_model.dart';
+export 'shop_list/shop_list_with_stats_view_model.dart';
 export 'shop_list_item/search_result_item.dart';

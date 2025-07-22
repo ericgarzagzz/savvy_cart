@@ -1,34 +1,36 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/utils/utils.dart';
 
+// Helper function to convert ShopListWithStatsViewModel to ShopListViewModel
+ShopListViewModel _convertToShopListViewModel(
+  ShopListWithStatsViewModel stats,
+) {
+  return ShopListViewModel.fromModel(
+    stats.shopList,
+    stats.checkedAmount,
+    stats.checkedItems,
+    stats.totalItems,
+  );
+}
+
 final shopListCollectionProvider = FutureProvider<List<ShopListViewModel>>((
   ref,
 ) async {
-  var shopLists = await DatabaseHelper.instance.getShopLists();
-  final List<ShopListViewModel> collection = [];
-  for (var shopList in shopLists) {
-    final checkedAmount = await DatabaseHelper.instance
-        .calculateShopListCheckedAmount(shopList.id ?? 0);
-    final counts = await DatabaseHelper.instance.calculateShopListItemCounts(
-      shopList.id ?? 0,
-    );
-    final checkedItemsCount = counts.$1;
-    final totalItemsCount = counts.$2;
-    collection.add(
-      ShopListViewModel.fromModel(
-        shopList,
-        checkedAmount,
-        checkedItemsCount,
-        totalItemsCount,
-      ),
-    );
-  }
-  return collection;
+  final dataManager = DataManager.instance;
+  final results = await dataManager.shopLists.getShopListsWithStats();
+  return results
+      .map(
+        (result) => _convertToShopListViewModel(
+          ShopListWithStatsViewModel.fromQueryResult(result),
+        ),
+      )
+      .toList();
 });
 
 final getShopListByIdProvider = FutureProvider.family<ShopList, int>((
@@ -98,29 +100,20 @@ class PaginatedShopListsNotifier
     state = state.copyWith(isLoading: true, currentPage: 0);
 
     try {
-      final shopLists = await DatabaseHelper.instance.getShopListsPaginated(
+      final dataManager = DataManager.instance;
+      final results = await dataManager.shopLists.getShopListsWithStats(
         limit: 3,
         offset: 0,
       );
-      final totalCount = await DatabaseHelper.instance.getShopListsCount();
+      final totalCount = await dataManager.shopLists.getCount();
 
-      final List<ShopListViewModel> collection = [];
-      for (var shopList in shopLists) {
-        final checkedAmount = await DatabaseHelper.instance
-            .calculateShopListCheckedAmount(shopList.id ?? 0);
-        final counts = await DatabaseHelper.instance
-            .calculateShopListItemCounts(shopList.id ?? 0);
-        final checkedItemsCount = counts.$1;
-        final totalItemsCount = counts.$2;
-        collection.add(
-          ShopListViewModel.fromModel(
-            shopList,
-            checkedAmount,
-            checkedItemsCount,
-            totalItemsCount,
-          ),
-        );
-      }
+      final collection = results
+          .map(
+            (result) => _convertToShopListViewModel(
+              ShopListWithStatsViewModel.fromQueryResult(result),
+            ),
+          )
+          .toList();
 
       state = state.copyWith(
         items: collection,
@@ -133,7 +126,6 @@ class PaginatedShopListsNotifier
         print('Database error loading shop lists: ${e.message}');
       }
       state = state.copyWith(isLoading: false);
-      // Re-throw to let UI handle the error appropriately
       rethrow;
     } catch (e) {
       if (kDebugMode) {
@@ -150,28 +142,19 @@ class PaginatedShopListsNotifier
     state = state.copyWith(isLoading: true);
 
     try {
-      final shopLists = await DatabaseHelper.instance.getShopListsPaginated(
+      final dataManager = DataManager.instance;
+      final results = await dataManager.shopLists.getShopListsWithStats(
         limit: 3,
         offset: state.currentPage * 3,
       );
 
-      final List<ShopListViewModel> newItems = [];
-      for (var shopList in shopLists) {
-        final checkedAmount = await DatabaseHelper.instance
-            .calculateShopListCheckedAmount(shopList.id ?? 0);
-        final counts = await DatabaseHelper.instance
-            .calculateShopListItemCounts(shopList.id ?? 0);
-        final checkedItemsCount = counts.$1;
-        final totalItemsCount = counts.$2;
-        newItems.add(
-          ShopListViewModel.fromModel(
-            shopList,
-            checkedAmount,
-            checkedItemsCount,
-            totalItemsCount,
-          ),
-        );
-      }
+      final newItems = results
+          .map(
+            (result) => _convertToShopListViewModel(
+              ShopListWithStatsViewModel.fromQueryResult(result),
+            ),
+          )
+          .toList();
 
       state = state.copyWith(
         items: [...state.items, ...newItems],
@@ -184,7 +167,6 @@ class PaginatedShopListsNotifier
         print('Database error loading more shop lists: ${e.message}');
       }
       state = state.copyWith(isLoading: false);
-      // Re-throw to let UI handle the error appropriately
       rethrow;
     } catch (e) {
       if (kDebugMode) {

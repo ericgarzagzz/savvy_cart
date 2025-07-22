@@ -127,4 +127,35 @@ class ShopListRepository extends BaseRepository {
       return result.first['count'] as int;
     });
   }
+
+  Future<List<Map<String, dynamic>>> getShopListsWithStats({
+    int limit = 3,
+    int offset = 0,
+  }) async {
+    return handleDatabaseOperation(() async {
+      Database db = await database;
+
+      var result = await db.rawQuery(
+        '''
+        SELECT 
+          sl.id,
+          sl.name,
+          sl.created_at,
+          sl.updated_at,
+          COUNT(sli.id) as total_items,
+          COALESCE(SUM(CASE WHEN sli.checked = 1 THEN 1 ELSE 0 END), 0) as checked_items,
+          COALESCE(SUM(CASE WHEN sli.checked = 1 THEN sli.unit_price * sli.quantity ELSE 0 END), 0) as checked_amount,
+          COALESCE(SUM(CASE WHEN sli.checked = 0 THEN sli.unit_price * sli.quantity ELSE 0 END), 0) as unchecked_amount
+        FROM shop_lists sl
+        LEFT JOIN shop_list_items sli ON sl.id = sli.shop_list_id
+        GROUP BY sl.id, sl.name, sl.created_at, sl.updated_at
+        ORDER BY sl.created_at DESC
+        LIMIT ? OFFSET ?
+        ''',
+        [limit, offset],
+      );
+
+      return result;
+    });
+  }
 }

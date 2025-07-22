@@ -265,4 +265,50 @@ class ShopListItemRepository extends BaseRepository {
       return null;
     });
   }
+
+  Future<List<int>> addBatch(List<ShopListItem> items) async {
+    return handleInsertOperation(() async {
+      Database db = await database;
+      final now = DateTime.now().millisecondsSinceEpoch;
+      final batch = db.batch();
+
+      for (final item in items) {
+        final itemMap = item.toMap();
+        itemMap['created_at'] = now;
+        itemMap['updated_at'] = now;
+        if (item.checked) {
+          itemMap['checked_at'] = now;
+        }
+        batch.insert("shop_list_items", itemMap);
+      }
+
+      final results = await batch.commit(noResult: false);
+      return results.cast<int>();
+    });
+  }
+
+  Future<List<int>> updateBatch(List<ShopListItem> items) async {
+    return handleUpdateOperation(() async {
+      Database db = await database;
+      final now = DateTime.now().millisecondsSinceEpoch;
+      final batch = db.batch();
+
+      for (final item in items) {
+        final itemMap = item.toMap();
+        itemMap['updated_at'] = now;
+        if (item.checked) {
+          itemMap['checked_at'] = now;
+        }
+        batch.update(
+          "shop_list_items",
+          itemMap,
+          where: "id = ?",
+          whereArgs: [item.id],
+        );
+      }
+
+      final results = await batch.commit(noResult: false);
+      return results.cast<int>();
+    });
+  }
 }

@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+import 'package:savvy_cart/domain/models/models.dart';
 import 'repositories/shop_list_repository.dart';
 import 'repositories/shop_list_item_repository.dart';
 import 'repositories/chat_message_repository.dart';
@@ -19,5 +21,118 @@ class DataManager {
 
   Future<void> purgeDatabase() async {
     return DatabaseManager.instance.purgeDatabase();
+  }
+
+  Future<T> transaction<T>(
+    Future<T> Function(TransactionContext) action,
+  ) async {
+    final db = await DatabaseManager.instance.database;
+    return db.transaction<T>((txn) async {
+      final context = TransactionContext(txn);
+      return await action(context);
+    });
+  }
+}
+
+class TransactionContext {
+  final Transaction _transaction;
+
+  TransactionContext(this._transaction);
+
+  ShopListTransactionRepository get shopLists =>
+      ShopListTransactionRepository(_transaction);
+  ShopListItemTransactionRepository get shopListItems =>
+      ShopListItemTransactionRepository(_transaction);
+  ChatMessageTransactionRepository get chatMessages =>
+      ChatMessageTransactionRepository(_transaction);
+  SuggestionTransactionRepository get suggestions =>
+      SuggestionTransactionRepository(_transaction);
+}
+
+// Transaction-aware repository implementations
+class ShopListTransactionRepository {
+  final Transaction _txn;
+  ShopListTransactionRepository(this._txn);
+
+  Future<int> add(ShopList shopList) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final shopListMap = shopList.toMap();
+    shopListMap['created_at'] =
+        shopList.createdAt?.millisecondsSinceEpoch ?? now;
+    shopListMap['updated_at'] =
+        shopList.updatedAt?.millisecondsSinceEpoch ?? now;
+    return await _txn.insert("shop_lists", shopListMap);
+  }
+
+  Future<int> remove(int id) async {
+    return _txn.delete("shop_lists", where: "id = ?", whereArgs: [id]);
+  }
+}
+
+class ShopListItemTransactionRepository {
+  final Transaction _txn;
+  ShopListItemTransactionRepository(this._txn);
+
+  Future<int> add(ShopListItem shopListItem) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final shopListItemMap = shopListItem.toMap();
+    shopListItemMap['created_at'] = now;
+    shopListItemMap['updated_at'] = now;
+    if (shopListItem.checked) {
+      shopListItemMap['checked_at'] = now;
+    }
+    return await _txn.insert("shop_list_items", shopListItemMap);
+  }
+
+  Future<List<int>> addBatch(List<ShopListItem> items) async {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final results = <int>[];
+
+    for (final item in items) {
+      final itemMap = item.toMap();
+      itemMap['created_at'] = now;
+      itemMap['updated_at'] = now;
+      if (item.checked) {
+        itemMap['checked_at'] = now;
+      }
+      final result = await _txn.insert("shop_list_items", itemMap);
+      results.add(result);
+    }
+
+    return results;
+  }
+}
+
+class ChatMessageTransactionRepository {
+  final Transaction _txn;
+  ChatMessageTransactionRepository(this._txn);
+
+  Future<int> add(ChatMessage chatMessage) async {
+    return await _txn.insert("chat_messages", chatMessage.toMap());
+  }
+}
+
+class SuggestionTransactionRepository {
+  final Transaction _txn;
+  SuggestionTransactionRepository(this._txn);
+
+  Future<int> add(String name) async {
+    var existing = await _txn.query(
+      'suggestions',
+      where: 'LOWER(name) = ?',
+      whereArgs: [name.toLowerCase()],
+    );
+
+    if (existing.isNotEmpty) {
+      return existing.first['id'] as int;
+    }
+
+    var suggestion = Suggestion(name: name.toLowerCase());
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final suggestionMap = suggestion.toMap();
+    suggestionMap['created_at'] = now;
+    suggestionMap['updated_at'] = now;
+
+    return await _txn.insert("suggestions", suggestionMap);
   }
 }
