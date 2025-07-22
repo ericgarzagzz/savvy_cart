@@ -4,7 +4,9 @@ import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 
-final weeklyInsightsProvider = FutureProvider<WeeklyInsights>((ref) async {
+final weeklyInsightsProvider = FutureProvider.autoDispose<WeeklyInsights>((
+  ref,
+) async {
   final dataManager = DataManager.instance;
 
   final listsCreated = await dataManager.shopLists.getCountLastWeek();
@@ -14,16 +16,13 @@ final weeklyInsightsProvider = FutureProvider<WeeklyInsights>((ref) async {
 });
 
 final monthlyFrequentlyBoughtItemsProvider =
-    FutureProvider<List<FrequentlyBoughtItem>>((ref) async {
+    FutureProvider.autoDispose<List<FrequentlyBoughtItem>>((ref) async {
       final dataManager = DataManager.instance;
       return await dataManager.analytics.getFrequentlyBoughtItemsLastMonth();
     });
 
-final itemPriceHistoryProvider =
-    FutureProvider.family<List<PriceHistoryEntry>, String>((
-      ref,
-      itemName,
-    ) async {
+final itemPriceHistoryProvider = FutureProvider.family
+    .autoDispose<List<PriceHistoryEntry>, String>((ref, itemName) async {
       final dataManager = DataManager.instance;
       return await dataManager.analytics.getItemPriceHistory(
         itemName,
@@ -31,13 +30,15 @@ final itemPriceHistoryProvider =
       );
     });
 
-final suggestionsProvider = FutureProvider<List<Suggestion>>((ref) async {
+final suggestionsProvider = FutureProvider.autoDispose<List<Suggestion>>((
+  ref,
+) async {
   final dataManager = DataManager.instance;
   return await dataManager.suggestions.getAll();
 });
 
-final priceSearchResultsProvider =
-    FutureProvider.family<List<Suggestion>, String>((ref, query) async {
+final priceSearchResultsProvider = FutureProvider.family
+    .autoDispose<List<Suggestion>, String>((ref, query) async {
       final dataManager = DataManager.instance;
       final suggestions = await dataManager.suggestions.getAll();
 
