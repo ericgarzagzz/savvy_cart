@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/widgets/shopping_insights_button.dart';
+import 'shopping_insights_button.dart';
 
 class ShoppingInsightsSection extends ConsumerWidget {
   const ShoppingInsightsSection({super.key});
