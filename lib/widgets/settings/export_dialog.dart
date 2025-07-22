@@ -25,13 +25,13 @@ class _ExportDialogState extends State<ExportDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create Manual Backup'),
+      title: const Text('Create Manual Snapshot'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Choose what to include in your backup:'),
+            const Text('Choose what to include in your snapshot:'),
             const SizedBox(height: 16),
             _buildOptionCheckbox(
               'Settings',
@@ -109,7 +109,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Your settings will not be included in this export.',
+                        'Your settings will not be included in this snapshot.',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -136,7 +136,7 @@ class _ExportDialogState extends State<ExportDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Create Backup'),
+              : const Text('Create Snapshot'),
         ),
       ],
     );
@@ -173,9 +173,9 @@ class _ExportDialogState extends State<ExportDialog> {
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: const Text('Backup Created'),
+            title: const Text('Snapshot Created'),
             content: const Text(
-              'Your backup has been created successfully and will be automatically synced to Google Drive.',
+              'Your snapshot has been created successfully and will be automatically synced to Google Drive.',
             ),
             actions: [
               ElevatedButton(
@@ -194,7 +194,7 @@ class _ExportDialogState extends State<ExportDialog> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Backup failed: $e'),
+            content: Text('Snapshot failed: $e'),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

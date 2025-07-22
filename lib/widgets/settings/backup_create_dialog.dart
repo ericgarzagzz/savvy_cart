@@ -24,7 +24,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create Manual Backup'),
+      title: const Text('Create Manual Snapshot'),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -101,7 +101,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Your settings will not be included in this backup.',
+                        'Your settings will not be included in this snapshot.',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -130,7 +130,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'This backup will be automatically synced to Google Drive.',
+                      'This snapshot will be automatically synced to Google Drive.',
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.green.shade600,
@@ -198,7 +198,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
               children: [
                 Icon(Icons.check_circle, color: Colors.white),
                 SizedBox(width: 8),
-                Expanded(child: Text('Backup created successfully')),
+                Expanded(child: Text('Snapshot created successfully')),
               ],
             ),
             backgroundColor: Colors.green,
@@ -213,7 +213,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to create backup: $e'),
+            content: Text('Failed to create snapshot: $e'),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

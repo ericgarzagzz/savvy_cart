@@ -43,7 +43,7 @@ class BackupInfoSection extends StatelessWidget {
           ),
           _BackupInfoPoint(
             text:
-                'Manual backups are stored locally and included in automatic sync',
+                'Manual snapshots are stored locally and included in automatic sync',
           ),
           _BackupInfoPoint(text: 'Restoring will replace your current data'),
           _BackupInfoPoint(

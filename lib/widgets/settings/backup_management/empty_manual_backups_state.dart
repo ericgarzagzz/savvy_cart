@@ -20,7 +20,7 @@ class EmptyManualBackupsState extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'No manual backups yet',
+                'No manual snapshots yet',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(
                     context,
@@ -29,7 +29,7 @@ class EmptyManualBackupsState extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Create a manual backup to have additional control over your data',
+                'Create a manual snapshot to have additional control over your data',
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(
                     context,

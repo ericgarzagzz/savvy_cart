@@ -223,9 +223,11 @@ class AutoBackupService {
 
       return AutoBackupInfo(
         isEnabled: true, // AutoBackup is always enabled if configured
-        lastBackupDate: backups.isNotEmpty ? backups.first.createdDate : null,
-        backupCount: backups.length,
-        totalBackupSize: backups.fold(
+        lastManualSnapshotDate: backups.isNotEmpty
+            ? backups.first.createdDate
+            : null,
+        manualSnapshotCount: backups.length,
+        totalSnapshotSize: backups.fold(
           0,
           (sum, backup) => sum + backup.fileSize,
         ),
@@ -234,9 +236,9 @@ class AutoBackupService {
     } catch (e) {
       return AutoBackupInfo(
         isEnabled: false,
-        lastBackupDate: null,
-        backupCount: 0,
-        totalBackupSize: 0,
+        lastManualSnapshotDate: null,
+        manualSnapshotCount: 0,
+        totalSnapshotSize: 0,
         backupDirectory: '',
       );
     }
@@ -461,24 +463,24 @@ class BackupFileInfo {
 
 class AutoBackupInfo {
   final bool isEnabled;
-  final DateTime? lastBackupDate;
-  final int backupCount;
-  final int totalBackupSize;
+  final DateTime? lastManualSnapshotDate;
+  final int manualSnapshotCount;
+  final int totalSnapshotSize;
   final String backupDirectory;
 
   const AutoBackupInfo({
     required this.isEnabled,
-    required this.lastBackupDate,
-    required this.backupCount,
-    required this.totalBackupSize,
+    required this.lastManualSnapshotDate,
+    required this.manualSnapshotCount,
+    required this.totalSnapshotSize,
     required this.backupDirectory,
   });
 
   String get formattedTotalSize {
-    if (totalBackupSize < 1024) return '${totalBackupSize}B';
-    if (totalBackupSize < 1024 * 1024) {
-      return '${(totalBackupSize / 1024).toStringAsFixed(1)}KB';
+    if (totalSnapshotSize < 1024) return '${totalSnapshotSize}B';
+    if (totalSnapshotSize < 1024 * 1024) {
+      return '${(totalSnapshotSize / 1024).toStringAsFixed(1)}KB';
     }
-    return '${(totalBackupSize / (1024 * 1024)).toStringAsFixed(1)}MB';
+    return '${(totalSnapshotSize / (1024 * 1024)).toStringAsFixed(1)}MB';
   }
 }

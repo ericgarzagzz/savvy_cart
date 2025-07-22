@@ -25,7 +25,7 @@ class ManualBackupSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Manual Backups',
+              'Manual Snapshots',
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -45,7 +45,7 @@ class ManualBackupSection extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Create and manage additional backup files',
+          'Create and manage additional snapshot files',
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(
               context,

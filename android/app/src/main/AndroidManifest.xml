@@ -4,7 +4,7 @@
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon"
         android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_rules"
+        android:fullBackupContent="@xml/backup_rules_11"
         android:dataExtractionRules="@xml/backup_rules">
         <activity
             android:name=".MainActivity"

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:savvy_cart/services/services.dart';
 
 class AutoBackupSection extends StatelessWidget {
@@ -85,17 +84,31 @@ class AutoBackupSection extends StatelessWidget {
                 ],
               ),
             ),
-            if (autoBackupInfo?.lastBackupDate != null) ...[
-              const SizedBox(height: 12),
-              Text(
-                'Last backed up: ${DateFormat('MMM dd, yyyy \'at\' HH:mm').format(autoBackupInfo!.lastBackupDate!)}',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.onSurface.withValues(alpha: 0.6),
-                ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.blue.shade200),
               ),
-            ],
+              child: Row(
+                children: [
+                  Icon(Icons.info, color: Colors.blue.shade600, size: 20),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Automatic backup runs periodically in the background. Manual snapshots work locally, but won\'t survive app uninstalls until automatic backup has synced them to Google Drive.',
+                      style: TextStyle(
+                        color: Colors.blue.shade700,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

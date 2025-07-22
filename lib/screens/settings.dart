@@ -6,7 +6,6 @@ import 'package:settings_ui/settings_ui.dart';
 
 import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/providers/providers.dart';
-import 'package:savvy_cart/services/services.dart';
 
 class Settings extends ConsumerWidget {
   const Settings({super.key});
