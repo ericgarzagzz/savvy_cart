@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class SuggestionsMutationNotifier extends StateNotifier<AsyncValue<void>> {
@@ -11,7 +11,8 @@ class SuggestionsMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.removeSuggestionByName(name);
+      final dataManager = DataManager.instance;
+      await dataManager.suggestions.removeByName(name);
 
       ref.invalidate(searchResultsProvider);
 

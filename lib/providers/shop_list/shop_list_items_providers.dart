@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 
 final shopListItemsProvider =
@@ -7,7 +7,8 @@ final shopListItemsProvider =
       final shopListId = params.$1;
       final checkedItems = params.$2;
 
-      return await DatabaseHelper.instance.getShopListItemsByStatus(
+      final dataManager = DataManager.instance;
+      return await dataManager.shopListItems.getByShopListIdAndStatus(
         shopListId,
         checkedItems,
       );
@@ -15,7 +16,8 @@ final shopListItemsProvider =
 
 final getShopListItemsProvider = FutureProvider.family<List<ShopListItem>, int>(
   (ref, shopListId) async {
-    return await DatabaseHelper.instance.getShopListItems(shopListId);
+    final dataManager = DataManager.instance;
+    return await dataManager.shopListItems.getByShopListId(shopListId);
   },
 );
 
@@ -23,5 +25,6 @@ final getShopListItemByIdProvider = FutureProvider.family<ShopListItem?, int>((
   ref,
   itemId,
 ) async {
-  return await DatabaseHelper.instance.getShopListItemById(itemId);
+  final dataManager = DataManager.instance;
+  return await dataManager.shopListItems.getById(itemId);
 });

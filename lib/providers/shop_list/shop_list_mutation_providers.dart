@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
@@ -12,7 +12,8 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.addShopList(ShopList(name: name));
+      final dataManager = DataManager.instance;
+      await dataManager.shopLists.add(ShopList(name: name));
 
       // Invalidate providers to refresh UI
       ShopListInvalidationHelper.invalidateShopListRelated(ref);
@@ -27,7 +28,8 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.removeShopList(shopListId);
+      final dataManager = DataManager.instance;
+      await dataManager.shopLists.remove(shopListId);
 
       // Invalidate providers to refresh UI
       ShopListInvalidationHelper.invalidateShopListRelated(ref);

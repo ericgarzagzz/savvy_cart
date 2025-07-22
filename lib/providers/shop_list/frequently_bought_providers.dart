@@ -1,10 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/models/models.dart';
 
 final frequentlyBoughtItemsProvider =
     FutureProvider.family<List<SearchResultItem>, int>((ref, shopListId) async {
-      final results = await DatabaseHelper.instance
+      final dataManager = DataManager.instance;
+      final results = await dataManager.analytics
           .getFrequentlyBoughtItemsWithStatus(limit: 5, shopListId: shopListId);
 
       return results

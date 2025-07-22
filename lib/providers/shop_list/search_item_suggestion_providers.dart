@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fuzzy/fuzzy.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/models/models.dart';
 
 final searchResultsProvider =
@@ -12,8 +12,9 @@ final searchResultsProvider =
       final query = params.$2.trim();
 
       // Get suggestions and existing shop list items
-      final suggestions = await DatabaseHelper.instance.getSuggestions();
-      final shopListItems = await DatabaseHelper.instance.getShopListItems(
+      final dataManager = DataManager.instance;
+      final suggestions = await dataManager.suggestions.getAll();
+      final shopListItems = await dataManager.shopListItems.getByShopListId(
         shopListId,
       );
 

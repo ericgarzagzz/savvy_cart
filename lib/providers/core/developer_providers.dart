@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class DeveloperNotifier extends StateNotifier<AsyncValue<void>> {
@@ -11,7 +11,8 @@ class DeveloperNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.generateMockData();
+      final dataManager = DataManager.instance;
+      await dataManager.mockData.generateMockData();
 
       // Invalidate all providers to refresh UI with new data
       ShopListInvalidationHelper.invalidateAll(ref);
@@ -26,7 +27,8 @@ class DeveloperNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.purgeDatabase();
+      final dataManager = DataManager.instance;
+      await dataManager.purgeDatabase();
 
       // Invalidate all providers to refresh UI after database deletion
       ShopListInvalidationHelper.invalidateAll(ref);

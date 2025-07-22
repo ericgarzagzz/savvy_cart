@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/data/data_manager.dart';
-import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/models/models.dart';
@@ -37,7 +36,8 @@ final getShopListByIdProvider = FutureProvider.family<ShopList, int>((
   ref,
   id,
 ) async {
-  var shopList = await DatabaseHelper.instance.getShopListById(id);
+  final dataManager = DataManager.instance;
+  var shopList = await dataManager.shopLists.getById(id);
   if (shopList == null) {
     return Future.error("Shop list not found.");
   }
@@ -49,9 +49,8 @@ final shopListItemStatsProvider =
       ref,
       shopListId,
     ) async {
-      return await DatabaseHelper.instance.calculateShopListItemStats(
-        shopListId,
-      );
+      final dataManager = DataManager.instance;
+      return await dataManager.shopListItems.calculateItemStats(shopListId);
     });
 
 class PaginatedShopListsState {
@@ -222,7 +221,8 @@ final shopListSearchProvider =
       ref,
       params,
     ) async {
-      final shopLists = await DatabaseHelper.instance.searchShopLists(
+      final dataManager = DataManager.instance;
+      final shopLists = await dataManager.shopLists.search(
         query: params.query?.trim().isEmpty == true
             ? null
             : params.query?.trim(),
@@ -232,10 +232,11 @@ final shopListSearchProvider =
 
       final List<ShopListViewModel> collection = [];
       for (var shopList in shopLists) {
-        final checkedAmount = await DatabaseHelper.instance
-            .calculateShopListCheckedAmount(shopList.id ?? 0);
-        final counts = await DatabaseHelper.instance
-            .calculateShopListItemCounts(shopList.id ?? 0);
+        final checkedAmount = await dataManager.shopListItems
+            .calculateCheckedAmount(shopList.id ?? 0);
+        final counts = await dataManager.shopListItems.calculateItemCounts(
+          shopList.id ?? 0,
+        );
         final checkedItemsCount = counts.$1;
         final totalItemsCount = counts.$2;
         collection.add(
