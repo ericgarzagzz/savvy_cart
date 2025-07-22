@@ -15,9 +15,7 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.addShopList(ShopList(name: name));
 
       // Invalidate providers to refresh UI
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
+      ShopListInvalidationHelper.invalidateShopListRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -32,9 +30,7 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.removeShopList(shopListId);
 
       // Invalidate providers to refresh UI
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
+      ShopListInvalidationHelper.invalidateShopListRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {

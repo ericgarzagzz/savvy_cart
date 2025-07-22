@@ -45,15 +45,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
 
       await DatabaseHelper.instance.addShopListItem(newItem);
 
-      // Refresh
-      ref.invalidate(shopListItemsProvider);
-      ref.invalidate(getShopListItemByIdProvider);
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
-      ref.invalidate(searchResultsProvider);
-      ref.invalidate(shopListItemStatsProvider);
-      ref.invalidate(frequentlyBoughtItemsProvider);
+      // Refresh all related providers
+      ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -67,14 +60,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     try {
       await DatabaseHelper.instance.updateShopListItem(updatedItem);
 
-      ref.invalidate(shopListItemsProvider);
-      ref.invalidate(getShopListItemByIdProvider);
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
-      ref.invalidate(searchResultsProvider);
-      ref.invalidate(shopListItemStatsProvider);
-      ref.invalidate(frequentlyBoughtItemsProvider);
+      ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -91,14 +77,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
         checked,
       );
 
-      ref.invalidate(shopListItemsProvider);
-      ref.invalidate(getShopListItemByIdProvider);
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
-      ref.invalidate(searchResultsProvider);
-      ref.invalidate(shopListItemStatsProvider);
-      ref.invalidate(frequentlyBoughtItemsProvider);
+      ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -112,13 +91,7 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     try {
       await DatabaseHelper.instance.removeShopListItem(shopListItemId);
 
-      ref.invalidate(shopListItemsProvider);
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
-      ref.invalidate(searchResultsProvider);
-      ref.invalidate(shopListItemStatsProvider);
-      ref.invalidate(frequentlyBoughtItemsProvider);
+      ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {

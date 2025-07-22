@@ -333,12 +333,6 @@ final executeActionsProvider =
         // Invalidate shop list providers to refresh the UI
         ref.invalidate(shopListItemsProvider((shopListId, false)));
         ref.invalidate(shopListItemsProvider((shopListId, true)));
-        ref.invalidate(getShopListItemByIdProvider);
-        ref.invalidate(shopListCollectionProvider);
-        ref.read(paginatedShopListsProvider.notifier).refresh();
-        ref.invalidate(shopListSearchProvider);
-        ref.invalidate(searchResultsProvider);
-        ref.invalidate(shopListItemStatsProvider(shopListId));
-        ref.invalidate(frequentlyBoughtItemsProvider);
+        ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
       };
     });

@@ -14,9 +14,7 @@ class DeveloperNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.generateMockData();
 
       // Invalidate all providers to refresh UI with new data
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
+      ShopListInvalidationHelper.invalidateAll(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -31,9 +29,7 @@ class DeveloperNotifier extends StateNotifier<AsyncValue<void>> {
       await DatabaseHelper.instance.purgeDatabase();
 
       // Invalidate all providers to refresh UI after database deletion
-      ref.invalidate(shopListCollectionProvider);
-      ref.read(paginatedShopListsProvider.notifier).refresh();
-      ref.invalidate(shopListSearchProvider);
+      ShopListInvalidationHelper.invalidateAll(ref);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
