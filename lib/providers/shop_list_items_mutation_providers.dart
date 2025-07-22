@@ -49,6 +49,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
+      ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
       ref.invalidate(frequentlyBoughtItemsProvider);
@@ -68,6 +70,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
+      ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
       ref.invalidate(frequentlyBoughtItemsProvider);
@@ -90,6 +94,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(getShopListItemByIdProvider);
       ref.invalidate(shopListCollectionProvider);
+      ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
       ref.invalidate(frequentlyBoughtItemsProvider);
@@ -108,6 +114,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
 
       ref.invalidate(shopListItemsProvider);
       ref.invalidate(shopListCollectionProvider);
+      ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
       ref.invalidate(searchResultsProvider);
       ref.invalidate(shopListItemStatsProvider);
       ref.invalidate(frequentlyBoughtItemsProvider);

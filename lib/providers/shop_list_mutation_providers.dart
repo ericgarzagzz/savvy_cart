@@ -17,6 +17,7 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
       // Invalidate providers to refresh UI
       ref.invalidate(shopListCollectionProvider);
       ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
@@ -33,6 +34,7 @@ class ShopListMutationNotifier extends StateNotifier<AsyncValue<void>> {
       // Invalidate providers to refresh UI
       ref.invalidate(shopListCollectionProvider);
       ref.read(paginatedShopListsProvider.notifier).refresh();
+      ref.invalidate(shopListSearchProvider);
 
       state = const AsyncValue.data(null);
     } catch (error, stackTrace) {
