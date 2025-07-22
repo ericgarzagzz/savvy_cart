@@ -10,8 +10,4 @@
     
     <!-- Include exported backup files -->
     <include domain="file" path="backups/" />
-    
-    <!-- Exclude sensitive files -->
-    <exclude domain="file" path="cache/" />
-    <exclude domain="file" path="code_cache/" />
 </full-backup-content>
