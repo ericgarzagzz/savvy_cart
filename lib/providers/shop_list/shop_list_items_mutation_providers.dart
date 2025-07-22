@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:decimal/decimal.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/providers/providers.dart';
@@ -14,8 +14,10 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
+      final dataManager = DataManager.instance;
+
       // Check if item already exists in shop list
-      final exists = await DatabaseHelper.instance.shopListItemExists(
+      final exists = await dataManager.shopListItems.exists(
         shopListId,
         itemName,
       );
@@ -27,23 +29,26 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
         return;
       }
 
-      // Add to suggestions if it doesn't exist
-      await DatabaseHelper.instance.addSuggestion(itemName);
-
       // Get the last recorded price for this item
-      final lastRecordedPrice = await DatabaseHelper.instance
+      final lastRecordedPrice = await dataManager.shopListItems
           .getLastRecordedPrice(itemName);
 
-      // Add to shop list
-      final newItem = ShopListItem(
-        shopListId: shopListId,
-        name: itemName.toLowerCase(),
-        quantity: Decimal.one,
-        unitPrice: lastRecordedPrice ?? Money(cents: 0),
-        checked: false,
-      );
+      // Use transaction for atomic multi-step operation
+      await dataManager.transaction((tx) async {
+        // Add to suggestions if it doesn't exist
+        await tx.suggestions.add(itemName);
 
-      await DatabaseHelper.instance.addShopListItem(newItem);
+        // Add to shop list
+        final newItem = ShopListItem(
+          shopListId: shopListId,
+          name: itemName.toLowerCase(),
+          quantity: Decimal.one,
+          unitPrice: lastRecordedPrice ?? Money(cents: 0),
+          checked: false,
+        );
+
+        await tx.shopListItems.add(newItem);
+      });
 
       // Refresh all related providers
       ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
@@ -58,7 +63,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.updateShopListItem(updatedItem);
+      final dataManager = DataManager.instance;
+      await dataManager.shopListItems.update(updatedItem);
 
       ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
@@ -72,10 +78,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.setShopListItemChecked(
-        shopListItemId,
-        checked,
-      );
+      final dataManager = DataManager.instance;
+      await dataManager.shopListItems.setChecked(shopListItemId, checked);
 
       ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
@@ -89,7 +93,8 @@ class ShopListItemMutationNotifier extends StateNotifier<AsyncValue<void>> {
     state = const AsyncValue.loading();
 
     try {
-      await DatabaseHelper.instance.removeShopListItem(shopListItemId);
+      final dataManager = DataManager.instance;
+      await dataManager.shopListItems.remove(shopListItemId);
 
       ShopListInvalidationHelper.invalidateShopListItemRelated(ref);
 
