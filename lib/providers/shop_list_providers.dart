@@ -212,3 +212,58 @@ final paginatedShopListsProvider =
     ) {
       return PaginatedShopListsNotifier();
     });
+
+// Search state class for better provider key equality
+class ShopListSearchParams {
+  final String? query;
+  final DateTime? startDate;
+  final DateTime? endDate;
+
+  const ShopListSearchParams({this.query, this.startDate, this.endDate});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ShopListSearchParams &&
+          runtimeType == other.runtimeType &&
+          query == other.query &&
+          startDate == other.startDate &&
+          endDate == other.endDate;
+
+  @override
+  int get hashCode => query.hashCode ^ startDate.hashCode ^ endDate.hashCode;
+}
+
+// Search provider for shop lists
+final shopListSearchProvider =
+    FutureProvider.family<List<ShopListViewModel>, ShopListSearchParams>((
+      ref,
+      params,
+    ) async {
+      final shopLists = await DatabaseHelper.instance.searchShopLists(
+        query: params.query?.trim().isEmpty == true
+            ? null
+            : params.query?.trim(),
+        startDate: params.startDate,
+        endDate: params.endDate,
+      );
+
+      final List<ShopListViewModel> collection = [];
+      for (var shopList in shopLists) {
+        final checkedAmount = await DatabaseHelper.instance
+            .calculateShopListCheckedAmount(shopList.id ?? 0);
+        final counts = await DatabaseHelper.instance
+            .calculateShopListItemCounts(shopList.id ?? 0);
+        final checkedItemsCount = counts.$1;
+        final totalItemsCount = counts.$2;
+        collection.add(
+          ShopListViewModel.fromModel(
+            shopList,
+            checkedAmount,
+            checkedItemsCount,
+            totalItemsCount,
+          ),
+        );
+      }
+      return collection;
+    });

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
@@ -42,12 +41,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
           ),
           child: const Text("Confirm"),
           onPressed: () async {
-            await DatabaseHelper.instance.removeShopList(
-              widget.shopList.id ?? 0,
-            );
-            // Invalidate both providers to ensure all UI components update
-            ref.invalidate(shopListCollectionProvider);
-            ref.read(paginatedShopListsProvider.notifier).refresh();
+            await ref
+                .read(shopListMutationProvider.notifier)
+                .removeShopList(widget.shopList.id ?? 0);
             if (widget.onDeleted != null) {
               widget.onDeleted!();
             }

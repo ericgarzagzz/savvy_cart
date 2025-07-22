@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:intl/intl.dart';
 
@@ -24,7 +22,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
   }
 
   Future<void> _saveShopList(String name) async {
-    await DatabaseHelper.instance.addShopList(ShopList(name: name));
+    await ref.read(shopListMutationProvider.notifier).addShopList(name);
   }
 
   @override
@@ -135,9 +133,6 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     await _saveShopList(_nameInputController.text);
-                    // Invalidate both providers to ensure all UI components update
-                    ref.invalidate(shopListCollectionProvider);
-                    ref.read(paginatedShopListsProvider.notifier).refresh();
                     setState(() {
                       _formKey.currentState!.reset();
                     });

@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:savvy_cart/database_helper.dart';
-import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class ShopListSearchScreen extends ConsumerStatefulWidget {
@@ -18,9 +17,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
   final TextEditingController _searchController = TextEditingController();
   DateTime? _startDate;
   DateTime? _endDate;
-  List<ShopListViewModel> _searchResults = [];
-  bool _isLoading = false;
-  bool _hasSearched = false;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -29,53 +26,13 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
     final now = DateTime.now();
     _startDate = DateTime(now.year, now.month - 3, now.day);
     _endDate = now;
-    _performSearch();
   }
 
-  Future<void> _performSearch() async {
-    setState(() {
-      _isLoading = true;
-      _hasSearched = true;
-    });
-
-    try {
-      final shopLists = await DatabaseHelper.instance.searchShopLists(
-        query: _searchController.text.trim().isEmpty
-            ? null
-            : _searchController.text.trim(),
-        startDate: _startDate,
-        endDate: _endDate,
-      );
-
-      final List<ShopListViewModel> collection = [];
-      for (var shopList in shopLists) {
-        final checkedAmount = await DatabaseHelper.instance
-            .calculateShopListCheckedAmount(shopList.id ?? 0);
-        final counts = await DatabaseHelper.instance
-            .calculateShopListItemCounts(shopList.id ?? 0);
-        final checkedItemsCount = counts.$1;
-        final totalItemsCount = counts.$2;
-        collection.add(
-          ShopListViewModel.fromModel(
-            shopList,
-            checkedAmount,
-            checkedItemsCount,
-            totalItemsCount,
-          ),
-        );
-      }
-
-      setState(() {
-        _searchResults = collection;
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _searchResults = [];
-        _isLoading = false;
-      });
-    }
-  }
+  ShopListSearchParams get _searchParams => ShopListSearchParams(
+    query: _searchQuery,
+    startDate: _startDate,
+    endDate: _endDate,
+  );
 
   Future<void> _selectStartDate() async {
     final DateTime? picked = await showDatePicker(
@@ -88,7 +45,6 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
       setState(() {
         _startDate = picked;
       });
-      _performSearch();
     }
   }
 
@@ -103,21 +59,21 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
       setState(() {
         _endDate = picked;
       });
-      _performSearch();
     }
   }
 
   void _clearFilters() {
     setState(() {
       _searchController.clear();
+      _searchQuery = '';
       _startDate = null;
       _endDate = null;
     });
-    _performSearch();
   }
 
   @override
   Widget build(BuildContext context) {
+    final searchResultsAsync = ref.watch(shopListSearchProvider(_searchParams));
     return Scaffold(
       appBar: AppBar(
         title: Text('Search Lists'),
@@ -162,13 +118,17 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                             icon: Icon(Icons.clear),
                             onPressed: () {
                               _searchController.clear();
-                              _performSearch();
+                              setState(() {
+                                _searchQuery = '';
+                              });
                             },
                           )
                         : null,
                   ),
                   onChanged: (value) {
-                    _performSearch();
+                    setState(() {
+                      _searchQuery = value;
+                    });
                   },
                 ),
                 SizedBox(height: 16),
@@ -212,53 +172,84 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
           ),
           // Results Section
           Expanded(
-            child: _isLoading
-                ? Center(child: CircularProgressIndicator())
-                : _hasSearched && _searchResults.isEmpty
-                ? Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.search_off,
-                          size: 64,
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                        SizedBox(height: 16),
-                        Text(
-                          'No lists found',
-                          style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurfaceVariant,
-                              ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Try adjusting your search terms or date filters',
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurfaceVariant,
-                              ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+            child: searchResultsAsync.when(
+              loading: () => Center(child: CircularProgressIndicator()),
+              error: (error, stackTrace) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      size: 64,
+                      color: Theme.of(context).colorScheme.error,
                     ),
-                  )
-                : ListView.builder(
-                    padding: EdgeInsets.all(16),
-                    itemCount: _searchResults.length,
-                    itemBuilder: (context, index) {
-                      return ShopListListTile(
-                        shopList: _searchResults[index],
-                        onTap: () =>
-                            context.go("./manage/${_searchResults[index].id}"),
-                      );
-                    },
-                  ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Error loading search results',
+                      style: Theme.of(context).textTheme.headlineSmall
+                          ?.copyWith(
+                            color: Theme.of(context).colorScheme.error,
+                          ),
+                    ),
+                    SizedBox(height: 8),
+                    Text(
+                      'Please try again later',
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              data: (searchResults) => searchResults.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search_off,
+                            size: 64,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                          ),
+                          SizedBox(height: 16),
+                          Text(
+                            'No lists found',
+                            style: Theme.of(context).textTheme.headlineSmall
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            'Try adjusting your search terms or date filters',
+                            style: Theme.of(context).textTheme.bodyMedium
+                                ?.copyWith(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                                ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    )
+                  : ListView.builder(
+                      padding: EdgeInsets.all(16),
+                      itemCount: searchResults.length,
+                      itemBuilder: (context, index) {
+                        return ShopListListTile(
+                          shopList: searchResults[index],
+                          onTap: () =>
+                              context.go("./manage/${searchResults[index].id}"),
+                        );
+                      },
+                    ),
+            ),
           ),
         ],
       ),

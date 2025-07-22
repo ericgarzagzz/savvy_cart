@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
-import 'package:savvy_cart/database_helper.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class Settings extends ConsumerWidget {
@@ -75,13 +74,15 @@ class Settings extends ConsumerWidget {
                   leading: Icon(Icons.data_usage),
                   title: Text('Generate Mock Data'),
                   value: Text('Add sample shopping lists'),
-                  onPressed: (context) => _showGenerateMockDataDialog(context),
+                  onPressed: (context) =>
+                      _showGenerateMockDataDialog(context, ref),
                 ),
                 SettingsTile.navigation(
                   leading: Icon(Icons.delete_forever),
                   title: Text('Delete Database'),
                   value: Text('Clear all data'),
-                  onPressed: (context) => _showDeleteDatabaseDialog(context),
+                  onPressed: (context) =>
+                      _showDeleteDatabaseDialog(context, ref),
                 ),
               ],
             ),
@@ -114,7 +115,7 @@ class Settings extends ConsumerWidget {
     );
   }
 
-  void _showGenerateMockDataDialog(BuildContext context) {
+  void _showGenerateMockDataDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -135,7 +136,7 @@ class Settings extends ConsumerWidget {
                 messenger.showSnackBar(
                   SnackBar(content: Text('Generating mock data...')),
                 );
-                await DatabaseHelper.instance.generateMockData();
+                await ref.read(developerProvider.notifier).generateMockData();
                 messenger.showSnackBar(
                   SnackBar(content: Text('Mock data generated successfully!')),
                 );
@@ -152,7 +153,7 @@ class Settings extends ConsumerWidget {
     );
   }
 
-  void _showDeleteDatabaseDialog(BuildContext context) {
+  void _showDeleteDatabaseDialog(BuildContext context, WidgetRef ref) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -168,7 +169,7 @@ class Settings extends ConsumerWidget {
           TextButton(
             onPressed: () async {
               try {
-                await DatabaseHelper.instance.purgeDatabase();
+                await ref.read(developerProvider.notifier).purgeDatabase();
                 if (context.mounted) {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
