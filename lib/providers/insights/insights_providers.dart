@@ -1,22 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fuzzy/fuzzy.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 
 final weeklyInsightsProvider = FutureProvider<WeeklyInsights>((ref) async {
-  final db = DatabaseHelper.instance;
+  final dataManager = DataManager.instance;
 
-  final listsCreated = await db.getShopListsCountLastWeek();
-  final totalAmount = await db.getTotalAmountLastWeek();
+  final listsCreated = await dataManager.shopLists.getCountLastWeek();
+  final totalAmount = await dataManager.analytics.getTotalAmountLastWeek();
 
   return WeeklyInsights(listsCreated: listsCreated, totalAmount: totalAmount);
 });
 
 final monthlyFrequentlyBoughtItemsProvider =
     FutureProvider<List<FrequentlyBoughtItem>>((ref) async {
-      final db = DatabaseHelper.instance;
-      return await db.getFrequentlyBoughtItemsLastMonth();
+      final dataManager = DataManager.instance;
+      return await dataManager.analytics.getFrequentlyBoughtItemsLastMonth();
     });
 
 final itemPriceHistoryProvider =
@@ -24,19 +24,22 @@ final itemPriceHistoryProvider =
       ref,
       itemName,
     ) async {
-      final db = DatabaseHelper.instance;
-      return await db.getItemPriceHistory(itemName, limit: 10);
+      final dataManager = DataManager.instance;
+      return await dataManager.analytics.getItemPriceHistory(
+        itemName,
+        limit: 10,
+      );
     });
 
 final suggestionsProvider = FutureProvider<List<Suggestion>>((ref) async {
-  final db = DatabaseHelper.instance;
-  return await db.getSuggestions();
+  final dataManager = DataManager.instance;
+  return await dataManager.suggestions.getAll();
 });
 
 final priceSearchResultsProvider =
     FutureProvider.family<List<Suggestion>, String>((ref, query) async {
-      final db = DatabaseHelper.instance;
-      final suggestions = await db.getSuggestions();
+      final dataManager = DataManager.instance;
+      final suggestions = await dataManager.suggestions.getAll();
 
       // If query is empty, return all suggestions sorted alphabetically
       if (query.trim().isEmpty) {

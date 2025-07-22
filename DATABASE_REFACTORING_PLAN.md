@@ -420,10 +420,31 @@ Before and after refactoring, measure:
 - ✅ **Enhanced maintainability**: Single source of database operations
 - ✅ **Removed legacy dependencies**: Complete migration to new architecture
 
+#### insights_providers.dart Migration Results:
+**Before Migration:**
+- `weeklyInsightsProvider`: Direct DatabaseHelper calls for analytics queries
+- `monthlyFrequentlyBoughtItemsProvider`: Legacy analytics method calls
+- `itemPriceHistoryProvider`: Direct database access for price history
+- `suggestionsProvider`: Direct suggestion database queries
+- `priceSearchResultsProvider`: Mixed business logic with database calls
+
+**After Migration:**
+- `weeklyInsightsProvider`: Clean separation using `dataManager.shopLists.getCountLastWeek()` and `dataManager.analytics.getTotalAmountLastWeek()`
+- `monthlyFrequentlyBoughtItemsProvider`: Optimized `dataManager.analytics.getFrequentlyBoughtItemsLastMonth()`
+- `itemPriceHistoryProvider`: Clean `dataManager.analytics.getItemPriceHistory()` call
+- `suggestionsProvider`: Simple `dataManager.suggestions.getAll()` call
+- `priceSearchResultsProvider`: Business logic separated from data access
+
+**Key Improvements:**
+- ✅ **Specialized analytics repository**: Dedicated queries for insights and reporting
+- ✅ **Clean separation of concerns**: Business logic (fuzzy search) separate from data access
+- ✅ **Optimized analytics queries**: Purpose-built methods with JOINs and aggregations
+- ✅ **Consistent API**: All providers use same DataManager pattern
+- ✅ **Better maintainability**: Analytics changes isolated to AnalyticsRepository
+
 ### 🚧 Next Priority Migrations:
-1. **insights_providers.dart** - Analytics queries  
-2. **shop_list_items_providers.dart** - Item queries and filtering
-3. **Remaining simple providers** - Basic CRUD operations
+1. **shop_list_items_providers.dart** - Item queries and filtering
+2. **Remaining simple providers** - Basic CRUD operations
 
 ### New API Examples:
 
