@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/models/chat/chat_message_view_model.dart';
 import 'package:savvy_cart/models/gemini_response.dart';
 import 'package:savvy_cart/providers/providers.dart';
@@ -33,8 +33,10 @@ class ChatMessagesNotifier extends StateNotifier<List<ChatMessageViewModel>> {
 
   Future<void> _loadExistingMessages() async {
     try {
-      final chatMessages = await DatabaseHelper.instance
-          .getChatMessagesByShopList(shopListId);
+      final dataManager = DataManager.instance;
+      final chatMessages = await dataManager.chatMessages.getByShopListId(
+        shopListId,
+      );
       final messageViewModels = chatMessages
           .map((msg) => ChatMessageViewModel.fromChatMessage(msg))
           .toList();
@@ -126,7 +128,8 @@ Future<void> _processMessage(
     );
 
     // Persist to database
-    final messageId = await DatabaseHelper.instance.addChatMessage(
+    final dataManager = DataManager.instance;
+    final messageId = await dataManager.chatMessages.add(
       userMessage.chatMessage,
     );
 
@@ -198,7 +201,8 @@ Future<void> _processMessage(
     );
 
     // Persist to database
-    final aiMessageId = await DatabaseHelper.instance.addChatMessage(
+    final dataManager = DataManager.instance;
+    final aiMessageId = await dataManager.chatMessages.add(
       aiMessage.chatMessage,
     );
 
@@ -218,7 +222,8 @@ Future<void> _processMessage(
     );
 
     // Persist to database
-    final errorMessageId = await DatabaseHelper.instance.addChatMessage(
+    final dataManager = DataManager.instance;
+    final errorMessageId = await dataManager.chatMessages.add(
       errorMessage.chatMessage,
     );
 
@@ -319,7 +324,8 @@ final executeActionsProvider =
         );
 
         // Mark the message as executed in the database
-        await DatabaseHelper.instance.markChatMessageActionsExecuted(
+        final dataManager = DataManager.instance;
+        await dataManager.chatMessages.markActionsExecuted(
           messageId,
           executedActionsJson,
         );
