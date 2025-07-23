@@ -4,6 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 // Animation duration constants
@@ -73,6 +74,9 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
 
   void _onCheckboxChanged(bool? value) async {
     if (value != null) {
+      // Subtle vibration for immediate tactile feedback
+      VibrationService().subtleCheckVibration();
+
       // Animate when checking an item from "To Buy" section
       if (!widget.shopListItem.checked && value == true) {
         _animationController.forward();

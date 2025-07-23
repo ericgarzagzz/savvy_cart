@@ -6,6 +6,21 @@ class VibrationService {
   factory VibrationService() => _instance;
   const VibrationService._internal();
 
+  /// Subtle vibration for item check/uncheck actions
+  /// Very light and quick for users walking around the supermarket
+  Future<void> subtleCheckVibration() async {
+    try {
+      bool? hasVibrator = await Vibration.hasVibrator();
+      if (hasVibrator != true) return;
+
+      // Very short, subtle vibration - perfect for frequent actions
+      await Vibration.vibrate(duration: 25);
+    } catch (e) {
+      // Fallback to lightest haptic available
+      HapticFeedback.selectionClick();
+    }
+  }
+
   /// Celebration pattern: rapid taps → sustained vibration → final burst
   /// Mimics cheer and applause for major accomplishments
   Future<void> celebrationVibration() async {
