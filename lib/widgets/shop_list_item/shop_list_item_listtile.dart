@@ -247,12 +247,34 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
               ],
             ),
             child: ListTile(
-              contentPadding: EdgeInsets.all(16.0),
-              leading: Transform.scale(
-                scale: 1.2,
-                child: Checkbox(
-                  value: widget.shopListItem.checked,
-                  onChanged: _onCheckboxChanged,
+              contentPadding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: 16.0,
+              ),
+              leading: GestureDetector(
+                onTap: () => _onCheckboxChanged(!widget.shopListItem.checked),
+                child: Container(
+                  width: 24,
+                  height: 24,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.shopListItem.checked
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.outline,
+                      width: 2,
+                    ),
+                    color: widget.shopListItem.checked
+                        ? Theme.of(context).colorScheme.primary
+                        : Colors.transparent,
+                  ),
+                  child: widget.shopListItem.checked
+                      ? Icon(
+                          Icons.check,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 16,
+                        )
+                      : null,
                 ),
               ),
               title: _buildAnimatedTitle(context),
