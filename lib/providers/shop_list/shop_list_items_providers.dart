@@ -8,16 +8,28 @@ final shopListItemsProvider =
       final checkedItems = params.$2;
 
       final dataManager = DataManager.instance;
-      return await dataManager.shopListItems.getByShopListIdAndStatus(
+      final items = await dataManager.shopListItems.getByShopListIdAndStatus(
         shopListId,
         checkedItems,
       );
+
+      // Sort items alphabetically by name (case-insensitive)
+      items.sort(
+        (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+      );
+
+      return items;
     });
 
 final getShopListItemsProvider = FutureProvider.family<List<ShopListItem>, int>(
   (ref, shopListId) async {
     final dataManager = DataManager.instance;
-    return await dataManager.shopListItems.getByShopListId(shopListId);
+    final items = await dataManager.shopListItems.getByShopListId(shopListId);
+
+    // Sort items alphabetically by name (case-insensitive)
+    items.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+    return items;
   },
 );
 
