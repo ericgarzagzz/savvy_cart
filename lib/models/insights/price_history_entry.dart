@@ -8,8 +8,10 @@ class PriceHistoryEntry {
 
   factory PriceHistoryEntry.fromMap(Map<String, dynamic> map) {
     return PriceHistoryEntry(
-      price: Money(cents: map['unit_price'] as int),
-      date: DateTime.fromMillisecondsSinceEpoch(map['created_at'] as int),
+      price: Money(cents: (map['unit_price'] as num).round()),
+      date: DateTime.fromMillisecondsSinceEpoch(
+        (map['created_at'] as num).round(),
+      ),
     );
   }
 

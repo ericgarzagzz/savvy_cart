@@ -259,7 +259,7 @@ class ShopListItemRepository extends BaseRepository {
       );
 
       if (result.isNotEmpty) {
-        return Money(cents: result.first['unit_price'] as int);
+        return Money(cents: (result.first['unit_price'] as num).round());
       }
 
       return null;

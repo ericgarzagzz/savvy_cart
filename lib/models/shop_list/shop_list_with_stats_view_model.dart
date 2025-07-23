@@ -28,16 +28,24 @@ class ShopListWithStatsViewModel {
         id: result['id'] as int?,
         name: result['name'] as String,
         createdAt: result['created_at'] != null
-            ? DateTime.fromMillisecondsSinceEpoch(result['created_at'] as int)
+            ? DateTime.fromMillisecondsSinceEpoch(
+                (result['created_at'] as num).round(),
+              )
             : null,
         updatedAt: result['updated_at'] != null
-            ? DateTime.fromMillisecondsSinceEpoch(result['updated_at'] as int)
+            ? DateTime.fromMillisecondsSinceEpoch(
+                (result['updated_at'] as num).round(),
+              )
             : null,
       ),
-      totalItems: result['total_items'] as int? ?? 0,
-      checkedItems: result['checked_items'] as int? ?? 0,
-      checkedAmount: Money(cents: result['checked_amount'] as int? ?? 0),
-      uncheckedAmount: Money(cents: result['unchecked_amount'] as int? ?? 0),
+      totalItems: (result['total_items'] as num?)?.round() ?? 0,
+      checkedItems: (result['checked_items'] as num?)?.round() ?? 0,
+      checkedAmount: Money(
+        cents: (result['checked_amount'] as num?)?.round() ?? 0,
+      ),
+      uncheckedAmount: Money(
+        cents: (result['unchecked_amount'] as num?)?.round() ?? 0,
+      ),
     );
   }
 

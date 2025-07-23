@@ -22,7 +22,7 @@ class SuggestionRepository extends BaseRepository {
       );
 
       if (existing.isNotEmpty) {
-        return existing.first['id'] as int;
+        return (existing.first['id'] as num).round();
       }
 
       var suggestion = Suggestion(name: name.toLowerCase());

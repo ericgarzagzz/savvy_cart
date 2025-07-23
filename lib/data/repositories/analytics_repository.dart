@@ -20,7 +20,7 @@ class AnalyticsRepository extends BaseRepository {
         [sevenDaysAgoMs],
       );
 
-      final totalCents = result.first['total_cents'] as int? ?? 0;
+      final totalCents = (result.first['total_cents'] as num?)?.round() ?? 0;
       return Money(cents: totalCents);
     });
   }

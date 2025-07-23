@@ -7,7 +7,7 @@ class FrequentlyBoughtItem {
   factory FrequentlyBoughtItem.fromMap(Map<String, dynamic> map) {
     return FrequentlyBoughtItem(
       name: map['name'] as String,
-      frequency: map['frequency'] as int,
+      frequency: (map['frequency'] as num).round(),
     );
   }
 

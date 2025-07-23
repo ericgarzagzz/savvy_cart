@@ -30,7 +30,7 @@ class ShopListRepository extends BaseRepository {
       var result = await db.rawQuery(
         "SELECT COUNT(*) as count FROM shop_lists",
       );
-      return result.first['count'] as int;
+      return (result.first['count'] as num).round();
     });
   }
 
@@ -124,7 +124,7 @@ class ShopListRepository extends BaseRepository {
         "SELECT COUNT(*) as count FROM shop_lists WHERE created_at >= ?",
         [sevenDaysAgoMs],
       );
-      return result.first['count'] as int;
+      return (result.first['count'] as num).round();
     });
   }
 
