@@ -312,21 +312,39 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
               ),
               leading: _buildAnimatedCheckbox(context),
               title: _buildAnimatedTitle(context),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                spacing: 12,
-                children: [
-                  Text(
-                    widget.shopListItem.quantity.toString(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  Text(
-                    (widget.shopListItem.unitPrice *
-                            widget.shopListItem.quantity)
-                        .toStringWithLocale(),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ],
+              trailing: SizedBox(
+                width: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Quantity in noticeable container
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade400,
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                      child: Text(
+                        widget.shopListItem.quantity.toString(),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    // Total price - bolder
+                    Text(
+                      (widget.shopListItem.unitPrice *
+                              widget.shopListItem.quantity)
+                          .toStringWithLocale(),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               onTap: () {
                 showModalBottomSheet(
