@@ -159,6 +159,15 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
     final baseTextStyle =
         Theme.of(context).textTheme.bodyLarge ?? const TextStyle();
 
+    // Make checked items more subtle
+    final textStyle = widget.shopListItem.checked
+        ? baseTextStyle.copyWith(
+            color: Theme.of(
+              context,
+            ).colorScheme.onSurfaceVariant.withValues(alpha: 0.7),
+          )
+        : baseTextStyle;
+
     return AnimatedBuilder(
       animation: _strikethroughAnimation,
       builder: (context, child) {
@@ -176,7 +185,7 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
             return Stack(
               children: [
                 // Base text without decoration
-                Text(widget.shopListItem.name, style: baseTextStyle),
+                Text(widget.shopListItem.name, style: textStyle),
 
                 // For items being checked (To Buy -> In Cart): animate strikethrough from left to right
                 if (!widget.shopListItem.checked)
@@ -189,7 +198,7 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                             _strikethroughAnimation.value * textPainter.width,
                         decoration: BoxDecoration(
                           color:
-                              baseTextStyle.color ??
+                              textStyle.color ??
                               Theme.of(context).textTheme.bodyLarge?.color,
                           borderRadius: BorderRadius.circular(1),
                         ),
@@ -209,7 +218,7 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                             (1.0 - _strikethroughAnimation.value),
                         decoration: BoxDecoration(
                           color:
-                              baseTextStyle.color ??
+                              textStyle.color ??
                               Theme.of(context).textTheme.bodyLarge?.color,
                           borderRadius: BorderRadius.circular(1),
                         ),
@@ -324,13 +333,19 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
+                        color: widget.shopListItem.checked
+                            ? Colors.grey.shade300
+                            : Colors.grey.shade400,
                         borderRadius: BorderRadius.circular(6),
                       ),
                       child: Text(
                         widget.shopListItem.quantity.toString(),
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w500,
+                          color: widget.shopListItem.checked
+                              ? Theme.of(context).colorScheme.onSurfaceVariant
+                                    .withValues(alpha: 0.8)
+                              : null,
                         ),
                       ),
                     ),
@@ -341,6 +356,10 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                           .toStringWithLocale(),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.w600,
+                        color: widget.shopListItem.checked
+                            ? Theme.of(context).colorScheme.onSurfaceVariant
+                                  .withValues(alpha: 0.7)
+                            : null,
                       ),
                     ),
                   ],
