@@ -24,8 +24,9 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _strikethroughAnimation;
-  late Animation<Color?> _colorAnimation;
-  late Animation<Color?> _reverseColorAnimation;
+  late Animation<double> _backgroundAnimation;
+  late Animation<double> _checkboxFillAnimation;
+  late Animation<double> _checkIconAnimation;
 
   @override
   void initState() {
@@ -39,27 +40,20 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 
-    _colorAnimation =
-        ColorTween(
-          begin: Colors.transparent,
-          end: Colors.green.withValues(alpha: 0.2),
-        ).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Curves.easeInOut,
-          ),
-        );
+    _backgroundAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
 
-    _reverseColorAnimation =
-        ColorTween(
-          begin: Colors.transparent,
-          end: Colors.blue.withValues(alpha: 0.2),
-        ).animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Curves.easeInOut,
-          ),
-        );
+    _checkboxFillAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+    );
+
+    _checkIconAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: const Interval(0.3, 1.0, curve: Curves.elasticOut),
+      ),
+    );
   }
 
   @override
@@ -94,6 +88,67 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
           .read(shopListItemMutationProvider.notifier)
           .setChecked(widget.shopListItem.id ?? 0, value);
     }
+  }
+
+  Widget _buildAnimatedCheckbox(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) {
+        // Determine animation direction based on current state
+        double fillProgress, iconProgress;
+        if (!widget.shopListItem.checked) {
+          // Item being checked (To Buy -> In Cart)
+          fillProgress = _checkboxFillAnimation.value;
+          iconProgress = _checkIconAnimation.value;
+        } else {
+          // Item being unchecked (In Cart -> To Buy)
+          fillProgress = 1.0 - _checkboxFillAnimation.value;
+          iconProgress = 1.0 - _checkIconAnimation.value;
+        }
+
+        return GestureDetector(
+          onTap: () => _onCheckboxChanged(!widget.shopListItem.checked),
+          child: Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.transparent, // Invisible but tappable
+            ),
+            child: Center(
+              child: Container(
+                width: 24,
+                height: 24,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: fillProgress > 0.1
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.outline,
+                    width: 2,
+                  ),
+                  color: Color.lerp(
+                    Colors.transparent,
+                    Theme.of(context).colorScheme.primary,
+                    fillProgress,
+                  ),
+                ),
+                child: iconProgress > 0.1
+                    ? Transform.scale(
+                        scale: iconProgress,
+                        child: Icon(
+                          Icons.check,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                          size: 16,
+                        ),
+                      )
+                    : null,
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 
   Widget _buildAnimatedTitle(BuildContext context) {
@@ -170,15 +225,15 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {
-        // Determine which color animation to use based on current state
-        Color? backgroundColor;
-        if (!widget.shopListItem.checked) {
-          // Item is in "To Buy" section, use green when checking
-          backgroundColor = _colorAnimation.value;
-        } else {
-          // Item is in "In Cart" section, use blue when unchecking
-          backgroundColor = _reverseColorAnimation.value;
-        }
+        // Use primary color for both check and uncheck animations
+        final primaryColor = Theme.of(
+          context,
+        ).colorScheme.primary.withValues(alpha: 0.15);
+        final backgroundColor = Color.lerp(
+          Colors.transparent,
+          primaryColor,
+          _backgroundAnimation.value,
+        );
 
         return Container(
           decoration: BoxDecoration(
@@ -251,32 +306,7 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                 horizontal: 20.0,
                 vertical: 16.0,
               ),
-              leading: GestureDetector(
-                onTap: () => _onCheckboxChanged(!widget.shopListItem.checked),
-                child: Container(
-                  width: 24,
-                  height: 24,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: widget.shopListItem.checked
-                          ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.outline,
-                      width: 2,
-                    ),
-                    color: widget.shopListItem.checked
-                        ? Theme.of(context).colorScheme.primary
-                        : Colors.transparent,
-                  ),
-                  child: widget.shopListItem.checked
-                      ? Icon(
-                          Icons.check,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          size: 16,
-                        )
-                      : null,
-                ),
-              ),
+              leading: _buildAnimatedCheckbox(context),
               title: _buildAnimatedTitle(context),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
