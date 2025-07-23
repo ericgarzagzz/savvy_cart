@@ -106,7 +106,6 @@ class _ShopListProgressBarState extends ConsumerState<ShopListProgressBar>
               return const SizedBox.shrink();
             }
 
-            final remainingCount = toBuyItems.length;
             final progress = checkedCount / totalCount;
 
             // Update animation when progress changes
