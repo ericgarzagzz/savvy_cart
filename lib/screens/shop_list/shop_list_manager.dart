@@ -197,6 +197,9 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                     ),
                   ],
                 ),
+                SliverToBoxAdapter(
+                  child: ShopListProgressBar(shopListId: widget.shopListId),
+                ),
                 SliverPadding(
                   padding: EdgeInsets.all(16),
                   sliver: SliverToBoxAdapter(
