@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 import 'dart:math' as math;
 
@@ -67,6 +68,10 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
   void _triggerConfetti() {
     if (!_hasShownConfetti) {
       _hasShownConfetti = true;
+
+      // Add celebration vibration pattern
+      VibrationService().celebrationVibration();
+
       _confettiController.forward().then((_) {
         _confettiController.reset();
       });
