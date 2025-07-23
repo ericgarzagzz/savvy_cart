@@ -5,11 +5,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/utils/utils.dart';
-import 'package:sqflite/sqflite.dart';
 
 class AutoBackupService {
   static const String currentFormatVersion = '1.0';
@@ -258,23 +257,31 @@ class AutoBackupService {
   }
 
   Future<ExportData> _collectExportData(ExportOptions options) async {
-    final db = await DatabaseHelper.instance.database;
-    final dbVersion = await db.getVersion();
+    final dataManager = DataManager.instance;
+    final dbVersion = await dataManager.getDatabaseVersion();
 
     // Collect raw table data
     final rawTables = <String, List<Map<String, dynamic>>>{};
 
     if (options.includeShopLists) {
-      rawTables['shop_lists'] = await db.query('shop_lists');
-      rawTables['shop_list_items'] = await db.query('shop_list_items');
+      rawTables['shop_lists'] = await dataManager.exportRawTableData(
+        'shop_lists',
+      );
+      rawTables['shop_list_items'] = await dataManager.exportRawTableData(
+        'shop_list_items',
+      );
     }
 
     if (options.includeSuggestions) {
-      rawTables['suggestions'] = await db.query('suggestions');
+      rawTables['suggestions'] = await dataManager.exportRawTableData(
+        'suggestions',
+      );
     }
 
     if (options.includeChatHistory) {
-      rawTables['chat_messages'] = await db.query('chat_messages');
+      rawTables['chat_messages'] = await dataManager.exportRawTableData(
+        'chat_messages',
+      );
     }
 
     // Parse into models
@@ -384,43 +391,15 @@ class AutoBackupService {
   }
 
   Future<void> _clearExistingData() async {
-    final db = await DatabaseHelper.instance.database;
-
-    await db.delete('chat_messages');
-    await db.delete('shop_list_items');
-    await db.delete('shop_lists');
-    await db.delete('suggestions');
+    final dataManager = DataManager.instance;
+    await dataManager.clearAllData();
   }
 
   Future<void> _importDatabaseData(
     Map<String, List<Map<String, dynamic>>> data,
   ) async {
-    final db = await DatabaseHelper.instance.database;
-
-    // Import in dependency order
-    if (data.containsKey('shop_lists')) {
-      for (var item in data['shop_lists']!) {
-        await db.insert('shop_lists', item);
-      }
-    }
-
-    if (data.containsKey('shop_list_items')) {
-      for (var item in data['shop_list_items']!) {
-        await db.insert('shop_list_items', item);
-      }
-    }
-
-    if (data.containsKey('suggestions')) {
-      for (var item in data['suggestions']!) {
-        await db.insert('suggestions', item);
-      }
-    }
-
-    if (data.containsKey('chat_messages')) {
-      for (var item in data['chat_messages']!) {
-        await db.insert('chat_messages', item);
-      }
-    }
+    final dataManager = DataManager.instance;
+    await dataManager.importRawTableData(data);
   }
 
   Future<void> _importSettings(AiSettings settings) async {

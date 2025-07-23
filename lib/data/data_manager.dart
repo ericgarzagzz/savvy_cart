@@ -32,6 +32,57 @@ class DataManager {
       return await action(context);
     });
   }
+
+  Future<int> getDatabaseVersion() async {
+    final db = await DatabaseManager.instance.database;
+    return await db.getVersion();
+  }
+
+  Future<List<Map<String, dynamic>>> exportRawTableData(
+    String tableName,
+  ) async {
+    final db = await DatabaseManager.instance.database;
+    return await db.query(tableName);
+  }
+
+  Future<void> clearAllData() async {
+    final db = await DatabaseManager.instance.database;
+    await db.delete('chat_messages');
+    await db.delete('shop_list_items');
+    await db.delete('shop_lists');
+    await db.delete('suggestions');
+  }
+
+  Future<void> importRawTableData(
+    Map<String, List<Map<String, dynamic>>> data,
+  ) async {
+    final db = await DatabaseManager.instance.database;
+
+    // Import in dependency order
+    if (data.containsKey('shop_lists')) {
+      for (var item in data['shop_lists']!) {
+        await db.insert('shop_lists', item);
+      }
+    }
+
+    if (data.containsKey('shop_list_items')) {
+      for (var item in data['shop_list_items']!) {
+        await db.insert('shop_list_items', item);
+      }
+    }
+
+    if (data.containsKey('suggestions')) {
+      for (var item in data['suggestions']!) {
+        await db.insert('suggestions', item);
+      }
+    }
+
+    if (data.containsKey('chat_messages')) {
+      for (var item in data['chat_messages']!) {
+        await db.insert('chat_messages', item);
+      }
+    }
+  }
 }
 
 class TransactionContext {

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:savvy_cart/database_helper.dart';
+import 'package:savvy_cart/data/data_manager.dart';
 import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/models/models.dart';
@@ -226,10 +226,12 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
     GeminiResponse geminiResponse,
     int shopListId,
   ) async {
+    final dataManager = DataManager.instance;
+
     for (final action in geminiResponse.actions) {
       switch (action.operation) {
         case GeminiOperation.add:
-          await DatabaseHelper.instance.addShopListItem(
+          await dataManager.shopListItems.add(
             ShopListItem(
               shopListId: shopListId,
               name: action.item,
@@ -240,16 +242,16 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           break;
         case GeminiOperation.remove:
           if (action.id != null) {
-            await DatabaseHelper.instance.removeShopListItem(action.id!);
+            await dataManager.shopListItems.remove(action.id!);
           } else {
-            await DatabaseHelper.instance.removeShopListItemByName(
+            await dataManager.shopListItems.removeByName(
               shopListId,
               action.item,
             );
           }
           break;
         case GeminiOperation.update:
-          await DatabaseHelper.instance.updateShopListItemByName(
+          await dataManager.shopListItems.updateByName(
             shopListId,
             action.item,
             quantity: action.quantity != null
@@ -262,12 +264,9 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           break;
         case GeminiOperation.check:
           if (action.id != null) {
-            await DatabaseHelper.instance.setShopListItemChecked(
-              action.id!,
-              true,
-            );
+            await dataManager.shopListItems.setChecked(action.id!, true);
           } else {
-            await DatabaseHelper.instance.setShopListItemCheckedByName(
+            await dataManager.shopListItems.setCheckedByName(
               shopListId,
               action.item,
               true,
@@ -276,12 +275,9 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           break;
         case GeminiOperation.uncheck:
           if (action.id != null) {
-            await DatabaseHelper.instance.setShopListItemChecked(
-              action.id!,
-              false,
-            );
+            await dataManager.shopListItems.setChecked(action.id!, false);
           } else {
-            await DatabaseHelper.instance.setShopListItemCheckedByName(
+            await dataManager.shopListItems.setCheckedByName(
               shopListId,
               action.item,
               false,
