@@ -28,18 +28,41 @@ class ShopListSectionHeader extends ConsumerWidget {
       loading: () => SizedBox.shrink(),
       error: (_, __) => SizedBox.shrink(),
       data: (items) {
+        // Determine colors based on section meaning
+        final Color backgroundColor;
+        final Color iconColor;
+
+        if (checkedItems) {
+          // "In Cart" - completed items (green theme)
+          backgroundColor = Colors.green.shade50;
+          iconColor = Colors.green.shade600;
+        } else {
+          // "To Buy" - incomplete items (orange theme)
+          backgroundColor = Colors.orange.shade50;
+          iconColor = Colors.orange.shade600;
+        }
+
         return Row(
           children: [
-            Icon(
-              icon,
-              size: 20,
-              color: items.isEmpty
-                  ? Theme.of(
-                      context,
-                    ).colorScheme.onSurfaceVariant.withValues(alpha: 0.6)
-                  : Theme.of(context).colorScheme.onSurface,
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: items.isEmpty
+                    ? Theme.of(context).colorScheme.surfaceContainerHighest
+                    : backgroundColor,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Icon(
+                icon,
+                size: 18,
+                color: items.isEmpty
+                    ? Theme.of(
+                        context,
+                      ).colorScheme.onSurfaceVariant.withValues(alpha: 0.6)
+                    : iconColor,
+              ),
             ),
-            SizedBox(width: 8),
+            SizedBox(width: 12),
             Expanded(
               child: Text(
                 '$title (${items.length})',
