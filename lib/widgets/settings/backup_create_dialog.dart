@@ -162,17 +162,52 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
     );
   }
 
+  Widget _buildCircularCheckbox(BuildContext context, bool value) {
+    return Container(
+      width: 24,
+      height: 24,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: value
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.outline,
+          width: 2,
+        ),
+        color: value
+            ? Theme.of(context).colorScheme.primary
+            : Colors.transparent,
+      ),
+      child: value
+          ? Icon(
+              Icons.check,
+              color: Theme.of(context).colorScheme.onPrimary,
+              size: 16,
+            )
+          : null,
+    );
+  }
+
   Widget _buildOptionCheckbox(
     String title,
     bool value,
     ValueChanged<bool?> onChanged,
   ) {
-    return CheckboxListTile(
-      title: Text(title),
-      value: value,
-      onChanged: onChanged,
-      dense: true,
-      contentPadding: EdgeInsets.zero,
+    return InkWell(
+      onTap: () => onChanged(!value),
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(title, style: Theme.of(context).textTheme.bodyMedium),
+            ),
+            const SizedBox(width: 16),
+            _buildCircularCheckbox(context, value),
+          ],
+        ),
+      ),
     );
   }
 
