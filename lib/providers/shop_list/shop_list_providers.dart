@@ -53,6 +53,17 @@ final shopListItemStatsProvider =
       return await dataManager.shopListItems.calculateItemStats(shopListId);
     });
 
+final shopListItemCountProvider = FutureProvider.family<int, int>((
+  ref,
+  shopListId,
+) async {
+  final dataManager = DataManager.instance;
+  final (_, totalCount) = await dataManager.shopListItems.calculateItemCounts(
+    shopListId,
+  );
+  return totalCount;
+});
+
 class PaginatedShopListsState {
   final List<ShopListViewModel> items;
   final bool hasMore;

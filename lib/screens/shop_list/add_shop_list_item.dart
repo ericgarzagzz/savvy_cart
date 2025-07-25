@@ -221,6 +221,9 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     final searchResultsAsync = ref.watch(
       searchResultsProvider((widget.shopListId, _searchQuery)),
     );
+    final itemCountAsync = ref.watch(
+      shopListItemCountProvider(widget.shopListId),
+    );
 
     return getShopListByIdAsync.when(
       loading: () => Container(
@@ -233,7 +236,52 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              title: Text("Add item to ${shopList.name}"),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "Add Item",
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  Text(
+                    shopList.name,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                itemCountAsync.when(
+                  loading: () => const SizedBox.shrink(),
+                  error: (_, __) => const SizedBox.shrink(),
+                  data: (itemCount) => Container(
+                    margin: const EdgeInsets.only(right: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.outline.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      "$itemCount selected",
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
               pinned: true,
               expandedHeight: 150,
               flexibleSpace: FlexibleSpaceBar(

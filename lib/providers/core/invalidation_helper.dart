@@ -20,6 +20,7 @@ class ShopListInvalidationHelper {
     ref.invalidate(shopListItemsProvider);
     ref.invalidate(getShopListItemByIdProvider);
     ref.invalidate(shopListItemStatsProvider);
+    ref.invalidate(shopListItemCountProvider);
     ref.invalidate(frequentlyBoughtItemsProvider);
     ref.invalidate(searchResultsProvider);
 
