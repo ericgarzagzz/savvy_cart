@@ -1,0 +1,878 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'l10n/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[Locale('en')];
+
+  /// The title of the application
+  ///
+  /// In en, this message translates to:
+  /// **'SavvyCart'**
+  String get appTitle;
+
+  /// Subtitle shown under the main app title
+  ///
+  /// In en, this message translates to:
+  /// **'Smart Shopping Lists'**
+  String get appSubtitle;
+
+  /// Title for the settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'SavvyCart settings'**
+  String get settingsTitle;
+
+  /// Title for chat screen with shopping list
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with {listName}'**
+  String chatWithList(String listName);
+
+  /// Title for price search screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search Item Price'**
+  String get searchItemPrice;
+
+  /// Title for backup management screen
+  ///
+  /// In en, this message translates to:
+  /// **'Backup & Restore'**
+  String get backupAndRestore;
+
+  /// Title for insights screen
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Insights'**
+  String get shoppingInsights;
+
+  /// Title for list search screen
+  ///
+  /// In en, this message translates to:
+  /// **'Search Lists'**
+  String get searchLists;
+
+  /// Title for model selection screen
+  ///
+  /// In en, this message translates to:
+  /// **'Select Gemini™ Model'**
+  String get selectGeminiModel;
+
+  /// Title for AI settings screen
+  ///
+  /// In en, this message translates to:
+  /// **'AI Settings'**
+  String get aiSettings;
+
+  /// Button to add new item to shopping list
+  ///
+  /// In en, this message translates to:
+  /// **'Add Item'**
+  String get addItem;
+
+  /// Button to create new shopping list
+  ///
+  /// In en, this message translates to:
+  /// **'Create Shopping List'**
+  String get createShoppingList;
+
+  /// Button text for creating new list
+  ///
+  /// In en, this message translates to:
+  /// **'Create New List'**
+  String get createNewList;
+
+  /// Button to load more items
+  ///
+  /// In en, this message translates to:
+  /// **'Load More'**
+  String get loadMore;
+
+  /// Button to execute AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Execute Selected Actions'**
+  String get executeSelectedActions;
+
+  /// Button to clear all selections
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All'**
+  String get clearAll;
+
+  /// Button to apply changes
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get apply;
+
+  /// Button to cancel action
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// Button to save changes
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// Button to delete item
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// Button to confirm action
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// Button to close dialog
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// Button to navigate to home
+  ///
+  /// In en, this message translates to:
+  /// **'Go Home'**
+  String get goHome;
+
+  /// Button to navigate to home page
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Home Page'**
+  String get goToHomePage;
+
+  /// Hint text for list name input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter list name'**
+  String get enterListName;
+
+  /// Label for list name field
+  ///
+  /// In en, this message translates to:
+  /// **'List Name'**
+  String get listName;
+
+  /// Label for item name field
+  ///
+  /// In en, this message translates to:
+  /// **'Item Name'**
+  String get itemName;
+
+  /// Hint text for item name input
+  ///
+  /// In en, this message translates to:
+  /// **'Enter item name...'**
+  String get enterItemName;
+
+  /// Hint text for list search
+  ///
+  /// In en, this message translates to:
+  /// **'Search by list name...'**
+  String get searchByListName;
+
+  /// Hint text for chat input
+  ///
+  /// In en, this message translates to:
+  /// **'Type your message...'**
+  String get typeYourMessage;
+
+  /// Label for API key field
+  ///
+  /// In en, this message translates to:
+  /// **'Google™ Gemini™ API Key'**
+  String get geminiApiKey;
+
+  /// Label for model selection
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini™ Model'**
+  String get geminiModel;
+
+  /// Validation message for empty list name
+  ///
+  /// In en, this message translates to:
+  /// **'The list\'s name cannot be empty'**
+  String get listNameCannotBeEmpty;
+
+  /// Settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistant'**
+  String get aiAssistant;
+
+  /// Settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get data;
+
+  /// Settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'Developer'**
+  String get developer;
+
+  /// Settings option to generate sample data
+  ///
+  /// In en, this message translates to:
+  /// **'Generate Mock Data'**
+  String get generateMockData;
+
+  /// Settings option to delete all data
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Database'**
+  String get deleteDatabase;
+
+  /// Settings section title
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get about;
+
+  /// Settings item for app version
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// Status indicating AI is ready
+  ///
+  /// In en, this message translates to:
+  /// **'Ready'**
+  String get ready;
+
+  /// Status indicating API key not verified
+  ///
+  /// In en, this message translates to:
+  /// **'Not verified'**
+  String get notVerified;
+
+  /// Status indicating API not configured
+  ///
+  /// In en, this message translates to:
+  /// **'Not configured'**
+  String get notConfigured;
+
+  /// Settings option description
+  ///
+  /// In en, this message translates to:
+  /// **'Manage backups'**
+  String get manageBackups;
+
+  /// Settings option description
+  ///
+  /// In en, this message translates to:
+  /// **'Add sample shopping lists'**
+  String get addSampleShoppingLists;
+
+  /// Settings option description
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all data'**
+  String get clearAllData;
+
+  /// Loading indicator text
+  ///
+  /// In en, this message translates to:
+  /// **'Loading...'**
+  String get loading;
+
+  /// Label for recommended option
+  ///
+  /// In en, this message translates to:
+  /// **'Recommended'**
+  String get recommended;
+
+  /// Dialog title for deleting shopping list
+  ///
+  /// In en, this message translates to:
+  /// **'Delete shop list'**
+  String get deleteShopList;
+
+  /// Dialog title for editing item name
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Item Name'**
+  String get editItemName;
+
+  /// Dialog title for deleting item
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Item'**
+  String get deleteItem;
+
+  /// Dialog title for deleting backup
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Backup'**
+  String get deleteBackup;
+
+  /// Dialog title for creating backup
+  ///
+  /// In en, this message translates to:
+  /// **'Create Manual Snapshot'**
+  String get createManualSnapshot;
+
+  /// Generic error title
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// Section header for items to buy
+  ///
+  /// In en, this message translates to:
+  /// **'To Buy'**
+  String get toBuy;
+
+  /// Section header for items in cart
+  ///
+  /// In en, this message translates to:
+  /// **'In Cart'**
+  String get inCart;
+
+  /// Statistics label for number of lists
+  ///
+  /// In en, this message translates to:
+  /// **'Lists Created'**
+  String get listsCreated;
+
+  /// Statistics label for total spending
+  ///
+  /// In en, this message translates to:
+  /// **'Total Spent'**
+  String get totalSpent;
+
+  /// Filter section title
+  ///
+  /// In en, this message translates to:
+  /// **'Filter by Date Range'**
+  String get filterByDateRange;
+
+  /// Date picker label
+  ///
+  /// In en, this message translates to:
+  /// **'Start Date'**
+  String get startDate;
+
+  /// Date picker label
+  ///
+  /// In en, this message translates to:
+  /// **'End Date'**
+  String get endDate;
+
+  /// Filter section for token limits
+  ///
+  /// In en, this message translates to:
+  /// **'Token Limits'**
+  String get tokenLimits;
+
+  /// Filter option for all items
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// Affirmative response
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// Negative response
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// Search results counter
+  ///
+  /// In en, this message translates to:
+  /// **'Search Results ({count})'**
+  String searchResultsCount(int count);
+
+  /// Empty state title for insights
+  ///
+  /// In en, this message translates to:
+  /// **'No Shopping Data Yet'**
+  String get noShoppingDataYet;
+
+  /// Description for insights empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first shopping list to start tracking insights about your shopping patterns and spending habits.'**
+  String get createFirstListDescription;
+
+  /// Empty state for search results
+  ///
+  /// In en, this message translates to:
+  /// **'No items found'**
+  String get noItemsFound;
+
+  /// Help text for empty search results
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term or add \"{searchQuery}\" as a new item'**
+  String tryDifferentSearchTerm(String searchQuery);
+
+  /// Empty state for price chart
+  ///
+  /// In en, this message translates to:
+  /// **'No price history available'**
+  String get noPriceHistoryAvailable;
+
+  /// Instructions for price tracking
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase this item to start tracking its price trends'**
+  String get purchaseItemToTrackPrice;
+
+  /// Empty state for list search
+  ///
+  /// In en, this message translates to:
+  /// **'No lists found'**
+  String get noListsFound;
+
+  /// Help text for empty search results
+  ///
+  /// In en, this message translates to:
+  /// **'Try adjusting your search terms or date filters'**
+  String get tryAdjustingFilters;
+
+  /// Loading text for model selection
+  ///
+  /// In en, this message translates to:
+  /// **'Loading available models...'**
+  String get loadingAvailableModels;
+
+  /// Error message for item removal failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to remove item: {error}'**
+  String failedToRemoveItem(String error);
+
+  /// Error message for loading list items
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load shop list\'s items due to an error.'**
+  String get couldNotLoadShopListItems;
+
+  /// Error message for search failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading search results'**
+  String get errorLoadingSearchResults;
+
+  /// Generic retry message
+  ///
+  /// In en, this message translates to:
+  /// **'Please try again later'**
+  String get pleaseTryAgainLater;
+
+  /// Error message for suggestion loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading suggestions'**
+  String get errorLoadingSuggestions;
+
+  /// Error message for backup loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load backup information: {error}'**
+  String failedToLoadBackupInfo(String error);
+
+  /// Error message for invalid routes
+  ///
+  /// In en, this message translates to:
+  /// **'Page not found: {uri}'**
+  String pageNotFound(String uri);
+
+  /// Error message for invalid list ID
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid shop list ID'**
+  String get invalidShopListId;
+
+  /// Error message for invalid item name
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid item name'**
+  String get invalidItemName;
+
+  /// API error for bad request
+  ///
+  /// In en, this message translates to:
+  /// **'Bad request: {responseBody}'**
+  String badRequest(String responseBody);
+
+  /// API error for authentication failure
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid API key or authentication failed'**
+  String get invalidApiKeyOrAuth;
+
+  /// API error for forbidden access
+  ///
+  /// In en, this message translates to:
+  /// **'Access forbidden - check API permissions'**
+  String get accessForbidden;
+
+  /// API error for rate limiting
+  ///
+  /// In en, this message translates to:
+  /// **'API rate limit exceeded. Please try again later.'**
+  String get apiRateLimitExceeded;
+
+  /// API error for server issues
+  ///
+  /// In en, this message translates to:
+  /// **'Internal server error'**
+  String get internalServerError;
+
+  /// API error for gateway issues
+  ///
+  /// In en, this message translates to:
+  /// **'Bad gateway - service temporarily unavailable'**
+  String get badGateway;
+
+  /// API error for service unavailability
+  ///
+  /// In en, this message translates to:
+  /// **'Service unavailable'**
+  String get serviceUnavailable;
+
+  /// API error for timeout
+  ///
+  /// In en, this message translates to:
+  /// **'Gateway timeout'**
+  String get gatewayTimeout;
+
+  /// Network error message
+  ///
+  /// In en, this message translates to:
+  /// **'No internet connection available'**
+  String get noInternetConnection;
+
+  /// Timeout error message
+  ///
+  /// In en, this message translates to:
+  /// **'Request timed out'**
+  String get requestTimedOut;
+
+  /// API response format error
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid response format from API'**
+  String get invalidResponseFormat;
+
+  /// Progress message for mock data generation
+  ///
+  /// In en, this message translates to:
+  /// **'Generating mock data...'**
+  String get generatingMockData;
+
+  /// Success message for mock data generation
+  ///
+  /// In en, this message translates to:
+  /// **'Mock data generated successfully!'**
+  String get mockDataGeneratedSuccessfully;
+
+  /// Error message for mock data generation failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error generating mock data: {error}'**
+  String errorGeneratingMockData(String error);
+
+  /// Success message for database deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Database deleted successfully'**
+  String get databaseDeletedSuccessfully;
+
+  /// Error message for database deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting database: {error}'**
+  String errorDeletingDatabase(String error);
+
+  /// Success message for backup deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Backup deleted successfully'**
+  String get backupDeletedSuccessfully;
+
+  /// Error message for backup deletion failure
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete backup: {error}'**
+  String failedToDeleteBackup(String error);
+
+  /// Validation message for API key
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid API key first'**
+  String get pleaseEnterValidApiKey;
+
+  /// Processing indicator text
+  ///
+  /// In en, this message translates to:
+  /// **'Processing...'**
+  String get processing;
+
+  /// Encouraging text for new users
+  ///
+  /// In en, this message translates to:
+  /// **'Start your shopping journey'**
+  String get startYourShoppingJourney;
+
+  /// Instructions for price search
+  ///
+  /// In en, this message translates to:
+  /// **'Search for an item to view its price history'**
+  String get searchForItemViewHistory;
+
+  /// Alternative option text
+  ///
+  /// In en, this message translates to:
+  /// **'Or choose from your previous items:'**
+  String get orChooseFromPreviousItems;
+
+  /// Search results section header
+  ///
+  /// In en, this message translates to:
+  /// **'Search Results:'**
+  String get searchResults;
+
+  /// Instructions for empty state
+  ///
+  /// In en, this message translates to:
+  /// **'Add items to your shopping lists to see them here'**
+  String get addItemsToSeeHere;
+
+  /// Help text with create option
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term or create a chart for \"{searchQuery}\"'**
+  String tryDifferentSearchOrCreate(String searchQuery);
+
+  /// Confirmation message for backup deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete this backup?'**
+  String get areYouSureDeleteBackup;
+
+  /// Description for mock data generation
+  ///
+  /// In en, this message translates to:
+  /// **'This will create sample shopping lists with items across the year for analytics testing. This may take a few moments.'**
+  String get mockDataGenerationDescription;
+
+  /// Warning message for database deletion
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.'**
+  String get databaseDeletionWarning;
+
+  /// Backup option description
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Lists (always included)'**
+  String get shoppingListsAlwaysIncluded;
+
+  /// Backup options description
+  ///
+  /// In en, this message translates to:
+  /// **'Choose additional data to include:'**
+  String get chooseAdditionalData;
+
+  /// Settings backup option
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// Chat history backup option
+  ///
+  /// In en, this message translates to:
+  /// **'Chat History'**
+  String get chatHistory;
+
+  /// Suggestions backup option
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions'**
+  String get suggestions;
+
+  /// Button to add search term as item
+  ///
+  /// In en, this message translates to:
+  /// **'Add \"{searchQuery}\"'**
+  String addSearchQuery(String searchQuery);
+
+  /// Button to view price chart
+  ///
+  /// In en, this message translates to:
+  /// **'View chart for \"{searchQuery}\"'**
+  String viewChartFor(String searchQuery);
+
+  /// AI model name
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini™ 2.0 Flash'**
+  String get gemini2Flash;
+
+  /// AI model name
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini™ 1.5 Flash'**
+  String get gemini15Flash;
+
+  /// AI model name
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini™ 1.5 Pro'**
+  String get gemini15Pro;
+
+  /// AI model name
+  ///
+  /// In en, this message translates to:
+  /// **'Gemini™ Pro'**
+  String get geminiPro;
+
+  /// Help text for model selection
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the AI model to use for processing'**
+  String get chooseAiModelDescription;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) =>
+      <String>['en'].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
+}

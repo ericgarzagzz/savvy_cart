@@ -1,0 +1,706 @@
+{
+  "@@locale": "en",
+  
+  "appTitle": "SavvyCart",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
+  "appSubtitle": "Smart Shopping Lists",
+  "@appSubtitle": {
+    "description": "Subtitle shown under the main app title"
+  },
+
+  "settingsTitle": "SavvyCart settings",
+  "@settingsTitle": {
+    "description": "Title for the settings screen"
+  },
+
+  "chatWithList": "Chat with {listName}",
+  "@chatWithList": {
+    "description": "Title for chat screen with shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+
+  "searchItemPrice": "Search Item Price",
+  "@searchItemPrice": {
+    "description": "Title for price search screen"
+  },
+
+  "backupAndRestore": "Backup & Restore",
+  "@backupAndRestore": {
+    "description": "Title for backup management screen"
+  },
+
+  "shoppingInsights": "Shopping Insights",
+  "@shoppingInsights": {
+    "description": "Title for insights screen"
+  },
+
+  "searchLists": "Search Lists",
+  "@searchLists": {
+    "description": "Title for list search screen"
+  },
+
+  "selectGeminiModel": "Select Gemini™ Model",
+  "@selectGeminiModel": {
+    "description": "Title for model selection screen"
+  },
+
+  "aiSettings": "AI Settings",
+  "@aiSettings": {
+    "description": "Title for AI settings screen"
+  },
+
+  "addItem": "Add Item",
+  "@addItem": {
+    "description": "Button to add new item to shopping list"
+  },
+
+  "createShoppingList": "Create Shopping List",
+  "@createShoppingList": {
+    "description": "Button to create new shopping list"
+  },
+
+  "createNewList": "Create New List",
+  "@createNewList": {
+    "description": "Button text for creating new list"
+  },
+
+  "loadMore": "Load More",
+  "@loadMore": {
+    "description": "Button to load more items"
+  },
+
+  "executeSelectedActions": "Execute Selected Actions",
+  "@executeSelectedActions": {
+    "description": "Button to execute AI actions"
+  },
+
+  "clearAll": "Clear All",
+  "@clearAll": {
+    "description": "Button to clear all selections"
+  },
+
+  "apply": "Apply",
+  "@apply": {
+    "description": "Button to apply changes"
+  },
+
+  "cancel": "Cancel",
+  "@cancel": {
+    "description": "Button to cancel action"
+  },
+
+  "save": "Save",
+  "@save": {
+    "description": "Button to save changes"
+  },
+
+  "delete": "Delete",
+  "@delete": {
+    "description": "Button to delete item"
+  },
+
+  "confirm": "Confirm",
+  "@confirm": {
+    "description": "Button to confirm action"
+  },
+
+  "close": "Close",
+  "@close": {
+    "description": "Button to close dialog"
+  },
+
+  "goHome": "Go Home",
+  "@goHome": {
+    "description": "Button to navigate to home"
+  },
+
+  "goToHomePage": "Go to Home Page",
+  "@goToHomePage": {
+    "description": "Button to navigate to home page"
+  },
+
+  "enterListName": "Enter list name",
+  "@enterListName": {
+    "description": "Hint text for list name input"
+  },
+
+  "listName": "List Name",
+  "@listName": {
+    "description": "Label for list name field"
+  },
+
+  "itemName": "Item Name",
+  "@itemName": {
+    "description": "Label for item name field"
+  },
+
+  "enterItemName": "Enter item name...",
+  "@enterItemName": {
+    "description": "Hint text for item name input"
+  },
+
+  "searchByListName": "Search by list name...",
+  "@searchByListName": {
+    "description": "Hint text for list search"
+  },
+
+  "typeYourMessage": "Type your message...",
+  "@typeYourMessage": {
+    "description": "Hint text for chat input"
+  },
+
+  "geminiApiKey": "Google™ Gemini™ API Key",
+  "@geminiApiKey": {
+    "description": "Label for API key field"
+  },
+
+  "geminiModel": "Gemini™ Model",
+  "@geminiModel": {
+    "description": "Label for model selection"
+  },
+
+  "listNameCannotBeEmpty": "The list's name cannot be empty",
+  "@listNameCannotBeEmpty": {
+    "description": "Validation message for empty list name"
+  },
+
+  "aiAssistant": "AI Assistant",
+  "@aiAssistant": {
+    "description": "Settings section title"
+  },
+
+  "data": "Data",
+  "@data": {
+    "description": "Settings section title"
+  },
+
+  "developer": "Developer",
+  "@developer": {
+    "description": "Settings section title"
+  },
+
+  "generateMockData": "Generate Mock Data",
+  "@generateMockData": {
+    "description": "Settings option to generate sample data"
+  },
+
+  "deleteDatabase": "Delete Database",
+  "@deleteDatabase": {
+    "description": "Settings option to delete all data"
+  },
+
+  "about": "About",
+  "@about": {
+    "description": "Settings section title"
+  },
+
+  "version": "Version",
+  "@version": {
+    "description": "Settings item for app version"
+  },
+
+  "ready": "Ready",
+  "@ready": {
+    "description": "Status indicating AI is ready"
+  },
+
+  "notVerified": "Not verified",
+  "@notVerified": {
+    "description": "Status indicating API key not verified"
+  },
+
+  "notConfigured": "Not configured",
+  "@notConfigured": {
+    "description": "Status indicating API not configured"
+  },
+
+  "manageBackups": "Manage backups",
+  "@manageBackups": {
+    "description": "Settings option description"
+  },
+
+  "addSampleShoppingLists": "Add sample shopping lists",
+  "@addSampleShoppingLists": {
+    "description": "Settings option description"
+  },
+
+  "clearAllData": "Clear all data",
+  "@clearAllData": {
+    "description": "Settings option description"
+  },
+
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Loading indicator text"
+  },
+
+  "recommended": "Recommended",
+  "@recommended": {
+    "description": "Label for recommended option"
+  },
+
+  "deleteShopList": "Delete shop list",
+  "@deleteShopList": {
+    "description": "Dialog title for deleting shopping list"
+  },
+
+  "editItemName": "Edit Item Name",
+  "@editItemName": {
+    "description": "Dialog title for editing item name"
+  },
+
+  "deleteItem": "Delete Item",
+  "@deleteItem": {
+    "description": "Dialog title for deleting item"
+  },
+
+  "deleteBackup": "Delete Backup",
+  "@deleteBackup": {
+    "description": "Dialog title for deleting backup"
+  },
+
+  "createManualSnapshot": "Create Manual Snapshot",
+  "@createManualSnapshot": {
+    "description": "Dialog title for creating backup"
+  },
+
+  "error": "Error",
+  "@error": {
+    "description": "Generic error title"
+  },
+
+  "toBuy": "To Buy",
+  "@toBuy": {
+    "description": "Section header for items to buy"
+  },
+
+  "inCart": "In Cart",
+  "@inCart": {
+    "description": "Section header for items in cart"
+  },
+
+  "listsCreated": "Lists Created",
+  "@listsCreated": {
+    "description": "Statistics label for number of lists"
+  },
+
+  "totalSpent": "Total Spent",
+  "@totalSpent": {
+    "description": "Statistics label for total spending"
+  },
+
+  "filterByDateRange": "Filter by Date Range",
+  "@filterByDateRange": {
+    "description": "Filter section title"
+  },
+
+  "startDate": "Start Date",
+  "@startDate": {
+    "description": "Date picker label"
+  },
+
+  "endDate": "End Date",
+  "@endDate": {
+    "description": "Date picker label"
+  },
+
+  "tokenLimits": "Token Limits",
+  "@tokenLimits": {
+    "description": "Filter section for token limits"
+  },
+
+  "all": "All",
+  "@all": {
+    "description": "Filter option for all items"
+  },
+
+  "yes": "Yes",
+  "@yes": {
+    "description": "Affirmative response"
+  },
+
+  "no": "No",
+  "@no": {
+    "description": "Negative response"
+  },
+
+  "searchResultsCount": "Search Results ({count})",
+  "@searchResultsCount": {
+    "description": "Search results counter",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noShoppingDataYet": "No Shopping Data Yet",
+  "@noShoppingDataYet": {
+    "description": "Empty state title for insights"
+  },
+
+  "createFirstListDescription": "Create your first shopping list to start tracking insights about your shopping patterns and spending habits.",
+  "@createFirstListDescription": {
+    "description": "Description for insights empty state"
+  },
+
+  "noItemsFound": "No items found",
+  "@noItemsFound": {
+    "description": "Empty state for search results"
+  },
+
+  "tryDifferentSearchTerm": "Try a different search term or add \"{searchQuery}\" as a new item",
+  "@tryDifferentSearchTerm": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "milk"
+      }
+    }
+  },
+
+  "noPriceHistoryAvailable": "No price history available",
+  "@noPriceHistoryAvailable": {
+    "description": "Empty state for price chart"
+  },
+
+  "purchaseItemToTrackPrice": "Purchase this item to start tracking its price trends",
+  "@purchaseItemToTrackPrice": {
+    "description": "Instructions for price tracking"
+  },
+
+  "noListsFound": "No lists found",
+  "@noListsFound": {
+    "description": "Empty state for list search"
+  },
+
+  "tryAdjustingFilters": "Try adjusting your search terms or date filters",
+  "@tryAdjustingFilters": {
+    "description": "Help text for empty search results"
+  },
+
+  "loadingAvailableModels": "Loading available models...",
+  "@loadingAvailableModels": {
+    "description": "Loading text for model selection"
+  },
+
+  "failedToRemoveItem": "Failed to remove item: {error}",
+  "@failedToRemoveItem": {
+    "description": "Error message for item removal failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "couldNotLoadShopListItems": "Could not load shop list's items due to an error.",
+  "@couldNotLoadShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "errorLoadingSearchResults": "Error loading search results",
+  "@errorLoadingSearchResults": {
+    "description": "Error message for search failure"
+  },
+
+  "pleaseTryAgainLater": "Please try again later",
+  "@pleaseTryAgainLater": {
+    "description": "Generic retry message"
+  },
+
+  "errorLoadingSuggestions": "Error loading suggestions",
+  "@errorLoadingSuggestions": {
+    "description": "Error message for suggestion loading failure"
+  },
+
+  "failedToLoadBackupInfo": "Failed to load backup information: {error}",
+  "@failedToLoadBackupInfo": {
+    "description": "Error message for backup loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "File not found"
+      }
+    }
+  },
+
+  "pageNotFound": "Page not found: {uri}",
+  "@pageNotFound": {
+    "description": "Error message for invalid routes",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "/invalid-page"
+      }
+    }
+  },
+
+  "invalidShopListId": "Invalid shop list ID",
+  "@invalidShopListId": {
+    "description": "Error message for invalid list ID"
+  },
+
+  "invalidItemName": "Invalid item name",
+  "@invalidItemName": {
+    "description": "Error message for invalid item name"
+  },
+
+  "badRequest": "Bad request: {responseBody}",
+  "@badRequest": {
+    "description": "API error for bad request",
+    "placeholders": {
+      "responseBody": {
+        "type": "String",
+        "example": "Missing parameter"
+      }
+    }
+  },
+
+  "invalidApiKeyOrAuth": "Invalid API key or authentication failed",
+  "@invalidApiKeyOrAuth": {
+    "description": "API error for authentication failure"
+  },
+
+  "accessForbidden": "Access forbidden - check API permissions",
+  "@accessForbidden": {
+    "description": "API error for forbidden access"
+  },
+
+  "apiRateLimitExceeded": "API rate limit exceeded. Please try again later.",
+  "@apiRateLimitExceeded": {
+    "description": "API error for rate limiting"
+  },
+
+  "internalServerError": "Internal server error",
+  "@internalServerError": {
+    "description": "API error for server issues"
+  },
+
+  "badGateway": "Bad gateway - service temporarily unavailable",
+  "@badGateway": {
+    "description": "API error for gateway issues"
+  },
+
+  "serviceUnavailable": "Service unavailable",
+  "@serviceUnavailable": {
+    "description": "API error for service unavailability"
+  },
+
+  "gatewayTimeout": "Gateway timeout",
+  "@gatewayTimeout": {
+    "description": "API error for timeout"
+  },
+
+  "noInternetConnection": "No internet connection available",
+  "@noInternetConnection": {
+    "description": "Network error message"
+  },
+
+  "requestTimedOut": "Request timed out",
+  "@requestTimedOut": {
+    "description": "Timeout error message"
+  },
+
+  "invalidResponseFormat": "Invalid response format from API",
+  "@invalidResponseFormat": {
+    "description": "API response format error"
+  },
+
+  "generatingMockData": "Generating mock data...",
+  "@generatingMockData": {
+    "description": "Progress message for mock data generation"
+  },
+
+  "mockDataGeneratedSuccessfully": "Mock data generated successfully!",
+  "@mockDataGeneratedSuccessfully": {
+    "description": "Success message for mock data generation"
+  },
+
+  "errorGeneratingMockData": "Error generating mock data: {error}",
+  "@errorGeneratingMockData": {
+    "description": "Error message for mock data generation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Database error"
+      }
+    }
+  },
+
+  "databaseDeletedSuccessfully": "Database deleted successfully",
+  "@databaseDeletedSuccessfully": {
+    "description": "Success message for database deletion"
+  },
+
+  "errorDeletingDatabase": "Error deleting database: {error}",
+  "@errorDeletingDatabase": {
+    "description": "Error message for database deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Permission denied"
+      }
+    }
+  },
+
+  "backupDeletedSuccessfully": "Backup deleted successfully",
+  "@backupDeletedSuccessfully": {
+    "description": "Success message for backup deletion"
+  },
+
+  "failedToDeleteBackup": "Failed to delete backup: {error}",
+  "@failedToDeleteBackup": {
+    "description": "Error message for backup deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "File locked"
+      }
+    }
+  },
+
+  "pleaseEnterValidApiKey": "Please enter a valid API key first",
+  "@pleaseEnterValidApiKey": {
+    "description": "Validation message for API key"
+  },
+
+  "processing": "Processing...",
+  "@processing": {
+    "description": "Processing indicator text"
+  },
+
+  "startYourShoppingJourney": "Start your shopping journey",
+  "@startYourShoppingJourney": {
+    "description": "Encouraging text for new users"
+  },
+
+  "searchForItemViewHistory": "Search for an item to view its price history",
+  "@searchForItemViewHistory": {
+    "description": "Instructions for price search"
+  },
+
+  "orChooseFromPreviousItems": "Or choose from your previous items:",
+  "@orChooseFromPreviousItems": {
+    "description": "Alternative option text"
+  },
+
+  "searchResults": "Search Results:",
+  "@searchResults": {
+    "description": "Search results section header"
+  },
+
+  "addItemsToSeeHere": "Add items to your shopping lists to see them here",
+  "@addItemsToSeeHere": {
+    "description": "Instructions for empty state"
+  },
+
+  "tryDifferentSearchOrCreate": "Try a different search term or create a chart for \"{searchQuery}\"",
+  "@tryDifferentSearchOrCreate": {
+    "description": "Help text with create option",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "bananas"
+      }
+    }
+  },
+
+  "areYouSureDeleteBackup": "Are you sure you want to delete this backup?",
+  "@areYouSureDeleteBackup": {
+    "description": "Confirmation message for backup deletion"
+  },
+
+  "mockDataGenerationDescription": "This will create sample shopping lists with items across the year for analytics testing. This may take a few moments.",
+  "@mockDataGenerationDescription": {
+    "description": "Description for mock data generation"
+  },
+
+  "databaseDeletionWarning": "This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.",
+  "@databaseDeletionWarning": {
+    "description": "Warning message for database deletion"
+  },
+
+  "shoppingListsAlwaysIncluded": "Shopping Lists (always included)",
+  "@shoppingListsAlwaysIncluded": {
+    "description": "Backup option description"
+  },
+
+  "chooseAdditionalData": "Choose additional data to include:",
+  "@chooseAdditionalData": {
+    "description": "Backup options description"
+  },
+
+  "settings": "Settings",
+  "@settings": {
+    "description": "Settings backup option"
+  },
+
+  "chatHistory": "Chat History",
+  "@chatHistory": {
+    "description": "Chat history backup option"
+  },
+
+  "suggestions": "Suggestions",
+  "@suggestions": {
+    "description": "Suggestions backup option"
+  },
+
+  "addSearchQuery": "Add \"{searchQuery}\"",
+  "@addSearchQuery": {
+    "description": "Button to add search term as item",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "bread"
+      }
+    }
+  },
+
+  "viewChartFor": "View chart for \"{searchQuery}\"",
+  "@viewChartFor": {
+    "description": "Button to view price chart",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "eggs"
+      }
+    }
+  },
+
+  "gemini2Flash": "Gemini™ 2.0 Flash",
+  "@gemini2Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Flash": "Gemini™ 1.5 Flash",
+  "@gemini15Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Pro": "Gemini™ 1.5 Pro",
+  "@gemini15Pro": {
+    "description": "AI model name"
+  },
+
+  "geminiPro": "Gemini™ Pro",
+  "@geminiPro": {
+    "description": "AI model name"
+  },
+
+  "chooseAiModelDescription": "Choose the AI model to use for processing",
+  "@chooseAiModelDescription": {
+    "description": "Help text for model selection"
+  }
+}
