@@ -43,23 +43,39 @@ class ShopListSummary extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _SummaryStatWidget(
-                  label: "Remaining",
-                  amount: uncheckedAmount,
-                  color: Colors.white,
-                  isSecondary: true,
+                Expanded(
+                  child: _SummaryStatWidget(
+                    label: "Remaining",
+                    amount: uncheckedAmount,
+                    color: Colors.white,
+                    isSecondary: true,
+                  ),
                 ),
-                _SummaryStatWidget(
-                  label: "In Cart",
-                  amount: checkedAmount,
-                  color: Colors.white,
-                  isPrimary: true,
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.white.withValues(alpha: 0.3),
                 ),
-                _SummaryStatWidget(
-                  label: "Total",
-                  amount: totalAmount,
-                  color: Colors.white,
-                  isSecondary: true,
+                Expanded(
+                  child: _SummaryStatWidget(
+                    label: "In Cart",
+                    amount: checkedAmount,
+                    color: Colors.white,
+                    isPrimary: true,
+                  ),
+                ),
+                Container(
+                  width: 1,
+                  height: 40,
+                  color: Colors.white.withValues(alpha: 0.3),
+                ),
+                Expanded(
+                  child: _SummaryStatWidget(
+                    label: "Total",
+                    amount: totalAmount,
+                    color: Colors.white,
+                    isSecondary: true,
+                  ),
                 ),
               ],
             ),
