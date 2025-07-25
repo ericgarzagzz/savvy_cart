@@ -30,12 +30,19 @@ class FrequentlyBoughtSection extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
           child: Row(
             children: [
-              Icon(
-                Icons.trending_up,
-                size: 20,
-                color: Theme.of(context).colorScheme.primary,
+              Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(6),
+                ),
+                child: Icon(
+                  Icons.trending_up,
+                  size: 18,
+                  color: Colors.blue.shade600,
+                ),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 12),
               Text(
                 'Frequently Bought',
                 style: Theme.of(
@@ -67,13 +74,24 @@ class FrequentlyBoughtSection extends ConsumerWidget {
 
                   return Material(
                     color: isInList
-                        ? Theme.of(context).colorScheme.primaryContainer
+                        ? Theme.of(context).colorScheme.primary
                         : Theme.of(context).colorScheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(20),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(20),
                       onTap: () => _handleItemTap(item),
                       child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: isInList
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(
+                                    context,
+                                  ).colorScheme.outline.withValues(alpha: 0.2),
+                            width: 1,
+                          ),
+                        ),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
                           vertical: 8.0,
@@ -85,9 +103,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
                               Icon(
                                 Icons.check,
                                 size: 16,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onPrimaryContainer,
+                                color: Theme.of(context).colorScheme.onPrimary,
                               ),
                               const SizedBox(width: 4),
                             ],
@@ -98,7 +114,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
                                     color: isInList
                                         ? Theme.of(
                                             context,
-                                          ).colorScheme.onPrimaryContainer
+                                          ).colorScheme.onPrimary
                                         : Theme.of(
                                             context,
                                           ).colorScheme.onSurface,
