@@ -33,7 +33,9 @@ class SearchResultsList extends ConsumerWidget {
                 vertical: 8.0,
               ),
               child: Text(
-                hasSearchQuery ? 'Search Results ($resultCount)' : 'All Items',
+                hasSearchQuery
+                    ? 'Search Results ($resultCount)'
+                    : 'All Items ($resultCount)',
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
