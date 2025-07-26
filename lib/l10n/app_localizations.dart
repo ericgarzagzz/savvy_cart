@@ -1705,6 +1705,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{completed} of {total} items completed'**
   String itemsCompleted(int completed, int total);
+
+  /// Button text for continuing shopping on incomplete list
+  ///
+  /// In en, this message translates to:
+  /// **'Continue Shopping'**
+  String get continueShopping;
+
+  /// Button text for viewing completed list
+  ///
+  /// In en, this message translates to:
+  /// **'View List'**
+  String get viewList;
+
+  /// Progress text showing items completed
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} items'**
+  String itemsProgress(int completed, int total);
+
+  /// Label for remaining items section
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get remaining;
+
+  /// Header label for all items section
+  ///
+  /// In en, this message translates to:
+  /// **'All Items'**
+  String get allItems;
+
+  /// Header label for all items section with count
+  ///
+  /// In en, this message translates to:
+  /// **'All Items ({count})'**
+  String allItemsWithCount(int count);
+
+  /// Status message for connected API
+  ///
+  /// In en, this message translates to:
+  /// **'API Connected'**
+  String get apiConnected;
+
+  /// Generic connected status
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get connected;
+
+  /// Connected status with available models count
+  ///
+  /// In en, this message translates to:
+  /// **'Connected ({count} models available)'**
+  String connectedWithModels(int count);
+
+  /// Status message while verifying API key
+  ///
+  /// In en, this message translates to:
+  /// **'Verifying API Key...'**
+  String get verifyingApiKey;
+
+  /// Status message while checking Gemini API connection
+  ///
+  /// In en, this message translates to:
+  /// **'Checking connection to Gemini API...'**
+  String get checkingConnectionGemini;
 }
 
 class _AppLocalizationsDelegate

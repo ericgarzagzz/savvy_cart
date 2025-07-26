@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
 
@@ -46,7 +47,7 @@ class ConnectionStatusCard extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        _getStatusTitle(aiSettingsState),
+                        _getStatusTitle(aiSettingsState, context),
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: _getStatusColor(aiSettingsState),
@@ -54,7 +55,7 @@ class ConnectionStatusCard extends ConsumerWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        _getStatusSubtitle(aiSettingsState),
+                        _getStatusSubtitle(aiSettingsState, context),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(
                             context,
@@ -116,12 +117,12 @@ class ConnectionStatusCard extends ConsumerWidget {
     }
   }
 
-  String _getStatusTitle(AiSettingsState state) {
-    if (state.isVerifying) return 'Verifying API Key...';
+  String _getStatusTitle(AiSettingsState state, BuildContext context) {
+    if (state.isVerifying) return AppLocalizations.of(context).verifyingApiKey;
 
     switch (state.connectionStatus) {
       case ApiConnectionStatus.connected:
-        return 'API Connected';
+        return AppLocalizations.of(context).apiConnected;
       case ApiConnectionStatus.invalidKey:
         return 'Invalid API Key';
       case ApiConnectionStatus.networkError:
@@ -135,11 +136,23 @@ class ConnectionStatusCard extends ConsumerWidget {
     }
   }
 
-  String _getStatusSubtitle(AiSettingsState state) {
-    if (state.isVerifying) return 'Checking connection to Gemini API...';
+  String _getStatusSubtitle(AiSettingsState state, BuildContext context) {
+    if (state.isVerifying) {
+      return AppLocalizations.of(context).checkingConnectionGemini;
+    }
 
     if (state.verificationResult != null) {
-      return state.verificationResult!.statusMessage;
+      final result = state.verificationResult!;
+      if (result.isValid) {
+        final modelCount = result.availableModels?.length ?? 0;
+        if (modelCount > 0) {
+          return AppLocalizations.of(context).connectedWithModels(modelCount);
+        } else {
+          return AppLocalizations.of(context).connected;
+        }
+      } else {
+        return result.error ?? 'Verification failed';
+      }
     }
 
     switch (state.connectionStatus) {

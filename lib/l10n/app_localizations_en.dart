@@ -916,4 +916,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String itemsCompleted(int completed, int total) {
     return '$completed of $total items completed';
   }
+
+  @override
+  String get continueShopping => 'Continue Shopping';
+
+  @override
+  String get viewList => 'View List';
+
+  @override
+  String itemsProgress(int completed, int total) {
+    return '$completed of $total items';
+  }
+
+  @override
+  String get remaining => 'Remaining';
+
+  @override
+  String get allItems => 'All Items';
+
+  @override
+  String allItemsWithCount(int count) {
+    return 'All Items ($count)';
+  }
+
+  @override
+  String get apiConnected => 'API Connected';
+
+  @override
+  String get connected => 'Connected';
+
+  @override
+  String connectedWithModels(int count) {
+    return 'Connected ($count models available)';
+  }
+
+  @override
+  String get verifyingApiKey => 'Verifying API Key...';
+
+  @override
+  String get checkingConnectionGemini => 'Checking connection to Gemini API...';
 }

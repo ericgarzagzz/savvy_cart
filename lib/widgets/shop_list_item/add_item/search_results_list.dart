@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
@@ -34,8 +35,12 @@ class SearchResultsList extends ConsumerWidget {
               ),
               child: Text(
                 hasSearchQuery
-                    ? 'Search Results ($resultCount)'
-                    : 'All Items ($resultCount)',
+                    ? AppLocalizations.of(
+                        context,
+                      ).searchResultsCount(resultCount)
+                    : AppLocalizations.of(
+                        context,
+                      ).allItemsWithCount(resultCount),
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),

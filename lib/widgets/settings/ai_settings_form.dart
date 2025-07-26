@@ -103,7 +103,9 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.memory),
                 suffixIcon: Icon(Icons.arrow_forward_ios, size: 16),
-                helperText: "Choose the AI model to use for processing",
+                helperText: AppLocalizations.of(
+                  context,
+                ).chooseAiModelDescription,
               ),
               child: Row(
                 children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
@@ -17,10 +18,13 @@ class ShopListListTile extends StatelessWidget {
       ? 0
       : shopList.checkedItems / shopList.totalItems;
 
-  String get progressText =>
-      "${shopList.checkedItems} of ${shopList.totalItems} items";
+  String progressText(BuildContext context) => AppLocalizations.of(
+    context,
+  ).itemsProgress(shopList.checkedItems, shopList.totalItems);
 
-  String get buttonText => isCompleted ? "View List" : "Continue Shopping";
+  String buttonText(BuildContext context) => isCompleted
+      ? AppLocalizations.of(context).viewList
+      : AppLocalizations.of(context).continueShopping;
 
   IconData get buttonIcon =>
       isCompleted ? Icons.visibility : Icons.shopping_cart;
@@ -122,7 +126,7 @@ class ShopListListTile extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          progressText,
+                          progressText(context),
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
@@ -157,7 +161,7 @@ class ShopListListTile extends StatelessWidget {
                     onPressed:
                         onTap ?? () => context.go("/manage/${shopList.id}"),
                     icon: Icon(buttonIcon),
-                    label: Text(buttonText),
+                    label: Text(buttonText(context)),
                     style: FilledButton.styleFrom(
                       backgroundColor: isCompleted
                           ? theme.colorScheme.primaryContainer

@@ -1523,5 +1523,82 @@
         "example": "10"
       }
     }
+  },
+
+  "continueShopping": "Continue Shopping",
+  "@continueShopping": {
+    "description": "Button text for continuing shopping on incomplete list"
+  },
+
+  "viewList": "View List",
+  "@viewList": {
+    "description": "Button text for viewing completed list"
+  },
+
+  "itemsProgress": "{completed} of {total} items",
+  "@itemsProgress": {
+    "description": "Progress text showing items completed",
+    "placeholders": {
+      "completed": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "remaining": "Remaining",
+  "@remaining": {
+    "description": "Label for remaining items section"
+  },
+
+  "allItems": "All Items",
+  "@allItems": {
+    "description": "Header label for all items section"
+  },
+
+  "allItemsWithCount": "All Items ({count})",
+  "@allItemsWithCount": {
+    "description": "Header label for all items section with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+
+  "apiConnected": "API Connected",
+  "@apiConnected": {
+    "description": "Status message for connected API"
+  },
+
+  "connected": "Connected",
+  "@connected": {
+    "description": "Generic connected status"
+  },
+
+  "connectedWithModels": "Connected ({count} models available)",
+  "@connectedWithModels": {
+    "description": "Connected status with available models count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "verifyingApiKey": "Verifying API Key...",
+  "@verifyingApiKey": {
+    "description": "Status message while verifying API key"
+  },
+
+  "checkingConnectionGemini": "Checking connection to Gemini API...",
+  "@checkingConnectionGemini": {
+    "description": "Status message while checking Gemini API connection"
   }
 }

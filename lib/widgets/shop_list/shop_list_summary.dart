@@ -50,7 +50,7 @@ class ShopListSummary extends ConsumerWidget {
               children: [
                 Expanded(
                   child: _SummaryStatWidget(
-                    label: "Remaining",
+                    label: AppLocalizations.of(context).remaining,
                     amount: uncheckedAmount,
                     color: Colors.white,
                     isSecondary: true,
@@ -63,7 +63,7 @@ class ShopListSummary extends ConsumerWidget {
                 ),
                 Expanded(
                   child: _SummaryStatWidget(
-                    label: "In Cart",
+                    label: AppLocalizations.of(context).inCart,
                     amount: checkedAmount,
                     color: Colors.white,
                     isPrimary: true,
@@ -76,7 +76,7 @@ class ShopListSummary extends ConsumerWidget {
                 ),
                 Expanded(
                   child: _SummaryStatWidget(
-                    label: "Total",
+                    label: AppLocalizations.of(context).total,
                     amount: totalAmount,
                     color: Colors.white,
                     isSecondary: true,
