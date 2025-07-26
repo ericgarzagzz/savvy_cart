@@ -191,6 +191,10 @@ final router = GoRouter(
               path: 'data-management',
               builder: (context, state) => const BackupManagementScreen(),
             ),
+            GoRoute(
+              path: 'language',
+              builder: (context, state) => const LanguageSelectionScreen(),
+            ),
           ],
         ),
       ],

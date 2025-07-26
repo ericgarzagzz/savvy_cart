@@ -117,6 +117,22 @@ class AppLocalizationsEs extends AppLocalizations {
   String get data => 'Datos';
 
   @override
+  String get localization => 'Localización';
+
+  @override
+  String get language => 'Idioma';
+
+  @override
+  String get selectLanguage => 'Seleccionar Idioma';
+
+  @override
+  String get systemLanguage => 'Idioma del Sistema';
+
+  @override
+  String get autoDetectFromDeviceSettings =>
+      'Detectar automáticamente desde la configuración del dispositivo';
+
+  @override
   String get developer => 'Desarrollador';
 
   @override

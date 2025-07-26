@@ -308,6 +308,36 @@ abstract class AppLocalizations {
   /// **'Data'**
   String get data;
 
+  /// Settings section title for language settings
+  ///
+  /// In en, this message translates to:
+  /// **'Localization'**
+  String get localization;
+
+  /// Language settings option
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// Title for language selection screen
+  ///
+  /// In en, this message translates to:
+  /// **'Select Language'**
+  String get selectLanguage;
+
+  /// Option to use system language
+  ///
+  /// In en, this message translates to:
+  /// **'System Language'**
+  String get systemLanguage;
+
+  /// Description for system language option
+  ///
+  /// In en, this message translates to:
+  /// **'Auto-detect from device settings'**
+  String get autoDetectFromDeviceSettings;
+
   /// Settings section title
   ///
   /// In en, this message translates to:

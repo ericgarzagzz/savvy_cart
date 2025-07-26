@@ -8,5 +8,6 @@ export 'insights/price_chart_screen.dart';
 export 'insights/price_search_screen.dart';
 export 'settings/ai_settings_screen.dart';
 export 'settings/backup_management_screen.dart';
+export 'settings/language_selection_screen.dart';
 export 'settings/model_selection_screen.dart';
 export 'settings/settings.dart';

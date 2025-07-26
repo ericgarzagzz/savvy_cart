@@ -303,7 +303,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               Text(
                 AppLocalizations.of(context).minValue.replaceAll(
                   '{value}',
-                  '${(_tempFilters.minTemperature ?? 0).toStringAsFixed(1)}',
+                  (_tempFilters.minTemperature ?? 0).toStringAsFixed(1),
                 ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
@@ -313,7 +313,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               Text(
                 AppLocalizations.of(context).maxValue.replaceAll(
                   '{value}',
-                  '${(_tempFilters.maxTemperature ?? 2).toStringAsFixed(1)}',
+                  (_tempFilters.maxTemperature ?? 2).toStringAsFixed(1),
                 ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,

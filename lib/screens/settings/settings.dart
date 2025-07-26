@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
 import 'package:savvy_cart/l10n/app_localizations.dart';
+import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class Settings extends ConsumerWidget {
@@ -64,6 +65,27 @@ class Settings extends ConsumerWidget {
                 value: Text(AppLocalizations.of(context).manageBackups),
                 onPressed: (context) =>
                     context.push('/settings/data-management'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: Text(AppLocalizations.of(context).localization),
+            tiles: [
+              SettingsTile.navigation(
+                leading: Icon(Icons.language),
+                title: Text(AppLocalizations.of(context).language),
+                value: Consumer(
+                  builder: (context, ref, child) {
+                    final languageState = ref.watch(languageSettingsProvider);
+                    return Text(
+                      AppLanguage.getLocalizedDisplayName(
+                        AppLocalizations.of(context),
+                        languageState.settings.selectedLanguage,
+                      ),
+                    );
+                  },
+                ),
+                onPressed: (context) => context.push('/settings/language'),
               ),
             ],
           ),
@@ -144,25 +166,29 @@ class Settings extends ConsumerWidget {
                   ),
                 );
                 await ref.read(developerProvider.notifier).generateMockData();
-                messenger.showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      AppLocalizations.of(
-                        context,
-                      ).mockDataGeneratedSuccessfully,
+                if (context.mounted) {
+                  messenger.showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).mockDataGeneratedSuccessfully,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               } catch (e) {
-                messenger.showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      AppLocalizations.of(
-                        context,
-                      ).errorGeneratingMockData(e.toString()),
+                if (context.mounted) {
+                  messenger.showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        ).errorGeneratingMockData(e.toString()),
+                      ),
                     ),
-                  ),
-                );
+                  );
+                }
               }
             },
             child: Text(AppLocalizations.of(context).generate),

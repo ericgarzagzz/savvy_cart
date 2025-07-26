@@ -182,6 +182,31 @@
     "description": "Settings section title"
   },
 
+  "localization": "Localización",
+  "@localization": {
+    "description": "Settings section title for language settings"
+  },
+
+  "language": "Idioma",
+  "@language": {
+    "description": "Language settings option"
+  },
+
+  "selectLanguage": "Seleccionar Idioma",
+  "@selectLanguage": {
+    "description": "Title for language selection screen"
+  },
+
+  "systemLanguage": "Idioma del Sistema",
+  "@systemLanguage": {
+    "description": "Option to use system language"
+  },
+
+  "autoDetectFromDeviceSettings": "Detectar automáticamente desde la configuración del dispositivo",
+  "@autoDetectFromDeviceSettings": {
+    "description": "Description for system language option"
+  },
+
   "developer": "Desarrollador",
   "@developer": {
     "description": "Settings section title"

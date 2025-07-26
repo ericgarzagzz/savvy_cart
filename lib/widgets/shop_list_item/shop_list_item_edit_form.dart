@@ -241,8 +241,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                               return AppLocalizations.of(context).required;
                             }
                             final num? number = num.tryParse(value);
-                            if (number == null)
+                            if (number == null) {
                               return AppLocalizations.of(context).invalidNumber;
+                            }
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -263,8 +264,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                               return AppLocalizations.of(context).required;
                             }
                             final num? number = num.tryParse(value);
-                            if (number == null)
+                            if (number == null) {
                               return AppLocalizations.of(context).invalidNumber;
+                            }
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,

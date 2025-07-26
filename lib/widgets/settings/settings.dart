@@ -3,6 +3,7 @@ export 'backup_create_dialog.dart';
 export 'backup_restore_dialog.dart';
 export 'export_dialog.dart';
 export 'import_dialog.dart';
+export 'language_tile.dart';
 export 'ai_settings/ai_settings_header.dart';
 export 'ai_settings/api_configuration_section.dart';
 export 'ai_settings/connection_status_card.dart';

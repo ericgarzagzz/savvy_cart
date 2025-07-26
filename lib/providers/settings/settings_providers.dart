@@ -127,3 +127,78 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
     }
   }
 }
+
+class LanguageSettingsState {
+  final LanguageSettings settings;
+  final bool isLoading;
+  final String? error;
+
+  LanguageSettingsState({
+    required this.settings,
+    this.isLoading = false,
+    this.error,
+  });
+
+  LanguageSettingsState copyWith({
+    LanguageSettings? settings,
+    bool? isLoading,
+    String? error,
+  }) {
+    return LanguageSettingsState(
+      settings: settings ?? this.settings,
+      isLoading: isLoading ?? this.isLoading,
+      error: error ?? this.error,
+    );
+  }
+}
+
+final languageSettingsProvider =
+    StateNotifierProvider<LanguageSettingsNotifier, LanguageSettingsState>((
+      ref,
+    ) {
+      return LanguageSettingsNotifier();
+    });
+
+class LanguageSettingsNotifier extends StateNotifier<LanguageSettingsState> {
+  LanguageSettingsNotifier()
+    : super(
+        LanguageSettingsState(
+          settings: const LanguageSettings(),
+          isLoading: true,
+        ),
+      ) {
+    _loadSettings();
+  }
+
+  Future<void> _loadSettings() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final languageCode = prefs.getString('app_language') ?? 'system';
+
+      state = state.copyWith(
+        settings: LanguageSettings(
+          selectedLanguage: AppLanguage.fromCode(languageCode),
+        ),
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        error: 'Failed to load language settings: $e',
+      );
+    }
+  }
+
+  Future<void> updateLanguage(AppLanguage language) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('app_language', language.code);
+
+      state = state.copyWith(
+        settings: state.settings.copyWith(selectedLanguage: language),
+      );
+    } catch (e) {
+      state = state.copyWith(error: 'Failed to save language settings: $e');
+    }
+  }
+}
