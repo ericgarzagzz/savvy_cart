@@ -1,0 +1,1527 @@
+{
+  "@@locale": "es",
+  
+  "appTitle": "SavvyCart",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
+  "appSubtitle": "Listas de Compras Inteligentes",
+  "@appSubtitle": {
+    "description": "Subtitle shown under the main app title"
+  },
+
+  "settingsTitle": "Configuración de SavvyCart",
+  "@settingsTitle": {
+    "description": "Title for the settings screen"
+  },
+
+  "chatWithList": "Chatear con {listName}",
+  "@chatWithList": {
+    "description": "Title for chat screen with shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Mandado"
+      }
+    }
+  },
+
+  "searchItemPrice": "Buscar Precio del Artículo",
+  "@searchItemPrice": {
+    "description": "Title for price search screen"
+  },
+
+  "backupAndRestore": "Respaldo y Restauración",
+  "@backupAndRestore": {
+    "description": "Title for backup management screen"
+  },
+
+  "shoppingInsights": "Información de Compras",
+  "@shoppingInsights": {
+    "description": "Title for insights screen"
+  },
+
+  "searchLists": "Buscar Listas",
+  "@searchLists": {
+    "description": "Title for list search screen"
+  },
+
+  "selectGeminiModel": "Seleccionar Modelo Gemini™",
+  "@selectGeminiModel": {
+    "description": "Title for model selection screen"
+  },
+
+  "aiSettings": "Configuración de IA",
+  "@aiSettings": {
+    "description": "Title for AI settings screen"
+  },
+
+  "addItem": "Agregar Artículo",
+  "@addItem": {
+    "description": "Button to add new item to shopping list"
+  },
+
+  "createShoppingList": "Crear Lista de Compras",
+  "@createShoppingList": {
+    "description": "Button to create new shopping list"
+  },
+
+  "createNewList": "Crear Nueva Lista",
+  "@createNewList": {
+    "description": "Button text for creating new list"
+  },
+
+  "loadMore": "Cargar Más",
+  "@loadMore": {
+    "description": "Button to load more items"
+  },
+
+  "executeSelectedActions": "Ejecutar Acciones Seleccionadas",
+  "@executeSelectedActions": {
+    "description": "Button to execute AI actions"
+  },
+
+  "clearAll": "Limpiar Todo",
+  "@clearAll": {
+    "description": "Button to clear all selections"
+  },
+
+  "apply": "Aplicar",
+  "@apply": {
+    "description": "Button to apply changes"
+  },
+
+  "cancel": "Cancelar",
+  "@cancel": {
+    "description": "Button to cancel action"
+  },
+
+  "save": "Guardar",
+  "@save": {
+    "description": "Button to save changes"
+  },
+
+  "delete": "Eliminar",
+  "@delete": {
+    "description": "Button to delete item"
+  },
+
+  "confirm": "Confirmar",
+  "@confirm": {
+    "description": "Button to confirm action"
+  },
+
+  "close": "Cerrar",
+  "@close": {
+    "description": "Button to close dialog"
+  },
+
+  "goHome": "Ir al Inicio",
+  "@goHome": {
+    "description": "Button to navigate to home"
+  },
+
+  "goToHomePage": "Ir a la Página de Inicio",
+  "@goToHomePage": {
+    "description": "Button to navigate to home page"
+  },
+
+  "enterListName": "Ingresa el nombre de la lista",
+  "@enterListName": {
+    "description": "Hint text for list name input"
+  },
+
+  "listName": "Nombre de la Lista",
+  "@listName": {
+    "description": "Label for list name field"
+  },
+
+  "itemName": "Nombre del Artículo",
+  "@itemName": {
+    "description": "Label for item name field"
+  },
+
+  "enterItemName": "Ingresa el nombre del artículo...",
+  "@enterItemName": {
+    "description": "Hint text for item name input"
+  },
+
+  "searchByListName": "Buscar por nombre de lista...",
+  "@searchByListName": {
+    "description": "Hint text for list search"
+  },
+
+  "typeYourMessage": "Escribe tu mensaje...",
+  "@typeYourMessage": {
+    "description": "Hint text for chat input"
+  },
+
+  "geminiApiKey": "Clave API de Google™ Gemini™",
+  "@geminiApiKey": {
+    "description": "Label for API key field"
+  },
+
+  "geminiModel": "Modelo Gemini™",
+  "@geminiModel": {
+    "description": "Label for model selection"
+  },
+
+  "listNameCannotBeEmpty": "El nombre de la lista no puede estar vacío",
+  "@listNameCannotBeEmpty": {
+    "description": "Validation message for empty list name"
+  },
+
+  "aiAssistant": "Asistente de IA",
+  "@aiAssistant": {
+    "description": "Settings section title"
+  },
+
+  "data": "Datos",
+  "@data": {
+    "description": "Settings section title"
+  },
+
+  "developer": "Desarrollador",
+  "@developer": {
+    "description": "Settings section title"
+  },
+
+  "generateMockData": "Generar Datos de Prueba",
+  "@generateMockData": {
+    "description": "Settings option to generate sample data"
+  },
+
+  "deleteDatabase": "Eliminar Base de Datos",
+  "@deleteDatabase": {
+    "description": "Settings option to delete all data"
+  },
+
+  "about": "Acerca de",
+  "@about": {
+    "description": "Settings section title"
+  },
+
+  "version": "Versión",
+  "@version": {
+    "description": "Settings item for app version"
+  },
+
+  "ready": "Listo",
+  "@ready": {
+    "description": "Status indicating AI is ready"
+  },
+
+  "notVerified": "No verificado",
+  "@notVerified": {
+    "description": "Status indicating API key not verified"
+  },
+
+  "notConfigured": "No configurado",
+  "@notConfigured": {
+    "description": "Status indicating API not configured"
+  },
+
+  "manageBackups": "Administrar respaldos",
+  "@manageBackups": {
+    "description": "Settings option description"
+  },
+
+  "addSampleShoppingLists": "Agregar listas de compras de ejemplo",
+  "@addSampleShoppingLists": {
+    "description": "Settings option description"
+  },
+
+  "clearAllData": "Limpiar todos los datos",
+  "@clearAllData": {
+    "description": "Settings option description"
+  },
+
+  "loading": "Cargando...",
+  "@loading": {
+    "description": "Loading indicator text"
+  },
+
+  "recommended": "Recomendado",
+  "@recommended": {
+    "description": "Label for recommended option"
+  },
+
+  "deleteShopList": "Eliminar lista de compras",
+  "@deleteShopList": {
+    "description": "Dialog title for deleting shopping list"
+  },
+
+  "editItemName": "Editar Nombre del Artículo",
+  "@editItemName": {
+    "description": "Dialog title for editing item name"
+  },
+
+  "deleteItem": "Eliminar Artículo",
+  "@deleteItem": {
+    "description": "Dialog title for deleting item"
+  },
+
+  "deleteBackup": "Eliminar Respaldo",
+  "@deleteBackup": {
+    "description": "Dialog title for deleting backup"
+  },
+
+  "createManualSnapshot": "Crear Instantánea Manual",
+  "@createManualSnapshot": {
+    "description": "Dialog title for creating backup"
+  },
+
+  "error": "Error",
+  "@error": {
+    "description": "Generic error title"
+  },
+
+  "toBuy": "Por Comprar",
+  "@toBuy": {
+    "description": "Section header for items to buy"
+  },
+
+  "inCart": "En el Carrito",
+  "@inCart": {
+    "description": "Section header for items in cart"
+  },
+
+  "listsCreated": "Listas Creadas",
+  "@listsCreated": {
+    "description": "Statistics label for number of lists"
+  },
+
+  "totalSpent": "Total Gastado",
+  "@totalSpent": {
+    "description": "Statistics label for total spending"
+  },
+
+  "filterByDateRange": "Filtrar por Rango de Fechas",
+  "@filterByDateRange": {
+    "description": "Filter section title"
+  },
+
+  "startDate": "Fecha de Inicio",
+  "@startDate": {
+    "description": "Date picker label"
+  },
+
+  "endDate": "Fecha Final",
+  "@endDate": {
+    "description": "Date picker label"
+  },
+
+  "tokenLimits": "Límites de Tokens",
+  "@tokenLimits": {
+    "description": "Filter section for token limits"
+  },
+
+  "all": "Todos",
+  "@all": {
+    "description": "Filter option for all items"
+  },
+
+  "yes": "Sí",
+  "@yes": {
+    "description": "Affirmative response"
+  },
+
+  "no": "No",
+  "@no": {
+    "description": "Negative response"
+  },
+
+  "searchResultsCount": "Resultados de Búsqueda ({count})",
+  "@searchResultsCount": {
+    "description": "Search results counter",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noShoppingDataYet": "Aún No Hay Datos de Compras",
+  "@noShoppingDataYet": {
+    "description": "Empty state title for insights"
+  },
+
+  "createFirstListDescription": "Crea tu primera lista de compras para comenzar a rastrear información sobre tus patrones de compra y hábitos de gasto.",
+  "@createFirstListDescription": {
+    "description": "Description for insights empty state"
+  },
+
+  "noItemsFound": "No se encontraron artículos",
+  "@noItemsFound": {
+    "description": "Empty state for search results"
+  },
+
+  "tryDifferentSearchTerm": "Intenta con un término de búsqueda diferente o agrega \"{searchQuery}\" como un nuevo artículo",
+  "@tryDifferentSearchTerm": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "leche"
+      }
+    }
+  },
+
+  "noPriceHistoryAvailable": "No hay historial de precios disponible",
+  "@noPriceHistoryAvailable": {
+    "description": "Empty state for price chart"
+  },
+
+  "purchaseItemToTrackPrice": "Compra este artículo para comenzar a rastrear sus tendencias de precio",
+  "@purchaseItemToTrackPrice": {
+    "description": "Instructions for price tracking"
+  },
+
+  "noListsFound": "No se encontraron listas",
+  "@noListsFound": {
+    "description": "Empty state for list search"
+  },
+
+  "tryAdjustingFilters": "Intenta ajustar tus términos de búsqueda o filtros de fecha",
+  "@tryAdjustingFilters": {
+    "description": "Help text for empty search results"
+  },
+
+  "loadingAvailableModels": "Cargando modelos disponibles...",
+  "@loadingAvailableModels": {
+    "description": "Loading text for model selection"
+  },
+
+  "failedToRemoveItem": "Error al eliminar artículo: {error}",
+  "@failedToRemoveItem": {
+    "description": "Error message for item removal failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Error de red"
+      }
+    }
+  },
+
+  "couldNotLoadShopListItems": "No se pudieron cargar los artículos de la lista de compras debido a un error.",
+  "@couldNotLoadShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "errorLoadingSearchResults": "Error al cargar resultados de búsqueda",
+  "@errorLoadingSearchResults": {
+    "description": "Error message for search failure"
+  },
+
+  "pleaseTryAgainLater": "Por favor intenta de nuevo más tarde",
+  "@pleaseTryAgainLater": {
+    "description": "Generic retry message"
+  },
+
+  "errorLoadingSuggestions": "Error al cargar sugerencias",
+  "@errorLoadingSuggestions": {
+    "description": "Error message for suggestion loading failure"
+  },
+
+  "failedToLoadBackupInfo": "Error al cargar información del respaldo: {error}",
+  "@failedToLoadBackupInfo": {
+    "description": "Error message for backup loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Archivo no encontrado"
+      }
+    }
+  },
+
+  "pageNotFound": "Página no encontrada: {uri}",
+  "@pageNotFound": {
+    "description": "Error message for invalid routes",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "/pagina-invalida"
+      }
+    }
+  },
+
+  "invalidShopListId": "ID de lista de compras inválido",
+  "@invalidShopListId": {
+    "description": "Error message for invalid list ID"
+  },
+
+  "invalidItemName": "Nombre de artículo inválido",
+  "@invalidItemName": {
+    "description": "Error message for invalid item name"
+  },
+
+  "badRequest": "Solicitud incorrecta: {responseBody}",
+  "@badRequest": {
+    "description": "API error for bad request",
+    "placeholders": {
+      "responseBody": {
+        "type": "String",
+        "example": "Parámetro faltante"
+      }
+    }
+  },
+
+  "invalidApiKeyOrAuth": "Clave API inválida o falló la autenticación",
+  "@invalidApiKeyOrAuth": {
+    "description": "API error for authentication failure"
+  },
+
+  "accessForbidden": "Acceso prohibido - verifica los permisos de la API",
+  "@accessForbidden": {
+    "description": "API error for forbidden access"
+  },
+
+  "apiRateLimitExceeded": "Límite de velocidad de la API excedido. Por favor intenta de nuevo más tarde.",
+  "@apiRateLimitExceeded": {
+    "description": "API error for rate limiting"
+  },
+
+  "internalServerError": "Error interno del servidor",
+  "@internalServerError": {
+    "description": "API error for server issues"
+  },
+
+  "badGateway": "Gateway incorrecto - servicio temporalmente no disponible",
+  "@badGateway": {
+    "description": "API error for gateway issues"
+  },
+
+  "serviceUnavailable": "Servicio no disponible",
+  "@serviceUnavailable": {
+    "description": "API error for service unavailability"
+  },
+
+  "gatewayTimeout": "Tiempo de espera del gateway agotado",
+  "@gatewayTimeout": {
+    "description": "API error for timeout"
+  },
+
+  "noInternetConnection": "No hay conexión a internet disponible",
+  "@noInternetConnection": {
+    "description": "Network error message"
+  },
+
+  "requestTimedOut": "Se agotó el tiempo de espera de la solicitud",
+  "@requestTimedOut": {
+    "description": "Timeout error message"
+  },
+
+  "invalidResponseFormat": "Formato de respuesta inválido de la API",
+  "@invalidResponseFormat": {
+    "description": "API response format error"
+  },
+
+  "generatingMockData": "Generando datos de prueba...",
+  "@generatingMockData": {
+    "description": "Progress message for mock data generation"
+  },
+
+  "mockDataGeneratedSuccessfully": "¡Datos de prueba generados exitosamente!",
+  "@mockDataGeneratedSuccessfully": {
+    "description": "Success message for mock data generation"
+  },
+
+  "errorGeneratingMockData": "Error al generar datos de prueba: {error}",
+  "@errorGeneratingMockData": {
+    "description": "Error message for mock data generation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Error de base de datos"
+      }
+    }
+  },
+
+  "databaseDeletedSuccessfully": "Base de datos eliminada exitosamente",
+  "@databaseDeletedSuccessfully": {
+    "description": "Success message for database deletion"
+  },
+
+  "errorDeletingDatabase": "Error al eliminar base de datos: {error}",
+  "@errorDeletingDatabase": {
+    "description": "Error message for database deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Permiso denegado"
+      }
+    }
+  },
+
+  "backupDeletedSuccessfully": "Respaldo eliminado exitosamente",
+  "@backupDeletedSuccessfully": {
+    "description": "Success message for backup deletion"
+  },
+
+  "failedToDeleteBackup": "Error al eliminar respaldo: {error}",
+  "@failedToDeleteBackup": {
+    "description": "Error message for backup deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Archivo bloqueado"
+      }
+    }
+  },
+
+  "pleaseEnterValidApiKey": "Por favor ingresa una clave API válida primero",
+  "@pleaseEnterValidApiKey": {
+    "description": "Validation message for API key"
+  },
+
+  "processing": "Procesando...",
+  "@processing": {
+    "description": "Processing indicator text"
+  },
+
+  "startYourShoppingJourney": "Comienza tu viaje de compras",
+  "@startYourShoppingJourney": {
+    "description": "Encouraging text for new users"
+  },
+
+  "searchForItemViewHistory": "Busca un artículo para ver su historial de precios",
+  "@searchForItemViewHistory": {
+    "description": "Instructions for price search"
+  },
+
+  "orChooseFromPreviousItems": "O elige de tus artículos anteriores:",
+  "@orChooseFromPreviousItems": {
+    "description": "Alternative option text"
+  },
+
+  "searchResults": "Resultados de Búsqueda:",
+  "@searchResults": {
+    "description": "Search results section header"
+  },
+
+  "addItemsToSeeHere": "Agrega artículos a tus listas de compras para verlos aquí",
+  "@addItemsToSeeHere": {
+    "description": "Instructions for empty state"
+  },
+
+  "tryDifferentSearchOrCreate": "Intenta con un término de búsqueda diferente o crea un gráfico para \"{searchQuery}\"",
+  "@tryDifferentSearchOrCreate": {
+    "description": "Help text with create option",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "plátanos"
+      }
+    }
+  },
+
+  "areYouSureDeleteBackup": "¿Estás seguro de que quieres eliminar este respaldo?",
+  "@areYouSureDeleteBackup": {
+    "description": "Confirmation message for backup deletion"
+  },
+
+  "mockDataGenerationDescription": "Esto creará listas de compras de ejemplo con artículos a lo largo del año para pruebas de análisis. Esto puede tomar algunos momentos.",
+  "@mockDataGenerationDescription": {
+    "description": "Description for mock data generation"
+  },
+
+  "databaseDeletionWarning": "Esto eliminará permanentemente todos tus datos incluyendo listas de compras, artículos y configuraciones. Esta acción no se puede deshacer.",
+  "@databaseDeletionWarning": {
+    "description": "Warning message for database deletion"
+  },
+
+  "shoppingListsAlwaysIncluded": "Listas de Compras (siempre incluidas)",
+  "@shoppingListsAlwaysIncluded": {
+    "description": "Backup option description"
+  },
+
+  "chooseAdditionalData": "Elige datos adicionales para incluir:",
+  "@chooseAdditionalData": {
+    "description": "Backup options description"
+  },
+
+  "settings": "Configuración",
+  "@settings": {
+    "description": "Settings backup option"
+  },
+
+  "chatHistory": "Historial de Chat",
+  "@chatHistory": {
+    "description": "Chat history backup option"
+  },
+
+  "suggestions": "Sugerencias",
+  "@suggestions": {
+    "description": "Suggestions backup option"
+  },
+
+  "addSearchQuery": "Agregar \"{searchQuery}\"",
+  "@addSearchQuery": {
+    "description": "Button to add search term as item",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "pan"
+      }
+    }
+  },
+
+  "viewChartFor": "Ver gráfico para \"{searchQuery}\"",
+  "@viewChartFor": {
+    "description": "Button to view price chart",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "huevos"
+      }
+    }
+  },
+
+  "gemini2Flash": "Gemini™ 2.0 Flash",
+  "@gemini2Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Flash": "Gemini™ 1.5 Flash",
+  "@gemini15Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Pro": "Gemini™ 1.5 Pro",
+  "@gemini15Pro": {
+    "description": "AI model name"
+  },
+
+  "geminiPro": "Gemini™ Pro",
+  "@geminiPro": {
+    "description": "AI model name"
+  },
+
+  "chooseAiModelDescription": "Elige el modelo de IA para usar en el procesamiento",
+  "@chooseAiModelDescription": {
+    "description": "Help text for model selection"
+  },
+
+  "actionsDiscarded": "Acciones Descartadas",
+  "@actionsDiscarded": {
+    "description": "Status message for discarded AI actions"
+  },
+
+  "weeklyOverview": "Resumen Semanal",
+  "@weeklyOverview": {
+    "description": "Title for weekly insights overview"
+  },
+
+  "errorLoadingInsights": "Error al cargar información",
+  "@errorLoadingInsights": {
+    "description": "Error message for insights loading failure"
+  },
+
+  "noMatchingItemsFound": "No se encontraron artículos coincidentes",
+  "@noMatchingItemsFound": {
+    "description": "Message when no items match search criteria"
+  },
+
+  "removeItemAndSuggestion": "¿Eliminar Artículo y Sugerencia?",
+  "@removeItemAndSuggestion": {
+    "description": "Dialog title for removing item and suggestion"
+  },
+
+  "removeSuggestion": "¿Eliminar Sugerencia?",
+  "@removeSuggestion": {
+    "description": "Dialog title for removing suggestion only"
+  },
+
+  "removeItemAndSuggestionDesc": "Esto eliminará \"{itemName}\" de tu lista de compras actual y también de tus sugerencias.",
+  "@removeItemAndSuggestionDesc": {
+    "description": "Description for removing item and suggestion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "leche"
+      }
+    }
+  },
+
+  "removeSuggestionDesc": "Esto eliminará \"{itemName}\" de tus sugerencias. No afectará tu lista de compras actual.",
+  "@removeSuggestionDesc": {
+    "description": "Description for removing suggestion only",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "leche"
+      }
+    }
+  },
+
+  "remove": "Eliminar",
+  "@remove": {
+    "description": "Button to remove item"
+  },
+
+  "itemsSelected": "{count} seleccionados",
+  "@itemsSelected": {
+    "description": "Number of items selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "chatWith": "Chatear con {listName}",
+  "@chatWith": {
+    "description": "Chat screen title with list name",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Mandado"
+      }
+    }
+  },
+
+  "reviewAiSuggestions": "Revisar Sugerencias de IA",
+  "@reviewAiSuggestions": {
+    "description": "Title for AI suggestions review"
+  },
+
+  "pleaseSelectAtLeastOneAction": "Por favor selecciona al menos una acción para ejecutar",
+  "@pleaseSelectAtLeastOneAction": {
+    "description": "Validation message for AI actions"
+  },
+
+  "appliedActions": "Acciones Aplicadas",
+  "@appliedActions": {
+    "description": "Title for applied AI actions"
+  },
+
+  "noActionsWereApplied": "No se aplicaron acciones",
+  "@noActionsWereApplied": {
+    "description": "Message when no AI actions were applied"
+  },
+
+  "frequentlyBoughtItems": "Artículos Comprados Frecuentemente",
+  "@frequentlyBoughtItems": {
+    "description": "Title for frequently bought items section"
+  },
+
+  "searchItem": "Buscar artículo",
+  "@searchItem": {
+    "description": "Placeholder text for item search"
+  },
+
+  "noFrequentlyBoughtItems": "No hay artículos comprados frecuentemente",
+  "@noFrequentlyBoughtItems": {
+    "description": "Message when no frequently bought items available"
+  },
+
+  "completeListsToSeeMostBought": "Completa listas de compras para ver tus artículos más comprados",
+  "@completeListsToSeeMostBought": {
+    "description": "Instructions for seeing frequently bought items"
+  },
+
+  "timesPurchased": "Comprado {count} veces",
+  "@timesPurchased": {
+    "description": "Number of times an item was purchased",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "errorLoadingFrequentlyBought": "Error al cargar artículos comprados frecuentemente",
+  "@errorLoadingFrequentlyBought": {
+    "description": "Error message for frequently bought items loading failure"
+  },
+
+  "errorLoadingData": "Error al cargar datos",
+  "@errorLoadingData": {
+    "description": "Generic error message for data loading failure"
+  },
+
+  "discoverShoppingPatterns": "Descubre tus patrones de compra",
+  "@discoverShoppingPatterns": {
+    "description": "Description for shopping insights feature"
+  },
+
+  "errorLoadingPriceHistory": "Error al cargar historial de precios",
+  "@errorLoadingPriceHistory": {
+    "description": "Error message for price history loading failure"
+  },
+
+  "onlyOnePurchaseFound": "Solo se encontró una compra",
+  "@onlyOnePurchaseFound": {
+    "description": "Message when only one purchase exists for price tracking"
+  },
+
+  "lastPurchasedFor": "Última compra por {price}",
+  "@lastPurchasedFor": {
+    "description": "Shows last purchase price",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "$5.99"
+      }
+    }
+  },
+
+  "purchasedOn": "Comprado el {date}",
+  "@purchasedOn": {
+    "description": "Shows purchase date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "15 ene 2024"
+      }
+    }
+  },
+
+  "purchaseMoreTimesToSeeTrends": "Compra este artículo más veces para ver tendencias de precio",
+  "@purchaseMoreTimesToSeeTrends": {
+    "description": "Instructions for seeing price trends with multiple purchases"
+  },
+
+  "average": "Promedio",
+  "@average": {
+    "description": "Label for average price"
+  },
+
+  "lowest": "Más Bajo",
+  "@lowest": {
+    "description": "Label for lowest price"
+  },
+
+  "highest": "Más Alto",
+  "@highest": {
+    "description": "Label for highest price"
+  },
+
+  "searchOrAddNewItem": "Buscar o agregar nuevo artículo...",
+  "@searchOrAddNewItem": {
+    "description": "Hint text for item search field"
+  },
+
+  "frequentlyBought": "Comprados Frecuentemente",
+  "@frequentlyBought": {
+    "description": "Section header for frequently bought items"
+  },
+
+  "errorLoadingResults": "Error al cargar resultados: {error}",
+  "@errorLoadingResults": {
+    "description": "Error message for search results loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Error de red"
+      }
+    }
+  },
+
+  "searchResultsZero": "Resultados de Búsqueda (0)",
+  "@searchResultsZero": {
+    "description": "Search results header when no results found"
+  },
+
+  "tryDifferentSearchOrAdd": "Intenta con un término de búsqueda diferente o agrega \"{searchQuery}\" como un nuevo artículo",
+  "@tryDifferentSearchOrAdd": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "leche"
+      }
+    }
+  },
+
+  "errorLoadingItem": "Error al cargar artículo",
+  "@errorLoadingItem": {
+    "description": "Error message for item loading failure"
+  },
+
+  "itemNotFound": "Artículo no encontrado",
+  "@itemNotFound": {
+    "description": "Error message when item cannot be found"
+  },
+
+  "confirmDeleteItem": "¿Estás seguro de que quieres eliminar \"{itemName}\"?",
+  "@confirmDeleteItem": {
+    "description": "Confirmation message for item deletion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "leche"
+      }
+    }
+  },
+
+  "quantity": "Cantidad",
+  "@quantity": {
+    "description": "Label for item quantity field"
+  },
+
+  "required": "Requerido",
+  "@required": {
+    "description": "Validation message for required fields"
+  },
+
+  "invalidNumber": "Número inválido",
+  "@invalidNumber": {
+    "description": "Validation message for invalid number input"
+  },
+
+  "price": "Precio",
+  "@price": {
+    "description": "Label for item price field"
+  },
+
+  "total": "Total",
+  "@total": {
+    "description": "Label for total amount"
+  },
+
+  "errorLoadingShopListItems": "No se pudieron cargar los artículos de la lista de compras debido a un error.",
+  "@errorLoadingShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "noItemsInCartYet": "Aún no hay artículos en el carrito",
+  "@noItemsInCartYet": {
+    "description": "Empty state message for cart"
+  },
+
+  "readyToStartShopping": "¿Listo para comenzar a comprar?",
+  "@readyToStartShopping": {
+    "description": "Encouraging message for empty cart"
+  },
+
+  "itemsYouCheckOffWillAppearHere": "Los artículos que marques aparecerán aquí",
+  "@itemsYouCheckOffWillAppearHere": {
+    "description": "Instructions for cart functionality"
+  },
+
+  "tapPlusButtonToAddFirstItem": "Presiona el botón + de abajo para agregar tu primer artículo",
+  "@tapPlusButtonToAddFirstItem": {
+    "description": "Instructions for adding first item"
+  },
+
+  "needMoreItems": "¿Necesitas más artículos?",
+  "@needMoreItems": {
+    "description": "Question asking if user needs more items"
+  },
+
+  "tapButtonBelowToAddMoreItems": "Presiona el botón de abajo para agregar más artículos",
+  "@tapButtonBelowToAddMoreItems": {
+    "description": "Instructions for adding more items"
+  },
+
+  "addItemsYouStillNeedToBuy": "Agrega artículos que aún necesitas comprar",
+  "@addItemsYouStillNeedToBuy": {
+    "description": "Instructions for adding needed items"
+  },
+
+  "tapButtonBelowToAddFirstItem": "Presiona el botón de abajo para agregar tu primer artículo",
+  "@tapButtonBelowToAddFirstItem": {
+    "description": "Instructions for adding first item with button"
+  },
+
+  "addFirstItemToGetStarted": "Agrega tu primer artículo para comenzar",
+  "@addFirstItemToGetStarted": {
+    "description": "Instructions for new users"
+  },
+
+  "generate": "Generar",
+  "@generate": {
+    "description": "Button to generate content"
+  },
+
+  "ai": "IA",
+  "@ai": {
+    "description": "AI section or feature label"
+  },
+
+  "filterModels": "Filtrar Modelos",
+  "@filterModels": {
+    "description": "Button to filter AI models"
+  },
+
+  "thinkingCapabilities": "Capacidades de Pensamiento",
+  "@thinkingCapabilities": {
+    "description": "Filter section for AI thinking capabilities"
+  },
+
+  "inputTokensInMillions": "Tokens de Entrada (en millones)",
+  "@inputTokensInMillions": {
+    "description": "Filter label for input token limits"
+  },
+
+  "minValue": "Valor Mínimo",
+  "@minValue": {
+    "description": "Label for minimum value input"
+  },
+
+  "maxValue": "Valor Máximo",
+  "@maxValue": {
+    "description": "Label for maximum value input"
+  },
+
+  "outputTokensInMillions": "Tokens de Salida (en millones)",
+  "@outputTokensInMillions": {
+    "description": "Filter label for output token limits"
+  },
+
+  "temperatureRange": "Rango de Temperatura",
+  "@temperatureRange": {
+    "description": "Filter section for AI temperature settings"
+  },
+
+  "retry": "Reintentar",
+  "@retry": {
+    "description": "Button to retry an action"
+  },
+
+  "actionsApplied": "Acciones Aplicadas",
+  "@actionsApplied": {
+    "description": "Status message for successfully applied AI actions"
+  },
+
+  "applyActions": "Aplicar Acciones",
+  "@applyActions": {
+    "description": "Button to apply AI actions"
+  },
+
+  "somethingWentWrong": "Algo salió mal",
+  "@somethingWentWrong": {
+    "description": "Generic error message"
+  },
+
+  "pleaseGoBackToHomeScreen": "Por favor regresa a la pantalla de inicio",
+  "@pleaseGoBackToHomeScreen": {
+    "description": "Instruction to return to home"
+  },
+
+  "priceTrendForLastPurchases": "Tendencia de precio para las últimas compras",
+  "@priceTrendForLastPurchases": {
+    "description": "Chart header for price trends"
+  },
+
+  "settingsWillNotBeIncluded": "La configuración no será incluida",
+  "@settingsWillNotBeIncluded": {
+    "description": "Warning about excluded settings in backup"
+  },
+
+  "snapshotCreatedSuccessfully": "Instantánea creada exitosamente",
+  "@snapshotCreatedSuccessfully": {
+    "description": "Success message for snapshot creation"
+  },
+
+  "create": "Crear",
+  "@create": {
+    "description": "Button to create something"
+  },
+
+  "snapshotCreated": "Instantánea Creada",
+  "@snapshotCreated": {
+    "description": "Title for successful snapshot creation"
+  },
+
+  "snapshotFailed": "Error en la instantánea: {error}",
+  "@snapshotFailed": {
+    "description": "Error message for failed snapshot",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Disco lleno"
+      }
+    }
+  },
+
+  "restore": "Restaurar",
+  "@restore": {
+    "description": "Button to restore backup"
+  },
+
+  "manualSnapshots": "Instantáneas Manuales",
+  "@manualSnapshots": {
+    "description": "Section title for manual backups"
+  },
+
+  "restoreBackup": "Restaurar Respaldo",
+  "@restoreBackup": {
+    "description": "Dialog title for restoring backup"
+  },
+
+  "replaceExistingData": "Reemplazar datos existentes",
+  "@replaceExistingData": {
+    "description": "Option to replace data during restore"
+  },
+
+  "clearCurrentDataBeforeRestoring": "Limpiar todos los datos actuales antes de restaurar",
+  "@clearCurrentDataBeforeRestoring": {
+    "description": "Warning about clearing data before restore"
+  },
+
+  "restoreFailed": "Error en la restauración: {error}",
+  "@restoreFailed": {
+    "description": "Error message for failed restore",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Archivo inválido"
+      }
+    }
+  },
+
+  "chooseWhatToInclude": "Elige qué incluir",
+  "@chooseWhatToInclude": {
+    "description": "Instructions for export options"
+  },
+
+  "fullExport": "Exportación Completa",
+  "@fullExport": {
+    "description": "Option for complete data export"
+  },
+
+  "databaseOnly": "Solo Base de Datos",
+  "@databaseOnly": {
+    "description": "Option for database-only export"
+  },
+
+  "createSnapshot": "Crear Instantánea",
+  "@createSnapshot": {
+    "description": "Button to create backup snapshot"
+  },
+
+  "done": "Hecho",
+  "@done": {
+    "description": "Button to indicate completion"
+  },
+
+  "clearAllCurrentDataBeforeImporting": "Limpiar todos los datos actuales antes de importar",
+  "@clearAllCurrentDataBeforeImporting": {
+    "description": "Warning about clearing data before import"
+  },
+
+  "restoreSuccessful": "Restauración Exitosa",
+  "@restoreSuccessful": {
+    "description": "Title for successful restore"
+  },
+
+  "filtersWithCount": "Filtros ({count})",
+  "@filtersWithCount": {
+    "description": "Filter button text with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+
+  "filter": "Filtrar",
+  "@filter": {
+    "description": "Button to filter results"
+  },
+
+  "clearAllFilters": "Limpiar Todos los Filtros",
+  "@clearAllFilters": {
+    "description": "Button to clear all applied filters"
+  },
+
+  "errorWithDetails": "Error: {details}",
+  "@errorWithDetails": {
+    "description": "Error message with details",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "Conexión falló"
+      }
+    }
+  },
+
+  "created": "Creado",
+  "@created": {
+    "description": "Label for creation date"
+  },
+
+  "size": "Tamaño",
+  "@size": {
+    "description": "Label for file size"
+  },
+
+  "important": "Importante",
+  "@important": {
+    "description": "Important notice header"
+  },
+
+  "dataReplacementWarning": "Esto eliminará permanentemente todos los datos actuales y los reemplazará con los datos del respaldo.",
+  "@dataReplacementWarning": {
+    "description": "Warning message for data replacement during restore"
+  },
+
+  "dataMergeWarning": "Esto combinará los datos del respaldo con tus datos actuales. Pueden ocurrir duplicados.",
+  "@dataMergeWarning": {
+    "description": "Warning message for data merging during restore"
+  },
+
+  "dataRestoredSuccessfully": "Datos restaurados exitosamente",
+  "@dataRestoredSuccessfully": {
+    "description": "Success message for data restore"
+  },
+
+  "backupDataMergedSuccessfully": "Datos del respaldo combinados exitosamente",
+  "@backupDataMergedSuccessfully": {
+    "description": "Success message for data merge"
+  },
+
+  "quickOptions": "Opciones Rápidas",
+  "@quickOptions": {
+    "description": "Header for quick export options"
+  },
+
+  "shoppingLists": "Listas de Compras",
+  "@shoppingLists": {
+    "description": "Label for shopping lists data"
+  },
+
+  "backupInformation": "Información del Respaldo",
+  "@backupInformation": {
+    "description": "Header for backup file information"
+  },
+
+  "file": "Archivo",
+  "@file": {
+    "description": "Label for file name"
+  },
+
+  "includesSettings": "Incluye Configuración",
+  "@includesSettings": {
+    "description": "Label for settings inclusion status"
+  },
+
+  "importOptions": "Opciones de Importación",
+  "@importOptions": {
+    "description": "Header for import configuration options"
+  },
+
+  "dataRestoredSuccessfullyMessage": "Tus datos han sido restaurados exitosamente.",
+  "@dataRestoredSuccessfullyMessage": {
+    "description": "Detailed success message for data restore"
+  },
+
+  "backupDataMergedSuccessfullyMessage": "Los datos del respaldo han sido combinados con tus datos actuales exitosamente.",
+  "@backupDataMergedSuccessfullyMessage": {
+    "description": "Detailed success message for data merge"
+  },
+
+  "aiAssistantConfiguration": "Configuración del Asistente de IA",
+  "@aiAssistantConfiguration": {
+    "description": "Title for AI assistant setup section"
+  },
+
+  "configureAiAssistantDescription": "Configura tu asistente de IA para ayudar a administrar listas de compras y proporcionar sugerencias.",
+  "@configureAiAssistantDescription": {
+    "description": "Description for AI assistant configuration"
+  },
+
+  "apiConfiguration": "Configuración de API",
+  "@apiConfiguration": {
+    "description": "Title for API configuration section"
+  },
+
+  "setupGeminiApiKeyDescription": "Configura tu clave API de Google™ Gemini™ para habilitar funciones de IA",
+  "@setupGeminiApiKeyDescription": {
+    "description": "Description for API key setup"
+  },
+
+  "connectionStatus": "Estado de Conexión",
+  "@connectionStatus": {
+    "description": "Title for connection status section"
+  },
+
+  "aboutGoogleGemini": "Acerca de Google™ Gemini™",
+  "@aboutGoogleGemini": {
+    "description": "Title for Gemini information section"
+  },
+
+  "getFreeApiKeyFromGoogleAi": "Obtén tu clave API gratuita desde Google™ AI Studio",
+  "@getFreeApiKeyFromGoogleAi": {
+    "description": "Information about getting API key"
+  },
+
+  "aiFeaturesIncludeChatAndSuggestions": "Las funciones de IA incluyen asistencia de chat y sugerencias inteligentes",
+  "@aiFeaturesIncludeChatAndSuggestions": {
+    "description": "Information about AI features"
+  },
+
+  "apiKeyStoredSecurely": "Tu clave API se almacena de forma segura en tu dispositivo",
+  "@apiKeyStoredSecurely": {
+    "description": "Security information about API key storage"
+  },
+
+  "apiUsageSubjectToRateLimits": "El uso de la API puede estar sujeto a los límites de velocidad de Google™",
+  "@apiUsageSubjectToRateLimits": {
+    "description": "Information about API rate limits"
+  },
+
+  "googleTrademarkDisclaimer": "Google™ y Gemini™ son marcas comerciales de Google LLC. Esta aplicación no está afiliada con Google.",
+  "@googleTrademarkDisclaimer": {
+    "description": "Legal disclaimer about Google trademarks"
+  },
+
+  "automaticBackup": "Respaldo Automático",
+  "@automaticBackup": {
+    "description": "Title for automatic backup section"
+  },
+
+  "dataAutomaticallyBackedUpToDrive": "Tus datos se respaldan automáticamente en Google Drive",
+  "@dataAutomaticallyBackedUpToDrive": {
+    "description": "Description for automatic backup feature"
+  },
+
+  "automaticBackupEnabledAndWorking": "El respaldo automático está habilitado y funcionando",
+  "@automaticBackupEnabledAndWorking": {
+    "description": "Status message for enabled automatic backup"
+  },
+
+  "automaticBackupConfigurationDetected": "Configuración de respaldo automático detectada",
+  "@automaticBackupConfigurationDetected": {
+    "description": "Status message for detected backup configuration"
+  },
+
+  "automaticBackupInfoMessage": "El respaldo automático se ejecuta periódicamente en segundo plano. Las instantáneas manuales funcionan localmente, pero no sobrevivirán a las desinstalaciones de la aplicación hasta que el respaldo automático las haya sincronizado con Google Drive.",
+  "@automaticBackupInfoMessage": {
+    "description": "Information about how automatic backup works"
+  },
+
+  "howBackupWorks": "Cómo Funciona el Respaldo",
+  "@howBackupWorks": {
+    "description": "Title for backup information section"
+  },
+
+  "automaticBackupSyncsToGoogleDrive": "El respaldo automático sincroniza tus datos con Google Drive",
+  "@automaticBackupSyncsToGoogleDrive": {
+    "description": "Information about automatic backup sync"
+  },
+
+  "manualSnapshotsStoredLocallyAndSynced": "Las instantáneas manuales se almacenan localmente e incluyen en la sincronización automática",
+  "@manualSnapshotsStoredLocallyAndSynced": {
+    "description": "Information about manual snapshot storage"
+  },
+
+  "restoringWillReplaceCurrentData": "Restaurar reemplazará tus datos actuales",
+  "@restoringWillReplaceCurrentData": {
+    "description": "Warning about data replacement during restore"
+  },
+
+  "backupsIncludeShoppingListsChatAndSettings": "Los respaldos incluyen listas de compras, historial de chat y opcionalmente configuración",
+  "@backupsIncludeShoppingListsChatAndSettings": {
+    "description": "Information about what is included in backups"
+  },
+
+  "noManualSnapshotsYet": "Aún no hay instantáneas manuales",
+  "@noManualSnapshotsYet": {
+    "description": "Message when no manual snapshots exist"
+  },
+
+  "createManualSnapshotForAdditionalControl": "Crea una instantánea manual para tener control adicional sobre tus datos",
+  "@createManualSnapshotForAdditionalControl": {
+    "description": "Instructions for creating manual snapshots"
+  },
+
+  "createAndManageAdditionalSnapshotFiles": "Crear y administrar archivos de instantánea adicionales",
+  "@createAndManageAdditionalSnapshotFiles": {
+    "description": "Description for manual backup section"
+  },
+
+  "thinking": "Pensamiento",
+  "@thinking": {
+    "description": "Label for AI thinking capability filter"
+  },
+
+  "input": "Entrada",
+  "@input": {
+    "description": "Label for input tokens"
+  },
+
+  "output": "Salida",
+  "@output": {
+    "description": "Label for output tokens"
+  },
+
+  "temperature": "Temperatura",
+  "@temperature": {
+    "description": "Label for AI temperature setting"
+  },
+
+  "tokensUnit": "M tokens",
+  "@tokensUnit": {
+    "description": "Unit for token counts (millions)"
+  },
+
+  "filteredBy": "Filtrado por",
+  "@filteredBy": {
+    "description": "Prefix text for active filters display"
+  },
+
+  "clear": "Limpiar",
+  "@clear": {
+    "description": "Button to clear filters or selections"
+  },
+
+  "confirmDeleteShopList": "¿Estás seguro de que quieres eliminar la lista de compras \"{listName}\"?",
+  "@confirmDeleteShopList": {
+    "description": "Confirmation message for deleting shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Mandado"
+      }
+    }
+  },
+
+  "noShoppingListsYet": "Aún No Hay Listas de Compras",
+  "@noShoppingListsYet": {
+    "description": "Title for empty shopping lists state"
+  },
+
+  "createFirstShoppingListDescription": "¡Crea tu primera lista de compras arriba para comenzar a organizar tu mandado y nunca olvidar un artículo otra vez!",
+  "@createFirstShoppingListDescription": {
+    "description": "Description for empty shopping lists state"
+  },
+
+  "recentLists": "Listas Recientes",
+  "@recentLists": {
+    "description": "Header for recent shopping lists section"
+  },
+
+  "itemsShown": "{count} mostrados",
+  "@itemsShown": {
+    "description": "Count of items currently displayed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "itemsCompleted": "{completed} de {total} artículos completados",
+  "@itemsCompleted": {
+    "description": "Progress indicator showing completed items",
+    "placeholders": {
+      "completed": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  }
+}
