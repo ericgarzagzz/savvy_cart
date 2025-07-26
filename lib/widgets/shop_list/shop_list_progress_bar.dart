@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class ShopListProgressBar extends ConsumerStatefulWidget {
@@ -128,7 +130,9 @@ class _ShopListProgressBarState extends ConsumerState<ShopListProgressBar>
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            '$checkedCount of $totalCount items completed',
+                            AppLocalizations.of(
+                              context,
+                            )!.itemsCompleted(checkedCount, totalCount),
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
                                   color: Theme.of(

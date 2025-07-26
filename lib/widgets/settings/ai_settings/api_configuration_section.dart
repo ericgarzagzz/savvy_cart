@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class ApiConfigurationSection extends StatelessWidget {
@@ -11,14 +12,14 @@ class ApiConfigurationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'API Configuration',
+          AppLocalizations.of(context)!.apiConfiguration,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          'Set up your Google™ Gemini™ API key to enable AI features',
+          AppLocalizations.of(context)!.setupGeminiApiKeyDescription,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(
               context,

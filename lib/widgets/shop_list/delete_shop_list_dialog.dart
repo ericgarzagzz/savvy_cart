@@ -25,7 +25,9 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
     return AlertDialog(
       title: Text(AppLocalizations.of(context)!.deleteShopList),
       content: Text(
-        "Are you sure you want to delete the shop list \"${widget.shopList.name}\"?",
+        AppLocalizations.of(
+          context,
+        )!.confirmDeleteShopList(widget.shopList.name),
       ),
       actions: [
         TextButton(

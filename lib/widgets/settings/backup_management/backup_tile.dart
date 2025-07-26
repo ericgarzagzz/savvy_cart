@@ -68,7 +68,7 @@ class BackupTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      'Settings',
+                      AppLocalizations.of(context)!.settings,
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,

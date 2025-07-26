@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
@@ -13,25 +15,33 @@ class ModelFilterNotification extends ConsumerWidget {
     final activeFilters = <String>[];
 
     if (filters.hasThinking != null) {
-      activeFilters.add('Thinking: ${filters.hasThinking! ? "Yes" : "No"}');
+      activeFilters.add(
+        '${AppLocalizations.of(context)!.thinking}: ${filters.hasThinking! ? AppLocalizations.of(context)!.yes : AppLocalizations.of(context)!.no}',
+      );
     }
 
     if (filters.minInputTokens != null || filters.maxInputTokens != null) {
       final min = filters.minInputTokens?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxInputTokens?.toStringAsFixed(1) ?? '10.0';
-      activeFilters.add('Input: ${min}M-${max}M tokens');
+      activeFilters.add(
+        '${AppLocalizations.of(context)!.input}: $min${AppLocalizations.of(context)!.tokensUnit}-$max${AppLocalizations.of(context)!.tokensUnit}',
+      );
     }
 
     if (filters.minOutputTokens != null || filters.maxOutputTokens != null) {
       final min = filters.minOutputTokens?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxOutputTokens?.toStringAsFixed(1) ?? '5.0';
-      activeFilters.add('Output: ${min}M-${max}M tokens');
+      activeFilters.add(
+        '${AppLocalizations.of(context)!.output}: $min${AppLocalizations.of(context)!.tokensUnit}-$max${AppLocalizations.of(context)!.tokensUnit}',
+      );
     }
 
     if (filters.minTemperature != null || filters.maxTemperature != null) {
       final min = filters.minTemperature?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxTemperature?.toStringAsFixed(1) ?? '2.0';
-      activeFilters.add('Temperature: $min-$max');
+      activeFilters.add(
+        '${AppLocalizations.of(context)!.temperature}: $min-$max',
+      );
     }
 
     return Container(
@@ -67,7 +77,7 @@ class ModelFilterNotification extends ConsumerWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  'Filtered by: ',
+                  '${AppLocalizations.of(context)!.filteredBy}: ',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(
                       context,
@@ -120,7 +130,7 @@ class ModelFilterNotification extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                'Clear',
+                AppLocalizations.of(context)!.clear,
                 style: TextStyle(
                   fontSize: 11,
                   color: Theme.of(context).colorScheme.error,

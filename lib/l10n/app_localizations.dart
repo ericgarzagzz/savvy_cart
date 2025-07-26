@@ -1389,6 +1389,318 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error: {details}'**
   String errorWithDetails(String details);
+
+  /// Label for creation date
+  ///
+  /// In en, this message translates to:
+  /// **'Created'**
+  String get created;
+
+  /// Label for file size
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get size;
+
+  /// Important notice header
+  ///
+  /// In en, this message translates to:
+  /// **'Important'**
+  String get important;
+
+  /// Warning message for data replacement during restore
+  ///
+  /// In en, this message translates to:
+  /// **'This will permanently delete all current data and replace it with the backup data.'**
+  String get dataReplacementWarning;
+
+  /// Warning message for data merging during restore
+  ///
+  /// In en, this message translates to:
+  /// **'This will merge the backup data with your current data. Duplicates may occur.'**
+  String get dataMergeWarning;
+
+  /// Success message for data restore
+  ///
+  /// In en, this message translates to:
+  /// **'Data restored successfully'**
+  String get dataRestoredSuccessfully;
+
+  /// Success message for data merge
+  ///
+  /// In en, this message translates to:
+  /// **'Backup data merged successfully'**
+  String get backupDataMergedSuccessfully;
+
+  /// Header for quick export options
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Options'**
+  String get quickOptions;
+
+  /// Label for shopping lists data
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping Lists'**
+  String get shoppingLists;
+
+  /// Header for backup file information
+  ///
+  /// In en, this message translates to:
+  /// **'Backup Information'**
+  String get backupInformation;
+
+  /// Label for file name
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get file;
+
+  /// Label for settings inclusion status
+  ///
+  /// In en, this message translates to:
+  /// **'Includes Settings'**
+  String get includesSettings;
+
+  /// Header for import configuration options
+  ///
+  /// In en, this message translates to:
+  /// **'Import Options'**
+  String get importOptions;
+
+  /// Detailed success message for data restore
+  ///
+  /// In en, this message translates to:
+  /// **'Your data has been restored successfully.'**
+  String get dataRestoredSuccessfullyMessage;
+
+  /// Detailed success message for data merge
+  ///
+  /// In en, this message translates to:
+  /// **'The backup data has been merged with your current data successfully.'**
+  String get backupDataMergedSuccessfullyMessage;
+
+  /// Title for AI assistant setup section
+  ///
+  /// In en, this message translates to:
+  /// **'AI Assistant Configuration'**
+  String get aiAssistantConfiguration;
+
+  /// Description for AI assistant configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Configure your AI assistant to help manage shopping lists and provide suggestions.'**
+  String get configureAiAssistantDescription;
+
+  /// Title for API configuration section
+  ///
+  /// In en, this message translates to:
+  /// **'API Configuration'**
+  String get apiConfiguration;
+
+  /// Description for API key setup
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your Google™ Gemini™ API key to enable AI features'**
+  String get setupGeminiApiKeyDescription;
+
+  /// Title for connection status section
+  ///
+  /// In en, this message translates to:
+  /// **'Connection Status'**
+  String get connectionStatus;
+
+  /// Title for Gemini information section
+  ///
+  /// In en, this message translates to:
+  /// **'About Google™ Gemini™'**
+  String get aboutGoogleGemini;
+
+  /// Information about getting API key
+  ///
+  /// In en, this message translates to:
+  /// **'Get your free API key from Google™ AI Studio'**
+  String get getFreeApiKeyFromGoogleAi;
+
+  /// Information about AI features
+  ///
+  /// In en, this message translates to:
+  /// **'AI features include chat assistance and smart suggestions'**
+  String get aiFeaturesIncludeChatAndSuggestions;
+
+  /// Security information about API key storage
+  ///
+  /// In en, this message translates to:
+  /// **'Your API key is stored securely on your device'**
+  String get apiKeyStoredSecurely;
+
+  /// Information about API rate limits
+  ///
+  /// In en, this message translates to:
+  /// **'API usage may be subject to Google™\'s rate limits'**
+  String get apiUsageSubjectToRateLimits;
+
+  /// Legal disclaimer about Google trademarks
+  ///
+  /// In en, this message translates to:
+  /// **'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.'**
+  String get googleTrademarkDisclaimer;
+
+  /// Title for automatic backup section
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic Backup'**
+  String get automaticBackup;
+
+  /// Description for automatic backup feature
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is automatically backed up to Google Drive'**
+  String get dataAutomaticallyBackedUpToDrive;
+
+  /// Status message for enabled automatic backup
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic backup is enabled and working'**
+  String get automaticBackupEnabledAndWorking;
+
+  /// Status message for detected backup configuration
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic backup configuration detected'**
+  String get automaticBackupConfigurationDetected;
+
+  /// Information about how automatic backup works
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic backup runs periodically in the background. Manual snapshots work locally, but won\'t survive app uninstalls until automatic backup has synced them to Google Drive.'**
+  String get automaticBackupInfoMessage;
+
+  /// Title for backup information section
+  ///
+  /// In en, this message translates to:
+  /// **'How Backup Works'**
+  String get howBackupWorks;
+
+  /// Information about automatic backup sync
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic backup syncs your data to Google Drive'**
+  String get automaticBackupSyncsToGoogleDrive;
+
+  /// Information about manual snapshot storage
+  ///
+  /// In en, this message translates to:
+  /// **'Manual snapshots are stored locally and included in automatic sync'**
+  String get manualSnapshotsStoredLocallyAndSynced;
+
+  /// Warning about data replacement during restore
+  ///
+  /// In en, this message translates to:
+  /// **'Restoring will replace your current data'**
+  String get restoringWillReplaceCurrentData;
+
+  /// Information about what is included in backups
+  ///
+  /// In en, this message translates to:
+  /// **'Backups include shopping lists, chat history, and optionally settings'**
+  String get backupsIncludeShoppingListsChatAndSettings;
+
+  /// Message when no manual snapshots exist
+  ///
+  /// In en, this message translates to:
+  /// **'No manual snapshots yet'**
+  String get noManualSnapshotsYet;
+
+  /// Instructions for creating manual snapshots
+  ///
+  /// In en, this message translates to:
+  /// **'Create a manual snapshot to have additional control over your data'**
+  String get createManualSnapshotForAdditionalControl;
+
+  /// Description for manual backup section
+  ///
+  /// In en, this message translates to:
+  /// **'Create and manage additional snapshot files'**
+  String get createAndManageAdditionalSnapshotFiles;
+
+  /// Label for AI thinking capability filter
+  ///
+  /// In en, this message translates to:
+  /// **'Thinking'**
+  String get thinking;
+
+  /// Label for input tokens
+  ///
+  /// In en, this message translates to:
+  /// **'Input'**
+  String get input;
+
+  /// Label for output tokens
+  ///
+  /// In en, this message translates to:
+  /// **'Output'**
+  String get output;
+
+  /// Label for AI temperature setting
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature'**
+  String get temperature;
+
+  /// Unit for token counts (millions)
+  ///
+  /// In en, this message translates to:
+  /// **'M tokens'**
+  String get tokensUnit;
+
+  /// Prefix text for active filters display
+  ///
+  /// In en, this message translates to:
+  /// **'Filtered by'**
+  String get filteredBy;
+
+  /// Button to clear filters or selections
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// Confirmation message for deleting shopping list
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the shop list \"{listName}\"?'**
+  String confirmDeleteShopList(String listName);
+
+  /// Title for empty shopping lists state
+  ///
+  /// In en, this message translates to:
+  /// **'No Shopping Lists Yet'**
+  String get noShoppingListsYet;
+
+  /// Description for empty shopping lists state
+  ///
+  /// In en, this message translates to:
+  /// **'Create your first shopping list above to start organizing your groceries and never forget an item again!'**
+  String get createFirstShoppingListDescription;
+
+  /// Header for recent shopping lists section
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Lists'**
+  String get recentLists;
+
+  /// Count of items currently displayed
+  ///
+  /// In en, this message translates to:
+  /// **'{count} shown'**
+  String itemsShown(int count);
+
+  /// Progress indicator showing completed items
+  ///
+  /// In en, this message translates to:
+  /// **'{completed} of {total} items completed'**
+  String itemsCompleted(int completed, int total);
 }
 
 class _AppLocalizationsDelegate

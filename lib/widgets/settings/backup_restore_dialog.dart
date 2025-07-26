@@ -73,14 +73,14 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'Created: ${dateFormat.format(widget.backup.createdDate)}',
+                    '${AppLocalizations.of(context)!.created}: ${dateFormat.format(widget.backup.createdDate)}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
-                        'Size: ${widget.backup.formattedSize}',
+                        '${AppLocalizations.of(context)!.size}: ${widget.backup.formattedSize}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       if (widget.backup.includesSettings) ...[
@@ -148,7 +148,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Important',
+                          AppLocalizations.of(context)!.important,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Colors.orange.shade700,
@@ -158,8 +158,10 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                         const SizedBox(height: 4),
                         Text(
                           _replaceExisting
-                              ? 'This will permanently delete all current data and replace it with the backup data.'
-                              : 'This will merge the backup data with your current data. Duplicates may occur.',
+                              ? AppLocalizations.of(
+                                  context,
+                                )!.dataReplacementWarning
+                              : AppLocalizations.of(context)!.dataMergeWarning,
                           style: TextStyle(
                             color: Colors.orange.shade700,
                             fontSize: 12,
@@ -242,8 +244,10 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                 Expanded(
                   child: Text(
                     _replaceExisting
-                        ? 'Data restored successfully'
-                        : 'Backup data merged successfully',
+                        ? AppLocalizations.of(context)!.dataRestoredSuccessfully
+                        : AppLocalizations.of(
+                            context,
+                          )!.backupDataMergedSuccessfully,
                   ),
                 ),
               ],

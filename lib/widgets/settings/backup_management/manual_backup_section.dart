@@ -46,7 +46,7 @@ class ManualBackupSection extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Create and manage additional snapshot files',
+          AppLocalizations.of(context)!.createAndManageAdditionalSnapshotFiles,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(
               context,

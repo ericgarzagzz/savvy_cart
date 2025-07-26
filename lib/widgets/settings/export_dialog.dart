@@ -35,28 +35,28 @@ class _ExportDialogState extends State<ExportDialog> {
             Text(AppLocalizations.of(context)!.chooseWhatToInclude),
             const SizedBox(height: 16),
             _buildOptionCheckbox(
-              'Settings',
+              AppLocalizations.of(context)!.settings,
               _options.includeSettings,
               (value) => setState(() {
                 _options = _options.copyWith(includeSettings: value);
               }),
             ),
             _buildOptionCheckbox(
-              'Shopping Lists',
+              AppLocalizations.of(context)!.shoppingLists,
               _options.includeShopLists,
               (value) => setState(() {
                 _options = _options.copyWith(includeShopLists: value);
               }),
             ),
             _buildOptionCheckbox(
-              'Chat History',
+              AppLocalizations.of(context)!.chatHistory,
               _options.includeChatHistory,
               (value) => setState(() {
                 _options = _options.copyWith(includeChatHistory: value);
               }),
             ),
             _buildOptionCheckbox(
-              'Suggestions',
+              AppLocalizations.of(context)!.suggestions,
               _options.includeSuggestions,
               (value) => setState(() {
                 _options = _options.copyWith(includeSuggestions: value);
@@ -66,7 +66,7 @@ class _ExportDialogState extends State<ExportDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Text(
-              'Quick Options:',
+              '${AppLocalizations.of(context)!.quickOptions}:',
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: 8),

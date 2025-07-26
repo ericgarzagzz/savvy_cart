@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class EmptyManualBackupsState extends StatelessWidget {
   const EmptyManualBackupsState({super.key});
 
@@ -20,7 +22,7 @@ class EmptyManualBackupsState extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'No manual snapshots yet',
+                AppLocalizations.of(context)!.noManualSnapshotsYet,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(
                     context,
@@ -29,7 +31,9 @@ class EmptyManualBackupsState extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Create a manual snapshot to have additional control over your data',
+                AppLocalizations.of(
+                  context,
+                )!.createManualSnapshotForAdditionalControl,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(
                     context,

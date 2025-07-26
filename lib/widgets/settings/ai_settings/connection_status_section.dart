@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class ConnectionStatusSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class ConnectionStatusSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Connection Status',
+          AppLocalizations.of(context)!.connectionStatus,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),

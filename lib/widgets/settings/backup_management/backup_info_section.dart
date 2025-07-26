@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class BackupInfoSection extends StatelessWidget {
   const BackupInfoSection({super.key});
 
@@ -30,7 +32,7 @@ class BackupInfoSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'How Backup Works',
+                AppLocalizations.of(context)!.howBackupWorks,
                 style: Theme.of(
                   context,
                 ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -39,16 +41,22 @@ class BackupInfoSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _BackupInfoPoint(
-            text: 'Automatic backup syncs your data to Google Drive',
+            text: AppLocalizations.of(
+              context,
+            )!.automaticBackupSyncsToGoogleDrive,
           ),
           _BackupInfoPoint(
-            text:
-                'Manual snapshots are stored locally and included in automatic sync',
+            text: AppLocalizations.of(
+              context,
+            )!.manualSnapshotsStoredLocallyAndSynced,
           ),
-          _BackupInfoPoint(text: 'Restoring will replace your current data'),
           _BackupInfoPoint(
-            text:
-                'Backups include shopping lists, chat history, and optionally settings',
+            text: AppLocalizations.of(context)!.restoringWillReplaceCurrentData,
+          ),
+          _BackupInfoPoint(
+            text: AppLocalizations.of(
+              context,
+            )!.backupsIncludeShoppingListsChatAndSettings,
           ),
         ],
       ),

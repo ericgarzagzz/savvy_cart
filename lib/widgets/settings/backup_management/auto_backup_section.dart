@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/services/services.dart';
 
 class AutoBackupSection extends StatelessWidget {
@@ -34,14 +36,16 @@ class AutoBackupSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Automatic Backup',
+                        AppLocalizations.of(context)!.automaticBackup,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Your data is automatically backed up to Google Drive',
+                        AppLocalizations.of(
+                          context,
+                        )!.dataAutomaticallyBackedUpToDrive,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,
@@ -72,8 +76,12 @@ class AutoBackupSection extends StatelessWidget {
                   Expanded(
                     child: Text(
                       autoBackupInfo?.isEnabled == true
-                          ? 'Automatic backup is enabled and working'
-                          : 'Automatic backup configuration detected',
+                          ? AppLocalizations.of(
+                              context,
+                            )!.automaticBackupEnabledAndWorking
+                          : AppLocalizations.of(
+                              context,
+                            )!.automaticBackupConfigurationDetected,
                       style: TextStyle(
                         color: Colors.green.shade700,
                         fontWeight: FontWeight.w500,
@@ -98,7 +106,7 @@ class AutoBackupSection extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Automatic backup runs periodically in the background. Manual snapshots work locally, but won\'t survive app uninstalls until automatic backup has synced them to Google Drive.',
+                      AppLocalizations.of(context)!.automaticBackupInfoMessage,
                       style: TextStyle(
                         color: Colors.blue.shade700,
                         fontWeight: FontWeight.w500,

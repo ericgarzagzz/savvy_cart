@@ -732,4 +732,188 @@ class AppLocalizationsEn extends AppLocalizations {
   String errorWithDetails(String details) {
     return 'Error: $details';
   }
+
+  @override
+  String get created => 'Created';
+
+  @override
+  String get size => 'Size';
+
+  @override
+  String get important => 'Important';
+
+  @override
+  String get dataReplacementWarning =>
+      'This will permanently delete all current data and replace it with the backup data.';
+
+  @override
+  String get dataMergeWarning =>
+      'This will merge the backup data with your current data. Duplicates may occur.';
+
+  @override
+  String get dataRestoredSuccessfully => 'Data restored successfully';
+
+  @override
+  String get backupDataMergedSuccessfully => 'Backup data merged successfully';
+
+  @override
+  String get quickOptions => 'Quick Options';
+
+  @override
+  String get shoppingLists => 'Shopping Lists';
+
+  @override
+  String get backupInformation => 'Backup Information';
+
+  @override
+  String get file => 'File';
+
+  @override
+  String get includesSettings => 'Includes Settings';
+
+  @override
+  String get importOptions => 'Import Options';
+
+  @override
+  String get dataRestoredSuccessfullyMessage =>
+      'Your data has been restored successfully.';
+
+  @override
+  String get backupDataMergedSuccessfullyMessage =>
+      'The backup data has been merged with your current data successfully.';
+
+  @override
+  String get aiAssistantConfiguration => 'AI Assistant Configuration';
+
+  @override
+  String get configureAiAssistantDescription =>
+      'Configure your AI assistant to help manage shopping lists and provide suggestions.';
+
+  @override
+  String get apiConfiguration => 'API Configuration';
+
+  @override
+  String get setupGeminiApiKeyDescription =>
+      'Set up your Google™ Gemini™ API key to enable AI features';
+
+  @override
+  String get connectionStatus => 'Connection Status';
+
+  @override
+  String get aboutGoogleGemini => 'About Google™ Gemini™';
+
+  @override
+  String get getFreeApiKeyFromGoogleAi =>
+      'Get your free API key from Google™ AI Studio';
+
+  @override
+  String get aiFeaturesIncludeChatAndSuggestions =>
+      'AI features include chat assistance and smart suggestions';
+
+  @override
+  String get apiKeyStoredSecurely =>
+      'Your API key is stored securely on your device';
+
+  @override
+  String get apiUsageSubjectToRateLimits =>
+      'API usage may be subject to Google™\'s rate limits';
+
+  @override
+  String get googleTrademarkDisclaimer =>
+      'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.';
+
+  @override
+  String get automaticBackup => 'Automatic Backup';
+
+  @override
+  String get dataAutomaticallyBackedUpToDrive =>
+      'Your data is automatically backed up to Google Drive';
+
+  @override
+  String get automaticBackupEnabledAndWorking =>
+      'Automatic backup is enabled and working';
+
+  @override
+  String get automaticBackupConfigurationDetected =>
+      'Automatic backup configuration detected';
+
+  @override
+  String get automaticBackupInfoMessage =>
+      'Automatic backup runs periodically in the background. Manual snapshots work locally, but won\'t survive app uninstalls until automatic backup has synced them to Google Drive.';
+
+  @override
+  String get howBackupWorks => 'How Backup Works';
+
+  @override
+  String get automaticBackupSyncsToGoogleDrive =>
+      'Automatic backup syncs your data to Google Drive';
+
+  @override
+  String get manualSnapshotsStoredLocallyAndSynced =>
+      'Manual snapshots are stored locally and included in automatic sync';
+
+  @override
+  String get restoringWillReplaceCurrentData =>
+      'Restoring will replace your current data';
+
+  @override
+  String get backupsIncludeShoppingListsChatAndSettings =>
+      'Backups include shopping lists, chat history, and optionally settings';
+
+  @override
+  String get noManualSnapshotsYet => 'No manual snapshots yet';
+
+  @override
+  String get createManualSnapshotForAdditionalControl =>
+      'Create a manual snapshot to have additional control over your data';
+
+  @override
+  String get createAndManageAdditionalSnapshotFiles =>
+      'Create and manage additional snapshot files';
+
+  @override
+  String get thinking => 'Thinking';
+
+  @override
+  String get input => 'Input';
+
+  @override
+  String get output => 'Output';
+
+  @override
+  String get temperature => 'Temperature';
+
+  @override
+  String get tokensUnit => 'M tokens';
+
+  @override
+  String get filteredBy => 'Filtered by';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String confirmDeleteShopList(String listName) {
+    return 'Are you sure you want to delete the shop list \"$listName\"?';
+  }
+
+  @override
+  String get noShoppingListsYet => 'No Shopping Lists Yet';
+
+  @override
+  String get createFirstShoppingListDescription =>
+      'Create your first shopping list above to start organizing your groceries and never forget an item again!';
+
+  @override
+  String get recentLists => 'Recent Lists';
+
+  @override
+  String itemsShown(int count) {
+    return '$count shown';
+  }
+
+  @override
+  String itemsCompleted(int completed, int total) {
+    return '$completed of $total items completed';
+  }
 }

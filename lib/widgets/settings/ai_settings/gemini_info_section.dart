@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class GeminiInfoSection extends StatelessWidget {
   const GeminiInfoSection({super.key});
 
@@ -30,7 +32,7 @@ class GeminiInfoSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'About Google™ Gemini™',
+                AppLocalizations.of(context)!.aboutGoogleGemini,
                 style: Theme.of(
                   context,
                 ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -40,23 +42,23 @@ class GeminiInfoSection extends StatelessWidget {
           const SizedBox(height: 12),
           _buildInfoPoint(
             context,
-            'Get your free API key from Google™ AI Studio',
+            AppLocalizations.of(context)!.getFreeApiKeyFromGoogleAi,
           ),
           _buildInfoPoint(
             context,
-            'AI features include chat assistance and smart suggestions',
+            AppLocalizations.of(context)!.aiFeaturesIncludeChatAndSuggestions,
           ),
           _buildInfoPoint(
             context,
-            'Your API key is stored securely on your device',
+            AppLocalizations.of(context)!.apiKeyStoredSecurely,
           ),
           _buildInfoPoint(
             context,
-            'API usage may be subject to Google™\'s rate limits',
+            AppLocalizations.of(context)!.apiUsageSubjectToRateLimits,
           ),
           _buildInfoPoint(
             context,
-            'Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.',
+            AppLocalizations.of(context)!.googleTrademarkDisclaimer,
           ),
         ],
       ),

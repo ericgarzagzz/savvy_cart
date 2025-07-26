@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 import 'package:savvy_cart/services/services.dart';
 
@@ -61,7 +62,7 @@ class ModelCard extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        'Recommended',
+                        AppLocalizations.of(context)!.recommended,
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,

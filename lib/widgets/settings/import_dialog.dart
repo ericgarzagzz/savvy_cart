@@ -41,24 +41,29 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Backup Information',
+                        AppLocalizations.of(context)!.backupInformation,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 8),
                       _buildInfoRow(
-                        'File:',
+                        '${AppLocalizations.of(context)!.file}:',
                         widget.backup.fileName
                             .replaceAll('manual_backup_', '')
                             .replaceAll('.json', ''),
                       ),
                       _buildInfoRow(
-                        'Created:',
+                        '${AppLocalizations.of(context)!.created}:',
                         dateFormat.format(widget.backup.createdDate),
                       ),
-                      _buildInfoRow('Size:', widget.backup.formattedSize),
                       _buildInfoRow(
-                        'Includes Settings:',
-                        widget.backup.includesSettings ? 'Yes' : 'No',
+                        '${AppLocalizations.of(context)!.size}:',
+                        widget.backup.formattedSize,
+                      ),
+                      _buildInfoRow(
+                        '${AppLocalizations.of(context)!.includesSettings}:',
+                        widget.backup.includesSettings
+                            ? AppLocalizations.of(context)!.yes
+                            : AppLocalizations.of(context)!.no,
                       ),
                     ],
                   ),
@@ -67,7 +72,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
 
               const SizedBox(height: 16),
               Text(
-                'Import Options',
+                AppLocalizations.of(context)!.importOptions,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               CheckboxListTile(
@@ -107,7 +112,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Important',
+                            AppLocalizations.of(context)!.important,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.orange.shade700,
@@ -117,8 +122,12 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                           const SizedBox(height: 4),
                           Text(
                             _options.replaceExisting
-                                ? 'This will permanently delete all current data and replace it with the backup data.'
-                                : 'This will merge the backup data with your current data. Duplicates may occur.',
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!.dataReplacementWarning
+                                : AppLocalizations.of(
+                                    context,
+                                  )!.dataMergeWarning,
                             style: TextStyle(
                               color: Colors.orange.shade700,
                               fontSize: 12,
@@ -216,8 +225,12 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
             title: Text(AppLocalizations.of(context)!.restoreSuccessful),
             content: Text(
               _options.replaceExisting
-                  ? 'Your data has been restored successfully.'
-                  : 'The backup data has been merged with your current data successfully.',
+                  ? AppLocalizations.of(
+                      context,
+                    )!.dataRestoredSuccessfullyMessage
+                  : AppLocalizations.of(
+                      context,
+                    )!.backupDataMergedSuccessfullyMessage,
             ),
             actions: [
               ElevatedButton(

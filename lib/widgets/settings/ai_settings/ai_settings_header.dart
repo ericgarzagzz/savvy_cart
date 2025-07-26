@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class AiSettingsHeader extends StatelessWidget {
   const AiSettingsHeader({super.key});
 
@@ -31,14 +33,16 @@ class AiSettingsHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'AI Assistant Configuration',
+                        AppLocalizations.of(context)!.aiAssistantConfiguration,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Configure your AI assistant to help manage shopping lists and provide suggestions.',
+                        AppLocalizations.of(
+                          context,
+                        )!.configureAiAssistantDescription,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,

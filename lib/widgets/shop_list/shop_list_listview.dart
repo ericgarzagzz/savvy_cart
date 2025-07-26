@@ -54,7 +54,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               ),
               SizedBox(height: 24),
               Text(
-                "No Shopping Lists Yet",
+                AppLocalizations.of(context)!.noShoppingListsYet,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSurface,
@@ -63,7 +63,9 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               ),
               SizedBox(height: 12),
               Text(
-                "Create your first shopping list above to start organizing your groceries and never forget an item again!",
+                AppLocalizations.of(
+                  context,
+                )!.createFirstShoppingListDescription,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                   height: 1.5,
@@ -87,13 +89,15 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Recent Lists",
+                      AppLocalizations.of(context)!.recentLists,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Row(
                       children: [
                         Text(
-                          "${paginatedState.items.length} shown",
+                          AppLocalizations.of(
+                            context,
+                          )!.itemsShown(paginatedState.items.length),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SizedBox(width: 8),

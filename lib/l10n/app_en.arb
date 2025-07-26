@@ -1241,5 +1241,287 @@
         "example": "Connection failed"
       }
     }
+  },
+
+  "created": "Created",
+  "@created": {
+    "description": "Label for creation date"
+  },
+
+  "size": "Size",
+  "@size": {
+    "description": "Label for file size"
+  },
+
+  "important": "Important",
+  "@important": {
+    "description": "Important notice header"
+  },
+
+  "dataReplacementWarning": "This will permanently delete all current data and replace it with the backup data.",
+  "@dataReplacementWarning": {
+    "description": "Warning message for data replacement during restore"
+  },
+
+  "dataMergeWarning": "This will merge the backup data with your current data. Duplicates may occur.",
+  "@dataMergeWarning": {
+    "description": "Warning message for data merging during restore"
+  },
+
+  "dataRestoredSuccessfully": "Data restored successfully",
+  "@dataRestoredSuccessfully": {
+    "description": "Success message for data restore"
+  },
+
+  "backupDataMergedSuccessfully": "Backup data merged successfully",
+  "@backupDataMergedSuccessfully": {
+    "description": "Success message for data merge"
+  },
+
+  "quickOptions": "Quick Options",
+  "@quickOptions": {
+    "description": "Header for quick export options"
+  },
+
+  "shoppingLists": "Shopping Lists",
+  "@shoppingLists": {
+    "description": "Label for shopping lists data"
+  },
+
+  "backupInformation": "Backup Information",
+  "@backupInformation": {
+    "description": "Header for backup file information"
+  },
+
+  "file": "File",
+  "@file": {
+    "description": "Label for file name"
+  },
+
+  "includesSettings": "Includes Settings",
+  "@includesSettings": {
+    "description": "Label for settings inclusion status"
+  },
+
+  "importOptions": "Import Options",
+  "@importOptions": {
+    "description": "Header for import configuration options"
+  },
+
+  "dataRestoredSuccessfullyMessage": "Your data has been restored successfully.",
+  "@dataRestoredSuccessfullyMessage": {
+    "description": "Detailed success message for data restore"
+  },
+
+  "backupDataMergedSuccessfullyMessage": "The backup data has been merged with your current data successfully.",
+  "@backupDataMergedSuccessfullyMessage": {
+    "description": "Detailed success message for data merge"
+  },
+
+  "aiAssistantConfiguration": "AI Assistant Configuration",
+  "@aiAssistantConfiguration": {
+    "description": "Title for AI assistant setup section"
+  },
+
+  "configureAiAssistantDescription": "Configure your AI assistant to help manage shopping lists and provide suggestions.",
+  "@configureAiAssistantDescription": {
+    "description": "Description for AI assistant configuration"
+  },
+
+  "apiConfiguration": "API Configuration",
+  "@apiConfiguration": {
+    "description": "Title for API configuration section"
+  },
+
+  "setupGeminiApiKeyDescription": "Set up your Google™ Gemini™ API key to enable AI features",
+  "@setupGeminiApiKeyDescription": {
+    "description": "Description for API key setup"
+  },
+
+  "connectionStatus": "Connection Status",
+  "@connectionStatus": {
+    "description": "Title for connection status section"
+  },
+
+  "aboutGoogleGemini": "About Google™ Gemini™",
+  "@aboutGoogleGemini": {
+    "description": "Title for Gemini information section"
+  },
+
+  "getFreeApiKeyFromGoogleAi": "Get your free API key from Google™ AI Studio",
+  "@getFreeApiKeyFromGoogleAi": {
+    "description": "Information about getting API key"
+  },
+
+  "aiFeaturesIncludeChatAndSuggestions": "AI features include chat assistance and smart suggestions",
+  "@aiFeaturesIncludeChatAndSuggestions": {
+    "description": "Information about AI features"
+  },
+
+  "apiKeyStoredSecurely": "Your API key is stored securely on your device",
+  "@apiKeyStoredSecurely": {
+    "description": "Security information about API key storage"
+  },
+
+  "apiUsageSubjectToRateLimits": "API usage may be subject to Google™'s rate limits",
+  "@apiUsageSubjectToRateLimits": {
+    "description": "Information about API rate limits"
+  },
+
+  "googleTrademarkDisclaimer": "Google™ and Gemini™ are trademarks of Google LLC. This app is not affiliated with Google.",
+  "@googleTrademarkDisclaimer": {
+    "description": "Legal disclaimer about Google trademarks"
+  },
+
+  "automaticBackup": "Automatic Backup",
+  "@automaticBackup": {
+    "description": "Title for automatic backup section"
+  },
+
+  "dataAutomaticallyBackedUpToDrive": "Your data is automatically backed up to Google Drive",
+  "@dataAutomaticallyBackedUpToDrive": {
+    "description": "Description for automatic backup feature"
+  },
+
+  "automaticBackupEnabledAndWorking": "Automatic backup is enabled and working",
+  "@automaticBackupEnabledAndWorking": {
+    "description": "Status message for enabled automatic backup"
+  },
+
+  "automaticBackupConfigurationDetected": "Automatic backup configuration detected",
+  "@automaticBackupConfigurationDetected": {
+    "description": "Status message for detected backup configuration"
+  },
+
+  "automaticBackupInfoMessage": "Automatic backup runs periodically in the background. Manual snapshots work locally, but won't survive app uninstalls until automatic backup has synced them to Google Drive.",
+  "@automaticBackupInfoMessage": {
+    "description": "Information about how automatic backup works"
+  },
+
+  "howBackupWorks": "How Backup Works",
+  "@howBackupWorks": {
+    "description": "Title for backup information section"
+  },
+
+  "automaticBackupSyncsToGoogleDrive": "Automatic backup syncs your data to Google Drive",
+  "@automaticBackupSyncsToGoogleDrive": {
+    "description": "Information about automatic backup sync"
+  },
+
+  "manualSnapshotsStoredLocallyAndSynced": "Manual snapshots are stored locally and included in automatic sync",
+  "@manualSnapshotsStoredLocallyAndSynced": {
+    "description": "Information about manual snapshot storage"
+  },
+
+  "restoringWillReplaceCurrentData": "Restoring will replace your current data",
+  "@restoringWillReplaceCurrentData": {
+    "description": "Warning about data replacement during restore"
+  },
+
+  "backupsIncludeShoppingListsChatAndSettings": "Backups include shopping lists, chat history, and optionally settings",
+  "@backupsIncludeShoppingListsChatAndSettings": {
+    "description": "Information about what is included in backups"
+  },
+
+  "noManualSnapshotsYet": "No manual snapshots yet",
+  "@noManualSnapshotsYet": {
+    "description": "Message when no manual snapshots exist"
+  },
+
+  "createManualSnapshotForAdditionalControl": "Create a manual snapshot to have additional control over your data",
+  "@createManualSnapshotForAdditionalControl": {
+    "description": "Instructions for creating manual snapshots"
+  },
+
+  "createAndManageAdditionalSnapshotFiles": "Create and manage additional snapshot files",
+  "@createAndManageAdditionalSnapshotFiles": {
+    "description": "Description for manual backup section"
+  },
+
+  "thinking": "Thinking",
+  "@thinking": {
+    "description": "Label for AI thinking capability filter"
+  },
+
+  "input": "Input",
+  "@input": {
+    "description": "Label for input tokens"
+  },
+
+  "output": "Output",
+  "@output": {
+    "description": "Label for output tokens"
+  },
+
+  "temperature": "Temperature",
+  "@temperature": {
+    "description": "Label for AI temperature setting"
+  },
+
+  "tokensUnit": "M tokens",
+  "@tokensUnit": {
+    "description": "Unit for token counts (millions)"
+  },
+
+  "filteredBy": "Filtered by",
+  "@filteredBy": {
+    "description": "Prefix text for active filters display"
+  },
+
+  "clear": "Clear",
+  "@clear": {
+    "description": "Button to clear filters or selections"
+  },
+
+  "confirmDeleteShopList": "Are you sure you want to delete the shop list \"{listName}\"?",
+  "@confirmDeleteShopList": {
+    "description": "Confirmation message for deleting shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+
+  "noShoppingListsYet": "No Shopping Lists Yet",
+  "@noShoppingListsYet": {
+    "description": "Title for empty shopping lists state"
+  },
+
+  "createFirstShoppingListDescription": "Create your first shopping list above to start organizing your groceries and never forget an item again!",
+  "@createFirstShoppingListDescription": {
+    "description": "Description for empty shopping lists state"
+  },
+
+  "recentLists": "Recent Lists",
+  "@recentLists": {
+    "description": "Header for recent shopping lists section"
+  },
+
+  "itemsShown": "{count} shown",
+  "@itemsShown": {
+    "description": "Count of items currently displayed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "itemsCompleted": "{completed} of {total} items completed",
+  "@itemsCompleted": {
+    "description": "Progress indicator showing completed items",
+    "placeholders": {
+      "completed": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
   }
 }
