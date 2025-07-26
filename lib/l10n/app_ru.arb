@@ -1,0 +1,1629 @@
+{
+  "@@locale": "ru",
+  
+  "appTitle": "SavvyCart",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
+  "appSubtitle": "Умные списки покупок",
+  "@appSubtitle": {
+    "description": "Subtitle shown under the main app title"
+  },
+
+  "settingsTitle": "Настройки SavvyCart",
+  "@settingsTitle": {
+    "description": "Title for the settings screen"
+  },
+
+  "chatWithList": "Чат со списком \"{listName}\"",
+  "@chatWithList": {
+    "description": "Title for chat screen with shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Продукты"
+      }
+    }
+  },
+
+  "searchItemPrice": "Поиск цены товара",
+  "@searchItemPrice": {
+    "description": "Title for price search screen"
+  },
+
+  "backupAndRestore": "Резервное копирование и восстановление",
+  "@backupAndRestore": {
+    "description": "Title for backup management screen"
+  },
+
+  "shoppingInsights": "Аналитика покупок",
+  "@shoppingInsights": {
+    "description": "Title for insights screen"
+  },
+
+  "searchLists": "Поиск списков",
+  "@searchLists": {
+    "description": "Title for list search screen"
+  },
+
+  "selectGeminiModel": "Выбрать модель Gemini™",
+  "@selectGeminiModel": {
+    "description": "Title for model selection screen"
+  },
+
+  "aiSettings": "Настройки ИИ",
+  "@aiSettings": {
+    "description": "Title for AI settings screen"
+  },
+
+  "addItem": "Добавить товар",
+  "@addItem": {
+    "description": "Button to add new item to shopping list"
+  },
+
+  "createShoppingList": "Создать список покупок",
+  "@createShoppingList": {
+    "description": "Button to create new shopping list"
+  },
+
+  "createNewList": "Создать новый список",
+  "@createNewList": {
+    "description": "Button text for creating new list"
+  },
+
+  "loadMore": "Загрузить ещё",
+  "@loadMore": {
+    "description": "Button to load more items"
+  },
+
+  "executeSelectedActions": "Выполнить выбранные действия",
+  "@executeSelectedActions": {
+    "description": "Button to execute AI actions"
+  },
+
+  "clearAll": "Очистить всё",
+  "@clearAll": {
+    "description": "Button to clear all selections"
+  },
+
+  "apply": "Применить",
+  "@apply": {
+    "description": "Button to apply changes"
+  },
+
+  "cancel": "Отмена",
+  "@cancel": {
+    "description": "Button to cancel action"
+  },
+
+  "save": "Сохранить",
+  "@save": {
+    "description": "Button to save changes"
+  },
+
+  "delete": "Удалить",
+  "@delete": {
+    "description": "Button to delete item"
+  },
+
+  "confirm": "Подтвердить",
+  "@confirm": {
+    "description": "Button to confirm action"
+  },
+
+  "close": "Закрыть",
+  "@close": {
+    "description": "Button to close dialog"
+  },
+
+  "goHome": "На главную",
+  "@goHome": {
+    "description": "Button to navigate to home"
+  },
+
+  "goToHomePage": "Перейти на главную страницу",
+  "@goToHomePage": {
+    "description": "Button to navigate to home page"
+  },
+
+  "enterListName": "Введите название списка",
+  "@enterListName": {
+    "description": "Hint text for list name input"
+  },
+
+  "listName": "Название списка",
+  "@listName": {
+    "description": "Label for list name field"
+  },
+
+  "itemName": "Название товара",
+  "@itemName": {
+    "description": "Label for item name field"
+  },
+
+  "enterItemName": "Введите название товара...",
+  "@enterItemName": {
+    "description": "Hint text for item name input"
+  },
+
+  "searchByListName": "Поиск по названию списка...",
+  "@searchByListName": {
+    "description": "Hint text for list search"
+  },
+
+  "typeYourMessage": "Введите ваше сообщение...",
+  "@typeYourMessage": {
+    "description": "Hint text for chat input"
+  },
+
+  "geminiApiKey": "API-ключ Google™ Gemini™",
+  "@geminiApiKey": {
+    "description": "Label for API key field"
+  },
+
+  "geminiModel": "Модель Gemini™",
+  "@geminiModel": {
+    "description": "Label for model selection"
+  },
+
+  "listNameCannotBeEmpty": "Название списка не может быть пустым",
+  "@listNameCannotBeEmpty": {
+    "description": "Validation message for empty list name"
+  },
+
+  "aiAssistant": "ИИ-помощник",
+  "@aiAssistant": {
+    "description": "Settings section title"
+  },
+
+  "data": "Данные",
+  "@data": {
+    "description": "Settings section title"
+  },
+
+  "localization": "Локализация",
+  "@localization": {
+    "description": "Settings section title for language settings"
+  },
+
+  "language": "Язык",
+  "@language": {
+    "description": "Language settings option"
+  },
+
+  "selectLanguage": "Выберите язык",
+  "@selectLanguage": {
+    "description": "Title for language selection screen"
+  },
+
+  "systemLanguage": "Системный язык",
+  "@systemLanguage": {
+    "description": "Option to use system language"
+  },
+
+  "autoDetectFromDeviceSettings": "Автоопределение из настроек устройства",
+  "@autoDetectFromDeviceSettings": {
+    "description": "Description for system language option"
+  },
+
+  "developer": "Разработчик",
+  "@developer": {
+    "description": "Settings section title"
+  },
+
+  "generateMockData": "Создать тестовые данные",
+  "@generateMockData": {
+    "description": "Settings option to generate sample data"
+  },
+
+  "deleteDatabase": "Удалить базу данных",
+  "@deleteDatabase": {
+    "description": "Settings option to delete all data"
+  },
+
+  "about": "О приложении",
+  "@about": {
+    "description": "Settings section title"
+  },
+
+  "version": "Версия",
+  "@version": {
+    "description": "Settings item for app version"
+  },
+
+  "ready": "Готов",
+  "@ready": {
+    "description": "Status indicating AI is ready"
+  },
+
+  "notVerified": "Не проверен",
+  "@notVerified": {
+    "description": "Status indicating API key not verified"
+  },
+
+  "notConfigured": "Не настроен",
+  "@notConfigured": {
+    "description": "Status indicating API not configured"
+  },
+
+  "manageBackups": "Управление резервными копиями",
+  "@manageBackups": {
+    "description": "Settings option description"
+  },
+
+  "addSampleShoppingLists": "Добавить примеры списков покупок",
+  "@addSampleShoppingLists": {
+    "description": "Settings option description"
+  },
+
+  "clearAllData": "Очистить все данные",
+  "@clearAllData": {
+    "description": "Settings option description"
+  },
+
+  "loading": "Загрузка...",
+  "@loading": {
+    "description": "Loading indicator text"
+  },
+
+  "recommended": "Рекомендуется",
+  "@recommended": {
+    "description": "Label for recommended option"
+  },
+
+  "deleteShopList": "Удалить список покупок",
+  "@deleteShopList": {
+    "description": "Dialog title for deleting shopping list"
+  },
+
+  "editItemName": "Изменить название товара",
+  "@editItemName": {
+    "description": "Dialog title for editing item name"
+  },
+
+  "deleteItem": "Удалить товар",
+  "@deleteItem": {
+    "description": "Dialog title for deleting item"
+  },
+
+  "deleteBackup": "Удалить резервную копию",
+  "@deleteBackup": {
+    "description": "Dialog title for deleting backup"
+  },
+
+  "createManualSnapshot": "Создать ручной снимок",
+  "@createManualSnapshot": {
+    "description": "Dialog title for creating backup"
+  },
+
+  "error": "Ошибка",
+  "@error": {
+    "description": "Generic error title"
+  },
+
+  "toBuy": "К покупке",
+  "@toBuy": {
+    "description": "Section header for items to buy"
+  },
+
+  "inCart": "В корзине",
+  "@inCart": {
+    "description": "Section header for items in cart"
+  },
+
+  "listsCreated": "Создано списков",
+  "@listsCreated": {
+    "description": "Statistics label for number of lists"
+  },
+
+  "totalSpent": "Всего потрачено",
+  "@totalSpent": {
+    "description": "Statistics label for total spending"
+  },
+
+  "filterByDateRange": "Фильтр по диапазону дат",
+  "@filterByDateRange": {
+    "description": "Filter section title"
+  },
+
+  "startDate": "Дата начала",
+  "@startDate": {
+    "description": "Date picker label"
+  },
+
+  "endDate": "Дата окончания",
+  "@endDate": {
+    "description": "Date picker label"
+  },
+
+  "tokenLimits": "Лимиты токенов",
+  "@tokenLimits": {
+    "description": "Filter section for token limits"
+  },
+
+  "all": "Все",
+  "@all": {
+    "description": "Filter option for all items"
+  },
+
+  "yes": "Да",
+  "@yes": {
+    "description": "Affirmative response"
+  },
+
+  "no": "Нет",
+  "@no": {
+    "description": "Negative response"
+  },
+
+  "searchResultsCount": "Результаты поиска ({count})",
+  "@searchResultsCount": {
+    "description": "Search results counter",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "noShoppingDataYet": "Пока нет данных о покупках",
+  "@noShoppingDataYet": {
+    "description": "Empty state title for insights"
+  },
+
+  "createFirstListDescription": "Создайте первый список покупок, чтобы начать отслеживать аналитику ваших покупательских привычек и трат.",
+  "@createFirstListDescription": {
+    "description": "Description for insights empty state"
+  },
+
+  "noItemsFound": "Товары не найдены",
+  "@noItemsFound": {
+    "description": "Empty state for search results"
+  },
+
+  "tryDifferentSearchTerm": "Попробуйте другой поисковый запрос или добавьте \"{searchQuery}\" как новый товар",
+  "@tryDifferentSearchTerm": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "молоко"
+      }
+    }
+  },
+
+  "noPriceHistoryAvailable": "История цен недоступна",
+  "@noPriceHistoryAvailable": {
+    "description": "Empty state for price chart"
+  },
+
+  "purchaseItemToTrackPrice": "Купите этот товар, чтобы начать отслеживать динамику его цены",
+  "@purchaseItemToTrackPrice": {
+    "description": "Instructions for price tracking"
+  },
+
+  "noListsFound": "Списки не найдены",
+  "@noListsFound": {
+    "description": "Empty state for list search"
+  },
+
+  "tryAdjustingFilters": "Попробуйте изменить условия поиска или фильтры дат",
+  "@tryAdjustingFilters": {
+    "description": "Help text for empty search results"
+  },
+
+  "loadingAvailableModels": "Загрузка доступных моделей...",
+  "@loadingAvailableModels": {
+    "description": "Loading text for model selection"
+  },
+
+  "failedToRemoveItem": "Не удалось удалить товар: {error}",
+  "@failedToRemoveItem": {
+    "description": "Error message for item removal failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Ошибка сети"
+      }
+    }
+  },
+
+  "couldNotLoadShopListItems": "Не удалось загрузить товары списка покупок из-за ошибки.",
+  "@couldNotLoadShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "errorLoadingSearchResults": "Ошибка загрузки результатов поиска",
+  "@errorLoadingSearchResults": {
+    "description": "Error message for search failure"
+  },
+
+  "pleaseTryAgainLater": "Пожалуйста, попробуйте снова позже",
+  "@pleaseTryAgainLater": {
+    "description": "Generic retry message"
+  },
+
+  "errorLoadingSuggestions": "Ошибка загрузки предложений",
+  "@errorLoadingSuggestions": {
+    "description": "Error message for suggestion loading failure"
+  },
+
+  "failedToLoadBackupInfo": "Не удалось загрузить информацию о резервной копии: {error}",
+  "@failedToLoadBackupInfo": {
+    "description": "Error message for backup loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Файл не найден"
+      }
+    }
+  },
+
+  "pageNotFound": "Страница не найдена: {uri}",
+  "@pageNotFound": {
+    "description": "Error message for invalid routes",
+    "placeholders": {
+      "uri": {
+        "type": "String",
+        "example": "/invalid-page"
+      }
+    }
+  },
+
+  "invalidShopListId": "Неверный ID списка покупок",
+  "@invalidShopListId": {
+    "description": "Error message for invalid list ID"
+  },
+
+  "invalidItemName": "Неверное название товара",
+  "@invalidItemName": {
+    "description": "Error message for invalid item name"
+  },
+
+  "badRequest": "Неверный запрос: {responseBody}",
+  "@badRequest": {
+    "description": "API error for bad request",
+    "placeholders": {
+      "responseBody": {
+        "type": "String",
+        "example": "Отсутствует параметр"
+      }
+    }
+  },
+
+  "invalidApiKeyOrAuth": "Неверный API-ключ или ошибка аутентификации",
+  "@invalidApiKeyOrAuth": {
+    "description": "API error for authentication failure"
+  },
+
+  "accessForbidden": "Доступ запрещён - проверьте разрешения API",
+  "@accessForbidden": {
+    "description": "API error for forbidden access"
+  },
+
+  "apiRateLimitExceeded": "Превышен лимит API. Пожалуйста, попробуйте снова позже.",
+  "@apiRateLimitExceeded": {
+    "description": "API error for rate limiting"
+  },
+
+  "internalServerError": "Внутренняя ошибка сервера",
+  "@internalServerError": {
+    "description": "API error for server issues"
+  },
+
+  "badGateway": "Неверный шлюз - сервис временно недоступен",
+  "@badGateway": {
+    "description": "API error for gateway issues"
+  },
+
+  "serviceUnavailable": "Сервис недоступен",
+  "@serviceUnavailable": {
+    "description": "API error for service unavailability"
+  },
+
+  "gatewayTimeout": "Тайм-аут шлюза",
+  "@gatewayTimeout": {
+    "description": "API error for timeout"
+  },
+
+  "noInternetConnection": "Нет подключения к интернету",
+  "@noInternetConnection": {
+    "description": "Network error message"
+  },
+
+  "requestTimedOut": "Истекло время ожидания запроса",
+  "@requestTimedOut": {
+    "description": "Timeout error message"
+  },
+
+  "invalidResponseFormat": "Неверный формат ответа API",
+  "@invalidResponseFormat": {
+    "description": "API response format error"
+  },
+
+  "generatingMockData": "Создание тестовых данных...",
+  "@generatingMockData": {
+    "description": "Progress message for mock data generation"
+  },
+
+  "mockDataGeneratedSuccessfully": "Тестовые данные успешно созданы!",
+  "@mockDataGeneratedSuccessfully": {
+    "description": "Success message for mock data generation"
+  },
+
+  "errorGeneratingMockData": "Ошибка создания тестовых данных: {error}",
+  "@errorGeneratingMockData": {
+    "description": "Error message for mock data generation failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Ошибка базы данных"
+      }
+    }
+  },
+
+  "databaseDeletedSuccessfully": "База данных успешно удалена",
+  "@databaseDeletedSuccessfully": {
+    "description": "Success message for database deletion"
+  },
+
+  "errorDeletingDatabase": "Ошибка удаления базы данных: {error}",
+  "@errorDeletingDatabase": {
+    "description": "Error message for database deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Доступ запрещён"
+      }
+    }
+  },
+
+  "backupDeletedSuccessfully": "Резервная копия успешно удалена",
+  "@backupDeletedSuccessfully": {
+    "description": "Success message for backup deletion"
+  },
+
+  "failedToDeleteBackup": "Не удалось удалить резервную копию: {error}",
+  "@failedToDeleteBackup": {
+    "description": "Error message for backup deletion failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Файл заблокирован"
+      }
+    }
+  },
+
+  "pleaseEnterValidApiKey": "Пожалуйста, сначала введите действительный API-ключ",
+  "@pleaseEnterValidApiKey": {
+    "description": "Validation message for API key"
+  },
+
+  "processing": "Обработка...",
+  "@processing": {
+    "description": "Processing indicator text"
+  },
+
+  "startYourShoppingJourney": "Начните свой путь покупок",
+  "@startYourShoppingJourney": {
+    "description": "Encouraging text for new users"
+  },
+
+  "searchForItemViewHistory": "Найдите товар, чтобы просмотреть историю его цен",
+  "@searchForItemViewHistory": {
+    "description": "Instructions for price search"
+  },
+
+  "orChooseFromPreviousItems": "Или выберите из ваших предыдущих товаров:",
+  "@orChooseFromPreviousItems": {
+    "description": "Alternative option text"
+  },
+
+  "searchResults": "Результаты поиска:",
+  "@searchResults": {
+    "description": "Search results section header"
+  },
+
+  "addItemsToSeeHere": "Добавьте товары в свои списки покупок, чтобы увидеть их здесь",
+  "@addItemsToSeeHere": {
+    "description": "Instructions for empty state"
+  },
+
+  "tryDifferentSearchOrCreate": "Попробуйте другой поисковый запрос или создайте график для \"{searchQuery}\"",
+  "@tryDifferentSearchOrCreate": {
+    "description": "Help text with create option",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "бананы"
+      }
+    }
+  },
+
+  "areYouSureDeleteBackup": "Вы уверены, что хотите удалить эту резервную копию?",
+  "@areYouSureDeleteBackup": {
+    "description": "Confirmation message for backup deletion"
+  },
+
+  "mockDataGenerationDescription": "Это создаст примеры списков покупок с товарами на протяжении года для тестирования аналитики. Это может занять несколько минут.",
+  "@mockDataGenerationDescription": {
+    "description": "Description for mock data generation"
+  },
+
+  "databaseDeletionWarning": "Это безвозвратно удалит все ваши данные, включая списки покупок, товары и настройки. Это действие нельзя отменить.",
+  "@databaseDeletionWarning": {
+    "description": "Warning message for database deletion"
+  },
+
+  "shoppingListsAlwaysIncluded": "Списки покупок (всегда включены)",
+  "@shoppingListsAlwaysIncluded": {
+    "description": "Backup option description"
+  },
+
+  "chooseAdditionalData": "Выберите дополнительные данные для включения:",
+  "@chooseAdditionalData": {
+    "description": "Backup options description"
+  },
+
+  "settings": "Настройки",
+  "@settings": {
+    "description": "Settings backup option"
+  },
+
+  "chatHistory": "История чата",
+  "@chatHistory": {
+    "description": "Chat history backup option"
+  },
+
+  "suggestions": "Предложения",
+  "@suggestions": {
+    "description": "Suggestions backup option"
+  },
+
+  "addSearchQuery": "Добавить \"{searchQuery}\"",
+  "@addSearchQuery": {
+    "description": "Button to add search term as item",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "хлеб"
+      }
+    }
+  },
+
+  "viewChartFor": "Посмотреть график для \"{searchQuery}\"",
+  "@viewChartFor": {
+    "description": "Button to view price chart",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "яйца"
+      }
+    }
+  },
+
+  "gemini2Flash": "Gemini™ 2.0 Flash",
+  "@gemini2Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Flash": "Gemini™ 1.5 Flash",
+  "@gemini15Flash": {
+    "description": "AI model name"
+  },
+
+  "gemini15Pro": "Gemini™ 1.5 Pro",
+  "@gemini15Pro": {
+    "description": "AI model name"
+  },
+
+  "geminiPro": "Gemini™ Pro",
+  "@geminiPro": {
+    "description": "AI model name"
+  },
+
+  "chooseAiModelDescription": "Выберите модель ИИ для обработки",
+  "@chooseAiModelDescription": {
+    "description": "Help text for model selection"
+  },
+
+  "actionsDiscarded": "Действия отменены",
+  "@actionsDiscarded": {
+    "description": "Status message for discarded AI actions"
+  },
+
+  "weeklyOverview": "Недельный обзор",
+  "@weeklyOverview": {
+    "description": "Title for weekly insights overview"
+  },
+
+  "errorLoadingInsights": "Ошибка загрузки аналитики",
+  "@errorLoadingInsights": {
+    "description": "Error message for insights loading failure"
+  },
+
+  "noMatchingItemsFound": "Подходящие товары не найдены",
+  "@noMatchingItemsFound": {
+    "description": "Message when no items match search criteria"
+  },
+
+  "removeItemAndSuggestion": "Удалить товар и предложение?",
+  "@removeItemAndSuggestion": {
+    "description": "Dialog title for removing item and suggestion"
+  },
+
+  "removeSuggestion": "Удалить предложение?",
+  "@removeSuggestion": {
+    "description": "Dialog title for removing suggestion only"
+  },
+
+  "removeItemAndSuggestionDesc": "Это удалит \"{itemName}\" из вашего текущего списка покупок, а также из ваших предложений.",
+  "@removeItemAndSuggestionDesc": {
+    "description": "Description for removing item and suggestion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "молоко"
+      }
+    }
+  },
+
+  "removeSuggestionDesc": "Это удалит \"{itemName}\" из ваших предложений. Это не повлияет на ваш текущий список покупок.",
+  "@removeSuggestionDesc": {
+    "description": "Description for removing suggestion only",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "молоко"
+      }
+    }
+  },
+
+  "remove": "Удалить",
+  "@remove": {
+    "description": "Button to remove item"
+  },
+
+  "itemsSelected": "Выбрано: {count}",
+  "@itemsSelected": {
+    "description": "Number of items selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "chatWith": "Чат с {listName}",
+  "@chatWith": {
+    "description": "Chat screen title with list name",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Продукты"
+      }
+    }
+  },
+
+  "reviewAiSuggestions": "Проверить предложения ИИ",
+  "@reviewAiSuggestions": {
+    "description": "Title for AI suggestions review"
+  },
+
+  "pleaseSelectAtLeastOneAction": "Пожалуйста, выберите хотя бы одно действие для выполнения",
+  "@pleaseSelectAtLeastOneAction": {
+    "description": "Validation message for AI actions"
+  },
+
+  "appliedActions": "Применённые действия",
+  "@appliedActions": {
+    "description": "Title for applied AI actions"
+  },
+
+  "noActionsWereApplied": "Никаких действий не было применено",
+  "@noActionsWereApplied": {
+    "description": "Message when no AI actions were applied"
+  },
+
+  "frequentlyBoughtItems": "Часто покупаемые товары",
+  "@frequentlyBoughtItems": {
+    "description": "Title for frequently bought items section"
+  },
+
+  "searchItem": "Найти товар",
+  "@searchItem": {
+    "description": "Placeholder text for item search"
+  },
+
+  "noFrequentlyBoughtItems": "Нет часто покупаемых товаров",
+  "@noFrequentlyBoughtItems": {
+    "description": "Message when no frequently bought items available"
+  },
+
+  "completeListsToSeeMostBought": "Завершите списки покупок, чтобы увидеть ваши самые покупаемые товары",
+  "@completeListsToSeeMostBought": {
+    "description": "Instructions for seeing frequently bought items"
+  },
+
+  "timesPurchased": "Куплено {count} раз",
+  "@timesPurchased": {
+    "description": "Number of times an item was purchased",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "errorLoadingFrequentlyBought": "Ошибка загрузки часто покупаемых товаров",
+  "@errorLoadingFrequentlyBought": {
+    "description": "Error message for frequently bought items loading failure"
+  },
+
+  "errorLoadingData": "Ошибка загрузки данных",
+  "@errorLoadingData": {
+    "description": "Generic error message for data loading failure"
+  },
+
+  "discoverShoppingPatterns": "Изучите ваши покупательские привычки",
+  "@discoverShoppingPatterns": {
+    "description": "Description for shopping insights feature"
+  },
+
+  "errorLoadingPriceHistory": "Ошибка загрузки истории цен",
+  "@errorLoadingPriceHistory": {
+    "description": "Error message for price history loading failure"
+  },
+
+  "onlyOnePurchaseFound": "Найдена только одна покупка",
+  "@onlyOnePurchaseFound": {
+    "description": "Message when only one purchase exists for price tracking"
+  },
+
+  "lastPurchasedFor": "Последняя покупка за {price}",
+  "@lastPurchasedFor": {
+    "description": "Shows last purchase price",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "599 ₽"
+      }
+    }
+  },
+
+  "purchasedOn": "Куплено {date}",
+  "@purchasedOn": {
+    "description": "Shows purchase date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "15 янв, 2024"
+      }
+    }
+  },
+
+  "purchaseMoreTimesToSeeTrends": "Купите этот товар ещё несколько раз, чтобы увидеть динамику цен",
+  "@purchaseMoreTimesToSeeTrends": {
+    "description": "Instructions for seeing price trends with multiple purchases"
+  },
+
+  "average": "Средняя",
+  "@average": {
+    "description": "Label for average price"
+  },
+
+  "lowest": "Минимальная",
+  "@lowest": {
+    "description": "Label for lowest price"
+  },
+
+  "highest": "Максимальная",
+  "@highest": {
+    "description": "Label for highest price"
+  },
+
+  "searchOrAddNewItem": "Найти или добавить новый товар...",
+  "@searchOrAddNewItem": {
+    "description": "Hint text for item search field"
+  },
+
+  "frequentlyBought": "Часто покупаемые",
+  "@frequentlyBought": {
+    "description": "Section header for frequently bought items"
+  },
+
+  "errorLoadingResults": "Ошибка загрузки результатов: {error}",
+  "@errorLoadingResults": {
+    "description": "Error message for search results loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Ошибка сети"
+      }
+    }
+  },
+
+  "searchResultsZero": "Результаты поиска (0)",
+  "@searchResultsZero": {
+    "description": "Search results header when no results found"
+  },
+
+  "tryDifferentSearchOrAdd": "Попробуйте другой поисковый запрос или добавьте \"{searchQuery}\" как новый товар",
+  "@tryDifferentSearchOrAdd": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "молоко"
+      }
+    }
+  },
+
+  "errorLoadingItem": "Ошибка загрузки товара",
+  "@errorLoadingItem": {
+    "description": "Error message for item loading failure"
+  },
+
+  "itemNotFound": "Товар не найден",
+  "@itemNotFound": {
+    "description": "Error message when item cannot be found"
+  },
+
+  "confirmDeleteItem": "Вы уверены, что хотите удалить \"{itemName}\"?",
+  "@confirmDeleteItem": {
+    "description": "Confirmation message for item deletion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "молоко"
+      }
+    }
+  },
+
+  "quantity": "Количество",
+  "@quantity": {
+    "description": "Label for item quantity field"
+  },
+
+  "required": "Обязательно",
+  "@required": {
+    "description": "Validation message for required fields"
+  },
+
+  "invalidNumber": "Неверное число",
+  "@invalidNumber": {
+    "description": "Validation message for invalid number input"
+  },
+
+  "price": "Цена",
+  "@price": {
+    "description": "Label for item price field"
+  },
+
+  "total": "Итого",
+  "@total": {
+    "description": "Label for total amount"
+  },
+
+  "errorLoadingShopListItems": "Не удалось загрузить товары списка покупок из-за ошибки.",
+  "@errorLoadingShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "noItemsInCartYet": "В корзине пока нет товаров",
+  "@noItemsInCartYet": {
+    "description": "Empty state message for cart"
+  },
+
+  "readyToStartShopping": "Готовы начать покупки?",
+  "@readyToStartShopping": {
+    "description": "Encouraging message for empty cart"
+  },
+
+  "itemsYouCheckOffWillAppearHere": "Товары, которые вы отметите, появятся здесь",
+  "@itemsYouCheckOffWillAppearHere": {
+    "description": "Instructions for cart functionality"
+  },
+
+  "tapPlusButtonToAddFirstItem": "Нажмите кнопку + ниже, чтобы добавить первый товар",
+  "@tapPlusButtonToAddFirstItem": {
+    "description": "Instructions for adding first item"
+  },
+
+  "needMoreItems": "Нужны ещё товары?",
+  "@needMoreItems": {
+    "description": "Question asking if user needs more items"
+  },
+
+  "tapButtonBelowToAddMoreItems": "Нажмите кнопку ниже, чтобы добавить больше товаров",
+  "@tapButtonBelowToAddMoreItems": {
+    "description": "Instructions for adding more items"
+  },
+
+  "addItemsYouStillNeedToBuy": "Добавьте товары, которые вам ещё нужно купить",
+  "@addItemsYouStillNeedToBuy": {
+    "description": "Instructions for adding needed items"
+  },
+
+  "tapButtonBelowToAddFirstItem": "Нажмите кнопку ниже, чтобы добавить первый товар",
+  "@tapButtonBelowToAddFirstItem": {
+    "description": "Instructions for adding first item with button"
+  },
+
+  "addFirstItemToGetStarted": "Добавьте первый товар, чтобы начать",
+  "@addFirstItemToGetStarted": {
+    "description": "Instructions for new users"
+  },
+
+  "generate": "Создать",
+  "@generate": {
+    "description": "Button to generate content"
+  },
+
+  "ai": "ИИ",
+  "@ai": {
+    "description": "AI section or feature label"
+  },
+
+  "filterModels": "Фильтр моделей",
+  "@filterModels": {
+    "description": "Button to filter AI models"
+  },
+
+  "thinkingCapabilities": "Возможности мышления",
+  "@thinkingCapabilities": {
+    "description": "Filter section for AI thinking capabilities"
+  },
+
+  "inputTokensInMillions": "Входные токены (в миллионах)",
+  "@inputTokensInMillions": {
+    "description": "Filter label for input token limits"
+  },
+
+  "minValue": "Мин. значение",
+  "@minValue": {
+    "description": "Label for minimum value input"
+  },
+
+  "maxValue": "Макс. значение",
+  "@maxValue": {
+    "description": "Label for maximum value input"
+  },
+
+  "outputTokensInMillions": "Выходные токены (в миллионах)",
+  "@outputTokensInMillions": {
+    "description": "Filter label for output token limits"
+  },
+
+  "temperatureRange": "Диапазон температуры",
+  "@temperatureRange": {
+    "description": "Filter section for AI temperature settings"
+  },
+
+  "retry": "Повторить",
+  "@retry": {
+    "description": "Button to retry an action"
+  },
+
+  "actionsApplied": "Действия применены",
+  "@actionsApplied": {
+    "description": "Status message for successfully applied AI actions"
+  },
+
+  "applyActions": "Применить действия",
+  "@applyActions": {
+    "description": "Button to apply AI actions"
+  },
+
+  "somethingWentWrong": "Что-то пошло не так",
+  "@somethingWentWrong": {
+    "description": "Generic error message"
+  },
+
+  "pleaseGoBackToHomeScreen": "Пожалуйста, вернитесь на главный экран",
+  "@pleaseGoBackToHomeScreen": {
+    "description": "Instruction to return to home"
+  },
+
+  "priceTrendForLastPurchases": "Динамика цен для последних покупок",
+  "@priceTrendForLastPurchases": {
+    "description": "Chart header for price trends"
+  },
+
+  "settingsWillNotBeIncluded": "Настройки не будут включены",
+  "@settingsWillNotBeIncluded": {
+    "description": "Warning about excluded settings in backup"
+  },
+
+  "snapshotCreatedSuccessfully": "Снимок успешно создан",
+  "@snapshotCreatedSuccessfully": {
+    "description": "Success message for snapshot creation"
+  },
+
+  "create": "Создать",
+  "@create": {
+    "description": "Button to create something"
+  },
+
+  "snapshotCreated": "Снимок создан",
+  "@snapshotCreated": {
+    "description": "Title for successful snapshot creation"
+  },
+
+  "snapshotFailed": "Создание снимка не удалось: {error}",
+  "@snapshotFailed": {
+    "description": "Error message for failed snapshot",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Диск заполнен"
+      }
+    }
+  },
+
+  "restore": "Восстановить",
+  "@restore": {
+    "description": "Button to restore backup"
+  },
+
+  "manualSnapshots": "Ручные снимки",
+  "@manualSnapshots": {
+    "description": "Section title for manual backups"
+  },
+
+  "restoreBackup": "Восстановить резервную копию",
+  "@restoreBackup": {
+    "description": "Dialog title for restoring backup"
+  },
+
+  "replaceExistingData": "Заменить существующие данные",
+  "@replaceExistingData": {
+    "description": "Option to replace data during restore"
+  },
+
+  "clearCurrentDataBeforeRestoring": "Очистить все текущие данные перед восстановлением",
+  "@clearCurrentDataBeforeRestoring": {
+    "description": "Warning about clearing data before restore"
+  },
+
+  "restoreFailed": "Восстановление не удалось: {error}",
+  "@restoreFailed": {
+    "description": "Error message for failed restore",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Неверный файл"
+      }
+    }
+  },
+
+  "chooseWhatToInclude": "Выберите, что включить",
+  "@chooseWhatToInclude": {
+    "description": "Instructions for export options"
+  },
+
+  "fullExport": "Полный экспорт",
+  "@fullExport": {
+    "description": "Option for complete data export"
+  },
+
+  "databaseOnly": "Только база данных",
+  "@databaseOnly": {
+    "description": "Option for database-only export"
+  },
+
+  "createSnapshot": "Создать снимок",
+  "@createSnapshot": {
+    "description": "Button to create backup snapshot"
+  },
+
+  "done": "Готово",
+  "@done": {
+    "description": "Button to indicate completion"
+  },
+
+  "clearAllCurrentDataBeforeImporting": "Очистить все текущие данные перед импортом",
+  "@clearAllCurrentDataBeforeImporting": {
+    "description": "Warning about clearing data before import"
+  },
+
+  "restoreSuccessful": "Восстановление успешно",
+  "@restoreSuccessful": {
+    "description": "Title for successful restore"
+  },
+
+  "filtersWithCount": "Фильтры ({count})",
+  "@filtersWithCount": {
+    "description": "Filter button text with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+
+  "filter": "Фильтр",
+  "@filter": {
+    "description": "Button to filter results"
+  },
+
+  "clearAllFilters": "Очистить все фильтры",
+  "@clearAllFilters": {
+    "description": "Button to clear all applied filters"
+  },
+
+  "errorWithDetails": "Ошибка: {details}",
+  "@errorWithDetails": {
+    "description": "Error message with details",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "Соединение не удалось"
+      }
+    }
+  },
+
+  "created": "Создано",
+  "@created": {
+    "description": "Label for creation date"
+  },
+
+  "size": "Размер",
+  "@size": {
+    "description": "Label for file size"
+  },
+
+  "important": "Важно",
+  "@important": {
+    "description": "Important notice header"
+  },
+
+  "dataReplacementWarning": "Это безвозвратно удалит все текущие данные и заменит их данными из резервной копии.",
+  "@dataReplacementWarning": {
+    "description": "Warning message for data replacement during restore"
+  },
+
+  "dataMergeWarning": "Это объединит данные из резервной копии с вашими текущими данными. Могут появиться дублирующиеся записи.",
+  "@dataMergeWarning": {
+    "description": "Warning message for data merging during restore"
+  },
+
+  "dataRestoredSuccessfully": "Данные успешно восстановлены",
+  "@dataRestoredSuccessfully": {
+    "description": "Success message for data restore"
+  },
+
+  "backupDataMergedSuccessfully": "Данные из резервной копии успешно объединены",
+  "@backupDataMergedSuccessfully": {
+    "description": "Success message for data merge"
+  },
+
+  "quickOptions": "Быстрые параметры",
+  "@quickOptions": {
+    "description": "Header for quick export options"
+  },
+
+  "shoppingLists": "Списки покупок",
+  "@shoppingLists": {
+    "description": "Label for shopping lists data"
+  },
+
+  "backupInformation": "Информация о резервной копии",
+  "@backupInformation": {
+    "description": "Header for backup file information"
+  },
+
+  "file": "Файл",
+  "@file": {
+    "description": "Label for file name"
+  },
+
+  "includesSettings": "Включает настройки",
+  "@includesSettings": {
+    "description": "Label for settings inclusion status"
+  },
+
+  "importOptions": "Параметры импорта",
+  "@importOptions": {
+    "description": "Header for import configuration options"
+  },
+
+  "dataRestoredSuccessfullyMessage": "Ваши данные были успешно восстановлены.",
+  "@dataRestoredSuccessfullyMessage": {
+    "description": "Detailed success message for data restore"
+  },
+
+  "backupDataMergedSuccessfullyMessage": "Данные из резервной копии были успешно объединены с вашими текущими данными.",
+  "@backupDataMergedSuccessfullyMessage": {
+    "description": "Detailed success message for data merge"
+  },
+
+  "aiAssistantConfiguration": "Настройка ИИ-помощника",
+  "@aiAssistantConfiguration": {
+    "description": "Title for AI assistant setup section"
+  },
+
+  "configureAiAssistantDescription": "Настройте вашего ИИ-помощника для управления списками покупок и получения предложений.",
+  "@configureAiAssistantDescription": {
+    "description": "Description for AI assistant configuration"
+  },
+
+  "apiConfiguration": "Настройка API",
+  "@apiConfiguration": {
+    "description": "Title for API configuration section"
+  },
+
+  "setupGeminiApiKeyDescription": "Настройте ваш API-ключ Google™ Gemini™ для включения функций ИИ",
+  "@setupGeminiApiKeyDescription": {
+    "description": "Description for API key setup"
+  },
+
+  "connectionStatus": "Статус соединения",
+  "@connectionStatus": {
+    "description": "Title for connection status section"
+  },
+
+  "aboutGoogleGemini": "О Google™ Gemini™",
+  "@aboutGoogleGemini": {
+    "description": "Title for Gemini information section"
+  },
+
+  "getFreeApiKeyFromGoogleAi": "Получите бесплатный API-ключ в Google™ AI Studio",
+  "@getFreeApiKeyFromGoogleAi": {
+    "description": "Information about getting API key"
+  },
+
+  "aiFeaturesIncludeChatAndSuggestions": "Функции ИИ включают помощь в чате и умные предложения",
+  "@aiFeaturesIncludeChatAndSuggestions": {
+    "description": "Information about AI features"
+  },
+
+  "apiKeyStoredSecurely": "Ваш API-ключ надёжно хранится на вашем устройстве",
+  "@apiKeyStoredSecurely": {
+    "description": "Security information about API key storage"
+  },
+
+  "apiUsageSubjectToRateLimits": "Использование API может подлежать ограничениям скорости Google™",
+  "@apiUsageSubjectToRateLimits": {
+    "description": "Information about API rate limits"
+  },
+
+  "googleTrademarkDisclaimer": "Google™ и Gemini™ являются торговыми марками Google LLC. Это приложение не связано с Google.",
+  "@googleTrademarkDisclaimer": {
+    "description": "Legal disclaimer about Google trademarks"
+  },
+
+  "automaticBackup": "Автоматическое резервное копирование",
+  "@automaticBackup": {
+    "description": "Title for automatic backup section"
+  },
+
+  "dataAutomaticallyBackedUpToDrive": "Ваши данные автоматически сохраняются в Google Drive",
+  "@dataAutomaticallyBackedUpToDrive": {
+    "description": "Description for automatic backup feature"
+  },
+
+  "automaticBackupEnabledAndWorking": "Автоматическое резервное копирование включено и работает",
+  "@automaticBackupEnabledAndWorking": {
+    "description": "Status message for enabled automatic backup"
+  },
+
+  "automaticBackupConfigurationDetected": "Обнаружена конфигурация автоматического резервного копирования",
+  "@automaticBackupConfigurationDetected": {
+    "description": "Status message for detected backup configuration"
+  },
+
+  "automaticBackupInfoMessage": "Автоматическое резервное копирование выполняется периодически в фоновом режиме. Ручные снимки работают локально, но не сохранятся при удалении приложения до тех пор, пока автоматическое резервное копирование не синхронизирует их с Google Drive.",
+  "@automaticBackupInfoMessage": {
+    "description": "Information about how automatic backup works"
+  },
+
+  "howBackupWorks": "Как работает резервное копирование",
+  "@howBackupWorks": {
+    "description": "Title for backup information section"
+  },
+
+  "automaticBackupSyncsToGoogleDrive": "Автоматическое резервное копирование синхронизирует ваши данные с Google Drive",
+  "@automaticBackupSyncsToGoogleDrive": {
+    "description": "Information about automatic backup sync"
+  },
+
+  "manualSnapshotsStoredLocallyAndSynced": "Ручные снимки хранятся локально и включаются в автоматическую синхронизацию",
+  "@manualSnapshotsStoredLocallyAndSynced": {
+    "description": "Information about manual snapshot storage"
+  },
+
+  "restoringWillReplaceCurrentData": "Восстановление заменит ваши текущие данные",
+  "@restoringWillReplaceCurrentData": {
+    "description": "Warning about data replacement during restore"
+  },
+
+  "backupsIncludeShoppingListsChatAndSettings": "Резервные копии включают списки покупок, историю чата и, опционально, настройки",
+  "@backupsIncludeShoppingListsChatAndSettings": {
+    "description": "Information about what is included in backups"
+  },
+
+  "noManualSnapshotsYet": "Пока нет ручных снимков",
+  "@noManualSnapshotsYet": {
+    "description": "Message when no manual snapshots exist"
+  },
+
+  "createManualSnapshotForAdditionalControl": "Создайте ручной снимок для дополнительного контроля над вашими данными",
+  "@createManualSnapshotForAdditionalControl": {
+    "description": "Instructions for creating manual snapshots"
+  },
+
+  "createAndManageAdditionalSnapshotFiles": "Создание и управление дополнительными файлами снимков",
+  "@createAndManageAdditionalSnapshotFiles": {
+    "description": "Description for manual backup section"
+  },
+
+  "thinking": "Мышление",
+  "@thinking": {
+    "description": "Label for AI thinking capability filter"
+  },
+
+  "input": "Вход",
+  "@input": {
+    "description": "Label for input tokens"
+  },
+
+  "output": "Выход",
+  "@output": {
+    "description": "Label for output tokens"
+  },
+
+  "temperature": "Температура",
+  "@temperature": {
+    "description": "Label for AI temperature setting"
+  },
+
+  "tokensUnit": "млн токенов",
+  "@tokensUnit": {
+    "description": "Unit for token counts (millions)"
+  },
+
+  "filteredBy": "Фильтр по",
+  "@filteredBy": {
+    "description": "Prefix text for active filters display"
+  },
+
+  "clear": "Очистить",
+  "@clear": {
+    "description": "Button to clear filters or selections"
+  },
+
+  "confirmDeleteShopList": "Вы уверены, что хотите удалить список покупок \"{listName}\"?",
+  "@confirmDeleteShopList": {
+    "description": "Confirmation message for deleting shopping list",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Продукты"
+      }
+    }
+  },
+
+  "noShoppingListsYet": "Пока нет списков покупок",
+  "@noShoppingListsYet": {
+    "description": "Title for empty shopping lists state"
+  },
+
+  "createFirstShoppingListDescription": "Создайте ваш первый список покупок выше, чтобы начать организовывать ваши продукты и никогда не забыть ни одного товара!",
+  "@createFirstShoppingListDescription": {
+    "description": "Description for empty shopping lists state"
+  },
+
+  "recentLists": "Недавние списки",
+  "@recentLists": {
+    "description": "Header for recent shopping lists section"
+  },
+
+  "itemsShown": "Показано: {count}",
+  "@itemsShown": {
+    "description": "Count of items currently displayed",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "itemsCompleted": "Выполнено {completed} из {total} товаров",
+  "@itemsCompleted": {
+    "description": "Progress indicator showing completed items",
+    "placeholders": {
+      "completed": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "continueShopping": "Продолжить покупки",
+  "@continueShopping": {
+    "description": "Button text for continuing shopping on incomplete list"
+  },
+
+  "viewList": "Просмотреть список",
+  "@viewList": {
+    "description": "Button text for viewing completed list"
+  },
+
+  "itemsProgress": "{completed} из {total} товаров",
+  "@itemsProgress": {
+    "description": "Progress text showing items completed",
+    "placeholders": {
+      "completed": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int",
+        "example": "10"
+      }
+    }
+  },
+
+  "remaining": "Осталось",
+  "@remaining": {
+    "description": "Label for remaining items section"
+  },
+
+  "allItems": "Все товары",
+  "@allItems": {
+    "description": "Header label for all items section"
+  },
+
+  "allItemsWithCount": "Все товары ({count})",
+  "@allItemsWithCount": {
+    "description": "Header label for all items section with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+
+  "apiConnected": "API подключен",
+  "@apiConnected": {
+    "description": "Status message for connected API"
+  },
+
+  "connected": "Подключено",
+  "@connected": {
+    "description": "Generic connected status"
+  },
+
+  "connectedWithModels": "Подключено (доступно моделей: {count})",
+  "@connectedWithModels": {
+    "description": "Connected status with available models count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "verifyingApiKey": "Проверка API-ключа...",
+  "@verifyingApiKey": {
+    "description": "Status message while verifying API key"
+  },
+
+  "checkingConnectionGemini": "Проверка соединения с Gemini API...",
+  "@checkingConnectionGemini": {
+    "description": "Status message while checking Gemini API connection"
+  }
+}

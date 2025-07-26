@@ -25,9 +25,7 @@ class LanguageSelectionScreen extends ConsumerWidget {
               child: ListView(
                 children: AppLanguage.values.map((language) {
                   final isSelected = selectedLanguage == language;
-                  final isComingSoon =
-                      language == AppLanguage.russian ||
-                      language == AppLanguage.portuguese;
+                  final isComingSoon = false;
 
                   return LanguageTile(
                     language: language,
