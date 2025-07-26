@@ -4,6 +4,7 @@ import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ModelSelectionScreen extends ConsumerStatefulWidget {
   const ModelSelectionScreen({super.key});
@@ -21,7 +22,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select Gemini™ Model'),
+        title: Text(AppLocalizations.of(context)!.selectGeminiModel),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
           ModelFilterButton(

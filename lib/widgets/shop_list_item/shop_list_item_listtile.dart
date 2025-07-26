@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
@@ -286,18 +287,20 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                     final confirm = await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: const Text('Delete Item'),
+                        title: Text(AppLocalizations.of(context)!.deleteItem),
                         content: Text(
-                          'Are you sure you want to delete "${widget.shopListItem.name}"?',
+                          AppLocalizations.of(
+                            context,
+                          )!.confirmDeleteItem(widget.shopListItem.name),
                         ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: const Text('Cancel'),
+                            child: Text(AppLocalizations.of(context)!.cancel),
                           ),
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(true),
-                            child: const Text('Delete'),
+                            child: Text(AppLocalizations.of(context)!.delete),
                           ),
                         ],
                       ),

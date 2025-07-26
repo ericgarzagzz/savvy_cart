@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 
 class ChatBubble extends StatelessWidget {
@@ -102,7 +103,7 @@ class ChatBubble extends StatelessWidget {
                         color: Theme.of(context).colorScheme.error,
                       ),
                       label: Text(
-                        'Retry',
+                        AppLocalizations.of(context)!.retry,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.error,
                           fontWeight: FontWeight.w600,
@@ -128,7 +129,7 @@ class ChatBubble extends StatelessWidget {
                         onPressed: onViewExecutedActions,
                         icon: Icon(Icons.check_circle, size: 18),
                         label: Text(
-                          'Actions Applied',
+                          AppLocalizations.of(context)!.actionsApplied,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
@@ -151,7 +152,7 @@ class ChatBubble extends StatelessWidget {
                         onPressed: onViewActions,
                         icon: Icon(Icons.playlist_add_check, size: 18),
                         label: Text(
-                          'Apply Actions',
+                          AppLocalizations.of(context)!.applyActions,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
@@ -197,7 +198,7 @@ class ChatBubble extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              'Actions Discarded',
+                              AppLocalizations.of(context)!.actionsDiscarded,
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(
                                     color: Theme.of(context)

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ModelSelectionEmptyState extends ConsumerWidget {
   final ModelFilters filters;
@@ -43,7 +44,7 @@ class ModelSelectionEmptyState extends ConsumerWidget {
                 ref.read(modelFiltersProvider.notifier).clearFilters();
               },
               icon: const Icon(Icons.clear_all),
-              label: const Text('Clear All Filters'),
+              label: Text(AppLocalizations.of(context)!.clearAllFilters),
             ),
           ],
         ],

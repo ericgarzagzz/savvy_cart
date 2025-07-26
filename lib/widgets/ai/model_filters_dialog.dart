@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
@@ -32,7 +33,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             Row(
               children: [
                 Text(
-                  'Filter Models',
+                  AppLocalizations.of(context)!.filterModels,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const Spacer(),
@@ -50,7 +51,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               child: TextButton.icon(
                 onPressed: _clearFilters,
                 icon: const Icon(Icons.clear_all, size: 18),
-                label: const Text('Clear All'),
+                label: Text(AppLocalizations.of(context)!.clearAll),
                 style: TextButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -76,12 +77,12 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Cancel'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
                   onPressed: _applyFilters,
-                  child: const Text('Apply'),
+                  child: Text(AppLocalizations.of(context)!.apply),
                 ),
               ],
             ),
@@ -96,25 +97,25 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Thinking Capabilities',
+          AppLocalizations.of(context)!.thinkingCapabilities,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 12),
         SegmentedButton<bool?>(
-          segments: const [
+          segments: [
             ButtonSegment<bool?>(
               value: null,
-              label: Text('All'),
+              label: Text(AppLocalizations.of(context)!.all),
               icon: Icon(Icons.all_inclusive),
             ),
             ButtonSegment<bool?>(
               value: true,
-              label: Text('Yes'),
+              label: Text(AppLocalizations.of(context)!.yes),
               icon: Icon(Icons.psychology),
             ),
             ButtonSegment<bool?>(
               value: false,
-              label: Text('No'),
+              label: Text(AppLocalizations.of(context)!.no),
               icon: Icon(Icons.psychology_outlined),
             ),
           ],
@@ -141,12 +142,15 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Token Limits', style: Theme.of(context).textTheme.titleMedium),
+        Text(
+          AppLocalizations.of(context)!.tokenLimits,
+          style: Theme.of(context).textTheme.titleMedium,
+        ),
         const SizedBox(height: 16),
 
         // Input Tokens
         Text(
-          'Input Tokens (in millions)',
+          AppLocalizations.of(context)!.inputTokensInMillions,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 8),
@@ -177,14 +181,20 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Min: ${(_tempFilters.minInputTokens ?? 0).toStringAsFixed(1)}M',
+                AppLocalizations.of(context)!.minValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.minInputTokens ?? 0).toStringAsFixed(1)}M',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
-                'Max: ${(_tempFilters.maxInputTokens ?? 10).toStringAsFixed(1)}M',
+                AppLocalizations.of(context)!.maxValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.maxInputTokens ?? 10).toStringAsFixed(1)}M',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -198,7 +208,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
 
         // Output Tokens
         Text(
-          'Output Tokens (in millions)',
+          AppLocalizations.of(context)!.outputTokensInMillions,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 8),
@@ -229,14 +239,20 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Min: ${(_tempFilters.minOutputTokens ?? 0).toStringAsFixed(1)}M',
+                AppLocalizations.of(context)!.minValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.minOutputTokens ?? 0).toStringAsFixed(1)}M',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
-                'Max: ${(_tempFilters.maxOutputTokens ?? 5).toStringAsFixed(1)}M',
+                AppLocalizations.of(context)!.maxValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.maxOutputTokens ?? 5).toStringAsFixed(1)}M',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -254,7 +270,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Temperature Range',
+          AppLocalizations.of(context)!.temperatureRange,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
@@ -285,14 +301,20 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Min: ${(_tempFilters.minTemperature ?? 0).toStringAsFixed(1)}',
+                AppLocalizations.of(context)!.minValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.minTemperature ?? 0).toStringAsFixed(1)}',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
-                'Max: ${(_tempFilters.maxTemperature ?? 2).toStringAsFixed(1)}',
+                AppLocalizations.of(context)!.maxValue.replaceAll(
+                  '{value}',
+                  '${(_tempFilters.maxTemperature ?? 2).toStringAsFixed(1)}',
+                ),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,

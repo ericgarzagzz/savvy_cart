@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class PriceChartHeader extends StatelessWidget {
   final String itemName;
@@ -19,7 +20,7 @@ class PriceChartHeader extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Price trend for the last 10 purchases',
+          AppLocalizations.of(context)!.priceTrendForLastPurchases,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Colors.white.withValues(alpha: 0.7),
           ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class AddItemSearchField extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
@@ -17,8 +19,8 @@ class AddItemSearchField extends StatelessWidget {
     return TextField(
       controller: controller,
       focusNode: focusNode,
-      decoration: const InputDecoration(
-        hintText: 'Search or add new item...',
+      decoration: InputDecoration(
+        hintText: AppLocalizations.of(context)!.searchOrAddNewItem,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.search),
       ),

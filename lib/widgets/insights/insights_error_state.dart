@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class InsightsErrorState extends StatelessWidget {
   final Object error;
@@ -22,8 +23,8 @@ class InsightsErrorState extends StatelessWidget {
             children: [
               Icon(Icons.error_outline, size: 48, color: Colors.red[400]),
               const SizedBox(height: 8),
-              const Text(
-                'Error loading data',
+              Text(
+                AppLocalizations.of(context)!.errorLoadingData,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),

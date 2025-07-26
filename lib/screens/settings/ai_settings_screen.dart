@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class AiSettingsScreen extends ConsumerWidget {
   const AiSettingsScreen({super.key});
@@ -10,7 +11,7 @@ class AiSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AI Settings'),
+        title: Text(AppLocalizations.of(context)!.aiSettings),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: const SingleChildScrollView(

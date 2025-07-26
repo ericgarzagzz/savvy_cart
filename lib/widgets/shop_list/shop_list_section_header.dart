@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListSectionHeader extends ConsumerWidget {
   final IconData icon;
@@ -80,7 +81,7 @@ class ShopListSectionHeader extends ConsumerWidget {
               FilledButton.icon(
                 onPressed: onAddItem,
                 icon: const Icon(Icons.add, size: 18),
-                label: const Text('Add Item'),
+                label: Text(AppLocalizations.of(context)!.addItem),
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,

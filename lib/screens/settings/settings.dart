@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:settings_ui/settings_ui.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class Settings extends ConsumerWidget {
@@ -15,7 +16,7 @@ class Settings extends ConsumerWidget {
     final versionAsync = ref.watch(packageInfoProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text("SavvyCart settings")),
+      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settingsTitle)),
       body: SettingsList(
         platform: DevicePlatform.android,
         lightTheme: SettingsThemeData(
@@ -38,29 +39,29 @@ class Settings extends ConsumerWidget {
         ),
         sections: [
           SettingsSection(
-            title: Text('AI Assistant'),
+            title: Text(AppLocalizations.of(context)!.aiAssistant),
             tiles: [
               SettingsTile.navigation(
                 leading: Icon(Icons.auto_awesome),
-                title: Text('AI Settings'),
+                title: Text(AppLocalizations.of(context)!.aiSettings),
                 value: Text(
                   aiSettingsState.hasValidApiKey
-                      ? 'Ready'
+                      ? AppLocalizations.of(context)!.ready
                       : aiSettingsState.settings.apiKey.isNotEmpty
-                      ? 'Not verified'
-                      : 'Not configured',
+                      ? AppLocalizations.of(context)!.notVerified
+                      : AppLocalizations.of(context)!.notConfigured,
                 ),
                 onPressed: (context) => context.push('/settings/ai'),
               ),
             ],
           ),
           SettingsSection(
-            title: Text('Data'),
+            title: Text(AppLocalizations.of(context)!.data),
             tiles: [
               SettingsTile.navigation(
                 leading: Icon(Icons.backup),
-                title: Text('Backup & Restore'),
-                value: Text('Manage backups'),
+                title: Text(AppLocalizations.of(context)!.backupAndRestore),
+                value: Text(AppLocalizations.of(context)!.manageBackups),
                 onPressed: (context) =>
                     context.push('/settings/data-management'),
               ),
@@ -68,44 +69,46 @@ class Settings extends ConsumerWidget {
           ),
           if (kDebugMode)
             SettingsSection(
-              title: Text('Developer'),
+              title: Text(AppLocalizations.of(context)!.developer),
               tiles: [
                 SettingsTile.navigation(
                   leading: Icon(Icons.data_usage),
-                  title: Text('Generate Mock Data'),
-                  value: Text('Add sample shopping lists'),
+                  title: Text(AppLocalizations.of(context)!.generateMockData),
+                  value: Text(
+                    AppLocalizations.of(context)!.addSampleShoppingLists,
+                  ),
                   onPressed: (context) =>
                       _showGenerateMockDataDialog(context, ref),
                 ),
                 SettingsTile.navigation(
                   leading: Icon(Icons.delete_forever),
-                  title: Text('Delete Database'),
-                  value: Text('Clear all data'),
+                  title: Text(AppLocalizations.of(context)!.deleteDatabase),
+                  value: Text(AppLocalizations.of(context)!.clearAllData),
                   onPressed: (context) =>
                       _showDeleteDatabaseDialog(context, ref),
                 ),
               ],
             ),
           SettingsSection(
-            title: Text('About'),
+            title: Text(AppLocalizations.of(context)!.about),
             tiles: [
               versionAsync.when(
                 data: (packageInfo) => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text('Version'),
+                  title: Text(AppLocalizations.of(context)!.version),
                   value: Text(
                     '${packageInfo.version} (${packageInfo.buildNumber})',
                   ),
                 ),
                 loading: () => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text('Version'),
-                  value: Text('Loading...'),
+                  title: Text(AppLocalizations.of(context)!.version),
+                  value: Text(AppLocalizations.of(context)!.loading),
                 ),
                 error: (_, __) => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text('Version'),
-                  value: Text('1.0.0+1'),
+                  title: Text(AppLocalizations.of(context)!.version),
+                  value: Text(AppLocalizations.of(context)!.version),
                 ),
               ),
             ],
@@ -119,14 +122,14 @@ class Settings extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Generate Mock Data'),
+        title: Text(AppLocalizations.of(context)!.generateMockData),
         content: Text(
-          'This will create sample shopping lists with items across the year for analytics testing. This may take a few moments.',
+          AppLocalizations.of(context)!.mockDataGenerationDescription,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -134,19 +137,35 @@ class Settings extends ConsumerWidget {
               try {
                 Navigator.of(context).pop();
                 messenger.showSnackBar(
-                  SnackBar(content: Text('Generating mock data...')),
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(context)!.generatingMockData,
+                    ),
+                  ),
                 );
                 await ref.read(developerProvider.notifier).generateMockData();
                 messenger.showSnackBar(
-                  SnackBar(content: Text('Mock data generated successfully!')),
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.mockDataGeneratedSuccessfully,
+                    ),
+                  ),
                 );
               } catch (e) {
                 messenger.showSnackBar(
-                  SnackBar(content: Text('Error generating mock data: $e')),
+                  SnackBar(
+                    content: Text(
+                      AppLocalizations.of(
+                        context,
+                      )!.errorGeneratingMockData(e.toString()),
+                    ),
+                  ),
                 );
               }
             },
-            child: Text('Generate'),
+            child: Text(AppLocalizations.of(context)!.generate),
           ),
         ],
       ),
@@ -157,14 +176,12 @@ class Settings extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Delete Database'),
-        content: Text(
-          'This will permanently delete all your data including shopping lists, items, and settings. This action cannot be undone.',
-        ),
+        title: Text(AppLocalizations.of(context)!.deleteDatabase),
+        content: Text(AppLocalizations.of(context)!.databaseDeletionWarning),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -173,14 +190,26 @@ class Settings extends ConsumerWidget {
                 if (context.mounted) {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Database deleted successfully')),
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.databaseDeletedSuccessfully,
+                      ),
+                    ),
                   );
                 }
               } catch (e) {
                 if (context.mounted) {
                   Navigator.of(context).pop();
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error deleting database: $e')),
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.errorDeletingDatabase(e.toString()),
+                      ),
+                    ),
                   );
                 }
               }
@@ -188,7 +217,7 @@ class Settings extends ConsumerWidget {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),

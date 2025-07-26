@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
@@ -22,13 +23,13 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Delete shop list"),
+      title: Text(AppLocalizations.of(context)!.deleteShopList),
       content: Text(
         "Are you sure you want to delete the shop list \"${widget.shopList.name}\"?",
       ),
       actions: [
         TextButton(
-          child: const Text("Cancel"),
+          child: Text(AppLocalizations.of(context)!.cancel),
           onPressed: () {
             if (mounted) {
               Navigator.of(context).pop();
@@ -39,7 +40,7 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
-          child: const Text("Confirm"),
+          child: Text(AppLocalizations.of(context)!.confirm),
           onPressed: () async {
             await ref
                 .read(shopListMutationProvider.notifier)

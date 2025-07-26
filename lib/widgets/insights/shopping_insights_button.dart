@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShoppingInsightsButton extends StatefulWidget {
   const ShoppingInsightsButton({super.key});
@@ -102,7 +103,7 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Shopping Insights',
+                          AppLocalizations.of(context)!.shoppingInsights,
                           style: Theme.of(context).textTheme.titleMedium!
                               .copyWith(
                                 color: Colors.white,
@@ -111,7 +112,9 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Discover your shopping patterns',
+                          AppLocalizations.of(
+                            context,
+                          )!.discoverShoppingPatterns,
                           style: Theme.of(context).textTheme.bodySmall!
                               .copyWith(
                                 color: Colors.white.withValues(alpha: 0.9),

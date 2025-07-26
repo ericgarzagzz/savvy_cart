@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListChat extends ConsumerStatefulWidget {
   final int shopListId;
@@ -106,7 +107,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
           GenericErrorScaffold(errorMessage: err.toString()),
       data: (shopList) => Scaffold(
         appBar: AppBar(
-          title: Text("Chat with ${shopList.name}"),
+          title: Text(AppLocalizations.of(context)!.chatWith(shopList.name)),
           backgroundColor: Theme.of(context).colorScheme.surface,
         ),
         body: GestureDetector(

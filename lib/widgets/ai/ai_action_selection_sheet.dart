@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 
 class AiActionSelectionSheet extends ConsumerStatefulWidget {
@@ -43,7 +44,7 @@ class _AiActionSelectionSheetState
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Review AI Suggestions',
+                AppLocalizations.of(context)!.reviewAiSuggestions,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -111,7 +112,9 @@ class _AiActionSelectionSheetState
                           const SizedBox(width: 8),
                           Expanded(
                             child: Text(
-                              'Please select at least one action to execute',
+                              AppLocalizations.of(
+                                context,
+                              )!.pleaseSelectAtLeastOneAction,
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: Theme.of(context)
@@ -144,7 +147,9 @@ class _AiActionSelectionSheetState
                               Navigator.of(context).pop(actionsToExecute);
                             }
                           : null,
-                      child: const Text('Execute Selected Actions'),
+                      child: Text(
+                        AppLocalizations.of(context)!.executeSelectedActions,
+                      ),
                     ),
                   ),
                 ],

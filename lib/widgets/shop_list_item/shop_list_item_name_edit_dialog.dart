@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/domain/models/models.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class ShopListItemNameEditDialog extends ConsumerStatefulWidget {
@@ -53,17 +54,17 @@ class _ShopListItemNameEditDialogState
     final saveStatus = ref.watch(shopListItemMutationProvider);
 
     return AlertDialog(
-      title: const Text('Edit Item Name'),
+      title: Text(AppLocalizations.of(context)!.editItemName),
       content: Form(
         key: _formKey,
         child: TextFormField(
           controller: _nameController,
-          decoration: const InputDecoration(
-            labelText: "Item Name",
+          decoration: InputDecoration(
+            labelText: AppLocalizations.of(context)!.itemName,
             border: OutlineInputBorder(),
           ),
           validator: (text) => text == null || text.trim().isEmpty
-              ? "The item's name cannot be empty"
+              ? AppLocalizations.of(context)!.listNameCannotBeEmpty
               : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
@@ -75,7 +76,7 @@ class _ShopListItemNameEditDialogState
           onPressed: saveStatus.isLoading
               ? null
               : () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         FilledButton(
           onPressed: saveStatus.isLoading ? null : _updateItemName,
@@ -85,7 +86,7 @@ class _ShopListItemNameEditDialogState
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Save'),
+              : Text(AppLocalizations.of(context)!.save),
         ),
       ],
     );

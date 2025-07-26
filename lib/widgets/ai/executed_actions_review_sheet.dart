@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 
 class ExecutedActionsReviewSheet extends StatelessWidget {
@@ -19,7 +20,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                'Applied Actions',
+                AppLocalizations.of(context)!.appliedActions,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -38,7 +39,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'No actions were applied',
+                        AppLocalizations.of(context)!.noActionsWereApplied,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(
                             context,
@@ -89,7 +90,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('Close'),
+                  child: Text(AppLocalizations.of(context)!.close),
                 ),
               ),
             ),

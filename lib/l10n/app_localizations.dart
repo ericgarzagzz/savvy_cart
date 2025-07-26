@@ -843,6 +843,552 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose the AI model to use for processing'**
   String get chooseAiModelDescription;
+
+  /// Status message for discarded AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Actions Discarded'**
+  String get actionsDiscarded;
+
+  /// Title for weekly insights overview
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Overview'**
+  String get weeklyOverview;
+
+  /// Error message for insights loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading insights'**
+  String get errorLoadingInsights;
+
+  /// Message when no items match search criteria
+  ///
+  /// In en, this message translates to:
+  /// **'No matching items found'**
+  String get noMatchingItemsFound;
+
+  /// Dialog title for removing item and suggestion
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Item and Suggestion?'**
+  String get removeItemAndSuggestion;
+
+  /// Dialog title for removing suggestion only
+  ///
+  /// In en, this message translates to:
+  /// **'Remove Suggestion?'**
+  String get removeSuggestion;
+
+  /// Description for removing item and suggestion
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove \"{itemName}\" from your current shopping list and also from your suggestions.'**
+  String removeItemAndSuggestionDesc(String itemName);
+
+  /// Description for removing suggestion only
+  ///
+  /// In en, this message translates to:
+  /// **'This will remove \"{itemName}\" from your suggestions. It will not affect your current shopping list.'**
+  String removeSuggestionDesc(String itemName);
+
+  /// Button to remove item
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get remove;
+
+  /// Number of items selected
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String itemsSelected(int count);
+
+  /// Chat screen title with list name
+  ///
+  /// In en, this message translates to:
+  /// **'Chat with {listName}'**
+  String chatWith(String listName);
+
+  /// Title for AI suggestions review
+  ///
+  /// In en, this message translates to:
+  /// **'Review AI Suggestions'**
+  String get reviewAiSuggestions;
+
+  /// Validation message for AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Please select at least one action to execute'**
+  String get pleaseSelectAtLeastOneAction;
+
+  /// Title for applied AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Applied Actions'**
+  String get appliedActions;
+
+  /// Message when no AI actions were applied
+  ///
+  /// In en, this message translates to:
+  /// **'No actions were applied'**
+  String get noActionsWereApplied;
+
+  /// Title for frequently bought items section
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Bought Items'**
+  String get frequentlyBoughtItems;
+
+  /// Placeholder text for item search
+  ///
+  /// In en, this message translates to:
+  /// **'Search item'**
+  String get searchItem;
+
+  /// Message when no frequently bought items available
+  ///
+  /// In en, this message translates to:
+  /// **'No frequently bought items'**
+  String get noFrequentlyBoughtItems;
+
+  /// Instructions for seeing frequently bought items
+  ///
+  /// In en, this message translates to:
+  /// **'Complete shopping lists to see your most bought items'**
+  String get completeListsToSeeMostBought;
+
+  /// Number of times an item was purchased
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased {count} times'**
+  String timesPurchased(int count);
+
+  /// Error message for frequently bought items loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading frequently bought items'**
+  String get errorLoadingFrequentlyBought;
+
+  /// Generic error message for data loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading data'**
+  String get errorLoadingData;
+
+  /// Description for shopping insights feature
+  ///
+  /// In en, this message translates to:
+  /// **'Discover your shopping patterns'**
+  String get discoverShoppingPatterns;
+
+  /// Error message for price history loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading price history'**
+  String get errorLoadingPriceHistory;
+
+  /// Message when only one purchase exists for price tracking
+  ///
+  /// In en, this message translates to:
+  /// **'Only one purchase found'**
+  String get onlyOnePurchaseFound;
+
+  /// Shows last purchase price
+  ///
+  /// In en, this message translates to:
+  /// **'Last purchased for {price}'**
+  String lastPurchasedFor(String price);
+
+  /// Shows purchase date
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased on {date}'**
+  String purchasedOn(String date);
+
+  /// Instructions for seeing price trends with multiple purchases
+  ///
+  /// In en, this message translates to:
+  /// **'Purchase this item more times to see price trends'**
+  String get purchaseMoreTimesToSeeTrends;
+
+  /// Label for average price
+  ///
+  /// In en, this message translates to:
+  /// **'Average'**
+  String get average;
+
+  /// Label for lowest price
+  ///
+  /// In en, this message translates to:
+  /// **'Lowest'**
+  String get lowest;
+
+  /// Label for highest price
+  ///
+  /// In en, this message translates to:
+  /// **'Highest'**
+  String get highest;
+
+  /// Hint text for item search field
+  ///
+  /// In en, this message translates to:
+  /// **'Search or add new item...'**
+  String get searchOrAddNewItem;
+
+  /// Section header for frequently bought items
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Bought'**
+  String get frequentlyBought;
+
+  /// Error message for search results loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading results: {error}'**
+  String errorLoadingResults(String error);
+
+  /// Search results header when no results found
+  ///
+  /// In en, this message translates to:
+  /// **'Search Results (0)'**
+  String get searchResultsZero;
+
+  /// Help text for empty search results
+  ///
+  /// In en, this message translates to:
+  /// **'Try a different search term or add \"{searchQuery}\" as a new item'**
+  String tryDifferentSearchOrAdd(String searchQuery);
+
+  /// Error message for item loading failure
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading item'**
+  String get errorLoadingItem;
+
+  /// Error message when item cannot be found
+  ///
+  /// In en, this message translates to:
+  /// **'Item not found'**
+  String get itemNotFound;
+
+  /// Confirmation message for item deletion
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete \"{itemName}\"?'**
+  String confirmDeleteItem(String itemName);
+
+  /// Label for item quantity field
+  ///
+  /// In en, this message translates to:
+  /// **'Quantity'**
+  String get quantity;
+
+  /// Validation message for required fields
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// Validation message for invalid number input
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid number'**
+  String get invalidNumber;
+
+  /// Label for item price field
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// Label for total amount
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get total;
+
+  /// Error message for loading list items
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load shop list\'s items due to an error.'**
+  String get errorLoadingShopListItems;
+
+  /// Empty state message for cart
+  ///
+  /// In en, this message translates to:
+  /// **'No items in cart yet'**
+  String get noItemsInCartYet;
+
+  /// Encouraging message for empty cart
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to start shopping?'**
+  String get readyToStartShopping;
+
+  /// Instructions for cart functionality
+  ///
+  /// In en, this message translates to:
+  /// **'Items you check off will appear here'**
+  String get itemsYouCheckOffWillAppearHere;
+
+  /// Instructions for adding first item
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the + button below to add your first item'**
+  String get tapPlusButtonToAddFirstItem;
+
+  /// Question asking if user needs more items
+  ///
+  /// In en, this message translates to:
+  /// **'Need more items?'**
+  String get needMoreItems;
+
+  /// Instructions for adding more items
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the button below to add more items'**
+  String get tapButtonBelowToAddMoreItems;
+
+  /// Instructions for adding needed items
+  ///
+  /// In en, this message translates to:
+  /// **'Add items you still need to buy'**
+  String get addItemsYouStillNeedToBuy;
+
+  /// Instructions for adding first item with button
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the button below to add your first item'**
+  String get tapButtonBelowToAddFirstItem;
+
+  /// Instructions for new users
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first item to get started'**
+  String get addFirstItemToGetStarted;
+
+  /// Button to generate content
+  ///
+  /// In en, this message translates to:
+  /// **'Generate'**
+  String get generate;
+
+  /// AI section or feature label
+  ///
+  /// In en, this message translates to:
+  /// **'AI'**
+  String get ai;
+
+  /// Button to filter AI models
+  ///
+  /// In en, this message translates to:
+  /// **'Filter Models'**
+  String get filterModels;
+
+  /// Filter section for AI thinking capabilities
+  ///
+  /// In en, this message translates to:
+  /// **'Thinking Capabilities'**
+  String get thinkingCapabilities;
+
+  /// Filter label for input token limits
+  ///
+  /// In en, this message translates to:
+  /// **'Input Tokens (in millions)'**
+  String get inputTokensInMillions;
+
+  /// Label for minimum value input
+  ///
+  /// In en, this message translates to:
+  /// **'Min Value'**
+  String get minValue;
+
+  /// Label for maximum value input
+  ///
+  /// In en, this message translates to:
+  /// **'Max Value'**
+  String get maxValue;
+
+  /// Filter label for output token limits
+  ///
+  /// In en, this message translates to:
+  /// **'Output Tokens (in millions)'**
+  String get outputTokensInMillions;
+
+  /// Filter section for AI temperature settings
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature Range'**
+  String get temperatureRange;
+
+  /// Button to retry an action
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// Status message for successfully applied AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Actions Applied'**
+  String get actionsApplied;
+
+  /// Button to apply AI actions
+  ///
+  /// In en, this message translates to:
+  /// **'Apply Actions'**
+  String get applyActions;
+
+  /// Generic error message
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// Instruction to return to home
+  ///
+  /// In en, this message translates to:
+  /// **'Please go back to the home screen'**
+  String get pleaseGoBackToHomeScreen;
+
+  /// Chart header for price trends
+  ///
+  /// In en, this message translates to:
+  /// **'Price trend for last purchases'**
+  String get priceTrendForLastPurchases;
+
+  /// Warning about excluded settings in backup
+  ///
+  /// In en, this message translates to:
+  /// **'Settings will not be included'**
+  String get settingsWillNotBeIncluded;
+
+  /// Success message for snapshot creation
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot created successfully'**
+  String get snapshotCreatedSuccessfully;
+
+  /// Button to create something
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get create;
+
+  /// Title for successful snapshot creation
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot Created'**
+  String get snapshotCreated;
+
+  /// Error message for failed snapshot
+  ///
+  /// In en, this message translates to:
+  /// **'Snapshot failed: {error}'**
+  String snapshotFailed(String error);
+
+  /// Button to restore backup
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get restore;
+
+  /// Section title for manual backups
+  ///
+  /// In en, this message translates to:
+  /// **'Manual Snapshots'**
+  String get manualSnapshots;
+
+  /// Dialog title for restoring backup
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Backup'**
+  String get restoreBackup;
+
+  /// Option to replace data during restore
+  ///
+  /// In en, this message translates to:
+  /// **'Replace existing data'**
+  String get replaceExistingData;
+
+  /// Warning about clearing data before restore
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all current data before restoring'**
+  String get clearCurrentDataBeforeRestoring;
+
+  /// Error message for failed restore
+  ///
+  /// In en, this message translates to:
+  /// **'Restore failed: {error}'**
+  String restoreFailed(String error);
+
+  /// Instructions for export options
+  ///
+  /// In en, this message translates to:
+  /// **'Choose what to include'**
+  String get chooseWhatToInclude;
+
+  /// Option for complete data export
+  ///
+  /// In en, this message translates to:
+  /// **'Full Export'**
+  String get fullExport;
+
+  /// Option for database-only export
+  ///
+  /// In en, this message translates to:
+  /// **'Database Only'**
+  String get databaseOnly;
+
+  /// Button to create backup snapshot
+  ///
+  /// In en, this message translates to:
+  /// **'Create Snapshot'**
+  String get createSnapshot;
+
+  /// Button to indicate completion
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// Warning about clearing data before import
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all current data before importing'**
+  String get clearAllCurrentDataBeforeImporting;
+
+  /// Title for successful restore
+  ///
+  /// In en, this message translates to:
+  /// **'Restore Successful'**
+  String get restoreSuccessful;
+
+  /// Filter button text with count
+  ///
+  /// In en, this message translates to:
+  /// **'Filters ({count})'**
+  String filtersWithCount(int count);
+
+  /// Button to filter results
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
+
+  /// Button to clear all applied filters
+  ///
+  /// In en, this message translates to:
+  /// **'Clear All Filters'**
+  String get clearAllFilters;
+
+  /// Error message with details
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {details}'**
+  String errorWithDetails(String details);
 }
 
 class _AppLocalizationsDelegate

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class BackupManagementScreen extends StatefulWidget {
   const BackupManagementScreen({super.key});
@@ -26,7 +27,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Backup & Restore'),
+        title: Text(AppLocalizations.of(context)!.backupAndRestore),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: _isLoading
@@ -78,7 +79,11 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to load backup information: $e'),
+            content: Text(
+              AppLocalizations.of(
+                context,
+              )!.failedToLoadBackupInfo(e.toString()),
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );
@@ -113,14 +118,14 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Backup'),
+        title: Text(AppLocalizations.of(context)!.deleteBackup),
         content: Text(
-          'Are you sure you want to delete this backup?\n\n"${backup.fileName}"',
+          '${AppLocalizations.of(context)!.areYouSureDeleteBackup}\n\n"${backup.fileName}"',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(AppLocalizations.of(context)!.cancel),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -132,8 +137,10 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
 
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Backup deleted successfully'),
+                    SnackBar(
+                      content: Text(
+                        AppLocalizations.of(context)!.backupDeletedSuccessfully,
+                      ),
                     ),
                   );
                 }
@@ -141,7 +148,11 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                 if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Failed to delete backup: $e'),
+                      content: Text(
+                        AppLocalizations.of(
+                          context,
+                        )!.failedToDeleteBackup(e.toString()),
+                      ),
                       backgroundColor: Theme.of(context).colorScheme.error,
                     ),
                   );
@@ -152,7 +163,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: const Text('Delete'),
+            child: Text(AppLocalizations.of(context)!.delete),
           ),
         ],
       ),

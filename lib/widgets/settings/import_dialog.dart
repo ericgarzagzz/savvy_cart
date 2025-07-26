@@ -5,6 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ImportDialog extends ConsumerStatefulWidget {
   final BackupFileInfo backup;
@@ -24,7 +25,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
 
     return AlertDialog(
-      title: const Text('Restore Backup'),
+      title: Text(AppLocalizations.of(context)!.restoreBackup),
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
@@ -70,8 +71,12 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               CheckboxListTile(
-                title: const Text('Replace existing data'),
-                subtitle: const Text('Clear all current data before importing'),
+                title: Text(AppLocalizations.of(context)!.replaceExistingData),
+                subtitle: Text(
+                  AppLocalizations.of(
+                    context,
+                  )!.clearAllCurrentDataBeforeImporting,
+                ),
                 value: _options.replaceExisting,
                 onChanged: (value) => setState(() {
                   _options = _options.copyWith(replaceExisting: value ?? true);
@@ -132,7 +137,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
       actions: [
         TextButton(
           onPressed: _isImporting ? null : () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
           onPressed: _isImporting ? null : _performImport,
@@ -150,7 +155,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Restore'),
+              : Text(AppLocalizations.of(context)!.restore),
         ),
       ],
     );
@@ -208,7 +213,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: const Text('Restore Successful'),
+            title: Text(AppLocalizations.of(context)!.restoreSuccessful),
             content: Text(
               _options.replaceExisting
                   ? 'Your data has been restored successfully.'
@@ -217,7 +222,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Done'),
+                child: Text(AppLocalizations.of(context)!.done),
               ),
             ],
           ),
@@ -231,7 +236,9 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Restore failed: $e'),
+            content: Text(
+              AppLocalizations.of(context)!.restoreFailed(e.toString()),
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

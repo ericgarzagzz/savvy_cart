@@ -420,4 +420,316 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get chooseAiModelDescription =>
       'Choose the AI model to use for processing';
+
+  @override
+  String get actionsDiscarded => 'Actions Discarded';
+
+  @override
+  String get weeklyOverview => 'Weekly Overview';
+
+  @override
+  String get errorLoadingInsights => 'Error loading insights';
+
+  @override
+  String get noMatchingItemsFound => 'No matching items found';
+
+  @override
+  String get removeItemAndSuggestion => 'Remove Item and Suggestion?';
+
+  @override
+  String get removeSuggestion => 'Remove Suggestion?';
+
+  @override
+  String removeItemAndSuggestionDesc(String itemName) {
+    return 'This will remove \"$itemName\" from your current shopping list and also from your suggestions.';
+  }
+
+  @override
+  String removeSuggestionDesc(String itemName) {
+    return 'This will remove \"$itemName\" from your suggestions. It will not affect your current shopping list.';
+  }
+
+  @override
+  String get remove => 'Remove';
+
+  @override
+  String itemsSelected(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String chatWith(String listName) {
+    return 'Chat with $listName';
+  }
+
+  @override
+  String get reviewAiSuggestions => 'Review AI Suggestions';
+
+  @override
+  String get pleaseSelectAtLeastOneAction =>
+      'Please select at least one action to execute';
+
+  @override
+  String get appliedActions => 'Applied Actions';
+
+  @override
+  String get noActionsWereApplied => 'No actions were applied';
+
+  @override
+  String get frequentlyBoughtItems => 'Frequently Bought Items';
+
+  @override
+  String get searchItem => 'Search item';
+
+  @override
+  String get noFrequentlyBoughtItems => 'No frequently bought items';
+
+  @override
+  String get completeListsToSeeMostBought =>
+      'Complete shopping lists to see your most bought items';
+
+  @override
+  String timesPurchased(int count) {
+    return 'Purchased $count times';
+  }
+
+  @override
+  String get errorLoadingFrequentlyBought =>
+      'Error loading frequently bought items';
+
+  @override
+  String get errorLoadingData => 'Error loading data';
+
+  @override
+  String get discoverShoppingPatterns => 'Discover your shopping patterns';
+
+  @override
+  String get errorLoadingPriceHistory => 'Error loading price history';
+
+  @override
+  String get onlyOnePurchaseFound => 'Only one purchase found';
+
+  @override
+  String lastPurchasedFor(String price) {
+    return 'Last purchased for $price';
+  }
+
+  @override
+  String purchasedOn(String date) {
+    return 'Purchased on $date';
+  }
+
+  @override
+  String get purchaseMoreTimesToSeeTrends =>
+      'Purchase this item more times to see price trends';
+
+  @override
+  String get average => 'Average';
+
+  @override
+  String get lowest => 'Lowest';
+
+  @override
+  String get highest => 'Highest';
+
+  @override
+  String get searchOrAddNewItem => 'Search or add new item...';
+
+  @override
+  String get frequentlyBought => 'Frequently Bought';
+
+  @override
+  String errorLoadingResults(String error) {
+    return 'Error loading results: $error';
+  }
+
+  @override
+  String get searchResultsZero => 'Search Results (0)';
+
+  @override
+  String tryDifferentSearchOrAdd(String searchQuery) {
+    return 'Try a different search term or add \"$searchQuery\" as a new item';
+  }
+
+  @override
+  String get errorLoadingItem => 'Error loading item';
+
+  @override
+  String get itemNotFound => 'Item not found';
+
+  @override
+  String confirmDeleteItem(String itemName) {
+    return 'Are you sure you want to delete \"$itemName\"?';
+  }
+
+  @override
+  String get quantity => 'Quantity';
+
+  @override
+  String get required => 'Required';
+
+  @override
+  String get invalidNumber => 'Invalid number';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get errorLoadingShopListItems =>
+      'Could not load shop list\'s items due to an error.';
+
+  @override
+  String get noItemsInCartYet => 'No items in cart yet';
+
+  @override
+  String get readyToStartShopping => 'Ready to start shopping?';
+
+  @override
+  String get itemsYouCheckOffWillAppearHere =>
+      'Items you check off will appear here';
+
+  @override
+  String get tapPlusButtonToAddFirstItem =>
+      'Tap the + button below to add your first item';
+
+  @override
+  String get needMoreItems => 'Need more items?';
+
+  @override
+  String get tapButtonBelowToAddMoreItems =>
+      'Tap the button below to add more items';
+
+  @override
+  String get addItemsYouStillNeedToBuy => 'Add items you still need to buy';
+
+  @override
+  String get tapButtonBelowToAddFirstItem =>
+      'Tap the button below to add your first item';
+
+  @override
+  String get addFirstItemToGetStarted => 'Add your first item to get started';
+
+  @override
+  String get generate => 'Generate';
+
+  @override
+  String get ai => 'AI';
+
+  @override
+  String get filterModels => 'Filter Models';
+
+  @override
+  String get thinkingCapabilities => 'Thinking Capabilities';
+
+  @override
+  String get inputTokensInMillions => 'Input Tokens (in millions)';
+
+  @override
+  String get minValue => 'Min Value';
+
+  @override
+  String get maxValue => 'Max Value';
+
+  @override
+  String get outputTokensInMillions => 'Output Tokens (in millions)';
+
+  @override
+  String get temperatureRange => 'Temperature Range';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get actionsApplied => 'Actions Applied';
+
+  @override
+  String get applyActions => 'Apply Actions';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get pleaseGoBackToHomeScreen => 'Please go back to the home screen';
+
+  @override
+  String get priceTrendForLastPurchases => 'Price trend for last purchases';
+
+  @override
+  String get settingsWillNotBeIncluded => 'Settings will not be included';
+
+  @override
+  String get snapshotCreatedSuccessfully => 'Snapshot created successfully';
+
+  @override
+  String get create => 'Create';
+
+  @override
+  String get snapshotCreated => 'Snapshot Created';
+
+  @override
+  String snapshotFailed(String error) {
+    return 'Snapshot failed: $error';
+  }
+
+  @override
+  String get restore => 'Restore';
+
+  @override
+  String get manualSnapshots => 'Manual Snapshots';
+
+  @override
+  String get restoreBackup => 'Restore Backup';
+
+  @override
+  String get replaceExistingData => 'Replace existing data';
+
+  @override
+  String get clearCurrentDataBeforeRestoring =>
+      'Clear all current data before restoring';
+
+  @override
+  String restoreFailed(String error) {
+    return 'Restore failed: $error';
+  }
+
+  @override
+  String get chooseWhatToInclude => 'Choose what to include';
+
+  @override
+  String get fullExport => 'Full Export';
+
+  @override
+  String get databaseOnly => 'Database Only';
+
+  @override
+  String get createSnapshot => 'Create Snapshot';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get clearAllCurrentDataBeforeImporting =>
+      'Clear all current data before importing';
+
+  @override
+  String get restoreSuccessful => 'Restore Successful';
+
+  @override
+  String filtersWithCount(int count) {
+    return 'Filters ($count)';
+  }
+
+  @override
+  String get filter => 'Filter';
+
+  @override
+  String get clearAllFilters => 'Clear All Filters';
+
+  @override
+  String errorWithDetails(String details) {
+    return 'Error: $details';
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class AddShopListItem extends ConsumerStatefulWidget {
   final int shopListId;
@@ -152,11 +153,11 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     int? shopListItemId,
   ) async {
     final title = isInShopList && shopListItemId != null
-        ? "Remove Item and Suggestion?"
-        : "Remove Suggestion?";
+        ? AppLocalizations.of(context)!.removeItemAndSuggestion
+        : AppLocalizations.of(context)!.removeSuggestion;
     final description = isInShopList && shopListItemId != null
-        ? "This will remove \"$itemName\" from your current shopping list and also from your suggestions."
-        : "This will remove \"$itemName\" from your suggestions. It will not affect your current shopping list.";
+        ? AppLocalizations.of(context)!.removeItemAndSuggestionDesc(itemName)
+        : AppLocalizations.of(context)!.removeSuggestionDesc(itemName);
 
     if (mounted) {
       final confirm = await showDialog<bool>(
@@ -167,11 +168,11 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)!.cancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Remove'),
+              child: Text(AppLocalizations.of(context)!.remove),
             ),
           ],
         ),
@@ -241,7 +242,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "Add Item",
+                    AppLocalizations.of(context)!.addItem,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
@@ -273,7 +274,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                       ),
                     ),
                     child: Text(
-                      "$itemCount selected",
+                      AppLocalizations.of(context)!.itemsSelected(itemCount),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w500,

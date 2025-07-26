@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class HomePage extends ConsumerStatefulWidget {
@@ -26,7 +27,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "SavvyCart",
+                      AppLocalizations.of(context)!.appTitle,
                       style: Theme.of(context).textTheme.headlineSmall!
                           .copyWith(
                             fontWeight: FontWeight.bold,
@@ -34,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           ),
                     ),
                     Text(
-                      "Smart Shopping Lists",
+                      AppLocalizations.of(context)!.appSubtitle,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),

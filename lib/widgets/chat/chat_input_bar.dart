@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class ChatInputBar extends StatelessWidget {
   final TextEditingController messageController;
   final FocusNode focusNode;
@@ -26,7 +28,7 @@ class ChatInputBar extends StatelessWidget {
               controller: messageController,
               focusNode: focusNode,
               decoration: InputDecoration(
-                hintText: 'Type your message...',
+                hintText: AppLocalizations.of(context)!.typeYourMessage,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
                   borderSide: BorderSide.none,

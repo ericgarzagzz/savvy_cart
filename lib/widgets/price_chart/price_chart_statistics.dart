@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 
 class PriceChartStatistics extends StatelessWidget {
@@ -28,7 +29,7 @@ class PriceChartStatistics extends StatelessWidget {
         children: [
           _buildStatItem(
             context,
-            'Average',
+            AppLocalizations.of(context)!.average,
             '\$${(avgPrice / 100).toStringAsFixed(2)}',
             Icons.trending_flat,
             Color(0xff3b82f6),
@@ -40,7 +41,7 @@ class PriceChartStatistics extends StatelessWidget {
           ),
           _buildStatItem(
             context,
-            'Lowest',
+            AppLocalizations.of(context)!.lowest,
             '\$${(minPrice / 100).toStringAsFixed(2)}',
             Icons.trending_down,
             Color(0xff10b981),
@@ -52,7 +53,7 @@ class PriceChartStatistics extends StatelessWidget {
           ),
           _buildStatItem(
             context,
-            'Highest',
+            AppLocalizations.of(context)!.highest,
             '\$${(maxPrice / 100).toStringAsFixed(2)}',
             Icons.trending_up,
             Color(0xfff59e0b),

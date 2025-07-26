@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
@@ -75,7 +76,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
               });
             },
             decoration: InputDecoration(
-              label: Text("Google™ Gemini™ API Key"),
+              label: Text(AppLocalizations.of(context)!.geminiApiKey),
               border: const OutlineInputBorder(),
               errorText: aiSettingsState.error,
               prefixIcon: Icon(Icons.key),
@@ -97,8 +98,8 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
             onTap: () => _navigateToModelSelection(context),
             borderRadius: BorderRadius.circular(4),
             child: InputDecorator(
-              decoration: const InputDecoration(
-                label: Text("Gemini™ Model"),
+              decoration: InputDecoration(
+                label: Text(AppLocalizations.of(context)!.geminiModel),
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.memory),
                 suffixIcon: Icon(Icons.arrow_forward_ios, size: 16),
@@ -127,7 +128,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        'Recommended',
+                        AppLocalizations.of(context)!.recommended,
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -153,7 +154,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
     if (!aiSettingsState.hasValidApiKey) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Please enter a valid API key first'),
+          content: Text(AppLocalizations.of(context)!.pleaseEnterValidApiKey),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class FrequentlyBoughtSection extends ConsumerWidget {
   final int shopListId;
@@ -44,7 +45,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                'Frequently Bought',
+                AppLocalizations.of(context)!.frequentlyBought,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -149,7 +150,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            'No frequently bought items yet',
+            AppLocalizations.of(context)!.noFrequentlyBoughtItems,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.outline,
               fontStyle: FontStyle.italic,

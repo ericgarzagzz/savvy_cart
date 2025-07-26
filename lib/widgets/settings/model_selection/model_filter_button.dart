@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/models/models.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ModelFilterButton extends StatelessWidget {
   final ModelFilters filters;
@@ -19,7 +20,11 @@ class ModelFilterButton extends StatelessWidget {
           ? FilledButton.tonalIcon(
               onPressed: onPressed,
               icon: const Icon(Icons.filter_list, size: 18),
-              label: Text('Filters (${_getActiveFilterCount(filters)})'),
+              label: Text(
+                AppLocalizations.of(
+                  context,
+                )!.filtersWithCount(_getActiveFilterCount(filters)),
+              ),
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
@@ -30,7 +35,7 @@ class ModelFilterButton extends StatelessWidget {
           : TextButton.icon(
               onPressed: onPressed,
               icon: const Icon(Icons.filter_list, size: 18),
-              label: const Text('Filter'),
+              label: Text(AppLocalizations.of(context)!.filter),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,

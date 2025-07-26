@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class SearchResultsEmptyState extends StatelessWidget {
   final String searchQuery;
@@ -19,7 +20,7 @@ class SearchResultsEmptyState extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Search Results (0)',
+              AppLocalizations.of(context)!.searchResultsZero,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -34,14 +35,14 @@ class SearchResultsEmptyState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'No items found',
+          AppLocalizations.of(context)!.noItemsFound,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          'Try a different search term or add "$searchQuery" as a new item',
+          AppLocalizations.of(context)!.tryDifferentSearchOrAdd(searchQuery),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -51,7 +52,9 @@ class SearchResultsEmptyState extends StatelessWidget {
         FilledButton.icon(
           onPressed: onAddItem,
           icon: const Icon(Icons.add),
-          label: Text('Add "$searchQuery"'),
+          label: Text(
+            AppLocalizations.of(context)!.addSearchQuery(searchQuery),
+          ),
         ),
         const SizedBox(height: 32),
       ],

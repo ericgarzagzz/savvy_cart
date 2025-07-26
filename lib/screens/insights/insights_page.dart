@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
@@ -14,7 +15,7 @@ class InsightsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shopping Insights'),
+        title: Text(AppLocalizations.of(context)!.shoppingInsights),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/'),
@@ -35,7 +36,7 @@ class InsightsPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Weekly Overview (Last 7 Days)',
+                  AppLocalizations.of(context)!.weeklyOverview,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -46,7 +47,7 @@ class InsightsPage extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: WeeklyInsightsCard(
-                          title: 'Lists Created',
+                          title: AppLocalizations.of(context)!.listsCreated,
                           value: insights.listsCreated.toString(),
                           icon: Icons.shopping_cart,
                           iconColor: Colors.blue,
@@ -55,7 +56,7 @@ class InsightsPage extends ConsumerWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: WeeklyInsightsCard(
-                          title: 'Total Spent',
+                          title: AppLocalizations.of(context)!.totalSpent,
                           value: insights.totalAmount.toStringWithLocale(),
                           icon: Icons.attach_money,
                           iconColor: Colors.green,
@@ -95,8 +96,8 @@ class InsightsPage extends ConsumerWidget {
                             color: Colors.red[400],
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'Error loading insights',
+                          Text(
+                            AppLocalizations.of(context)!.errorLoadingInsights,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

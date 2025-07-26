@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListListview extends ConsumerStatefulWidget {
   const ShopListListview({super.key});
@@ -138,7 +139,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                             .read(paginatedShopListsProvider.notifier)
                             .loadMore(),
                         icon: Icon(Icons.expand_more),
-                        label: Text("Load More"),
+                        label: Text(AppLocalizations.of(context)!.loadMore),
                       ),
               ),
             );

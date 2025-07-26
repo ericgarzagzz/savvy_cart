@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:savvy_cart/screens/screens.dart';
 import 'package:savvy_cart/utils/utils.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 Widget _buildErrorPage(BuildContext context, String message) {
   return Scaffold(
-    appBar: AppBar(title: const Text('Error')),
+    appBar: AppBar(title: Text(AppLocalizations.of(context)!.error)),
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -20,7 +21,7 @@ Widget _buildErrorPage(BuildContext context, String message) {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
-            child: const Text('Go Home'),
+            child: Text(AppLocalizations.of(context)!.goHome),
           ),
         ],
       ),

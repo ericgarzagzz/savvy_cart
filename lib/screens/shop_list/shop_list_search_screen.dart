@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListSearchScreen extends ConsumerStatefulWidget {
   const ShopListSearchScreen({super.key});
@@ -76,7 +77,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
     final searchResultsAsync = ref.watch(shopListSearchProvider(_searchParams));
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Lists'),
+        title: Text(AppLocalizations.of(context)!.searchLists),
         actions: [
           if (_searchController.text.isNotEmpty ||
               _startDate != null ||
@@ -108,7 +109,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                 TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: 'Search by list name...',
+                    hintText: AppLocalizations.of(context)!.searchByListName,
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
@@ -134,7 +135,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                 SizedBox(height: 16),
                 // Date Filters
                 Text(
-                  'Filter by Date Range',
+                  AppLocalizations.of(context)!.filterByDateRange,
                   style: Theme.of(
                     context,
                   ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -149,7 +150,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                         label: Text(
                           _startDate != null
                               ? DateFormat('MMM d, yyyy').format(_startDate!)
-                              : 'Start Date',
+                              : AppLocalizations.of(context)!.startDate,
                         ),
                       ),
                     ),
@@ -161,7 +162,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                         label: Text(
                           _endDate != null
                               ? DateFormat('MMM d, yyyy').format(_endDate!)
-                              : 'End Date',
+                              : AppLocalizations.of(context)!.endDate,
                         ),
                       ),
                     ),
@@ -185,7 +186,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                     ),
                     SizedBox(height: 16),
                     Text(
-                      'Error loading search results',
+                      AppLocalizations.of(context)!.errorLoadingSearchResults,
                       style: Theme.of(context).textTheme.headlineSmall
                           ?.copyWith(
                             color: Theme.of(context).colorScheme.error,
@@ -193,7 +194,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      'Please try again later',
+                      AppLocalizations.of(context)!.pleaseTryAgainLater,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),
@@ -216,7 +217,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                           ),
                           SizedBox(height: 16),
                           Text(
-                            'No lists found',
+                            AppLocalizations.of(context)!.noListsFound,
                             style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(
                                   color: Theme.of(
@@ -226,7 +227,7 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
                           ),
                           SizedBox(height: 8),
                           Text(
-                            'Try adjusting your search terms or date filters',
+                            AppLocalizations.of(context)!.tryAdjustingFilters,
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
                                   color: Theme.of(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:savvy_cart/providers/providers.dart';
 import 'package:intl/intl.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
+import 'package:savvy_cart/providers/providers.dart';
 
 class CreateShopList extends ConsumerStatefulWidget {
   const CreateShopList({super.key});
@@ -68,7 +69,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Create New List",
+                      AppLocalizations.of(context)!.createNewList,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -76,7 +77,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      "Start your shopping journey",
+                      AppLocalizations.of(context)!.startYourShoppingJourney,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(color: Colors.white70),
@@ -87,7 +88,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
             ),
             const SizedBox(height: 20),
             Text(
-              "List Name",
+              AppLocalizations.of(context)!.listName,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -98,7 +99,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
               controller: _nameInputController,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: "Enter list name",
+                hintText: AppLocalizations.of(context)!.enterListName,
                 hintStyle: TextStyle(color: Colors.white60),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -122,7 +123,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 errorStyle: TextStyle(color: Colors.red.shade100),
               ),
               validator: (text) => text == null || text.isEmpty
-                  ? "The list's name cannot be empty"
+                  ? AppLocalizations.of(context)!.listNameCannotBeEmpty
                   : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
@@ -157,7 +158,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      "Create Shopping List",
+                      AppLocalizations.of(context)!.createShoppingList,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,

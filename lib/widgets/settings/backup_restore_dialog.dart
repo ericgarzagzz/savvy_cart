@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class BackupRestoreDialog extends ConsumerStatefulWidget {
   final BackupFileInfo backup;
@@ -29,7 +30,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
 
     return AlertDialog(
-      title: const Text('Restore Backup'),
+      title: Text(AppLocalizations.of(context)!.restoreBackup),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -96,7 +97,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            'Settings',
+                            AppLocalizations.of(context)!.settings,
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
@@ -114,8 +115,10 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
             ),
             const SizedBox(height: 20),
             CheckboxListTile(
-              title: const Text('Replace existing data'),
-              subtitle: const Text('Clear current data before restoring'),
+              title: Text(AppLocalizations.of(context)!.replaceExistingData),
+              subtitle: Text(
+                AppLocalizations.of(context)!.clearCurrentDataBeforeRestoring,
+              ),
               value: _replaceExisting,
               onChanged: (value) => setState(() {
                 _replaceExisting = value ?? true;
@@ -174,7 +177,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _restoreBackup,
@@ -192,7 +195,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Restore'),
+              : Text(AppLocalizations.of(context)!.restore),
         ),
       ],
     );
@@ -257,7 +260,9 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to restore backup: $e'),
+            content: Text(
+              AppLocalizations.of(context)!.restoreFailed(e.toString()),
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

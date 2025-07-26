@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/providers/providers.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListSummary extends ConsumerWidget {
   final int shopListId;
@@ -14,7 +15,11 @@ class ShopListSummary extends ConsumerWidget {
 
     return statsAsync.when(
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (e, st) => Center(child: Text('Error: $e')),
+      error: (e, st) => Center(
+        child: Text(
+          AppLocalizations.of(context)!.errorWithDetails(e.toString()),
+        ),
+      ),
       data: (stats) {
         final (uncheckedAmount, checkedAmount) = stats;
         final totalAmount = uncheckedAmount + checkedAmount;

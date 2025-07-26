@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class InsightsEmptyState extends StatelessWidget {
   const InsightsEmptyState({super.key});
@@ -31,7 +32,7 @@ class InsightsEmptyState extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'No Shopping Data Yet',
+                  AppLocalizations.of(context)!.noShoppingDataYet,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -40,7 +41,7 @@ class InsightsEmptyState extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Create your first shopping list to start tracking insights about your shopping patterns and spending habits.',
+                  AppLocalizations.of(context)!.createFirstListDescription,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -50,7 +51,7 @@ class InsightsEmptyState extends StatelessWidget {
                 FilledButton.icon(
                   onPressed: () => context.go('/'),
                   icon: const Icon(Icons.add_shopping_cart),
-                  label: const Text('Create Shopping List'),
+                  label: Text(AppLocalizations.of(context)!.createShoppingList),
                 ),
               ],
             ),

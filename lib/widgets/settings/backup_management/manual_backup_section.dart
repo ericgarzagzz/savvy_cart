@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ManualBackupSection extends StatelessWidget {
   final List<BackupFileInfo> manualBackups;
@@ -25,7 +26,7 @@ class ManualBackupSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Manual Snapshots',
+              AppLocalizations.of(context)!.manualSnapshots,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -33,7 +34,7 @@ class ManualBackupSection extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onCreateBackup,
               icon: const Icon(Icons.add, size: 18),
-              label: const Text('Create'),
+              label: Text(AppLocalizations.of(context)!.create),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,

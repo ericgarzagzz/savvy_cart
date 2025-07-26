@@ -702,5 +702,544 @@
   "chooseAiModelDescription": "Choose the AI model to use for processing",
   "@chooseAiModelDescription": {
     "description": "Help text for model selection"
+  },
+
+  "actionsDiscarded": "Actions Discarded",
+  "@actionsDiscarded": {
+    "description": "Status message for discarded AI actions"
+  },
+
+  "weeklyOverview": "Weekly Overview",
+  "@weeklyOverview": {
+    "description": "Title for weekly insights overview"
+  },
+
+  "errorLoadingInsights": "Error loading insights",
+  "@errorLoadingInsights": {
+    "description": "Error message for insights loading failure"
+  },
+
+  "noMatchingItemsFound": "No matching items found",
+  "@noMatchingItemsFound": {
+    "description": "Message when no items match search criteria"
+  },
+
+  "removeItemAndSuggestion": "Remove Item and Suggestion?",
+  "@removeItemAndSuggestion": {
+    "description": "Dialog title for removing item and suggestion"
+  },
+
+  "removeSuggestion": "Remove Suggestion?",
+  "@removeSuggestion": {
+    "description": "Dialog title for removing suggestion only"
+  },
+
+  "removeItemAndSuggestionDesc": "This will remove \"{itemName}\" from your current shopping list and also from your suggestions.",
+  "@removeItemAndSuggestionDesc": {
+    "description": "Description for removing item and suggestion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "milk"
+      }
+    }
+  },
+
+  "removeSuggestionDesc": "This will remove \"{itemName}\" from your suggestions. It will not affect your current shopping list.",
+  "@removeSuggestionDesc": {
+    "description": "Description for removing suggestion only",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "milk"
+      }
+    }
+  },
+
+  "remove": "Remove",
+  "@remove": {
+    "description": "Button to remove item"
+  },
+
+  "itemsSelected": "{count} selected",
+  "@itemsSelected": {
+    "description": "Number of items selected",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "chatWith": "Chat with {listName}",
+  "@chatWith": {
+    "description": "Chat screen title with list name",
+    "placeholders": {
+      "listName": {
+        "type": "String",
+        "example": "Groceries"
+      }
+    }
+  },
+
+  "reviewAiSuggestions": "Review AI Suggestions",
+  "@reviewAiSuggestions": {
+    "description": "Title for AI suggestions review"
+  },
+
+  "pleaseSelectAtLeastOneAction": "Please select at least one action to execute",
+  "@pleaseSelectAtLeastOneAction": {
+    "description": "Validation message for AI actions"
+  },
+
+  "appliedActions": "Applied Actions",
+  "@appliedActions": {
+    "description": "Title for applied AI actions"
+  },
+
+  "noActionsWereApplied": "No actions were applied",
+  "@noActionsWereApplied": {
+    "description": "Message when no AI actions were applied"
+  },
+
+  "frequentlyBoughtItems": "Frequently Bought Items",
+  "@frequentlyBoughtItems": {
+    "description": "Title for frequently bought items section"
+  },
+
+  "searchItem": "Search item",
+  "@searchItem": {
+    "description": "Placeholder text for item search"
+  },
+
+  "noFrequentlyBoughtItems": "No frequently bought items",
+  "@noFrequentlyBoughtItems": {
+    "description": "Message when no frequently bought items available"
+  },
+
+  "completeListsToSeeMostBought": "Complete shopping lists to see your most bought items",
+  "@completeListsToSeeMostBought": {
+    "description": "Instructions for seeing frequently bought items"
+  },
+
+  "timesPurchased": "Purchased {count} times",
+  "@timesPurchased": {
+    "description": "Number of times an item was purchased",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "5"
+      }
+    }
+  },
+
+  "errorLoadingFrequentlyBought": "Error loading frequently bought items",
+  "@errorLoadingFrequentlyBought": {
+    "description": "Error message for frequently bought items loading failure"
+  },
+
+  "errorLoadingData": "Error loading data",
+  "@errorLoadingData": {
+    "description": "Generic error message for data loading failure"
+  },
+
+  "discoverShoppingPatterns": "Discover your shopping patterns",
+  "@discoverShoppingPatterns": {
+    "description": "Description for shopping insights feature"
+  },
+
+  "errorLoadingPriceHistory": "Error loading price history",
+  "@errorLoadingPriceHistory": {
+    "description": "Error message for price history loading failure"
+  },
+
+  "onlyOnePurchaseFound": "Only one purchase found",
+  "@onlyOnePurchaseFound": {
+    "description": "Message when only one purchase exists for price tracking"
+  },
+
+  "lastPurchasedFor": "Last purchased for {price}",
+  "@lastPurchasedFor": {
+    "description": "Shows last purchase price",
+    "placeholders": {
+      "price": {
+        "type": "String",
+        "example": "$5.99"
+      }
+    }
+  },
+
+  "purchasedOn": "Purchased on {date}",
+  "@purchasedOn": {
+    "description": "Shows purchase date",
+    "placeholders": {
+      "date": {
+        "type": "String",
+        "example": "Jan 15, 2024"
+      }
+    }
+  },
+
+  "purchaseMoreTimesToSeeTrends": "Purchase this item more times to see price trends",
+  "@purchaseMoreTimesToSeeTrends": {
+    "description": "Instructions for seeing price trends with multiple purchases"
+  },
+
+  "average": "Average",
+  "@average": {
+    "description": "Label for average price"
+  },
+
+  "lowest": "Lowest",
+  "@lowest": {
+    "description": "Label for lowest price"
+  },
+
+  "highest": "Highest",
+  "@highest": {
+    "description": "Label for highest price"
+  },
+
+  "searchOrAddNewItem": "Search or add new item...",
+  "@searchOrAddNewItem": {
+    "description": "Hint text for item search field"
+  },
+
+  "frequentlyBought": "Frequently Bought",
+  "@frequentlyBought": {
+    "description": "Section header for frequently bought items"
+  },
+
+  "errorLoadingResults": "Error loading results: {error}",
+  "@errorLoadingResults": {
+    "description": "Error message for search results loading failure",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Network error"
+      }
+    }
+  },
+
+  "searchResultsZero": "Search Results (0)",
+  "@searchResultsZero": {
+    "description": "Search results header when no results found"
+  },
+
+  "tryDifferentSearchOrAdd": "Try a different search term or add \"{searchQuery}\" as a new item",
+  "@tryDifferentSearchOrAdd": {
+    "description": "Help text for empty search results",
+    "placeholders": {
+      "searchQuery": {
+        "type": "String",
+        "example": "milk"
+      }
+    }
+  },
+
+  "errorLoadingItem": "Error loading item",
+  "@errorLoadingItem": {
+    "description": "Error message for item loading failure"
+  },
+
+  "itemNotFound": "Item not found",
+  "@itemNotFound": {
+    "description": "Error message when item cannot be found"
+  },
+
+  "confirmDeleteItem": "Are you sure you want to delete \"{itemName}\"?",
+  "@confirmDeleteItem": {
+    "description": "Confirmation message for item deletion",
+    "placeholders": {
+      "itemName": {
+        "type": "String",
+        "example": "milk"
+      }
+    }
+  },
+
+  "quantity": "Quantity",
+  "@quantity": {
+    "description": "Label for item quantity field"
+  },
+
+  "required": "Required",
+  "@required": {
+    "description": "Validation message for required fields"
+  },
+
+  "invalidNumber": "Invalid number",
+  "@invalidNumber": {
+    "description": "Validation message for invalid number input"
+  },
+
+  "price": "Price",
+  "@price": {
+    "description": "Label for item price field"
+  },
+
+  "total": "Total",
+  "@total": {
+    "description": "Label for total amount"
+  },
+
+  "errorLoadingShopListItems": "Could not load shop list's items due to an error.",
+  "@errorLoadingShopListItems": {
+    "description": "Error message for loading list items"
+  },
+
+  "noItemsInCartYet": "No items in cart yet",
+  "@noItemsInCartYet": {
+    "description": "Empty state message for cart"
+  },
+
+  "readyToStartShopping": "Ready to start shopping?",
+  "@readyToStartShopping": {
+    "description": "Encouraging message for empty cart"
+  },
+
+  "itemsYouCheckOffWillAppearHere": "Items you check off will appear here",
+  "@itemsYouCheckOffWillAppearHere": {
+    "description": "Instructions for cart functionality"
+  },
+
+  "tapPlusButtonToAddFirstItem": "Tap the + button below to add your first item",
+  "@tapPlusButtonToAddFirstItem": {
+    "description": "Instructions for adding first item"
+  },
+
+  "needMoreItems": "Need more items?",
+  "@needMoreItems": {
+    "description": "Question asking if user needs more items"
+  },
+
+  "tapButtonBelowToAddMoreItems": "Tap the button below to add more items",
+  "@tapButtonBelowToAddMoreItems": {
+    "description": "Instructions for adding more items"
+  },
+
+  "addItemsYouStillNeedToBuy": "Add items you still need to buy",
+  "@addItemsYouStillNeedToBuy": {
+    "description": "Instructions for adding needed items"
+  },
+
+  "tapButtonBelowToAddFirstItem": "Tap the button below to add your first item",
+  "@tapButtonBelowToAddFirstItem": {
+    "description": "Instructions for adding first item with button"
+  },
+
+  "addFirstItemToGetStarted": "Add your first item to get started",
+  "@addFirstItemToGetStarted": {
+    "description": "Instructions for new users"
+  },
+
+  "generate": "Generate",
+  "@generate": {
+    "description": "Button to generate content"
+  },
+
+  "ai": "AI",
+  "@ai": {
+    "description": "AI section or feature label"
+  },
+
+  "filterModels": "Filter Models",
+  "@filterModels": {
+    "description": "Button to filter AI models"
+  },
+
+  "thinkingCapabilities": "Thinking Capabilities",
+  "@thinkingCapabilities": {
+    "description": "Filter section for AI thinking capabilities"
+  },
+
+  "inputTokensInMillions": "Input Tokens (in millions)",
+  "@inputTokensInMillions": {
+    "description": "Filter label for input token limits"
+  },
+
+  "minValue": "Min Value",
+  "@minValue": {
+    "description": "Label for minimum value input"
+  },
+
+  "maxValue": "Max Value",
+  "@maxValue": {
+    "description": "Label for maximum value input"
+  },
+
+  "outputTokensInMillions": "Output Tokens (in millions)",
+  "@outputTokensInMillions": {
+    "description": "Filter label for output token limits"
+  },
+
+  "temperatureRange": "Temperature Range",
+  "@temperatureRange": {
+    "description": "Filter section for AI temperature settings"
+  },
+
+  "retry": "Retry",
+  "@retry": {
+    "description": "Button to retry an action"
+  },
+
+  "actionsApplied": "Actions Applied",
+  "@actionsApplied": {
+    "description": "Status message for successfully applied AI actions"
+  },
+
+  "applyActions": "Apply Actions",
+  "@applyActions": {
+    "description": "Button to apply AI actions"
+  },
+
+  "somethingWentWrong": "Something went wrong",
+  "@somethingWentWrong": {
+    "description": "Generic error message"
+  },
+
+  "pleaseGoBackToHomeScreen": "Please go back to the home screen",
+  "@pleaseGoBackToHomeScreen": {
+    "description": "Instruction to return to home"
+  },
+
+  "priceTrendForLastPurchases": "Price trend for last purchases",
+  "@priceTrendForLastPurchases": {
+    "description": "Chart header for price trends"
+  },
+
+  "settingsWillNotBeIncluded": "Settings will not be included",
+  "@settingsWillNotBeIncluded": {
+    "description": "Warning about excluded settings in backup"
+  },
+
+  "snapshotCreatedSuccessfully": "Snapshot created successfully",
+  "@snapshotCreatedSuccessfully": {
+    "description": "Success message for snapshot creation"
+  },
+
+  "create": "Create",
+  "@create": {
+    "description": "Button to create something"
+  },
+
+  "snapshotCreated": "Snapshot Created",
+  "@snapshotCreated": {
+    "description": "Title for successful snapshot creation"
+  },
+
+  "snapshotFailed": "Snapshot failed: {error}",
+  "@snapshotFailed": {
+    "description": "Error message for failed snapshot",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Disk full"
+      }
+    }
+  },
+
+  "restore": "Restore",
+  "@restore": {
+    "description": "Button to restore backup"
+  },
+
+  "manualSnapshots": "Manual Snapshots",
+  "@manualSnapshots": {
+    "description": "Section title for manual backups"
+  },
+
+  "restoreBackup": "Restore Backup",
+  "@restoreBackup": {
+    "description": "Dialog title for restoring backup"
+  },
+
+  "replaceExistingData": "Replace existing data",
+  "@replaceExistingData": {
+    "description": "Option to replace data during restore"
+  },
+
+  "clearCurrentDataBeforeRestoring": "Clear all current data before restoring",
+  "@clearCurrentDataBeforeRestoring": {
+    "description": "Warning about clearing data before restore"
+  },
+
+  "restoreFailed": "Restore failed: {error}",
+  "@restoreFailed": {
+    "description": "Error message for failed restore",
+    "placeholders": {
+      "error": {
+        "type": "String",
+        "example": "Invalid file"
+      }
+    }
+  },
+
+  "chooseWhatToInclude": "Choose what to include",
+  "@chooseWhatToInclude": {
+    "description": "Instructions for export options"
+  },
+
+  "fullExport": "Full Export",
+  "@fullExport": {
+    "description": "Option for complete data export"
+  },
+
+  "databaseOnly": "Database Only",
+  "@databaseOnly": {
+    "description": "Option for database-only export"
+  },
+
+  "createSnapshot": "Create Snapshot",
+  "@createSnapshot": {
+    "description": "Button to create backup snapshot"
+  },
+
+  "done": "Done",
+  "@done": {
+    "description": "Button to indicate completion"
+  },
+
+  "clearAllCurrentDataBeforeImporting": "Clear all current data before importing",
+  "@clearAllCurrentDataBeforeImporting": {
+    "description": "Warning about clearing data before import"
+  },
+
+  "restoreSuccessful": "Restore Successful",
+  "@restoreSuccessful": {
+    "description": "Title for successful restore"
+  },
+
+  "filtersWithCount": "Filters ({count})",
+  "@filtersWithCount": {
+    "description": "Filter button text with count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      }
+    }
+  },
+
+  "filter": "Filter",
+  "@filter": {
+    "description": "Button to filter results"
+  },
+
+  "clearAllFilters": "Clear All Filters",
+  "@clearAllFilters": {
+    "description": "Button to clear all applied filters"
+  },
+
+  "errorWithDetails": "Error: {details}",
+  "@errorWithDetails": {
+    "description": "Error message with details",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "Connection failed"
+      }
+    }
   }
 }

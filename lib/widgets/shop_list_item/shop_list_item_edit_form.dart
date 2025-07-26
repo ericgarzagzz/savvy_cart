@@ -7,6 +7,7 @@ import 'package:savvy_cart/domain/models/models.dart';
 import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ShopListItemEditForm extends ConsumerStatefulWidget {
   final ShopListItem shopListItem;
@@ -120,15 +121,19 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
         padding: EdgeInsets.all(24),
         child: Center(child: CircularProgressIndicator()),
       ),
-      error: (_, __) => const Padding(
-        padding: EdgeInsets.all(24),
-        child: Center(child: Text('Error loading item')),
+      error: (_, __) => Padding(
+        padding: const EdgeInsets.all(24),
+        child: Center(
+          child: Text(AppLocalizations.of(context)!.errorLoadingItem),
+        ),
       ),
       data: (currentItem) {
         if (currentItem == null) {
-          return const Padding(
-            padding: EdgeInsets.all(24),
-            child: Center(child: Text('Item not found')),
+          return Padding(
+            padding: const EdgeInsets.all(24),
+            child: Center(
+              child: Text(AppLocalizations.of(context)!.itemNotFound),
+            ),
           );
         }
         return Padding(
@@ -171,20 +176,28 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                         final confirm = await showDialog<bool>(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: const Text('Delete Item'),
+                            title: Text(
+                              AppLocalizations.of(context)!.deleteItem,
+                            ),
                             content: Text(
-                              'Are you sure you want to delete "${currentItem.name}"?',
+                              AppLocalizations.of(
+                                context,
+                              )!.confirmDeleteItem(currentItem.name),
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
-                                child: const Text('Cancel'),
+                                child: Text(
+                                  AppLocalizations.of(context)!.cancel,
+                                ),
                               ),
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(true),
-                                child: const Text('Delete'),
+                                child: Text(
+                                  AppLocalizations.of(context)!.delete,
+                                ),
                               ),
                             ],
                           ),
@@ -220,13 +233,18 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           decimalPlaces: 4,
                           controller: _quantityController,
                           focusNode: _quantityFocusNode,
-                          decoration: InputDecoration(label: Text("Quantity")),
+                          decoration: InputDecoration(
+                            label: Text(AppLocalizations.of(context)!.quantity),
+                          ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Required';
+                              return AppLocalizations.of(context)!.required;
                             }
                             final num? number = num.tryParse(value);
-                            if (number == null) return 'Invalid number';
+                            if (number == null)
+                              return AppLocalizations.of(
+                                context,
+                              )!.invalidNumber;
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -239,13 +257,18 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           controller: _unitPriceController,
                           focusNode: _unitPriceFocusNode,
                           decimalPlaces: 2,
-                          decoration: InputDecoration(label: Text("Price")),
+                          decoration: InputDecoration(
+                            label: Text(AppLocalizations.of(context)!.price),
+                          ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Required';
+                              return AppLocalizations.of(context)!.required;
                             }
                             final num? number = num.tryParse(value);
-                            if (number == null) return 'Invalid number';
+                            if (number == null)
+                              return AppLocalizations.of(
+                                context,
+                              )!.invalidNumber;
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -259,7 +282,9 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           controller: TextEditingController(
                             text: _currentTotal,
                           ),
-                          decoration: InputDecoration(label: Text("Total")),
+                          decoration: InputDecoration(
+                            label: Text(AppLocalizations.of(context)!.total),
+                          ),
                         ),
                       ),
                     ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:savvy_cart/l10n/app_localizations.dart';
+
 class ChatProcessingIndicator extends StatelessWidget {
   const ChatProcessingIndicator({super.key});
 
@@ -22,7 +24,7 @@ class ChatProcessingIndicator extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Text(
-            'Processing...',
+            AppLocalizations.of(context)!.processing,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(
                 context,

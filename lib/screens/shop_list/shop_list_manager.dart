@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/services/services.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
@@ -182,9 +183,9 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                                 size: 18,
                               ),
                               const SizedBox(width: 4),
-                              const Text(
-                                'AI',
-                                style: TextStyle(
+                              Text(
+                                AppLocalizations.of(context)!.ai,
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
@@ -211,7 +212,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                   sliver: SliverToBoxAdapter(
                     child: ShopListSectionHeader(
                       icon: Icons.shopping_cart_outlined,
-                      title: 'To Buy',
+                      title: AppLocalizations.of(context)!.toBuy,
                       shopListId: widget.shopListId,
                       checkedItems: false,
                       onAddItem: () {
@@ -235,7 +236,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                   sliver: SliverToBoxAdapter(
                     child: ShopListSectionHeader(
                       icon: Icons.check,
-                      title: 'In Cart',
+                      title: AppLocalizations.of(context)!.inCart,
                       shopListId: widget.shopListId,
                       checkedItems: true,
                     ),

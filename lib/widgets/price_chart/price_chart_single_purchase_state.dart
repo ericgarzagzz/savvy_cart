@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
@@ -27,7 +28,7 @@ class PriceChartSinglePurchaseState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'Only one purchase found',
+          AppLocalizations.of(context)!.onlyOnePurchaseFound,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -35,21 +36,25 @@ class PriceChartSinglePurchaseState extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Last purchased for ${priceHistory.first.price.toStringWithLocale()}',
+          AppLocalizations.of(
+            context,
+          )!.lastPurchasedFor(priceHistory.first.price.toStringWithLocale()),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: Colors.white.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 4),
         Text(
-          'on ${DateFormat('MMM d, yyyy').format(priceHistory.first.date)}',
+          AppLocalizations.of(context)!.purchasedOn(
+            DateFormat('MMM d, yyyy').format(priceHistory.first.date),
+          ),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white.withValues(alpha: 0.6),
           ),
         ),
         const SizedBox(height: 16),
         Text(
-          'Purchase this item more times to see price trends',
+          AppLocalizations.of(context)!.purchaseMoreTimesToSeeTrends,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Colors.white.withValues(alpha: 0.6),
           ),

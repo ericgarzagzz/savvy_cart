@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class PriceChartErrorState extends StatelessWidget {
@@ -25,7 +26,7 @@ class PriceChartErrorState extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Error loading price history',
+          AppLocalizations.of(context)!.errorLoadingPriceHistory,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,

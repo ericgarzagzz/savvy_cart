@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:savvy_cart/models/models.dart';
 import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class ExportDialog extends StatefulWidget {
   final ExportOptions? defaultOptions;
@@ -25,13 +26,13 @@ class _ExportDialogState extends State<ExportDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Create Manual Snapshot'),
+      title: Text(AppLocalizations.of(context)!.createManualSnapshot),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Choose what to include in your snapshot:'),
+            Text(AppLocalizations.of(context)!.chooseWhatToInclude),
             const SizedBox(height: 16),
             _buildOptionCheckbox(
               'Settings',
@@ -76,7 +77,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     onPressed: () => setState(() {
                       _options = ExportOptions.fullExport;
                     }),
-                    child: const Text('Full Export'),
+                    child: Text(AppLocalizations.of(context)!.fullExport),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -85,7 +86,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     onPressed: () => setState(() {
                       _options = ExportOptions.databaseOnly;
                     }),
-                    child: const Text('Database Only'),
+                    child: Text(AppLocalizations.of(context)!.databaseOnly),
                   ),
                 ),
               ],
@@ -109,7 +110,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        'Your settings will not be included in this snapshot.',
+                        AppLocalizations.of(context)!.settingsWillNotBeIncluded,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -126,7 +127,7 @@ class _ExportDialogState extends State<ExportDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: const Text('Cancel'),
+          child: Text(AppLocalizations.of(context)!.cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _performExport,
@@ -136,7 +137,7 @@ class _ExportDialogState extends State<ExportDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : const Text('Create Snapshot'),
+              : Text(AppLocalizations.of(context)!.createSnapshot),
         ),
       ],
     );
@@ -173,14 +174,14 @@ class _ExportDialogState extends State<ExportDialog> {
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: const Text('Snapshot Created'),
-            content: const Text(
-              'Your snapshot has been created successfully and will be automatically synced to Google Drive.',
+            title: Text(AppLocalizations.of(context)!.snapshotCreated),
+            content: Text(
+              AppLocalizations.of(context)!.snapshotCreatedSuccessfully,
             ),
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: const Text('Done'),
+                child: Text(AppLocalizations.of(context)!.done),
               ),
             ],
           ),
@@ -194,7 +195,9 @@ class _ExportDialogState extends State<ExportDialog> {
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Snapshot failed: $e'),
+            content: Text(
+              AppLocalizations.of(context)!.snapshotFailed(e.toString()),
+            ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
         );

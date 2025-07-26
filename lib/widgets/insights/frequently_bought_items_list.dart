@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class FrequentlyBoughtItemsList extends ConsumerWidget {
@@ -19,7 +20,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                'Frequently Bought Items (Last Month)',
+                AppLocalizations.of(context)!.frequentlyBoughtItems,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -27,7 +28,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
               onPressed: () => context.go('/insights/price-search'),
               icon: Icon(Icons.search),
               label: Text(
-                'Search Item',
+                AppLocalizations.of(context)!.searchItem,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -52,7 +53,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'No frequently bought items yet',
+                        AppLocalizations.of(context)!.noFrequentlyBoughtItems,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: Theme.of(
@@ -62,7 +63,9 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        'Complete some shopping lists to see your most bought items',
+                        AppLocalizations.of(
+                          context,
+                        )!.completeListsToSeeMostBought,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -138,7 +141,9 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  '${item.frequency} time${item.frequency != 1 ? 's' : ''} purchased',
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.timesPurchased(item.frequency),
                                   style: Theme.of(context).textTheme.bodySmall
                                       ?.copyWith(
                                         color: Theme.of(
@@ -231,8 +236,8 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                 children: [
                   Icon(Icons.error_outline, size: 48, color: Colors.red[400]),
                   const SizedBox(height: 8),
-                  const Text(
-                    'Error loading frequently bought items',
+                  Text(
+                    AppLocalizations.of(context)!.errorLoadingFrequentlyBought,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),

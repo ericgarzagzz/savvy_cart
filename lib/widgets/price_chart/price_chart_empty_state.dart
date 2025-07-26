@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 
 class PriceChartEmptyState extends StatelessWidget {
@@ -20,14 +21,14 @@ class PriceChartEmptyState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          'No price history available',
+          AppLocalizations.of(context)!.noPriceHistoryAvailable,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             color: Colors.white.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          'Purchase this item to start tracking its price trends',
+          AppLocalizations.of(context)!.purchaseItemToTrackPrice,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white.withValues(alpha: 0.6),
           ),

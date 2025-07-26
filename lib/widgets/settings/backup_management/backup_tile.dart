@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:savvy_cart/services/services.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 
 class BackupTile extends StatelessWidget {
   final BackupFileInfo backup;
@@ -88,7 +89,7 @@ class BackupTile extends StatelessWidget {
                 children: [
                   Icon(Icons.restore, size: 18),
                   SizedBox(width: 8),
-                  Text('Restore'),
+                  Text(AppLocalizations.of(context)!.restore),
                 ],
               ),
             ),
@@ -98,7 +99,10 @@ class BackupTile extends StatelessWidget {
                 children: [
                   Icon(Icons.delete, size: 18, color: Colors.red),
                   SizedBox(width: 8),
-                  Text('Delete', style: TextStyle(color: Colors.red)),
+                  Text(
+                    AppLocalizations.of(context)!.delete,
+                    style: const TextStyle(color: Colors.red),
+                  ),
                 ],
               ),
             ),

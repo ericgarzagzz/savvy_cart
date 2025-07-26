@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:savvy_cart/l10n/app_localizations.dart';
 import 'package:savvy_cart/providers/providers.dart';
 
 class PriceSearchScreen extends ConsumerStatefulWidget {
@@ -54,7 +55,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Item Price'),
+        title: Text(AppLocalizations.of(context)!.searchItemPrice),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/insights'),
@@ -66,7 +67,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Search for an item to view its price history',
+              AppLocalizations.of(context)!.searchForItemViewHistory,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -76,7 +77,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
               controller: _searchController,
               focusNode: _searchFocusNode,
               decoration: InputDecoration(
-                hintText: 'Enter item name...',
+                hintText: AppLocalizations.of(context)!.enterItemName,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(
@@ -102,8 +103,8 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
             const SizedBox(height: 24),
             Text(
               _searchQuery.isEmpty
-                  ? 'Or choose from your previous items:'
-                  : 'Search Results:',
+                  ? AppLocalizations.of(context)!.orChooseFromPreviousItems
+                  : AppLocalizations.of(context)!.searchResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -114,7 +115,9 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                 child: FilledButton.icon(
                   onPressed: _searchItem,
                   icon: const Icon(Icons.add_chart),
-                  label: Text('View chart for "$_searchQuery"'),
+                  label: Text(
+                    AppLocalizations.of(context)!.viewChartFor(_searchQuery),
+                  ),
                 ),
               ),
             const SizedBox(height: 12),
@@ -138,8 +141,10 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           const SizedBox(height: 16),
                           Text(
                             _searchQuery.isEmpty
-                                ? 'No items found'
-                                : 'No matching items found',
+                                ? AppLocalizations.of(context)!.noItemsFound
+                                : AppLocalizations.of(
+                                    context,
+                                  )!.noMatchingItemsFound,
                             style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(
                                   color: Theme.of(
@@ -150,8 +155,12 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           const SizedBox(height: 8),
                           Text(
                             _searchQuery.isEmpty
-                                ? 'Add items to your shopping lists to see them here'
-                                : 'Try a different search term or create a chart for "$_searchQuery"',
+                                ? AppLocalizations.of(
+                                    context,
+                                  )!.addItemsToSeeHere
+                                : AppLocalizations.of(
+                                    context,
+                                  )!.tryDifferentSearchTerm(_searchQuery),
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
                                   color: Theme.of(
@@ -213,7 +222,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        'Error loading suggestions',
+                        AppLocalizations.of(context)!.errorLoadingSuggestions,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
