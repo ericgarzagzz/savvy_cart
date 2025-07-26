@@ -26,7 +26,7 @@ class ManualBackupSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppLocalizations.of(context)!.manualSnapshots,
+              AppLocalizations.of(context).manualSnapshots,
               style: Theme.of(
                 context,
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
@@ -34,7 +34,7 @@ class ManualBackupSection extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: onCreateBackup,
               icon: const Icon(Icons.add, size: 18),
-              label: Text(AppLocalizations.of(context)!.create),
+              label: Text(AppLocalizations.of(context).create),
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -46,7 +46,7 @@ class ManualBackupSection extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.createAndManageAdditionalSnapshotFiles,
+          AppLocalizations.of(context).createAndManageAdditionalSnapshotFiles,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(
               context,

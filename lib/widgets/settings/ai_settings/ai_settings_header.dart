@@ -33,7 +33,7 @@ class AiSettingsHeader extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.aiAssistantConfiguration,
+                        AppLocalizations.of(context).aiAssistantConfiguration,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -42,7 +42,7 @@ class AiSettingsHeader extends StatelessWidget {
                       Text(
                         AppLocalizations.of(
                           context,
-                        )!.configureAiAssistantDescription,
+                        ).configureAiAssistantDescription,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,

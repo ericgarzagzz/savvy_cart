@@ -27,7 +27,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.appTitle,
+                      AppLocalizations.of(context).appTitle,
                       style: Theme.of(context).textTheme.headlineSmall!
                           .copyWith(
                             fontWeight: FontWeight.bold,
@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                           ),
                     ),
                     Text(
-                      AppLocalizations.of(context)!.appSubtitle,
+                      AppLocalizations.of(context).appSubtitle,
                       style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
                       ),

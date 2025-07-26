@@ -21,18 +21,18 @@ class GenericErrorScaffold extends StatelessWidget {
             ),
             Text(
               errorMessage.isEmpty
-                  ? AppLocalizations.of(context)!.somethingWentWrong
+                  ? AppLocalizations.of(context).somethingWentWrong
                   : errorMessage,
               style: Theme.of(context).textTheme.titleLarge,
             ),
             Text(
-              AppLocalizations.of(context)!.pleaseGoBackToHomeScreen,
+              AppLocalizations.of(context).pleaseGoBackToHomeScreen,
               style: Theme.of(context).textTheme.bodyMedium,
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 16),
               child: FilledButton.icon(
-                label: Text(AppLocalizations.of(context)!.goToHomePage),
+                label: Text(AppLocalizations.of(context).goToHomePage),
                 icon: Icon(Icons.home),
                 onPressed: () => context.go("/"),
               ),

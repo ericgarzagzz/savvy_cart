@@ -132,7 +132,7 @@ class _ShopListProgressBarState extends ConsumerState<ShopListProgressBar>
                           Text(
                             AppLocalizations.of(
                               context,
-                            )!.itemsCompleted(checkedCount, totalCount),
+                            ).itemsCompleted(checkedCount, totalCount),
                             style: Theme.of(context).textTheme.bodySmall
                                 ?.copyWith(
                                   color: Theme.of(

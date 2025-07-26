@@ -30,7 +30,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.restoreBackup),
+      title: Text(AppLocalizations.of(context).restoreBackup),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -73,14 +73,14 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${AppLocalizations.of(context)!.created}: ${dateFormat.format(widget.backup.createdDate)}',
+                    '${AppLocalizations.of(context).created}: ${dateFormat.format(widget.backup.createdDate)}',
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 4),
                   Row(
                     children: [
                       Text(
-                        '${AppLocalizations.of(context)!.size}: ${widget.backup.formattedSize}',
+                        '${AppLocalizations.of(context).size}: ${widget.backup.formattedSize}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       if (widget.backup.includesSettings) ...[
@@ -97,7 +97,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(
-                            AppLocalizations.of(context)!.settings,
+                            AppLocalizations.of(context).settings,
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w500,
@@ -115,9 +115,9 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
             ),
             const SizedBox(height: 20),
             CheckboxListTile(
-              title: Text(AppLocalizations.of(context)!.replaceExistingData),
+              title: Text(AppLocalizations.of(context).replaceExistingData),
               subtitle: Text(
-                AppLocalizations.of(context)!.clearCurrentDataBeforeRestoring,
+                AppLocalizations.of(context).clearCurrentDataBeforeRestoring,
               ),
               value: _replaceExisting,
               onChanged: (value) => setState(() {
@@ -148,7 +148,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.important,
+                          AppLocalizations.of(context).important,
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: Colors.orange.shade700,
@@ -160,8 +160,8 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                           _replaceExisting
                               ? AppLocalizations.of(
                                   context,
-                                )!.dataReplacementWarning
-                              : AppLocalizations.of(context)!.dataMergeWarning,
+                                ).dataReplacementWarning
+                              : AppLocalizations.of(context).dataMergeWarning,
                           style: TextStyle(
                             color: Colors.orange.shade700,
                             fontSize: 12,
@@ -179,7 +179,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _restoreBackup,
@@ -197,7 +197,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(AppLocalizations.of(context)!.restore),
+              : Text(AppLocalizations.of(context).restore),
         ),
       ],
     );
@@ -244,10 +244,10 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
                 Expanded(
                   child: Text(
                     _replaceExisting
-                        ? AppLocalizations.of(context)!.dataRestoredSuccessfully
+                        ? AppLocalizations.of(context).dataRestoredSuccessfully
                         : AppLocalizations.of(
                             context,
-                          )!.backupDataMergedSuccessfully,
+                          ).backupDataMergedSuccessfully,
                   ),
                 ),
               ],
@@ -265,7 +265,7 @@ class _BackupRestoreDialogState extends ConsumerState<BackupRestoreDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(context)!.restoreFailed(e.toString()),
+              AppLocalizations.of(context).restoreFailed(e.toString()),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),

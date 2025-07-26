@@ -15,7 +15,7 @@ class InsightsPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.shoppingInsights),
+        title: Text(AppLocalizations.of(context).shoppingInsights),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/'),
@@ -36,7 +36,7 @@ class InsightsPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.weeklyOverview,
+                  AppLocalizations.of(context).weeklyOverview,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -47,7 +47,7 @@ class InsightsPage extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: WeeklyInsightsCard(
-                          title: AppLocalizations.of(context)!.listsCreated,
+                          title: AppLocalizations.of(context).listsCreated,
                           value: insights.listsCreated.toString(),
                           icon: Icons.shopping_cart,
                           iconColor: Colors.blue,
@@ -56,7 +56,7 @@ class InsightsPage extends ConsumerWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: WeeklyInsightsCard(
-                          title: AppLocalizations.of(context)!.totalSpent,
+                          title: AppLocalizations.of(context).totalSpent,
                           value: insights.totalAmount.toStringWithLocale(),
                           icon: Icons.attach_money,
                           iconColor: Colors.green,
@@ -97,7 +97,7 @@ class InsightsPage extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            AppLocalizations.of(context)!.errorLoadingInsights,
+                            AppLocalizations.of(context).errorLoadingInsights,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w500,

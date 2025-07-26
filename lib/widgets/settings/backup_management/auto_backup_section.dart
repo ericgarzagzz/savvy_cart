@@ -36,7 +36,7 @@ class AutoBackupSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.automaticBackup,
+                        AppLocalizations.of(context).automaticBackup,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
@@ -45,7 +45,7 @@ class AutoBackupSection extends StatelessWidget {
                       Text(
                         AppLocalizations.of(
                           context,
-                        )!.dataAutomaticallyBackedUpToDrive,
+                        ).dataAutomaticallyBackedUpToDrive,
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: Theme.of(
                             context,
@@ -78,10 +78,10 @@ class AutoBackupSection extends StatelessWidget {
                       autoBackupInfo?.isEnabled == true
                           ? AppLocalizations.of(
                               context,
-                            )!.automaticBackupEnabledAndWorking
+                            ).automaticBackupEnabledAndWorking
                           : AppLocalizations.of(
                               context,
-                            )!.automaticBackupConfigurationDetected,
+                            ).automaticBackupConfigurationDetected,
                       style: TextStyle(
                         color: Colors.green.shade700,
                         fontWeight: FontWeight.w500,
@@ -106,7 +106,7 @@ class AutoBackupSection extends StatelessWidget {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      AppLocalizations.of(context)!.automaticBackupInfoMessage,
+                      AppLocalizations.of(context).automaticBackupInfoMessage,
                       style: TextStyle(
                         color: Colors.blue.shade700,
                         fontWeight: FontWeight.w500,

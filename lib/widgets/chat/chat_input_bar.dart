@@ -28,7 +28,7 @@ class ChatInputBar extends StatelessWidget {
               controller: messageController,
               focusNode: focusNode,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.typeYourMessage,
+                hintText: AppLocalizations.of(context).typeYourMessage,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(24),
                   borderSide: BorderSide.none,

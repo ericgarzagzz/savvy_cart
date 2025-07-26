@@ -68,7 +68,7 @@ class BackupTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.settings,
+                      AppLocalizations.of(context).settings,
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.w500,
@@ -89,7 +89,7 @@ class BackupTile extends StatelessWidget {
                 children: [
                   Icon(Icons.restore, size: 18),
                   SizedBox(width: 8),
-                  Text(AppLocalizations.of(context)!.restore),
+                  Text(AppLocalizations.of(context).restore),
                 ],
               ),
             ),
@@ -100,7 +100,7 @@ class BackupTile extends StatelessWidget {
                   Icon(Icons.delete, size: 18, color: Colors.red),
                   SizedBox(width: 8),
                   Text(
-                    AppLocalizations.of(context)!.delete,
+                    AppLocalizations.of(context).delete,
                     style: const TextStyle(color: Colors.red),
                   ),
                 ],

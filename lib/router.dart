@@ -6,7 +6,7 @@ import 'package:savvy_cart/l10n/app_localizations.dart';
 
 Widget _buildErrorPage(BuildContext context, String message) {
   return Scaffold(
-    appBar: AppBar(title: Text(AppLocalizations.of(context)!.error)),
+    appBar: AppBar(title: Text(AppLocalizations.of(context).error)),
     body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -21,7 +21,7 @@ Widget _buildErrorPage(BuildContext context, String message) {
           const SizedBox(height: 16),
           ElevatedButton(
             onPressed: () => Navigator.of(context).pushReplacementNamed('/'),
-            child: Text(AppLocalizations.of(context)!.goHome),
+            child: Text(AppLocalizations.of(context).goHome),
           ),
         ],
       ),

@@ -103,7 +103,7 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          AppLocalizations.of(context)!.shoppingInsights,
+                          AppLocalizations.of(context).shoppingInsights,
                           style: Theme.of(context).textTheme.titleMedium!
                               .copyWith(
                                 color: Colors.white,
@@ -112,9 +112,7 @@ class _ShoppingInsightsButtonState extends State<ShoppingInsightsButton>
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          AppLocalizations.of(
-                            context,
-                          )!.discoverShoppingPatterns,
+                          AppLocalizations.of(context).discoverShoppingPatterns,
                           style: Theme.of(context).textTheme.bodySmall!
                               .copyWith(
                                 color: Colors.white.withValues(alpha: 0.9),

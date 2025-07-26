@@ -76,7 +76,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
               });
             },
             decoration: InputDecoration(
-              label: Text(AppLocalizations.of(context)!.geminiApiKey),
+              label: Text(AppLocalizations.of(context).geminiApiKey),
               border: const OutlineInputBorder(),
               errorText: aiSettingsState.error,
               prefixIcon: Icon(Icons.key),
@@ -99,7 +99,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
             borderRadius: BorderRadius.circular(4),
             child: InputDecorator(
               decoration: InputDecoration(
-                label: Text(AppLocalizations.of(context)!.geminiModel),
+                label: Text(AppLocalizations.of(context).geminiModel),
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.memory),
                 suffixIcon: Icon(Icons.arrow_forward_ios, size: 16),
@@ -128,7 +128,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        AppLocalizations.of(context)!.recommended,
+                        AppLocalizations.of(context).recommended,
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,
@@ -154,7 +154,7 @@ class _AiSettingsFormState extends ConsumerState<AiSettingsForm> {
     if (!aiSettingsState.hasValidApiKey) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(AppLocalizations.of(context)!.pleaseEnterValidApiKey),
+          content: Text(AppLocalizations.of(context).pleaseEnterValidApiKey),
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );

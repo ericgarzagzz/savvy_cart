@@ -26,37 +26,37 @@ class _ExportDialogState extends State<ExportDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.createManualSnapshot),
+      title: Text(AppLocalizations.of(context).createManualSnapshot),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations.of(context)!.chooseWhatToInclude),
+            Text(AppLocalizations.of(context).chooseWhatToInclude),
             const SizedBox(height: 16),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.settings,
+              AppLocalizations.of(context).settings,
               _options.includeSettings,
               (value) => setState(() {
                 _options = _options.copyWith(includeSettings: value);
               }),
             ),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.shoppingLists,
+              AppLocalizations.of(context).shoppingLists,
               _options.includeShopLists,
               (value) => setState(() {
                 _options = _options.copyWith(includeShopLists: value);
               }),
             ),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.chatHistory,
+              AppLocalizations.of(context).chatHistory,
               _options.includeChatHistory,
               (value) => setState(() {
                 _options = _options.copyWith(includeChatHistory: value);
               }),
             ),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.suggestions,
+              AppLocalizations.of(context).suggestions,
               _options.includeSuggestions,
               (value) => setState(() {
                 _options = _options.copyWith(includeSuggestions: value);
@@ -66,7 +66,7 @@ class _ExportDialogState extends State<ExportDialog> {
             const Divider(),
             const SizedBox(height: 8),
             Text(
-              '${AppLocalizations.of(context)!.quickOptions}:',
+              '${AppLocalizations.of(context).quickOptions}:',
               style: Theme.of(context).textTheme.labelMedium,
             ),
             const SizedBox(height: 8),
@@ -77,7 +77,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     onPressed: () => setState(() {
                       _options = ExportOptions.fullExport;
                     }),
-                    child: Text(AppLocalizations.of(context)!.fullExport),
+                    child: Text(AppLocalizations.of(context).fullExport),
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -86,7 +86,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     onPressed: () => setState(() {
                       _options = ExportOptions.databaseOnly;
                     }),
-                    child: Text(AppLocalizations.of(context)!.databaseOnly),
+                    child: Text(AppLocalizations.of(context).databaseOnly),
                   ),
                 ),
               ],
@@ -110,7 +110,7 @@ class _ExportDialogState extends State<ExportDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.settingsWillNotBeIncluded,
+                        AppLocalizations.of(context).settingsWillNotBeIncluded,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -127,7 +127,7 @@ class _ExportDialogState extends State<ExportDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _performExport,
@@ -137,7 +137,7 @@ class _ExportDialogState extends State<ExportDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(AppLocalizations.of(context)!.createSnapshot),
+              : Text(AppLocalizations.of(context).createSnapshot),
         ),
       ],
     );
@@ -174,14 +174,14 @@ class _ExportDialogState extends State<ExportDialog> {
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: Text(AppLocalizations.of(context)!.snapshotCreated),
+            title: Text(AppLocalizations.of(context).snapshotCreated),
             content: Text(
-              AppLocalizations.of(context)!.snapshotCreatedSuccessfully,
+              AppLocalizations.of(context).snapshotCreatedSuccessfully,
             ),
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(AppLocalizations.of(context)!.done),
+                child: Text(AppLocalizations.of(context).done),
               ),
             ],
           ),
@@ -196,7 +196,7 @@ class _ExportDialogState extends State<ExportDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(context)!.snapshotFailed(e.toString()),
+              AppLocalizations.of(context).snapshotFailed(e.toString()),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),

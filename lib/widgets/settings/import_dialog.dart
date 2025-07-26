@@ -25,7 +25,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
     final dateFormat = DateFormat('MMM dd, yyyy \'at\' HH:mm');
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.restoreBackup),
+      title: Text(AppLocalizations.of(context).restoreBackup),
       content: SizedBox(
         width: double.maxFinite,
         child: SingleChildScrollView(
@@ -41,29 +41,29 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppLocalizations.of(context)!.backupInformation,
+                        AppLocalizations.of(context).backupInformation,
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 8),
                       _buildInfoRow(
-                        '${AppLocalizations.of(context)!.file}:',
+                        '${AppLocalizations.of(context).file}:',
                         widget.backup.fileName
                             .replaceAll('manual_backup_', '')
                             .replaceAll('.json', ''),
                       ),
                       _buildInfoRow(
-                        '${AppLocalizations.of(context)!.created}:',
+                        '${AppLocalizations.of(context).created}:',
                         dateFormat.format(widget.backup.createdDate),
                       ),
                       _buildInfoRow(
-                        '${AppLocalizations.of(context)!.size}:',
+                        '${AppLocalizations.of(context).size}:',
                         widget.backup.formattedSize,
                       ),
                       _buildInfoRow(
-                        '${AppLocalizations.of(context)!.includesSettings}:',
+                        '${AppLocalizations.of(context).includesSettings}:',
                         widget.backup.includesSettings
-                            ? AppLocalizations.of(context)!.yes
-                            : AppLocalizations.of(context)!.no,
+                            ? AppLocalizations.of(context).yes
+                            : AppLocalizations.of(context).no,
                       ),
                     ],
                   ),
@@ -72,15 +72,15 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
 
               const SizedBox(height: 16),
               Text(
-                AppLocalizations.of(context)!.importOptions,
+                AppLocalizations.of(context).importOptions,
                 style: Theme.of(context).textTheme.titleSmall,
               ),
               CheckboxListTile(
-                title: Text(AppLocalizations.of(context)!.replaceExistingData),
+                title: Text(AppLocalizations.of(context).replaceExistingData),
                 subtitle: Text(
                   AppLocalizations.of(
                     context,
-                  )!.clearAllCurrentDataBeforeImporting,
+                  ).clearAllCurrentDataBeforeImporting,
                 ),
                 value: _options.replaceExisting,
                 onChanged: (value) => setState(() {
@@ -112,7 +112,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            AppLocalizations.of(context)!.important,
+                            AppLocalizations.of(context).important,
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               color: Colors.orange.shade700,
@@ -124,10 +124,8 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                             _options.replaceExisting
                                 ? AppLocalizations.of(
                                     context,
-                                  )!.dataReplacementWarning
-                                : AppLocalizations.of(
-                                    context,
-                                  )!.dataMergeWarning,
+                                  ).dataReplacementWarning
+                                : AppLocalizations.of(context).dataMergeWarning,
                             style: TextStyle(
                               color: Colors.orange.shade700,
                               fontSize: 12,
@@ -146,7 +144,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
       actions: [
         TextButton(
           onPressed: _isImporting ? null : () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _isImporting ? null : _performImport,
@@ -164,7 +162,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(AppLocalizations.of(context)!.restore),
+              : Text(AppLocalizations.of(context).restore),
         ),
       ],
     );
@@ -222,20 +220,18 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
           context: context,
           builder: (context) => AlertDialog(
             icon: const Icon(Icons.check_circle, color: Colors.green, size: 48),
-            title: Text(AppLocalizations.of(context)!.restoreSuccessful),
+            title: Text(AppLocalizations.of(context).restoreSuccessful),
             content: Text(
               _options.replaceExisting
-                  ? AppLocalizations.of(
-                      context,
-                    )!.dataRestoredSuccessfullyMessage
+                  ? AppLocalizations.of(context).dataRestoredSuccessfullyMessage
                   : AppLocalizations.of(
                       context,
-                    )!.backupDataMergedSuccessfullyMessage,
+                    ).backupDataMergedSuccessfullyMessage,
             ),
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text(AppLocalizations.of(context)!.done),
+                child: Text(AppLocalizations.of(context).done),
               ),
             ],
           ),
@@ -250,7 +246,7 @@ class _ImportDialogState extends ConsumerState<ImportDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(context)!.restoreFailed(e.toString()),
+              AppLocalizations.of(context).restoreFailed(e.toString()),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),

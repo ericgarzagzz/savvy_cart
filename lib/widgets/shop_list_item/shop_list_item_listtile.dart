@@ -287,20 +287,20 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                     final confirm = await showDialog<bool>(
                       context: context,
                       builder: (context) => AlertDialog(
-                        title: Text(AppLocalizations.of(context)!.deleteItem),
+                        title: Text(AppLocalizations.of(context).deleteItem),
                         content: Text(
                           AppLocalizations.of(
                             context,
-                          )!.confirmDeleteItem(widget.shopListItem.name),
+                          ).confirmDeleteItem(widget.shopListItem.name),
                         ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: Text(AppLocalizations.of(context)!.cancel),
+                            child: Text(AppLocalizations.of(context).cancel),
                           ),
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(true),
-                            child: Text(AppLocalizations.of(context)!.delete),
+                            child: Text(AppLocalizations.of(context).delete),
                           ),
                         ],
                       ),

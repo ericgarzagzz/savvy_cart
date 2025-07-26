@@ -23,15 +23,15 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.deleteShopList),
+      title: Text(AppLocalizations.of(context).deleteShopList),
       content: Text(
         AppLocalizations.of(
           context,
-        )!.confirmDeleteShopList(widget.shopList.name),
+        ).confirmDeleteShopList(widget.shopList.name),
       ),
       actions: [
         TextButton(
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
           onPressed: () {
             if (mounted) {
               Navigator.of(context).pop();
@@ -42,7 +42,7 @@ class _DeleteShopListDialogState extends ConsumerState<DeleteShopListDialog> {
           style: TextButton.styleFrom(
             foregroundColor: Theme.of(context).colorScheme.error,
           ),
-          child: Text(AppLocalizations.of(context)!.confirm),
+          child: Text(AppLocalizations.of(context).confirm),
           onPressed: () async {
             await ref
                 .read(shopListMutationProvider.notifier)

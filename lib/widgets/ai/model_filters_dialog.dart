@@ -33,7 +33,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             Row(
               children: [
                 Text(
-                  AppLocalizations.of(context)!.filterModels,
+                  AppLocalizations.of(context).filterModels,
                   style: Theme.of(context).textTheme.headlineSmall,
                 ),
                 const Spacer(),
@@ -51,7 +51,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               child: TextButton.icon(
                 onPressed: _clearFilters,
                 icon: const Icon(Icons.clear_all, size: 18),
-                label: Text(AppLocalizations.of(context)!.clearAll),
+                label: Text(AppLocalizations.of(context).clearAll),
                 style: TextButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.error,
                 ),
@@ -77,12 +77,12 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
               children: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppLocalizations.of(context)!.cancel),
+                  child: Text(AppLocalizations.of(context).cancel),
                 ),
                 const SizedBox(width: 8),
                 FilledButton(
                   onPressed: _applyFilters,
-                  child: Text(AppLocalizations.of(context)!.apply),
+                  child: Text(AppLocalizations.of(context).apply),
                 ),
               ],
             ),
@@ -97,7 +97,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.thinkingCapabilities,
+          AppLocalizations.of(context).thinkingCapabilities,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 12),
@@ -105,17 +105,17 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
           segments: [
             ButtonSegment<bool?>(
               value: null,
-              label: Text(AppLocalizations.of(context)!.all),
+              label: Text(AppLocalizations.of(context).all),
               icon: Icon(Icons.all_inclusive),
             ),
             ButtonSegment<bool?>(
               value: true,
-              label: Text(AppLocalizations.of(context)!.yes),
+              label: Text(AppLocalizations.of(context).yes),
               icon: Icon(Icons.psychology),
             ),
             ButtonSegment<bool?>(
               value: false,
-              label: Text(AppLocalizations.of(context)!.no),
+              label: Text(AppLocalizations.of(context).no),
               icon: Icon(Icons.psychology_outlined),
             ),
           ],
@@ -143,14 +143,14 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.tokenLimits,
+          AppLocalizations.of(context).tokenLimits,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 16),
 
         // Input Tokens
         Text(
-          AppLocalizations.of(context)!.inputTokensInMillions,
+          AppLocalizations.of(context).inputTokensInMillions,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 8),
@@ -181,7 +181,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.minValue.replaceAll(
+                AppLocalizations.of(context).minValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.minInputTokens ?? 0).toStringAsFixed(1)}M',
                 ),
@@ -191,7 +191,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
                 ),
               ),
               Text(
-                AppLocalizations.of(context)!.maxValue.replaceAll(
+                AppLocalizations.of(context).maxValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.maxInputTokens ?? 10).toStringAsFixed(1)}M',
                 ),
@@ -208,7 +208,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
 
         // Output Tokens
         Text(
-          AppLocalizations.of(context)!.outputTokensInMillions,
+          AppLocalizations.of(context).outputTokensInMillions,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 8),
@@ -239,7 +239,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.minValue.replaceAll(
+                AppLocalizations.of(context).minValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.minOutputTokens ?? 0).toStringAsFixed(1)}M',
                 ),
@@ -249,7 +249,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
                 ),
               ),
               Text(
-                AppLocalizations.of(context)!.maxValue.replaceAll(
+                AppLocalizations.of(context).maxValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.maxOutputTokens ?? 5).toStringAsFixed(1)}M',
                 ),
@@ -270,7 +270,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.temperatureRange,
+          AppLocalizations.of(context).temperatureRange,
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
@@ -301,7 +301,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppLocalizations.of(context)!.minValue.replaceAll(
+                AppLocalizations.of(context).minValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.minTemperature ?? 0).toStringAsFixed(1)}',
                 ),
@@ -311,7 +311,7 @@ class _ModelFiltersDialogState extends ConsumerState<ModelFiltersDialog> {
                 ),
               ),
               Text(
-                AppLocalizations.of(context)!.maxValue.replaceAll(
+                AppLocalizations.of(context).maxValue.replaceAll(
                   '{value}',
                   '${(_tempFilters.maxTemperature ?? 2).toStringAsFixed(1)}',
                 ),

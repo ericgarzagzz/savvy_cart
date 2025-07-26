@@ -20,7 +20,7 @@ class PriceChartHeader extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.priceTrendForLastPurchases,
+          AppLocalizations.of(context).priceTrendForLastPurchases,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Colors.white.withValues(alpha: 0.7),
           ),

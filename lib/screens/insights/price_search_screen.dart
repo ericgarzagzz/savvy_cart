@@ -55,7 +55,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.searchItemPrice),
+        title: Text(AppLocalizations.of(context).searchItemPrice),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => context.go('/insights'),
@@ -67,7 +67,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              AppLocalizations.of(context)!.searchForItemViewHistory,
+              AppLocalizations.of(context).searchForItemViewHistory,
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -77,7 +77,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
               controller: _searchController,
               focusNode: _searchFocusNode,
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.enterItemName,
+                hintText: AppLocalizations.of(context).enterItemName,
                 prefixIcon: const Icon(Icons.search),
                 suffixIcon: _searchQuery.isNotEmpty
                     ? IconButton(
@@ -103,8 +103,8 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
             const SizedBox(height: 24),
             Text(
               _searchQuery.isEmpty
-                  ? AppLocalizations.of(context)!.orChooseFromPreviousItems
-                  : AppLocalizations.of(context)!.searchResults,
+                  ? AppLocalizations.of(context).orChooseFromPreviousItems
+                  : AppLocalizations.of(context).searchResults,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -116,7 +116,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                   onPressed: _searchItem,
                   icon: const Icon(Icons.add_chart),
                   label: Text(
-                    AppLocalizations.of(context)!.viewChartFor(_searchQuery),
+                    AppLocalizations.of(context).viewChartFor(_searchQuery),
                   ),
                 ),
               ),
@@ -141,10 +141,10 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           const SizedBox(height: 16),
                           Text(
                             _searchQuery.isEmpty
-                                ? AppLocalizations.of(context)!.noItemsFound
+                                ? AppLocalizations.of(context).noItemsFound
                                 : AppLocalizations.of(
                                     context,
-                                  )!.noMatchingItemsFound,
+                                  ).noMatchingItemsFound,
                             style: Theme.of(context).textTheme.titleLarge
                                 ?.copyWith(
                                   color: Theme.of(
@@ -155,12 +155,10 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                           const SizedBox(height: 8),
                           Text(
                             _searchQuery.isEmpty
-                                ? AppLocalizations.of(
-                                    context,
-                                  )!.addItemsToSeeHere
+                                ? AppLocalizations.of(context).addItemsToSeeHere
                                 : AppLocalizations.of(
                                     context,
-                                  )!.tryDifferentSearchTerm(_searchQuery),
+                                  ).tryDifferentSearchTerm(_searchQuery),
                             style: Theme.of(context).textTheme.bodyMedium
                                 ?.copyWith(
                                   color: Theme.of(
@@ -222,7 +220,7 @@ class _PriceSearchScreenState extends ConsumerState<PriceSearchScreen> {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppLocalizations.of(context)!.errorLoadingSuggestions,
+                        AppLocalizations.of(context).errorLoadingSuggestions,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),

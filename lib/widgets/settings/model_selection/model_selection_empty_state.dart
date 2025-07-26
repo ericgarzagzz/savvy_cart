@@ -44,7 +44,7 @@ class ModelSelectionEmptyState extends ConsumerWidget {
                 ref.read(modelFiltersProvider.notifier).clearFilters();
               },
               icon: const Icon(Icons.clear_all),
-              label: Text(AppLocalizations.of(context)!.clearAllFilters),
+              label: Text(AppLocalizations.of(context).clearAllFilters),
             ),
           ],
         ],

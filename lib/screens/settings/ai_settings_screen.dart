@@ -11,7 +11,7 @@ class AiSettingsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.aiSettings),
+        title: Text(AppLocalizations.of(context).aiSettings),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: const SingleChildScrollView(

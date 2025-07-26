@@ -54,17 +54,17 @@ class _ShopListItemNameEditDialogState
     final saveStatus = ref.watch(shopListItemMutationProvider);
 
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.editItemName),
+      title: Text(AppLocalizations.of(context).editItemName),
       content: Form(
         key: _formKey,
         child: TextFormField(
           controller: _nameController,
           decoration: InputDecoration(
-            labelText: AppLocalizations.of(context)!.itemName,
+            labelText: AppLocalizations.of(context).itemName,
             border: OutlineInputBorder(),
           ),
           validator: (text) => text == null || text.trim().isEmpty
-              ? AppLocalizations.of(context)!.listNameCannotBeEmpty
+              ? AppLocalizations.of(context).listNameCannotBeEmpty
               : null,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           autofocus: true,
@@ -76,7 +76,7 @@ class _ShopListItemNameEditDialogState
           onPressed: saveStatus.isLoading
               ? null
               : () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         FilledButton(
           onPressed: saveStatus.isLoading ? null : _updateItemName,
@@ -86,7 +86,7 @@ class _ShopListItemNameEditDialogState
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(AppLocalizations.of(context)!.save),
+              : Text(AppLocalizations.of(context).save),
         ),
       ],
     );

@@ -62,7 +62,7 @@ class ModelCard extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Text(
-                        AppLocalizations.of(context)!.recommended,
+                        AppLocalizations.of(context).recommended,
                         style: TextStyle(
                           fontSize: 11,
                           fontWeight: FontWeight.w500,

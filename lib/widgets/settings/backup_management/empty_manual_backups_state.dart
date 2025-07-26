@@ -22,7 +22,7 @@ class EmptyManualBackupsState extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                AppLocalizations.of(context)!.noManualSnapshotsYet,
+                AppLocalizations.of(context).noManualSnapshotsYet,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Theme.of(
                     context,
@@ -33,7 +33,7 @@ class EmptyManualBackupsState extends StatelessWidget {
               Text(
                 AppLocalizations.of(
                   context,
-                )!.createManualSnapshotForAdditionalControl,
+                ).createManualSnapshotForAdditionalControl,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(
                     context,

@@ -28,7 +28,7 @@ class PriceChartSinglePurchaseState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          AppLocalizations.of(context)!.onlyOnePurchaseFound,
+          AppLocalizations.of(context).onlyOnePurchaseFound,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.white,
@@ -38,14 +38,14 @@ class PriceChartSinglePurchaseState extends StatelessWidget {
         Text(
           AppLocalizations.of(
             context,
-          )!.lastPurchasedFor(priceHistory.first.price.toStringWithLocale()),
+          ).lastPurchasedFor(priceHistory.first.price.toStringWithLocale()),
           style: Theme.of(context).textTheme.bodyLarge?.copyWith(
             color: Colors.white.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 4),
         Text(
-          AppLocalizations.of(context)!.purchasedOn(
+          AppLocalizations.of(context).purchasedOn(
             DateFormat('MMM d, yyyy').format(priceHistory.first.date),
           ),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -54,7 +54,7 @@ class PriceChartSinglePurchaseState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          AppLocalizations.of(context)!.purchaseMoreTimesToSeeTrends,
+          AppLocalizations.of(context).purchaseMoreTimesToSeeTrends,
           style: Theme.of(context).textTheme.bodySmall?.copyWith(
             color: Colors.white.withValues(alpha: 0.6),
           ),

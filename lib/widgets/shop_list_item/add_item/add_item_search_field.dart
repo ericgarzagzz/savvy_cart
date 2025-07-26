@@ -20,7 +20,7 @@ class AddItemSearchField extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       decoration: InputDecoration(
-        hintText: AppLocalizations.of(context)!.searchOrAddNewItem,
+        hintText: AppLocalizations.of(context).searchOrAddNewItem,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.search),
       ),

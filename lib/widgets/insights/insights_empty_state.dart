@@ -32,7 +32,7 @@ class InsightsEmptyState extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  AppLocalizations.of(context)!.noShoppingDataYet,
+                  AppLocalizations.of(context).noShoppingDataYet,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).colorScheme.onSurface,
@@ -41,7 +41,7 @@ class InsightsEmptyState extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  AppLocalizations.of(context)!.createFirstListDescription,
+                  AppLocalizations.of(context).createFirstListDescription,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -51,7 +51,7 @@ class InsightsEmptyState extends StatelessWidget {
                 FilledButton.icon(
                   onPressed: () => context.go('/'),
                   icon: const Icon(Icons.add_shopping_cart),
-                  label: Text(AppLocalizations.of(context)!.createShoppingList),
+                  label: Text(AppLocalizations.of(context).createShoppingList),
                 ),
               ],
             ),

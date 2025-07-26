@@ -29,7 +29,7 @@ class PriceChartStatistics extends StatelessWidget {
         children: [
           _buildStatItem(
             context,
-            AppLocalizations.of(context)!.average,
+            AppLocalizations.of(context).average,
             '\$${(avgPrice / 100).toStringAsFixed(2)}',
             Icons.trending_flat,
             Color(0xff3b82f6),
@@ -41,7 +41,7 @@ class PriceChartStatistics extends StatelessWidget {
           ),
           _buildStatItem(
             context,
-            AppLocalizations.of(context)!.lowest,
+            AppLocalizations.of(context).lowest,
             '\$${(minPrice / 100).toStringAsFixed(2)}',
             Icons.trending_down,
             Color(0xff10b981),
@@ -53,7 +53,7 @@ class PriceChartStatistics extends StatelessWidget {
           ),
           _buildStatItem(
             context,
-            AppLocalizations.of(context)!.highest,
+            AppLocalizations.of(context).highest,
             '\$${(maxPrice / 100).toStringAsFixed(2)}',
             Icons.trending_up,
             Color(0xfff59e0b),

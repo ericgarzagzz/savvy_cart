@@ -25,7 +25,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(AppLocalizations.of(context)!.createManualSnapshot),
+      title: Text(AppLocalizations.of(context).createManualSnapshot),
       content: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -48,7 +48,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      AppLocalizations.of(context)!.shoppingListsAlwaysIncluded,
+                      AppLocalizations.of(context).shoppingListsAlwaysIncluded,
                       style: TextStyle(
                         color: Colors.green.shade700,
                         fontWeight: FontWeight.w500,
@@ -60,24 +60,24 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
               ),
             ),
             const SizedBox(height: 16),
-            Text(AppLocalizations.of(context)!.chooseAdditionalData),
+            Text(AppLocalizations.of(context).chooseAdditionalData),
             const SizedBox(height: 12),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.settings,
+              AppLocalizations.of(context).settings,
               _options.includeSettings,
               (value) => setState(() {
                 _options = _options.copyWith(includeSettings: value);
               }),
             ),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.chatHistory,
+              AppLocalizations.of(context).chatHistory,
               _options.includeChatHistory,
               (value) => setState(() {
                 _options = _options.copyWith(includeChatHistory: value);
               }),
             ),
             _buildOptionCheckbox(
-              AppLocalizations.of(context)!.suggestions,
+              AppLocalizations.of(context).suggestions,
               _options.includeSuggestions,
               (value) => setState(() {
                 _options = _options.copyWith(includeSuggestions: value);
@@ -102,7 +102,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        AppLocalizations.of(context)!.settingsWillNotBeIncluded,
+                        AppLocalizations.of(context).settingsWillNotBeIncluded,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.blue.shade600,
@@ -131,7 +131,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      AppLocalizations.of(context)!.snapshotCreatedSuccessfully,
+                      AppLocalizations.of(context).snapshotCreatedSuccessfully,
                       style: TextStyle(
                         fontSize: 12,
                         color: Colors.green.shade600,
@@ -147,7 +147,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
-          child: Text(AppLocalizations.of(context)!.cancel),
+          child: Text(AppLocalizations.of(context).cancel),
         ),
         ElevatedButton(
           onPressed: _isLoading ? null : _createBackup,
@@ -157,7 +157,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                   height: 16,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 )
-              : Text(AppLocalizations.of(context)!.create),
+              : Text(AppLocalizations.of(context).create),
         ),
       ],
     );
@@ -235,7 +235,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
                 Icon(Icons.check_circle, color: Colors.white),
                 SizedBox(width: 8),
                 Expanded(
-                  child: Text(AppLocalizations.of(context)!.snapshotCreated),
+                  child: Text(AppLocalizations.of(context).snapshotCreated),
                 ),
               ],
             ),
@@ -252,7 +252,7 @@ class _BackupCreateDialogState extends State<BackupCreateDialog> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(context)!.snapshotFailed(e.toString()),
+              AppLocalizations.of(context).snapshotFailed(e.toString()),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),

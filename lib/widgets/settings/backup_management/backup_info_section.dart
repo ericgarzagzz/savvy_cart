@@ -32,7 +32,7 @@ class BackupInfoSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context)!.howBackupWorks,
+                AppLocalizations.of(context).howBackupWorks,
                 style: Theme.of(
                   context,
                 ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -43,20 +43,20 @@ class BackupInfoSection extends StatelessWidget {
           _BackupInfoPoint(
             text: AppLocalizations.of(
               context,
-            )!.automaticBackupSyncsToGoogleDrive,
+            ).automaticBackupSyncsToGoogleDrive,
           ),
           _BackupInfoPoint(
             text: AppLocalizations.of(
               context,
-            )!.manualSnapshotsStoredLocallyAndSynced,
+            ).manualSnapshotsStoredLocallyAndSynced,
           ),
           _BackupInfoPoint(
-            text: AppLocalizations.of(context)!.restoringWillReplaceCurrentData,
+            text: AppLocalizations.of(context).restoringWillReplaceCurrentData,
           ),
           _BackupInfoPoint(
             text: AppLocalizations.of(
               context,
-            )!.backupsIncludeShoppingListsChatAndSettings,
+            ).backupsIncludeShoppingListsChatAndSettings,
           ),
         ],
       ),

@@ -12,14 +12,14 @@ class ApiConfigurationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.apiConfiguration,
+          AppLocalizations.of(context).apiConfiguration,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.setupGeminiApiKeyDescription,
+          AppLocalizations.of(context).setupGeminiApiKeyDescription,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(
               context,

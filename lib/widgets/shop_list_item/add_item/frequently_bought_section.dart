@@ -45,7 +45,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
               ),
               const SizedBox(width: 12),
               Text(
-                AppLocalizations.of(context)!.frequentlyBought,
+                AppLocalizations.of(context).frequentlyBought,
                 style: Theme.of(
                   context,
                 ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -150,7 +150,7 @@ class FrequentlyBoughtSection extends ConsumerWidget {
           ),
           const SizedBox(width: 8),
           Text(
-            AppLocalizations.of(context)!.noFrequentlyBoughtItems,
+            AppLocalizations.of(context).noFrequentlyBoughtItems,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
               color: Theme.of(context).colorScheme.outline,
               fontStyle: FontStyle.italic,

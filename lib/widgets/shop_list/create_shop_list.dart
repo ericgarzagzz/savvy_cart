@@ -69,7 +69,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.createNewList,
+                      AppLocalizations.of(context).createNewList,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -77,7 +77,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      AppLocalizations.of(context)!.startYourShoppingJourney,
+                      AppLocalizations.of(context).startYourShoppingJourney,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.copyWith(color: Colors.white70),
@@ -88,7 +88,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
             ),
             const SizedBox(height: 20),
             Text(
-              AppLocalizations.of(context)!.listName,
+              AppLocalizations.of(context).listName,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -99,7 +99,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
               controller: _nameInputController,
               style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: AppLocalizations.of(context)!.enterListName,
+                hintText: AppLocalizations.of(context).enterListName,
                 hintStyle: TextStyle(color: Colors.white60),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -123,7 +123,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                 errorStyle: TextStyle(color: Colors.red.shade100),
               ),
               validator: (text) => text == null || text.isEmpty
-                  ? AppLocalizations.of(context)!.listNameCannotBeEmpty
+                  ? AppLocalizations.of(context).listNameCannotBeEmpty
                   : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
             ),
@@ -158,7 +158,7 @@ class _CreateShopListState extends ConsumerState<CreateShopList> {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      AppLocalizations.of(context)!.createShoppingList,
+                      AppLocalizations.of(context).createShoppingList,
                       style: TextStyle(
                         color: Theme.of(context).colorScheme.primary,
                         fontWeight: FontWeight.w600,

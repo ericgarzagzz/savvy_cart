@@ -20,7 +20,7 @@ class SearchResultsEmptyState extends StatelessWidget {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              AppLocalizations.of(context)!.searchResultsZero,
+              AppLocalizations.of(context).searchResultsZero,
               style: Theme.of(
                 context,
               ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
@@ -35,14 +35,14 @@ class SearchResultsEmptyState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          AppLocalizations.of(context)!.noItemsFound,
+          AppLocalizations.of(context).noItemsFound,
           style: Theme.of(context).textTheme.headlineSmall?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.tryDifferentSearchOrAdd(searchQuery),
+          AppLocalizations.of(context).tryDifferentSearchOrAdd(searchQuery),
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -52,9 +52,7 @@ class SearchResultsEmptyState extends StatelessWidget {
         FilledButton.icon(
           onPressed: onAddItem,
           icon: const Icon(Icons.add),
-          label: Text(
-            AppLocalizations.of(context)!.addSearchQuery(searchQuery),
-          ),
+          label: Text(AppLocalizations.of(context).addSearchQuery(searchQuery)),
         ),
         const SizedBox(height: 32),
       ],

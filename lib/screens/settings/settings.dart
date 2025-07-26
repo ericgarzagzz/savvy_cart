@@ -16,7 +16,7 @@ class Settings extends ConsumerWidget {
     final versionAsync = ref.watch(packageInfoProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(AppLocalizations.of(context)!.settingsTitle)),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).settingsTitle)),
       body: SettingsList(
         platform: DevicePlatform.android,
         lightTheme: SettingsThemeData(
@@ -39,29 +39,29 @@ class Settings extends ConsumerWidget {
         ),
         sections: [
           SettingsSection(
-            title: Text(AppLocalizations.of(context)!.aiAssistant),
+            title: Text(AppLocalizations.of(context).aiAssistant),
             tiles: [
               SettingsTile.navigation(
                 leading: Icon(Icons.auto_awesome),
-                title: Text(AppLocalizations.of(context)!.aiSettings),
+                title: Text(AppLocalizations.of(context).aiSettings),
                 value: Text(
                   aiSettingsState.hasValidApiKey
-                      ? AppLocalizations.of(context)!.ready
+                      ? AppLocalizations.of(context).ready
                       : aiSettingsState.settings.apiKey.isNotEmpty
-                      ? AppLocalizations.of(context)!.notVerified
-                      : AppLocalizations.of(context)!.notConfigured,
+                      ? AppLocalizations.of(context).notVerified
+                      : AppLocalizations.of(context).notConfigured,
                 ),
                 onPressed: (context) => context.push('/settings/ai'),
               ),
             ],
           ),
           SettingsSection(
-            title: Text(AppLocalizations.of(context)!.data),
+            title: Text(AppLocalizations.of(context).data),
             tiles: [
               SettingsTile.navigation(
                 leading: Icon(Icons.backup),
-                title: Text(AppLocalizations.of(context)!.backupAndRestore),
-                value: Text(AppLocalizations.of(context)!.manageBackups),
+                title: Text(AppLocalizations.of(context).backupAndRestore),
+                value: Text(AppLocalizations.of(context).manageBackups),
                 onPressed: (context) =>
                     context.push('/settings/data-management'),
               ),
@@ -69,46 +69,46 @@ class Settings extends ConsumerWidget {
           ),
           if (kDebugMode)
             SettingsSection(
-              title: Text(AppLocalizations.of(context)!.developer),
+              title: Text(AppLocalizations.of(context).developer),
               tiles: [
                 SettingsTile.navigation(
                   leading: Icon(Icons.data_usage),
-                  title: Text(AppLocalizations.of(context)!.generateMockData),
+                  title: Text(AppLocalizations.of(context).generateMockData),
                   value: Text(
-                    AppLocalizations.of(context)!.addSampleShoppingLists,
+                    AppLocalizations.of(context).addSampleShoppingLists,
                   ),
                   onPressed: (context) =>
                       _showGenerateMockDataDialog(context, ref),
                 ),
                 SettingsTile.navigation(
                   leading: Icon(Icons.delete_forever),
-                  title: Text(AppLocalizations.of(context)!.deleteDatabase),
-                  value: Text(AppLocalizations.of(context)!.clearAllData),
+                  title: Text(AppLocalizations.of(context).deleteDatabase),
+                  value: Text(AppLocalizations.of(context).clearAllData),
                   onPressed: (context) =>
                       _showDeleteDatabaseDialog(context, ref),
                 ),
               ],
             ),
           SettingsSection(
-            title: Text(AppLocalizations.of(context)!.about),
+            title: Text(AppLocalizations.of(context).about),
             tiles: [
               versionAsync.when(
                 data: (packageInfo) => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text(AppLocalizations.of(context)!.version),
+                  title: Text(AppLocalizations.of(context).version),
                   value: Text(
                     '${packageInfo.version} (${packageInfo.buildNumber})',
                   ),
                 ),
                 loading: () => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text(AppLocalizations.of(context)!.version),
-                  value: Text(AppLocalizations.of(context)!.loading),
+                  title: Text(AppLocalizations.of(context).version),
+                  value: Text(AppLocalizations.of(context).loading),
                 ),
                 error: (_, __) => SettingsTile(
                   leading: Icon(Icons.info_outline),
-                  title: Text(AppLocalizations.of(context)!.version),
-                  value: Text(AppLocalizations.of(context)!.version),
+                  title: Text(AppLocalizations.of(context).version),
+                  value: Text(AppLocalizations.of(context).version),
                 ),
               ),
             ],
@@ -122,14 +122,14 @@ class Settings extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.generateMockData),
+        title: Text(AppLocalizations.of(context).generateMockData),
         content: Text(
-          AppLocalizations.of(context)!.mockDataGenerationDescription,
+          AppLocalizations.of(context).mockDataGenerationDescription,
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -139,7 +139,7 @@ class Settings extends ConsumerWidget {
                 messenger.showSnackBar(
                   SnackBar(
                     content: Text(
-                      AppLocalizations.of(context)!.generatingMockData,
+                      AppLocalizations.of(context).generatingMockData,
                     ),
                   ),
                 );
@@ -149,7 +149,7 @@ class Settings extends ConsumerWidget {
                     content: Text(
                       AppLocalizations.of(
                         context,
-                      )!.mockDataGeneratedSuccessfully,
+                      ).mockDataGeneratedSuccessfully,
                     ),
                   ),
                 );
@@ -159,13 +159,13 @@ class Settings extends ConsumerWidget {
                     content: Text(
                       AppLocalizations.of(
                         context,
-                      )!.errorGeneratingMockData(e.toString()),
+                      ).errorGeneratingMockData(e.toString()),
                     ),
                   ),
                 );
               }
             },
-            child: Text(AppLocalizations.of(context)!.generate),
+            child: Text(AppLocalizations.of(context).generate),
           ),
         ],
       ),
@@ -176,12 +176,12 @@ class Settings extends ConsumerWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deleteDatabase),
-        content: Text(AppLocalizations.of(context)!.databaseDeletionWarning),
+        title: Text(AppLocalizations.of(context).deleteDatabase),
+        content: Text(AppLocalizations.of(context).databaseDeletionWarning),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           TextButton(
             onPressed: () async {
@@ -194,7 +194,7 @@ class Settings extends ConsumerWidget {
                       content: Text(
                         AppLocalizations.of(
                           context,
-                        )!.databaseDeletedSuccessfully,
+                        ).databaseDeletedSuccessfully,
                       ),
                     ),
                   );
@@ -207,7 +207,7 @@ class Settings extends ConsumerWidget {
                       content: Text(
                         AppLocalizations.of(
                           context,
-                        )!.errorDeletingDatabase(e.toString()),
+                        ).errorDeletingDatabase(e.toString()),
                       ),
                     ),
                   );
@@ -217,7 +217,7 @@ class Settings extends ConsumerWidget {
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: Text(AppLocalizations.of(context)!.delete),
+            child: Text(AppLocalizations.of(context).delete),
           ),
         ],
       ),

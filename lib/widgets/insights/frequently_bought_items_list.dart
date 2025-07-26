@@ -20,7 +20,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
           children: [
             Expanded(
               child: Text(
-                AppLocalizations.of(context)!.frequentlyBoughtItems,
+                AppLocalizations.of(context).frequentlyBoughtItems,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -28,7 +28,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
               onPressed: () => context.go('/insights/price-search'),
               icon: Icon(Icons.search),
               label: Text(
-                AppLocalizations.of(context)!.searchItem,
+                AppLocalizations.of(context).searchItem,
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w500,
@@ -53,7 +53,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        AppLocalizations.of(context)!.noFrequentlyBoughtItems,
+                        AppLocalizations.of(context).noFrequentlyBoughtItems,
                         style: Theme.of(context).textTheme.titleMedium
                             ?.copyWith(
                               color: Theme.of(
@@ -65,7 +65,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                       Text(
                         AppLocalizations.of(
                           context,
-                        )!.completeListsToSeeMostBought,
+                        ).completeListsToSeeMostBought,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.onSurfaceVariant,
                         ),
@@ -143,7 +143,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                                 Text(
                                   AppLocalizations.of(
                                     context,
-                                  )!.timesPurchased(item.frequency),
+                                  ).timesPurchased(item.frequency),
                                   style: Theme.of(context).textTheme.bodySmall
                                       ?.copyWith(
                                         color: Theme.of(
@@ -237,7 +237,7 @@ class FrequentlyBoughtItemsList extends ConsumerWidget {
                   Icon(Icons.error_outline, size: 48, color: Colors.red[400]),
                   const SizedBox(height: 8),
                   Text(
-                    AppLocalizations.of(context)!.errorLoadingFrequentlyBought,
+                    AppLocalizations.of(context).errorLoadingFrequentlyBought,
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 4),

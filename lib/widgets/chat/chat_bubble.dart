@@ -103,7 +103,7 @@ class ChatBubble extends StatelessWidget {
                         color: Theme.of(context).colorScheme.error,
                       ),
                       label: Text(
-                        AppLocalizations.of(context)!.retry,
+                        AppLocalizations.of(context).retry,
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           color: Theme.of(context).colorScheme.error,
                           fontWeight: FontWeight.w600,
@@ -129,7 +129,7 @@ class ChatBubble extends StatelessWidget {
                         onPressed: onViewExecutedActions,
                         icon: Icon(Icons.check_circle, size: 18),
                         label: Text(
-                          AppLocalizations.of(context)!.actionsApplied,
+                          AppLocalizations.of(context).actionsApplied,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
@@ -152,7 +152,7 @@ class ChatBubble extends StatelessWidget {
                         onPressed: onViewActions,
                         icon: Icon(Icons.playlist_add_check, size: 18),
                         label: Text(
-                          AppLocalizations.of(context)!.applyActions,
+                          AppLocalizations.of(context).applyActions,
                           style: Theme.of(context).textTheme.bodyMedium
                               ?.copyWith(fontWeight: FontWeight.w600),
                         ),
@@ -198,7 +198,7 @@ class ChatBubble extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              AppLocalizations.of(context)!.actionsDiscarded,
+                              AppLocalizations.of(context).actionsDiscarded,
                               style: Theme.of(context).textTheme.bodyMedium
                                   ?.copyWith(
                                     color: Theme.of(context)

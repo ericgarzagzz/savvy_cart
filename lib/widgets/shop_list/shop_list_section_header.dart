@@ -81,7 +81,7 @@ class ShopListSectionHeader extends ConsumerWidget {
               FilledButton.icon(
                 onPressed: onAddItem,
                 icon: const Icon(Icons.add, size: 18),
-                label: Text(AppLocalizations.of(context)!.addItem),
+                label: Text(AppLocalizations.of(context).addItem),
                 style: FilledButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,

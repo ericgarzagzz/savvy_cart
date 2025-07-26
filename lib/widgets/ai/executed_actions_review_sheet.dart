@@ -20,7 +20,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.of(context)!.appliedActions,
+                AppLocalizations.of(context).appliedActions,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -39,7 +39,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        AppLocalizations.of(context)!.noActionsWereApplied,
+                        AppLocalizations.of(context).noActionsWereApplied,
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                           color: Theme.of(
                             context,
@@ -90,7 +90,7 @@ class ExecutedActionsReviewSheet extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text(AppLocalizations.of(context)!.close),
+                  child: Text(AppLocalizations.of(context).close),
                 ),
               ),
             ),

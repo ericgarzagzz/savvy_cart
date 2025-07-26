@@ -24,7 +24,7 @@ class InsightsErrorState extends StatelessWidget {
               Icon(Icons.error_outline, size: 48, color: Colors.red[400]),
               const SizedBox(height: 8),
               Text(
-                AppLocalizations.of(context)!.errorLoadingData,
+                AppLocalizations.of(context).errorLoadingData,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),

@@ -27,7 +27,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.backupAndRestore),
+        title: Text(AppLocalizations.of(context).backupAndRestore),
         backgroundColor: Theme.of(context).colorScheme.surface,
       ),
       body: _isLoading
@@ -80,9 +80,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              AppLocalizations.of(
-                context,
-              )!.failedToLoadBackupInfo(e.toString()),
+              AppLocalizations.of(context).failedToLoadBackupInfo(e.toString()),
             ),
             backgroundColor: Theme.of(context).colorScheme.error,
           ),
@@ -118,14 +116,14 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(AppLocalizations.of(context)!.deleteBackup),
+        title: Text(AppLocalizations.of(context).deleteBackup),
         content: Text(
-          '${AppLocalizations.of(context)!.areYouSureDeleteBackup}\n\n"${backup.fileName}"',
+          '${AppLocalizations.of(context).areYouSureDeleteBackup}\n\n"${backup.fileName}"',
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(AppLocalizations.of(context)!.cancel),
+            child: Text(AppLocalizations.of(context).cancel),
           ),
           ElevatedButton(
             onPressed: () async {
@@ -139,7 +137,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        AppLocalizations.of(context)!.backupDeletedSuccessfully,
+                        AppLocalizations.of(context).backupDeletedSuccessfully,
                       ),
                     ),
                   );
@@ -151,7 +149,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
                       content: Text(
                         AppLocalizations.of(
                           context,
-                        )!.failedToDeleteBackup(e.toString()),
+                        ).failedToDeleteBackup(e.toString()),
                       ),
                       backgroundColor: Theme.of(context).colorScheme.error,
                     ),
@@ -163,7 +161,7 @@ class _BackupManagementScreenState extends State<BackupManagementScreen> {
               backgroundColor: Theme.of(context).colorScheme.error,
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
-            child: Text(AppLocalizations.of(context)!.delete),
+            child: Text(AppLocalizations.of(context).delete),
           ),
         ],
       ),

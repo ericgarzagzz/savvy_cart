@@ -16,7 +16,7 @@ class ModelFilterNotification extends ConsumerWidget {
 
     if (filters.hasThinking != null) {
       activeFilters.add(
-        '${AppLocalizations.of(context)!.thinking}: ${filters.hasThinking! ? AppLocalizations.of(context)!.yes : AppLocalizations.of(context)!.no}',
+        '${AppLocalizations.of(context).thinking}: ${filters.hasThinking! ? AppLocalizations.of(context).yes : AppLocalizations.of(context).no}',
       );
     }
 
@@ -24,7 +24,7 @@ class ModelFilterNotification extends ConsumerWidget {
       final min = filters.minInputTokens?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxInputTokens?.toStringAsFixed(1) ?? '10.0';
       activeFilters.add(
-        '${AppLocalizations.of(context)!.input}: $min${AppLocalizations.of(context)!.tokensUnit}-$max${AppLocalizations.of(context)!.tokensUnit}',
+        '${AppLocalizations.of(context).input}: $min${AppLocalizations.of(context).tokensUnit}-$max${AppLocalizations.of(context).tokensUnit}',
       );
     }
 
@@ -32,7 +32,7 @@ class ModelFilterNotification extends ConsumerWidget {
       final min = filters.minOutputTokens?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxOutputTokens?.toStringAsFixed(1) ?? '5.0';
       activeFilters.add(
-        '${AppLocalizations.of(context)!.output}: $min${AppLocalizations.of(context)!.tokensUnit}-$max${AppLocalizations.of(context)!.tokensUnit}',
+        '${AppLocalizations.of(context).output}: $min${AppLocalizations.of(context).tokensUnit}-$max${AppLocalizations.of(context).tokensUnit}',
       );
     }
 
@@ -40,7 +40,7 @@ class ModelFilterNotification extends ConsumerWidget {
       final min = filters.minTemperature?.toStringAsFixed(1) ?? '0.0';
       final max = filters.maxTemperature?.toStringAsFixed(1) ?? '2.0';
       activeFilters.add(
-        '${AppLocalizations.of(context)!.temperature}: $min-$max',
+        '${AppLocalizations.of(context).temperature}: $min-$max',
       );
     }
 
@@ -77,7 +77,7 @@ class ModelFilterNotification extends ConsumerWidget {
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
                 Text(
-                  '${AppLocalizations.of(context)!.filteredBy}: ',
+                  '${AppLocalizations.of(context).filteredBy}: ',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(
                       context,
@@ -130,7 +130,7 @@ class ModelFilterNotification extends ConsumerWidget {
                 borderRadius: BorderRadius.circular(4),
               ),
               child: Text(
-                AppLocalizations.of(context)!.clear,
+                AppLocalizations.of(context).clear,
                 style: TextStyle(
                   fontSize: 11,
                   color: Theme.of(context).colorScheme.error,

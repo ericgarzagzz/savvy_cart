@@ -107,7 +107,7 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
           GenericErrorScaffold(errorMessage: err.toString()),
       data: (shopList) => Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.chatWith(shopList.name)),
+          title: Text(AppLocalizations.of(context).chatWith(shopList.name)),
           backgroundColor: Theme.of(context).colorScheme.surface,
         ),
         body: GestureDetector(

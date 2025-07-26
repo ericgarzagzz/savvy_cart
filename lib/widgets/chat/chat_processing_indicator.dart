@@ -24,7 +24,7 @@ class ChatProcessingIndicator extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Text(
-            AppLocalizations.of(context)!.processing,
+            AppLocalizations.of(context).processing,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(
                 context,

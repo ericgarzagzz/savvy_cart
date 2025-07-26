@@ -22,7 +22,7 @@ class _ModelSelectionScreenState extends ConsumerState<ModelSelectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.selectGeminiModel),
+        title: Text(AppLocalizations.of(context).selectGeminiModel),
         backgroundColor: Theme.of(context).colorScheme.surface,
         actions: [
           ModelFilterButton(

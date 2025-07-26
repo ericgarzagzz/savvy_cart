@@ -44,7 +44,7 @@ class _AiActionSelectionSheetState
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                AppLocalizations.of(context)!.reviewAiSuggestions,
+                AppLocalizations.of(context).reviewAiSuggestions,
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
@@ -114,7 +114,7 @@ class _AiActionSelectionSheetState
                             child: Text(
                               AppLocalizations.of(
                                 context,
-                              )!.pleaseSelectAtLeastOneAction,
+                              ).pleaseSelectAtLeastOneAction,
                               style: Theme.of(context).textTheme.bodySmall
                                   ?.copyWith(
                                     color: Theme.of(context)
@@ -148,7 +148,7 @@ class _AiActionSelectionSheetState
                             }
                           : null,
                       child: Text(
-                        AppLocalizations.of(context)!.executeSelectedActions,
+                        AppLocalizations.of(context).executeSelectedActions,
                       ),
                     ),
                   ),

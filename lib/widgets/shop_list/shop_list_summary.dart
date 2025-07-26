@@ -17,7 +17,7 @@ class ShopListSummary extends ConsumerWidget {
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (e, st) => Center(
         child: Text(
-          AppLocalizations.of(context)!.errorWithDetails(e.toString()),
+          AppLocalizations.of(context).errorWithDetails(e.toString()),
         ),
       ),
       data: (stats) {

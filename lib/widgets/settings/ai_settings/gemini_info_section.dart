@@ -32,7 +32,7 @@ class GeminiInfoSection extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                AppLocalizations.of(context)!.aboutGoogleGemini,
+                AppLocalizations.of(context).aboutGoogleGemini,
                 style: Theme.of(
                   context,
                 ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
@@ -42,23 +42,23 @@ class GeminiInfoSection extends StatelessWidget {
           const SizedBox(height: 12),
           _buildInfoPoint(
             context,
-            AppLocalizations.of(context)!.getFreeApiKeyFromGoogleAi,
+            AppLocalizations.of(context).getFreeApiKeyFromGoogleAi,
           ),
           _buildInfoPoint(
             context,
-            AppLocalizations.of(context)!.aiFeaturesIncludeChatAndSuggestions,
+            AppLocalizations.of(context).aiFeaturesIncludeChatAndSuggestions,
           ),
           _buildInfoPoint(
             context,
-            AppLocalizations.of(context)!.apiKeyStoredSecurely,
+            AppLocalizations.of(context).apiKeyStoredSecurely,
           ),
           _buildInfoPoint(
             context,
-            AppLocalizations.of(context)!.apiUsageSubjectToRateLimits,
+            AppLocalizations.of(context).apiUsageSubjectToRateLimits,
           ),
           _buildInfoPoint(
             context,
-            AppLocalizations.of(context)!.googleTrademarkDisclaimer,
+            AppLocalizations.of(context).googleTrademarkDisclaimer,
           ),
         ],
       ),

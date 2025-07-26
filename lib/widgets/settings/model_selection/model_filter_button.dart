@@ -23,7 +23,7 @@ class ModelFilterButton extends StatelessWidget {
               label: Text(
                 AppLocalizations.of(
                   context,
-                )!.filtersWithCount(_getActiveFilterCount(filters)),
+                ).filtersWithCount(_getActiveFilterCount(filters)),
               ),
               style: FilledButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
@@ -35,7 +35,7 @@ class ModelFilterButton extends StatelessWidget {
           : TextButton.icon(
               onPressed: onPressed,
               icon: const Icon(Icons.filter_list, size: 18),
-              label: Text(AppLocalizations.of(context)!.filter),
+              label: Text(AppLocalizations.of(context).filter),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,

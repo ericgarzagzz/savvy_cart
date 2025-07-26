@@ -30,7 +30,7 @@ class ShopListItemListview extends ConsumerWidget {
           SliverToBoxAdapter(child: Center(child: CircularProgressIndicator())),
       error: (_, __) => SliverToBoxAdapter(
         child: Center(
-          child: Text(AppLocalizations.of(context)!.errorLoadingShopListItems),
+          child: Text(AppLocalizations.of(context).errorLoadingShopListItems),
         ),
       ),
       data: (data) {
@@ -67,8 +67,8 @@ class ShopListItemListview extends ConsumerWidget {
                     const SizedBox(height: 16),
                     Text(
                       checkedItems
-                          ? AppLocalizations.of(context)!.noItemsInCartYet
-                          : AppLocalizations.of(context)!.readyToStartShopping,
+                          ? AppLocalizations.of(context).noItemsInCartYet
+                          : AppLocalizations.of(context).readyToStartShopping,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).colorScheme.onSurfaceVariant,
@@ -79,10 +79,10 @@ class ShopListItemListview extends ConsumerWidget {
                       checkedItems
                           ? AppLocalizations.of(
                               context,
-                            )!.itemsYouCheckOffWillAppearHere
+                            ).itemsYouCheckOffWillAppearHere
                           : AppLocalizations.of(
                               context,
-                            )!.tapPlusButtonToAddFirstItem,
+                            ).tapPlusButtonToAddFirstItem,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Theme.of(
                           context,
@@ -102,27 +102,27 @@ class ShopListItemListview extends ConsumerWidget {
               IconData icon;
 
               if (checkedItems) {
-                title = AppLocalizations.of(context)!.noItemsInCartYet;
+                title = AppLocalizations.of(context).noItemsInCartYet;
                 subtitle = AppLocalizations.of(
                   context,
-                )!.itemsYouCheckOffWillAppearHere;
+                ).itemsYouCheckOffWillAppearHere;
                 icon = Icons.shopping_cart_outlined;
               } else {
                 if (hasItemsInOppositeSection) {
-                  title = AppLocalizations.of(context)!.needMoreItems;
+                  title = AppLocalizations.of(context).needMoreItems;
                   subtitle = onAddItem != null
                       ? AppLocalizations.of(
                           context,
-                        )!.tapButtonBelowToAddMoreItems
-                      : AppLocalizations.of(context)!.addItemsYouStillNeedToBuy;
+                        ).tapButtonBelowToAddMoreItems
+                      : AppLocalizations.of(context).addItemsYouStillNeedToBuy;
                   icon = Icons.playlist_add;
                 } else {
-                  title = AppLocalizations.of(context)!.readyToStartShopping;
+                  title = AppLocalizations.of(context).readyToStartShopping;
                   subtitle = onAddItem != null
                       ? AppLocalizations.of(
                           context,
-                        )!.tapButtonBelowToAddFirstItem
-                      : AppLocalizations.of(context)!.addFirstItemToGetStarted;
+                        ).tapButtonBelowToAddFirstItem
+                      : AppLocalizations.of(context).addFirstItemToGetStarted;
                   icon = Icons.add_shopping_cart;
                 }
               }
@@ -176,7 +176,7 @@ class ShopListItemListview extends ConsumerWidget {
                         FilledButton.icon(
                           onPressed: onAddItem,
                           icon: const Icon(Icons.add),
-                          label: Text(AppLocalizations.of(context)!.addItem),
+                          label: Text(AppLocalizations.of(context).addItem),
                           style: FilledButton.styleFrom(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 24,

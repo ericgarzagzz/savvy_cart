@@ -26,7 +26,7 @@ class PriceChartErrorState extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.errorLoadingPriceHistory,
+          AppLocalizations.of(context).errorLoadingPriceHistory,
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w500,

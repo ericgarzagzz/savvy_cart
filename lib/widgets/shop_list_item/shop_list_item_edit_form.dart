@@ -124,7 +124,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
       error: (_, __) => Padding(
         padding: const EdgeInsets.all(24),
         child: Center(
-          child: Text(AppLocalizations.of(context)!.errorLoadingItem),
+          child: Text(AppLocalizations.of(context).errorLoadingItem),
         ),
       ),
       data: (currentItem) {
@@ -132,7 +132,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
           return Padding(
             padding: const EdgeInsets.all(24),
             child: Center(
-              child: Text(AppLocalizations.of(context)!.itemNotFound),
+              child: Text(AppLocalizations.of(context).itemNotFound),
             ),
           );
         }
@@ -177,26 +177,26 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text(
-                              AppLocalizations.of(context)!.deleteItem,
+                              AppLocalizations.of(context).deleteItem,
                             ),
                             content: Text(
                               AppLocalizations.of(
                                 context,
-                              )!.confirmDeleteItem(currentItem.name),
+                              ).confirmDeleteItem(currentItem.name),
                             ),
                             actions: [
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
                                 child: Text(
-                                  AppLocalizations.of(context)!.cancel,
+                                  AppLocalizations.of(context).cancel,
                                 ),
                               ),
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(true),
                                 child: Text(
-                                  AppLocalizations.of(context)!.delete,
+                                  AppLocalizations.of(context).delete,
                                 ),
                               ),
                             ],
@@ -234,17 +234,15 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           controller: _quantityController,
                           focusNode: _quantityFocusNode,
                           decoration: InputDecoration(
-                            label: Text(AppLocalizations.of(context)!.quantity),
+                            label: Text(AppLocalizations.of(context).quantity),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(context)!.required;
+                              return AppLocalizations.of(context).required;
                             }
                             final num? number = num.tryParse(value);
                             if (number == null)
-                              return AppLocalizations.of(
-                                context,
-                              )!.invalidNumber;
+                              return AppLocalizations.of(context).invalidNumber;
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -258,17 +256,15 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           focusNode: _unitPriceFocusNode,
                           decimalPlaces: 2,
                           decoration: InputDecoration(
-                            label: Text(AppLocalizations.of(context)!.price),
+                            label: Text(AppLocalizations.of(context).price),
                           ),
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return AppLocalizations.of(context)!.required;
+                              return AppLocalizations.of(context).required;
                             }
                             final num? number = num.tryParse(value);
                             if (number == null)
-                              return AppLocalizations.of(
-                                context,
-                              )!.invalidNumber;
+                              return AppLocalizations.of(context).invalidNumber;
                             return null;
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -283,7 +279,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                             text: _currentTotal,
                           ),
                           decoration: InputDecoration(
-                            label: Text(AppLocalizations.of(context)!.total),
+                            label: Text(AppLocalizations.of(context).total),
                           ),
                         ),
                       ),

@@ -153,11 +153,11 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
     int? shopListItemId,
   ) async {
     final title = isInShopList && shopListItemId != null
-        ? AppLocalizations.of(context)!.removeItemAndSuggestion
-        : AppLocalizations.of(context)!.removeSuggestion;
+        ? AppLocalizations.of(context).removeItemAndSuggestion
+        : AppLocalizations.of(context).removeSuggestion;
     final description = isInShopList && shopListItemId != null
-        ? AppLocalizations.of(context)!.removeItemAndSuggestionDesc(itemName)
-        : AppLocalizations.of(context)!.removeSuggestionDesc(itemName);
+        ? AppLocalizations.of(context).removeItemAndSuggestionDesc(itemName)
+        : AppLocalizations.of(context).removeSuggestionDesc(itemName);
 
     if (mounted) {
       final confirm = await showDialog<bool>(
@@ -168,11 +168,11 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: Text(AppLocalizations.of(context).cancel),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(AppLocalizations.of(context)!.remove),
+              child: Text(AppLocalizations.of(context).remove),
             ),
           ],
         ),
@@ -242,7 +242,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    AppLocalizations.of(context)!.addItem,
+                    AppLocalizations.of(context).addItem,
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   Text(
@@ -274,7 +274,7 @@ class _AddShopListItemState extends ConsumerState<AddShopListItem> {
                       ),
                     ),
                     child: Text(
-                      AppLocalizations.of(context)!.itemsSelected(itemCount),
+                      AppLocalizations.of(context).itemsSelected(itemCount),
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                         color: Theme.of(context).colorScheme.onSurface,
                         fontWeight: FontWeight.w500,

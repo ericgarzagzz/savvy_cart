@@ -12,7 +12,7 @@ class ConnectionStatusSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.connectionStatus,
+          AppLocalizations.of(context).connectionStatus,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),

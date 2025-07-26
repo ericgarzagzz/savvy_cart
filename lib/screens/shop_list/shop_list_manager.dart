@@ -184,7 +184,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                               ),
                               const SizedBox(width: 4),
                               Text(
-                                AppLocalizations.of(context)!.ai,
+                                AppLocalizations.of(context).ai,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 11,
@@ -212,7 +212,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                   sliver: SliverToBoxAdapter(
                     child: ShopListSectionHeader(
                       icon: Icons.shopping_cart_outlined,
-                      title: AppLocalizations.of(context)!.toBuy,
+                      title: AppLocalizations.of(context).toBuy,
                       shopListId: widget.shopListId,
                       checkedItems: false,
                       onAddItem: () {
@@ -236,7 +236,7 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                   sliver: SliverToBoxAdapter(
                     child: ShopListSectionHeader(
                       icon: Icons.check,
-                      title: AppLocalizations.of(context)!.inCart,
+                      title: AppLocalizations.of(context).inCart,
                       shopListId: widget.shopListId,
                       checkedItems: true,
                     ),

@@ -21,14 +21,14 @@ class PriceChartEmptyState extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Text(
-          AppLocalizations.of(context)!.noPriceHistoryAvailable,
+          AppLocalizations.of(context).noPriceHistoryAvailable,
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
             color: Colors.white.withValues(alpha: 0.8),
           ),
         ),
         const SizedBox(height: 8),
         Text(
-          AppLocalizations.of(context)!.purchaseItemToTrackPrice,
+          AppLocalizations.of(context).purchaseItemToTrackPrice,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             color: Colors.white.withValues(alpha: 0.6),
           ),

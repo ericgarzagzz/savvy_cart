@@ -12,7 +12,7 @@ class SearchErrorState extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          AppLocalizations.of(context)!.errorLoadingResults(error),
+          AppLocalizations.of(context).errorLoadingResults(error),
           style: TextStyle(color: Theme.of(context).colorScheme.error),
         ),
       ),

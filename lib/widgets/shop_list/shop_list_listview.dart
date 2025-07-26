@@ -54,7 +54,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               ),
               SizedBox(height: 24),
               Text(
-                AppLocalizations.of(context)!.noShoppingListsYet,
+                AppLocalizations.of(context).noShoppingListsYet,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).colorScheme.onSurface,
@@ -63,9 +63,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
               ),
               SizedBox(height: 12),
               Text(
-                AppLocalizations.of(
-                  context,
-                )!.createFirstShoppingListDescription,
+                AppLocalizations.of(context).createFirstShoppingListDescription,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                   height: 1.5,
@@ -89,7 +87,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      AppLocalizations.of(context)!.recentLists,
+                      AppLocalizations.of(context).recentLists,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Row(
@@ -97,7 +95,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                         Text(
                           AppLocalizations.of(
                             context,
-                          )!.itemsShown(paginatedState.items.length),
+                          ).itemsShown(paginatedState.items.length),
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SizedBox(width: 8),
@@ -143,7 +141,7 @@ class _ShopListListviewState extends ConsumerState<ShopListListview> {
                             .read(paginatedShopListsProvider.notifier)
                             .loadMore(),
                         icon: Icon(Icons.expand_more),
-                        label: Text(AppLocalizations.of(context)!.loadMore),
+                        label: Text(AppLocalizations.of(context).loadMore),
                       ),
               ),
             );
