@@ -195,7 +195,11 @@ class ShopListItemListview extends ConsumerWidget {
         }
         return SliverList(
           delegate: SliverChildBuilderDelegate((context, index) {
-            return ShopListItemListtile(shopListItem: data[index]);
+            final isLast = index == data.length - 1;
+            return ShopListItemListtile(
+              shopListItem: data[index],
+              showDivider: !isLast,
+            );
           }, childCount: data.length),
         );
       },

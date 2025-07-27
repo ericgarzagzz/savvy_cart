@@ -14,8 +14,13 @@ const Duration _kAnimationDelay = Duration(milliseconds: 150);
 
 class ShopListItemListtile extends ConsumerStatefulWidget {
   final ShopListItem shopListItem;
+  final bool showDivider;
 
-  const ShopListItemListtile({super.key, required this.shopListItem});
+  const ShopListItemListtile({
+    super.key,
+    required this.shopListItem,
+    this.showDivider = true,
+  });
 
   @override
   ConsumerState<ShopListItemListtile> createState() =>
@@ -128,24 +133,20 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: fillProgress > 0.1
-                        ? Theme.of(context).colorScheme.primary
+                        ? Colors.green
                         : Theme.of(context).colorScheme.outline,
                     width: 2,
                   ),
                   color: Color.lerp(
                     Colors.transparent,
-                    Theme.of(context).colorScheme.primary,
+                    Colors.green,
                     fillProgress,
                   ),
                 ),
                 child: iconProgress > 0.1
                     ? Transform.scale(
                         scale: iconProgress,
-                        child: Icon(
-                          Icons.check,
-                          color: Theme.of(context).colorScheme.onPrimary,
-                          size: 16,
-                        ),
+                        child: Icon(Icons.check, color: Colors.white, size: 16),
                       )
                     : null,
               ),
@@ -239,10 +240,8 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
     return AnimatedBuilder(
       animation: _animationController,
       builder: (context, child) {
-        // Use primary color for both check and uncheck animations
-        final primaryColor = Theme.of(
-          context,
-        ).colorScheme.primary.withValues(alpha: 0.15);
+        // Use green color for both check and uncheck animations
+        final primaryColor = Colors.green.withValues(alpha: 0.15);
         final backgroundColor = Color.lerp(
           Colors.transparent,
           primaryColor,
@@ -317,65 +316,82 @@ class _ShopListItemListtileState extends ConsumerState<ShopListItemListtile>
                 ),
               ],
             ),
-            child: ListTile(
-              contentPadding: EdgeInsets.symmetric(
-                horizontal: 20.0,
-                vertical: 16.0,
-              ),
-              leading: _buildAnimatedCheckbox(context),
-              title: _buildAnimatedTitle(context),
-              trailing: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Quantity in noticeable container
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: widget.shopListItem.checked
-                            ? Colors.grey.shade300
-                            : Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Text(
-                        widget.shopListItem.quantity.toString(),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w500,
+            child: Column(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
+                  leading: _buildAnimatedCheckbox(context),
+                  title: _buildAnimatedTitle(context),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: 8,
+                    children: [
+                      // Quantity in noticeable container
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
                           color: widget.shopListItem.checked
-                              ? Theme.of(context).colorScheme.onSurfaceVariant
-                                    .withValues(alpha: 0.8)
-                              : null,
+                              ? Colors.green.shade100
+                              : Colors.green.shade200,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          widget.shopListItem.quantity.toString(),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                color: Colors.green.shade800,
+                              ),
                         ),
                       ),
-                    ),
-                    // Total price - bolder
-                    Text(
-                      (widget.shopListItem.unitPrice *
-                              widget.shopListItem.quantity)
-                          .toStringWithLocale(),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: widget.shopListItem.checked
-                            ? Theme.of(context).colorScheme.onSurfaceVariant
-                                  .withValues(alpha: 0.7)
-                            : null,
+                      // Total price in primary color badge
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: widget.shopListItem.checked
+                              ? Theme.of(
+                                  context,
+                                ).colorScheme.primary.withValues(alpha: 0.2)
+                              : Theme.of(
+                                  context,
+                                ).colorScheme.primary.withValues(alpha: 0.3),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: Text(
+                          (widget.shopListItem.unitPrice *
+                                  widget.shopListItem.quantity)
+                              .toStringWithLocale(),
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (ctx) => ShopListItemEditForm(
+                        shopListItem: widget.shopListItem,
+                      ),
+                    );
+                  },
                 ),
-              ),
-              onTap: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (ctx) =>
-                      ShopListItemEditForm(shopListItem: widget.shopListItem),
-                );
-              },
+                if (widget.showDivider)
+                  Divider(height: 1, thickness: 0.5, indent: 16, endIndent: 16),
+              ],
             ),
           ),
         );
