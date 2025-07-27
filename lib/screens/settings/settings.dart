@@ -133,6 +133,11 @@ class Settings extends ConsumerWidget {
                   value: Text(AppLocalizations.of(context).version),
                 ),
               ),
+              SettingsTile.navigation(
+                leading: Icon(Icons.article),
+                title: Text(AppLocalizations.of(context).licenses),
+                onPressed: (context) => context.push('/settings/licenses'),
+              ),
             ],
           ),
         ],

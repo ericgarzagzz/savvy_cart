@@ -1630,5 +1630,10 @@
   "manageList": "Manage",
   "@manageList": {
     "description": "Title for shopping list management"
+  },
+
+  "licenses": "Licenses",
+  "@licenses": {
+    "description": "Title for licenses screen"
   }
 }

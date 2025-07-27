@@ -989,4 +989,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get manageList => 'Gerenciar';
+
+  @override
+  String get licenses => 'Licenças';
 }

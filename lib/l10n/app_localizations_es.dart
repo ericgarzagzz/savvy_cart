@@ -991,4 +991,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get manageList => 'Administrar';
+
+  @override
+  String get licenses => 'Licencias';
 }

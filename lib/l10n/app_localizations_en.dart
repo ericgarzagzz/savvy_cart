@@ -973,4 +973,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manageList => 'Manage';
+
+  @override
+  String get licenses => 'Licenses';
 }

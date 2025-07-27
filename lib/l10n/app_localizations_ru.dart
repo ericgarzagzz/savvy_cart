@@ -980,4 +980,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get manageList => 'Управление';
+
+  @override
+  String get licenses => 'Лицензии';
 }

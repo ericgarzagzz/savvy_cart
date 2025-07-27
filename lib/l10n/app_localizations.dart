@@ -1811,6 +1811,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage'**
   String get manageList;
+
+  /// Title for licenses screen
+  ///
+  /// In en, this message translates to:
+  /// **'Licenses'**
+  String get licenses;
 }
 
 class _AppLocalizationsDelegate

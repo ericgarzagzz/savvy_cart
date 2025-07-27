@@ -195,6 +195,10 @@ final router = GoRouter(
               path: 'language',
               builder: (context, state) => const LanguageSelectionScreen(),
             ),
+            GoRoute(
+              path: 'licenses',
+              builder: (context, state) => const LicenseScreen(),
+            ),
           ],
         ),
       ],
