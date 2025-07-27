@@ -66,6 +66,11 @@ class AiSettingsNotifier extends StateNotifier<AiSettingsState> {
         settings: AiSettings(apiKey: apiKey, model: model),
         isLoading: false,
       );
+
+      // Auto-verify the API key if it exists
+      if (apiKey.isNotEmpty) {
+        await verifyApiKey();
+      }
     } catch (e) {
       state = state.copyWith(
         isLoading: false,

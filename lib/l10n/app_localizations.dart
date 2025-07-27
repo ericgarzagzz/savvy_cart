@@ -1817,6 +1817,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Licenses'**
   String get licenses;
+
+  /// Title for AI setup required alert
+  ///
+  /// In en, this message translates to:
+  /// **'AI Setup Required'**
+  String get aiSetupRequired;
+
+  /// Message explaining AI setup is needed
+  ///
+  /// In en, this message translates to:
+  /// **'To use AI features, please configure your API key in Settings.'**
+  String get aiSetupRequiredMessage;
+
+  /// Button to navigate to settings
+  ///
+  /// In en, this message translates to:
+  /// **'Go to Settings'**
+  String get goToSettings;
 }
 
 class _AppLocalizationsDelegate

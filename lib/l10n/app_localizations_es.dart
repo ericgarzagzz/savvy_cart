@@ -994,4 +994,14 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get licenses => 'Licencias';
+
+  @override
+  String get aiSetupRequired => 'Configuración de IA Requerida';
+
+  @override
+  String get aiSetupRequiredMessage =>
+      'Para usar las funciones de IA, por favor configura tu clave API en Configuración.';
+
+  @override
+  String get goToSettings => 'Ir a Configuración';
 }

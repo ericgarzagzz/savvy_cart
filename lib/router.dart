@@ -85,6 +85,10 @@ final router = GoRouter(
                 );
               },
             ),
+            GoRoute(
+              path: 'ai-settings',
+              builder: (context, state) => const AiSettingsScreen(),
+            ),
           ],
         ),
         GoRoute(

@@ -976,4 +976,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get licenses => 'Licenses';
+
+  @override
+  String get aiSetupRequired => 'AI Setup Required';
+
+  @override
+  String get aiSetupRequiredMessage =>
+      'To use AI features, please configure your API key in Settings.';
+
+  @override
+  String get goToSettings => 'Go to Settings';
 }

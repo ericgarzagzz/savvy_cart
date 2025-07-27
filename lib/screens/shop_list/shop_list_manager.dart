@@ -97,6 +97,29 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
     }
   }
 
+  void _showApiSetupDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(AppLocalizations.of(context).aiSetupRequired),
+        content: Text(AppLocalizations.of(context).aiSetupRequiredMessage),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(AppLocalizations.of(context).cancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              context.go('./ai-settings');
+            },
+            child: Text(AppLocalizations.of(context).goToSettings),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildConfetti() {
     return AnimatedBuilder(
       animation: _confettiController,
@@ -117,6 +140,8 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
     final getShopListByIdAsync = ref.watch(
       getShopListByIdProvider(widget.shopListId),
     );
+
+    final aiSettings = ref.watch(aiSettingsProvider);
 
     // Watch both lists to check completion status
     final toBuyItemsAsync = ref.watch(
@@ -170,7 +195,11 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                       margin: const EdgeInsets.only(right: 8),
                       child: InkWell(
                         onTap: () {
-                          context.go('./chat');
+                          if (aiSettings.hasValidApiKey) {
+                            context.go('./chat');
+                          } else {
+                            _showApiSetupDialog(context);
+                          }
                         },
                         borderRadius: BorderRadius.circular(20),
                         child: Container(
@@ -180,10 +209,17 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                           ),
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
-                              colors: [
-                                Theme.of(context).colorScheme.primary,
-                                Theme.of(context).colorScheme.secondary,
-                              ],
+                              colors: aiSettings.hasValidApiKey
+                                  ? [
+                                      Theme.of(context).colorScheme.primary,
+                                      Theme.of(context).colorScheme.secondary,
+                                    ]
+                                  : [
+                                      Theme.of(context).colorScheme.onSurface
+                                          .withValues(alpha: 0.3),
+                                      Theme.of(context).colorScheme.onSurface
+                                          .withValues(alpha: 0.2),
+                                    ],
                               begin: Alignment.topLeft,
                               end: Alignment.bottomRight,
                             ),
@@ -192,16 +228,22 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(
+                              Icon(
                                 Icons.smart_toy,
-                                color: Colors.white,
+                                color: aiSettings.hasValidApiKey
+                                    ? Colors.white
+                                    : Theme.of(context).colorScheme.onSurface
+                                          .withValues(alpha: 0.5),
                                 size: 18,
                               ),
                               const SizedBox(width: 4),
                               Text(
                                 AppLocalizations.of(context).ai,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: aiSettings.hasValidApiKey
+                                      ? Colors.white
+                                      : Theme.of(context).colorScheme.onSurface
+                                            .withValues(alpha: 0.5),
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                 ),

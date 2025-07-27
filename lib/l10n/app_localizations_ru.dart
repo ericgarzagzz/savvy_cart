@@ -983,4 +983,14 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get licenses => 'Лицензии';
+
+  @override
+  String get aiSetupRequired => 'Требуется настройка ИИ';
+
+  @override
+  String get aiSetupRequiredMessage =>
+      'Для использования функций ИИ настройте ваш API-ключ в Настройках.';
+
+  @override
+  String get goToSettings => 'Перейти в Настройки';
 }

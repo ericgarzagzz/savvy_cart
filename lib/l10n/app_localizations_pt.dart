@@ -992,4 +992,14 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get licenses => 'Licenças';
+
+  @override
+  String get aiSetupRequired => 'Configuração de IA Necessária';
+
+  @override
+  String get aiSetupRequiredMessage =>
+      'Para usar recursos de IA, configure sua chave API nas Configurações.';
+
+  @override
+  String get goToSettings => 'Ir para Configurações';
 }

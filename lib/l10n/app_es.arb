@@ -1635,5 +1635,20 @@
   "licenses": "Licencias",
   "@licenses": {
     "description": "Title for licenses screen"
+  },
+
+  "aiSetupRequired": "Configuración de IA Requerida",
+  "@aiSetupRequired": {
+    "description": "Title for AI setup required alert"
+  },
+
+  "aiSetupRequiredMessage": "Para usar las funciones de IA, por favor configura tu clave API en Configuración.",
+  "@aiSetupRequiredMessage": {
+    "description": "Message explaining AI setup is needed"
+  },
+
+  "goToSettings": "Ir a Configuración",
+  "@goToSettings": {
+    "description": "Button to navigate to settings"
   }
 }
