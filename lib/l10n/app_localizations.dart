@@ -1805,6 +1805,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Checking connection to Gemini API...'**
   String get checkingConnectionGemini;
+
+  /// Title for shopping list management
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get manageList;
 }
 
 class _AppLocalizationsDelegate

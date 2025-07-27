@@ -977,4 +977,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get checkingConnectionGemini => 'Проверка соединения с Gemini API...';
+
+  @override
+  String get manageList => 'Управление';
 }

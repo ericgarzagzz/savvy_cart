@@ -1625,5 +1625,10 @@
   "checkingConnectionGemini": "Verificando conexión con la API de Gemini...",
   "@checkingConnectionGemini": {
     "description": "Status message while checking Gemini API connection"
+  },
+
+  "manageList": "Administrar",
+  "@manageList": {
+    "description": "Title for shopping list management"
   }
 }

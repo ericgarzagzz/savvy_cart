@@ -149,7 +149,22 @@ class _ShopListManagerState extends ConsumerState<ShopListManager>
               controller: _scrollController,
               slivers: [
                 SliverAppBar(
-                  title: Text(shopList.name),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context).manageList,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        shopList.name,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ),
                   actions: [
                     Container(
                       margin: const EdgeInsets.only(right: 8),

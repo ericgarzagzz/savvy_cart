@@ -988,4 +988,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get checkingConnectionGemini =>
       'Verificando conexión con la API de Gemini...';
+
+  @override
+  String get manageList => 'Administrar';
 }
