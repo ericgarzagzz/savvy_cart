@@ -18,36 +18,54 @@ class ChatInputBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      color: Theme.of(context).colorScheme.surface,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
       child: Row(
+        spacing: 12,
         children: [
           Expanded(
-            child: TextField(
-              controller: messageController,
-              focusNode: focusNode,
-              decoration: InputDecoration(
-                hintText: AppLocalizations.of(context).typeYourMessage,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24),
-                  borderSide: BorderSide.none,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.outline.withValues(alpha: 0.3),
+                  width: 1.5,
                 ),
-                fillColor: Theme.of(context).colorScheme.surface,
-                filled: true,
-                contentPadding: const EdgeInsets.symmetric(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.1),
+                    blurRadius: 8,
+                    offset: const Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
                   horizontal: 16,
-                  vertical: 12,
+                  vertical: 4,
+                ),
+                child: TextField(
+                  controller: messageController,
+                  focusNode: focusNode,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context).typeYourMessage,
+                    border: InputBorder.none,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 0,
+                      vertical: 8,
+                    ),
+                  ),
+                  onSubmitted: (_) => onSendMessage(),
+                  enabled: !isProcessing,
                 ),
               ),
-              onSubmitted: (_) => onSendMessage(),
-              enabled: !isProcessing,
             ),
           ),
-          const SizedBox(width: 12),
           FloatingActionButton(
             onPressed: isProcessing ? null : onSendMessage,
-            mini: true,
             backgroundColor: isProcessing
                 ? Theme.of(context).colorScheme.outline
                 : Theme.of(context).colorScheme.primary,

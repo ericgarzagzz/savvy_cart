@@ -88,6 +88,7 @@ flutter:
   assets:
     - assets/appainter_theme.json
     - assets/logo_no_bg.png
+    - assets/i-like-food.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

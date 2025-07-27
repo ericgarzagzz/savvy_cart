@@ -125,27 +125,44 @@ class _ShopListChatState extends ConsumerState<ShopListChat> {
           ),
           backgroundColor: Theme.of(context).colorScheme.surface,
         ),
-        body: GestureDetector(
-          onTap: () {
-            if (_focusNode.hasFocus) {
-              FocusScope.of(context).unfocus();
-            }
-          },
-          child: Column(
-            children: [
-              ChatMessageList(
-                shopListId: widget.shopListId,
-                scrollController: _scrollController,
-                onScrollToBottom: _scrollToBottom,
+        body: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(
+              context,
+            ).colorScheme.primary.withValues(alpha: 0.02),
+            image: DecorationImage(
+              image: const AssetImage('assets/i-like-food.png'),
+              repeat: ImageRepeat.repeat,
+              scale: 2.0,
+              opacity: 0.15,
+              colorFilter: ColorFilter.mode(
+                Theme.of(context).colorScheme.primary,
+                BlendMode.srcIn,
               ),
-              if (isProcessing) const ChatProcessingIndicator(),
-              ChatInputBar(
-                messageController: _messageController,
-                focusNode: _focusNode,
-                onSendMessage: _sendMessage,
-                isProcessing: isProcessing,
-              ),
-            ],
+            ),
+          ),
+          child: GestureDetector(
+            onTap: () {
+              if (_focusNode.hasFocus) {
+                FocusScope.of(context).unfocus();
+              }
+            },
+            child: Column(
+              children: [
+                ChatMessageList(
+                  shopListId: widget.shopListId,
+                  scrollController: _scrollController,
+                  onScrollToBottom: _scrollToBottom,
+                ),
+                if (isProcessing) const ChatProcessingIndicator(),
+                ChatInputBar(
+                  messageController: _messageController,
+                  focusNode: _focusNode,
+                  onSendMessage: _sendMessage,
+                  isProcessing: isProcessing,
+                ),
+              ],
+            ),
           ),
         ),
         floatingActionButton: scrollPositionExceptBottom
