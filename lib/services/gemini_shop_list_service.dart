@@ -23,8 +23,9 @@ class GeminiShopListService {
 
   Future<GeminiResponse> processTextInstructions(
     String userMessage,
-    List<ShopListItem> currentShopList,
-  ) async {
+    List<ShopListItem> currentShopList, {
+    List<ChatMessage>? chatHistory,
+  }) async {
     if (kDebugMode) {
       print('=== PROCESSING TEXT INSTRUCTIONS ===');
       print('User message: $userMessage');
@@ -36,6 +37,8 @@ class GeminiShopListService {
             return "- Item: ${item.name}, Quantity: ${item.quantity}, Unit Price: ${item.unitPrice.toStringWithLocale()}, Checked: ${item.checked ? 'Yes' : 'No'}, ID: ${item.id ?? 'N/A'}";
           }).join('\n')}";
 
+    final String chatHistoryContext = _buildChatHistoryContext(chatHistory);
+
     final prompt =
         """
 You are a shopping list assistant. Analyze the user's message and determine if they want to:
@@ -46,6 +49,8 @@ You are a shopping list assistant. Analyze the user's message and determine if t
 IMPORTANT: 
 - Respond with ONLY a valid JSON object, no extra text or formatting.
 - Respond in the SAME LANGUAGE as the user's message. If the user writes in Spanish, respond in Spanish. If in English, respond in English.
+
+$chatHistoryContext
 
 User message: "$userMessage"
 
@@ -286,5 +291,40 @@ Remember: Return ONLY valid JSON, no additional text or code blocks.""";
           break;
       }
     }
+  }
+
+  String _buildChatHistoryContext(List<ChatMessage>? chatHistory) {
+    if (chatHistory == null || chatHistory.isEmpty) {
+      return '';
+    }
+
+    final relevantHistory = chatHistory.where((msg) => !msg.isError).toList();
+
+    if (relevantHistory.isEmpty) {
+      return '';
+    }
+
+    final historyText = relevantHistory
+        .map((msg) {
+          String messageText =
+              "${msg.isUser ? 'User' : 'Assistant'}: ${msg.text}";
+
+          // If it's an AI message with actions that were executed, add that context
+          if (!msg.isUser &&
+              msg.actionsExecuted &&
+              msg.geminiResponseJson != null) {
+            messageText += " (Actions were executed by the user)";
+          }
+
+          return messageText;
+        })
+        .join('\n');
+
+    return '''
+Previous conversation context (use this to understand context and references):
+$historyText
+
+Based on the conversation history above, respond to the current user message while considering any previous context that might be relevant (like previous recipe suggestions, item discussions, etc.). When actions were marked as executed, assume those operations were successfully completed.
+''';
   }
 }

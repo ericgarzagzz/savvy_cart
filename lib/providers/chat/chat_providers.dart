@@ -188,9 +188,16 @@ Future<void> _processMessage(
       getShopListItemsProvider(shopListId).future,
     );
 
+    // Get chat history for context
+    final dataManager = DataManager.instance;
+    final chatHistory = await dataManager.chatMessages.getByShopListId(
+      shopListId,
+    );
+
     final geminiResponse = await service.processTextInstructions(
       message,
       currentShopListItems,
+      chatHistory: chatHistory,
     );
 
     // Add AI response
@@ -201,7 +208,6 @@ Future<void> _processMessage(
     );
 
     // Persist to database
-    final dataManager = DataManager.instance;
     final aiMessageId = await dataManager.chatMessages.add(
       aiMessage.chatMessage,
     );
