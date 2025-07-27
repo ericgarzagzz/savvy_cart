@@ -138,7 +138,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
         }
         return Padding(
           padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 24.0,
           ),
           child: Container(
             padding: const EdgeInsets.all(24),
