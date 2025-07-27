@@ -1650,5 +1650,56 @@
   "goToSettings": "Ir para Configurações",
   "@goToSettings": {
     "description": "Button to navigate to settings"
+  },
+
+  "selectAll": "Selecionar tudo",
+  "@selectAll": {
+    "description": "Checkbox text to select all items"
+  },
+
+  "updateExisting": "Atualizar Existentes",
+  "@updateExisting": {
+    "description": "Section header for items to update"
+  },
+
+  "addNew": "Adicionar Novos", 
+  "@addNew": {
+    "description": "Section header for new items to add"
+  },
+
+  "update": "Atualizar",
+  "@update": {
+    "description": "Button text for updating an item"
+  },
+
+  "addAction": "Adicionar",
+  "@addAction": {
+    "description": "Button text for adding an item"
+  },
+
+  "selectedItems": "{count} de {total} selecionados",
+  "@selectedItems": {
+    "description": "Shows selection count out of total",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "3"
+      },
+      "total": {
+        "type": "int", 
+        "example": "10"
+      }
+    }
+  },
+
+  "totalCost": "{cost}",
+  "@totalCost": {
+    "description": "Displays total cost with currency",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "example": "R$ 45,99"
+      }
+    }
   }
 }

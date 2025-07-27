@@ -1650,5 +1650,49 @@
   "goToSettings": "Перейти в Настройки",
   "@goToSettings": {
     "description": "Button to navigate to settings"
+  },
+  "selectAll": "Выбрать все",
+  "@selectAll": {
+    "description": "Text for select all checkbox"
+  },
+  "updateExisting": "Обновить Существующие",
+  "@updateExisting": {
+    "description": "Section header for existing items to update"
+  },
+  "addNew": "Добавить Новые",
+  "@addNew": {
+    "description": "Section header for new items to add"
+  },
+  "update": "Обновить",
+  "@update": {
+    "description": "Button text for update action"
+  },
+  "addAction": "Добавить",
+  "@addAction": {
+    "description": "Button text for add action"
+  },
+  "selectedItems": "{count} из {total} выбрано",
+  "@selectedItems": {
+    "description": "Text showing selected item count",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "description": "Number of selected items"
+      },
+      "total": {
+        "type": "int", 
+        "description": "Total number of items"
+      }
+    }
+  },
+  "totalCost": "{cost}",
+  "@totalCost": {
+    "description": "Text showing total cost",
+    "placeholders": {
+      "cost": {
+        "type": "String",
+        "description": "Formatted cost amount"
+      }
+    }
   }
 }

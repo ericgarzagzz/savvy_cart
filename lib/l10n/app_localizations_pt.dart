@@ -1002,4 +1002,29 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get goToSettings => 'Ir para Configurações';
+
+  @override
+  String get selectAll => 'Selecionar tudo';
+
+  @override
+  String get updateExisting => 'Atualizar Existentes';
+
+  @override
+  String get addNew => 'Adicionar Novos';
+
+  @override
+  String get update => 'Atualizar';
+
+  @override
+  String get addAction => 'Adicionar';
+
+  @override
+  String selectedItems(int count, int total) {
+    return '$count de $total selecionados';
+  }
+
+  @override
+  String totalCost(String cost) {
+    return '$cost';
+  }
 }

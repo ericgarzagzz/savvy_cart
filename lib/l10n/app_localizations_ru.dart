@@ -993,4 +993,29 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get goToSettings => 'Перейти в Настройки';
+
+  @override
+  String get selectAll => 'Выбрать все';
+
+  @override
+  String get updateExisting => 'Обновить Существующие';
+
+  @override
+  String get addNew => 'Добавить Новые';
+
+  @override
+  String get update => 'Обновить';
+
+  @override
+  String get addAction => 'Добавить';
+
+  @override
+  String selectedItems(int count, int total) {
+    return '$count из $total выбрано';
+  }
+
+  @override
+  String totalCost(String cost) {
+    return '$cost';
+  }
 }

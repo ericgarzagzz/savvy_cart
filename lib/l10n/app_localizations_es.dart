@@ -1004,4 +1004,29 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get goToSettings => 'Ir a Configuración';
+
+  @override
+  String get selectAll => 'Seleccionar todo';
+
+  @override
+  String get updateExisting => 'Actualizar Existentes';
+
+  @override
+  String get addNew => 'Agregar Nuevos';
+
+  @override
+  String get update => 'Actualizar';
+
+  @override
+  String get addAction => 'Agregar';
+
+  @override
+  String selectedItems(int count, int total) {
+    return '$count de $total seleccionados';
+  }
+
+  @override
+  String totalCost(String cost) {
+    return '$cost';
+  }
 }

@@ -986,4 +986,29 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goToSettings => 'Go to Settings';
+
+  @override
+  String get selectAll => 'Select all';
+
+  @override
+  String get updateExisting => 'Update Existing';
+
+  @override
+  String get addNew => 'Add New';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get addAction => 'Add';
+
+  @override
+  String selectedItems(int count, int total) {
+    return '$count of $total selected';
+  }
+
+  @override
+  String totalCost(String cost) {
+    return '$cost';
+  }
 }

@@ -1835,6 +1835,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go to Settings'**
   String get goToSettings;
+
+  /// Checkbox text to select all items
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get selectAll;
+
+  /// Section header for items to update
+  ///
+  /// In en, this message translates to:
+  /// **'Update Existing'**
+  String get updateExisting;
+
+  /// Section header for new items to add
+  ///
+  /// In en, this message translates to:
+  /// **'Add New'**
+  String get addNew;
+
+  /// Button text for updating an item
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// Button text for adding an item
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addAction;
+
+  /// Shows selection count out of total
+  ///
+  /// In en, this message translates to:
+  /// **'{count} of {total} selected'**
+  String selectedItems(int count, int total);
+
+  /// Displays total cost with currency
+  ///
+  /// In en, this message translates to:
+  /// **'{cost}'**
+  String totalCost(String cost);
 }
 
 class _AppLocalizationsDelegate
