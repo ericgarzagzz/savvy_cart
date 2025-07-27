@@ -80,9 +80,13 @@ final router = GoRouter(
                 if (itemName == null) {
                   return _buildErrorPage(context, 'Invalid item name');
                 }
-                return PriceChartScreen(
-                  itemName: Uri.decodeComponent(itemName),
-                );
+                try {
+                  return PriceChartScreen(
+                    itemName: Uri.decodeComponent(itemName),
+                  );
+                } catch (e) {
+                  return PriceChartScreen(itemName: itemName);
+                }
               },
             ),
             GoRoute(
@@ -106,9 +110,13 @@ final router = GoRouter(
                     if (itemName == null) {
                       return _buildErrorPage(context, 'Invalid item name');
                     }
-                    return PriceChartScreen(
-                      itemName: Uri.decodeComponent(itemName),
-                    );
+                    try {
+                      return PriceChartScreen(
+                        itemName: Uri.decodeComponent(itemName),
+                      );
+                    } catch (e) {
+                      return PriceChartScreen(itemName: itemName);
+                    }
                   },
                 ),
               ],
@@ -120,9 +128,13 @@ final router = GoRouter(
                 if (itemName == null) {
                   return _buildErrorPage(context, 'Invalid item name');
                 }
-                return PriceChartScreen(
-                  itemName: Uri.decodeComponent(itemName),
-                );
+                try {
+                  return PriceChartScreen(
+                    itemName: Uri.decodeComponent(itemName),
+                  );
+                } catch (e) {
+                  return PriceChartScreen(itemName: itemName);
+                }
               },
             ),
           ],
@@ -174,9 +186,13 @@ final router = GoRouter(
                     if (itemName == null) {
                       return _buildErrorPage(context, 'Invalid item name');
                     }
-                    return PriceChartScreen(
-                      itemName: Uri.decodeComponent(itemName),
-                    );
+                    try {
+                      return PriceChartScreen(
+                        itemName: Uri.decodeComponent(itemName),
+                      );
+                    } catch (e) {
+                      return PriceChartScreen(itemName: itemName);
+                    }
                   },
                 ),
               ],
