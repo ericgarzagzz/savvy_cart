@@ -76,218 +76,208 @@ class _ShopListSearchScreenState extends ConsumerState<ShopListSearchScreen> {
   Widget build(BuildContext context) {
     final searchResultsAsync = ref.watch(shopListSearchProvider(_searchParams));
     return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).searchLists),
-        actions: [
-          if (_searchController.text.isNotEmpty ||
-              _startDate != null ||
-              _endDate != null)
-            IconButton(icon: Icon(Icons.clear), onPressed: _clearFilters),
-        ],
-      ),
-      body: Column(
-        children: [
-          // Search and Filter Section
-          Container(
-            padding: EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surface,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(
-                    context,
-                  ).colorScheme.shadow.withValues(alpha: 0.1),
-                  blurRadius: 2,
-                  offset: Offset(0, 1),
-                ),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              title: Text(AppLocalizations.of(context).searchLists),
+              floating: true,
+              pinned: true,
+              snap: false,
+              actions: [
+                if (_searchController.text.isNotEmpty ||
+                    _startDate != null ||
+                    _endDate != null)
+                  IconButton(icon: Icon(Icons.clear), onPressed: _clearFilters),
               ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Search Bar
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(24),
-                    border: Border.all(
-                      color: Theme.of(
-                        context,
-                      ).colorScheme.outline.withValues(alpha: 0.3),
-                      width: 1.5,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 2,
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(Icons.search),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: TextField(
-                            controller: _searchController,
-                            decoration: InputDecoration(
-                              hintText: AppLocalizations.of(
-                                context,
-                              ).searchByListName,
-                              border: InputBorder.none,
-                              contentPadding: const EdgeInsets.symmetric(
-                                horizontal: 0,
-                                vertical: 4,
-                              ),
-                            ),
-                            onChanged: (value) {
-                              setState(() {
-                                _searchQuery = value;
-                              });
-                            },
-                          ),
-                        ),
-                        if (_searchController.text.isNotEmpty)
-                          IconButton(
-                            icon: const Icon(Icons.clear),
-                            onPressed: () {
-                              _searchController.clear();
-                              setState(() {
-                                _searchQuery = '';
-                              });
-                            },
-                          ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 16),
-                // Date Filters
-                Text(
-                  AppLocalizations.of(context).filterByDateRange,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: _selectStartDate,
-                        icon: Icon(Icons.date_range),
-                        label: Text(
-                          _startDate != null
-                              ? DateFormat('MMM d, yyyy').format(_startDate!)
-                              : AppLocalizations.of(context).startDate,
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: _selectEndDate,
-                        icon: Icon(Icons.date_range),
-                        label: Text(
-                          _endDate != null
-                              ? DateFormat('MMM d, yyyy').format(_endDate!)
-                              : AppLocalizations.of(context).endDate,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          // Results Section
-          Expanded(
-            child: searchResultsAsync.when(
-              loading: () => Center(child: CircularProgressIndicator()),
-              error: (error, stackTrace) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.error_outline,
-                      size: 64,
-                      color: Theme.of(context).colorScheme.error,
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      AppLocalizations.of(context).errorLoadingSearchResults,
-                      style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(
-                            color: Theme.of(context).colorScheme.error,
-                          ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      AppLocalizations.of(context).pleaseTryAgainLater,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
-              data: (searchResults) => searchResults.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search_off,
-                            size: 64,
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(180),
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Search Bar
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.surface,
+                          borderRadius: BorderRadius.circular(24),
+                          border: Border.all(
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurfaceVariant,
+                            ).colorScheme.outline.withValues(alpha: 0.3),
+                            width: 1.5,
                           ),
-                          SizedBox(height: 16),
-                          Text(
-                            AppLocalizations.of(context).noListsFound,
-                            style: Theme.of(context).textTheme.headlineSmall
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
-                                ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                            vertical: 2,
                           ),
-                          SizedBox(height: 8),
-                          Text(
-                            AppLocalizations.of(context).tryAdjustingFilters,
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(
-                                  color: Theme.of(
-                                    context,
-                                  ).colorScheme.onSurfaceVariant,
+                          child: Row(
+                            children: [
+                              const Icon(Icons.search),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: TextField(
+                                  controller: _searchController,
+                                  decoration: InputDecoration(
+                                    hintText: AppLocalizations.of(
+                                      context,
+                                    ).searchByListName,
+                                    border: InputBorder.none,
+                                    contentPadding: const EdgeInsets.symmetric(
+                                      horizontal: 0,
+                                      vertical: 4,
+                                    ),
+                                  ),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _searchQuery = value;
+                                    });
+                                  },
                                 ),
-                            textAlign: TextAlign.center,
+                              ),
+                              if (_searchController.text.isNotEmpty)
+                                IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    _searchController.clear();
+                                    setState(() {
+                                      _searchQuery = '';
+                                    });
+                                  },
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Date Filters
+                      Text(
+                        AppLocalizations.of(context).filterByDateRange,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              onPressed: _selectStartDate,
+                              icon: const Icon(Icons.date_range),
+                              label: Text(
+                                _startDate != null
+                                    ? DateFormat(
+                                        'MMM d, yyyy',
+                                      ).format(_startDate!)
+                                    : AppLocalizations.of(context).startDate,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: OutlinedButton.icon(
+                              onPressed: _selectEndDate,
+                              icon: const Icon(Icons.date_range),
+                              label: Text(
+                                _endDate != null
+                                    ? DateFormat(
+                                        'MMM d, yyyy',
+                                      ).format(_endDate!)
+                                    : AppLocalizations.of(context).endDate,
+                              ),
+                            ),
                           ),
                         ],
                       ),
-                    )
-                  : ListView.builder(
-                      padding: EdgeInsets.all(16),
-                      itemCount: searchResults.length,
-                      itemBuilder: (context, index) {
-                        return ShopListListTile(
-                          shopList: searchResults[index],
-                          onTap: () =>
-                              context.go("./manage/${searchResults[index].id}"),
-                        );
-                      },
-                    ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ];
+        },
+        body: searchResultsAsync.when(
+          loading: () => Center(child: CircularProgressIndicator()),
+          error: (error, stackTrace) => Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.error_outline,
+                  size: 64,
+                  color: Theme.of(context).colorScheme.error,
+                ),
+                SizedBox(height: 16),
+                Text(
+                  AppLocalizations.of(context).errorLoadingSearchResults,
+                  style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  AppLocalizations.of(context).pleaseTryAgainLater,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
           ),
-        ],
+          data: (searchResults) => searchResults.isEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.search_off,
+                        size: 64,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        AppLocalizations.of(context).noListsFound,
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(
+                              color: Theme.of(
+                                context,
+                              ).colorScheme.onSurfaceVariant,
+                            ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        AppLocalizations.of(context).tryAdjustingFilters,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+              : ListView.builder(
+                  padding: EdgeInsets.all(16),
+                  itemCount: searchResults.length,
+                  itemBuilder: (context, index) {
+                    return ShopListListTile(
+                      shopList: searchResults[index],
+                      onTap: () =>
+                          context.go("./manage/${searchResults[index].id}"),
+                    );
+                  },
+                ),
+        ),
       ),
     );
   }
