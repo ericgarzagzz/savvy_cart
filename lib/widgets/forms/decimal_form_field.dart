@@ -19,6 +19,7 @@ class DecimalFormField extends FormField<String> {
     TextInputAction? textInputAction,
     ValueChanged<String>? onChanged,
     ValueChanged<String>? onFieldSubmitted,
+    bool allowMathExpressions = false,
   }) : assert(decimalPlaces >= 0),
        super(
          initialValue: controller != null
@@ -33,10 +34,12 @@ class DecimalFormField extends FormField<String> {
              decoration: (decoration ?? const InputDecoration()).copyWith(
                errorText: field.errorText,
              ),
-             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-             inputFormatters: [
-               DecimalTextInputFormatter(decimalRange: decimalPlaces),
-             ],
+             keyboardType: allowMathExpressions
+                 ? TextInputType.text
+                 : const TextInputType.numberWithOptions(decimal: true),
+             inputFormatters: allowMathExpressions
+                 ? [MathExpressionTextInputFormatter()]
+                 : [DecimalTextInputFormatter(decimalRange: decimalPlaces)],
              onChanged: (value) {
                field.didChange(value);
                if (onChanged != null) onChanged(value);

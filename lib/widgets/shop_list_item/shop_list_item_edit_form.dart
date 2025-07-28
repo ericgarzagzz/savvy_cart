@@ -8,6 +8,7 @@ import 'package:savvy_cart/domain/types/types.dart';
 import 'package:savvy_cart/providers/providers.dart';
 import 'package:savvy_cart/widgets/widgets.dart';
 import 'package:savvy_cart/l10n/app_localizations.dart';
+import 'package:savvy_cart/utils/utils.dart';
 
 class ShopListItemEditForm extends ConsumerStatefulWidget {
   final ShopListItem shopListItem;
@@ -97,6 +98,15 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
     await ref
         .read(shopListItemMutationProvider.notifier)
         .updateItem(updatedItem);
+  }
+
+  void _handlePriceExpression(String value) {
+    final result = MathExpressionEvaluator.evaluate(value);
+    if (result != null) {
+      final formattedResult = result.toStringAsFixed(2);
+      _unitPriceController.text = formattedResult;
+      _onFormChangedDebounced();
+    }
   }
 
   String get _currentTotal {
@@ -256,6 +266,7 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           controller: _unitPriceController,
                           focusNode: _unitPriceFocusNode,
                           decimalPlaces: 2,
+                          allowMathExpressions: true,
                           decoration: InputDecoration(
                             label: Text(AppLocalizations.of(context).price),
                           ),
@@ -271,6 +282,8 @@ class _ShopListItemEditFormState extends ConsumerState<ShopListItemEditForm> {
                           },
                           autovalidateMode: AutovalidateMode.onUserInteraction,
                           onChanged: (_) => _onFormChangedDebounced(),
+                          onFieldSubmitted: (value) =>
+                              _handlePriceExpression(value),
                         ),
                       ),
                       Flexible(
